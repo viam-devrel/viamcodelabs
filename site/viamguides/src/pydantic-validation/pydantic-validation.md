@@ -47,232 +47,228 @@ In this step, you'll build upon the How-to Guide for [creating a sensor module w
 These instructions will not include the explanations of each file in the module project, see the linked How-to Guide for more of those details. If you use the [module generator](https://docs.viam.com/how-tos/sensor-module/#generate-boilerplate-module-code), you can skip to the 5th instruction in this section.
 
 1. Create the project directory through the command line or using the code editor of your choice:
+    ```console
+    mkdir open-meteo-module
+    cd open-meteo-module
+    ```
 
-```console
-mkdir open-meteo-module && cd open-meteo-module
-```
+1. Create the necessary files for the project: `requirements.txt`, `meta.json`, `run.sh`, and `main.py`, using the command line or code editor of your choice:
+    ```console
+    touch requirements.txt meta.json run.sh main.py
+    ```
 
-2. Create the necessary files for the project: `requirements.txt`, `meta.json`, `run.sh`, and `main.py`, using the command line or code editor of your choice:
-
-```console
-touch requirements.txt meta.json run.sh main.py
-```
-
-3. In the `meta.json`, add the JSON metadata for the module (replacing the "\<namespace\>" with the [public namespace for your Viam organization](https://docs.viam.com/cloud/organizations/#create-a-namespace-for-your-organization) or something random if you don't plan on publishing this):
-
-```json
-{
-  "$schema": "https://dl.viam.dev/module.schema.json",
-  "module_id": "<namespace>:open-meteo",
-  "visibility": "public",
-  "url": "",
-  "description": "Modular sensor component: meteo_pm",
-  "models": [
+1. In the `meta.json`, add the JSON metadata for the module (replacing the "&lt;namespace&gt;" with the [public namespace for your Viam organization](https://docs.viam.com/cloud/organizations/#create-a-namespace-for-your-organization) or something random if you don't plan on publishing this):
+    ```json
     {
-      "api": "rdk:component:sensor",
-      "model": "<namespace>:open-meteo:meteo_pm"
+      "$schema": "https://dl.viam.dev/module.schema.json",
+      "module_id": "<namespace>:open-meteo",
+      "visibility": "public",
+      "url": "",
+      "description": "Modular sensor component: meteo_pm",
+      "models": [
+        {
+          "api": "rdk:component:sensor",
+          "model": "<namespace>:open-meteo:meteo_pm"
+        }
+      ],
+      "entrypoint": "./run.sh"
     }
-  ],
-  "entrypoint": "./run.sh"
-}
-```
+    ```
 
-4. In the `run.sh`, add the following shell scripting code for running the module script:
+1. In the `run.sh`, add the following shell scripting code for running the module script:
+    ```bash
+    #!/bin/sh
+    cd `dirname $0`
 
-```bash
-#!/bin/sh
-cd `dirname $0`
+    # Create a virtual environment to run our code
+    VENV_NAME="venv"
+    PYTHON="$VENV_NAME/bin/python"
 
-# Create a virtual environment to run our code
-VENV_NAME="venv"
-PYTHON="$VENV_NAME/bin/python"
+    ENV_ERROR="This module requires Python >=3.8, pip, and virtualenv to be installed."
 
-ENV_ERROR="This module requires Python >=3.8, pip, and virtualenv to be installed."
-
-if ! python3 -m venv $VENV_NAME >/dev/null 2>&1; then
-    echo "Failed to create virtualenv."
-    if command -v apt-get >/dev/null; then
-        echo "Detected Debian/Ubuntu, attempting to install python3-venv automatically."
-        SUDO="sudo"
-        if ! command -v $SUDO >/dev/null; then
-            SUDO=""
-        fi
-		if ! apt info python3-venv >/dev/null 2>&1; then
-			echo "Package info not found, trying apt update"
-			$SUDO apt -qq update >/dev/null
-		fi
-        $SUDO apt install -qqy python3-venv >/dev/null 2>&1
-        if ! python3 -m venv $VENV_NAME >/dev/null 2>&1; then
+    if ! python3 -m venv $VENV_NAME >/dev/null 2>&1; then
+        echo "Failed to create virtualenv."
+        if command -v apt-get >/dev/null; then
+            echo "Detected Debian/Ubuntu, attempting to install python3-venv automatically."
+            SUDO="sudo"
+            if ! command -v $SUDO >/dev/null; then
+                SUDO=""
+            fi
+            if ! apt info python3-venv >/dev/null 2>&1; then
+                echo "Package info not found, trying apt update"
+                $SUDO apt -qq update >/dev/null
+            fi
+            $SUDO apt install -qqy python3-venv >/dev/null 2>&1
+            if ! python3 -m venv $VENV_NAME >/dev/null 2>&1; then
+                echo $ENV_ERROR >&2
+                exit 1
+            fi
+        else
             echo $ENV_ERROR >&2
             exit 1
         fi
-    else
-        echo $ENV_ERROR >&2
+    fi
+
+    # remove -U if viam-sdk should not be upgraded whenever possible
+    # -qq suppresses extraneous output from pip
+    echo "Virtualenv found/created. Installing/upgrading Python packages..."
+    if ! $PYTHON -m pip install -r requirements.txt -Uqq; then
         exit 1
     fi
-fi
 
-# remove -U if viam-sdk should not be upgraded whenever possible
-# -qq suppresses extraneous output from pip
-echo "Virtualenv found/created. Installing/upgrading Python packages..."
-if ! $PYTHON -m pip install -r requirements.txt -Uqq; then
-    exit 1
-fi
+    # Be sure to use `exec` so that termination signals reach the python process,
+    # or handle forwarding termination signals manually
+    echo "Starting module..."
+    exec $PYTHON main.py $@
+    ```
 
-# Be sure to use `exec` so that termination signals reach the python process,
-# or handle forwarding termination signals manually
-echo "Starting module..."
-exec $PYTHON main.py $@
-```
+1. In the `requirements.txt`, add the dependencies for the project:
+    ```txt
+    openmeteo-requests
+    requests-cache
+    retry-requests
+    viam-sdk
+    pydantic
+    ```
+1. In the `main.py`, add the initial sensor module implementation code (replacing &lt;namespace&gt; with the same value used in the `meta.json`):
 
-5. In the `requirements.txt`, add the dependencies for the project:
+    ```python
+    import asyncio
+    from typing import Any, ClassVar, Mapping, Optional, Sequence
+    from typing_extensions import Self
 
-```txt
-openmeteo-requests
-requests-cache
-retry-requests
-viam-sdk
-pydantic
-```
+    from viam.components.sensor import Sensor
+    from viam.logging import getLogger
+    from viam.module.module import Module
+    from viam.proto.app.robot import ComponentConfig
+    from viam.proto.common import ResourceName
+    from viam.resource.base import ResourceBase
+    from viam.resource.easy_resource import EasyResource
+    from viam.resource.types import Model, ModelFamily
+    from viam.utils import SensorReading, struct_to_dict
 
-6. In the `main.py`, add the initial sensor module implementation code (replacing \<namespace\> with the same value used in the `meta.json`):
+    import openmeteo_requests
+    import requests_cache
+    from retry_requests import retry
 
-```python
-import asyncio
-from typing import Any, ClassVar, Mapping, Optional, Sequence
-from typing_extensions import Self
+    class MeteoPm(Sensor, EasyResource):
+        MODEL: ClassVar[Model] = Model(
+            ModelFamily("<namespace>", "open-meteo"), "meteo_pm"
+        )
 
-from viam.components.sensor import Sensor
-from viam.logging import getLogger
-from viam.module.module import Module
-from viam.proto.app.robot import ComponentConfig
-from viam.proto.common import ResourceName
-from viam.resource.base import ResourceBase
-from viam.resource.easy_resource import EasyResource
-from viam.resource.types import Model, ModelFamily
-from viam.utils import SensorReading, struct_to_dict
+        latitude: float
+        longitude: float
 
-import openmeteo_requests
-import requests_cache
-from retry_requests import retry
+        @classmethod
+        def new(
+            cls, config: ComponentConfig, dependencies: Mapping[ResourceName, ResourceBase]
+        ) -> Self:
+            """This method creates a new instance of this sensor component.
+            The default implementation sets the name from the `config` parameter and then calls `reconfigure`.
 
-class MeteoPm(Sensor, EasyResource):
-    MODEL: ClassVar[Model] = Model(
-        ModelFamily("<namespace>", "open-meteo"), "meteo_pm"
-    )
+            Args:
+                config (ComponentConfig): The configuration for this resource
+                dependencies (Mapping[ResourceName, ResourceBase]): The dependencies (both implicit and explicit)
 
-    latitude: float
-    longitude: float
+            Returns:
+                Self: The resource
+            """
+            return super().new(config, dependencies)
 
-    @classmethod
-    def new(
-        cls, config: ComponentConfig, dependencies: Mapping[ResourceName, ResourceBase]
-    ) -> Self:
-        """This method creates a new instance of this sensor component.
-        The default implementation sets the name from the `config` parameter and then calls `reconfigure`.
+        @classmethod
+        def validate_config(cls, config: ComponentConfig) -> Sequence[str]:
+            """This method allows you to validate the configuration object received from the machine,
+            as well as to return any implicit dependencies based on that `config`.
 
-        Args:
-            config (ComponentConfig): The configuration for this resource
-            dependencies (Mapping[ResourceName, ResourceBase]): The dependencies (both implicit and explicit)
+            Args:
+                config (ComponentConfig): The configuration for this resource
 
-        Returns:
-            Self: The resource
-        """
-        return super().new(config, dependencies)
+            Returns:
+                Sequence[str]: A list of implicit dependencies
+            """
+            fields = config.attributes.fields
+            # Check that configured fields are floats
+            if "latitude" in fields:
+                if not fields["latitude"].HasField("number_value"):
+                    raise Exception("Latitude must be a float.")
 
-    @classmethod
-    def validate_config(cls, config: ComponentConfig) -> Sequence[str]:
-        """This method allows you to validate the configuration object received from the machine,
-        as well as to return any implicit dependencies based on that `config`.
+            if "longitude" in fields:
+                if not fields["longitude"].HasField("number_value"):
+                    raise Exception("Longitude must be a float.")
+            return []
 
-        Args:
-            config (ComponentConfig): The configuration for this resource
+        def reconfigure(
+            self, config: ComponentConfig, dependencies: Mapping[ResourceName, ResourceBase]
+        ):
+            """This method allows you to dynamically update your service when it receives a new `config` object.
 
-        Returns:
-            Sequence[str]: A list of implicit dependencies
-        """
-        fields = config.attributes.fields
-        # Check that configured fields are floats
-        if "latitude" in fields:
-            if not fields["latitude"].HasField("number_value"):
-                raise Exception("Latitude must be a float.")
+            Args:
+                config (ComponentConfig): The new configuration
+                dependencies (Mapping[ResourceName, ResourceBase]): Any dependencies (both implicit and explicit)
+            """
+            attrs = struct_to_dict(config.attributes)
 
-        if "longitude" in fields:
-            if not fields["longitude"].HasField("number_value"):
-                raise Exception("Longitude must be a float.")
-        return []
+            self.latitude = float(attrs.get("latitude", 45))
+            LOGGER.debug(f"Using latitude: {self.latitude}")
 
-    def reconfigure(
-        self, config: ComponentConfig, dependencies: Mapping[ResourceName, ResourceBase]
-    ):
-        """This method allows you to dynamically update your service when it receives a new `config` object.
+            self.longitude = float(attrs.get("longitude", -121))
+            LOGGER.debug(f"Using longitude: {self.longitude}")
 
-        Args:
-            config (ComponentConfig): The new configuration
-            dependencies (Mapping[ResourceName, ResourceBase]): Any dependencies (both implicit and explicit)
-        """
-        attrs = struct_to_dict(config.attributes)
+        async def get_readings(
+            self,
+            *,
+            extra: Optional[Mapping[str, Any]] = None,
+            timeout: Optional[float] = None,
+            **kwargs
+        ) -> Mapping[
+            str,
+            SensorReading,
+        ]:
+            # Set up the Open-Meteo API client with cache and retry on error
+            cache_session = requests_cache.CachedSession(
+              '.cache', expire_after=3600)
+            retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
+            openmeteo = openmeteo_requests.Client(session=retry_session)
 
-        self.latitude = float(attrs.get("latitude", 45))
-        LOGGER.debug(f"Using latitude: {self.latitude}")
+            # The order of variables in hourly or daily is
+            # important to assign them correctly below
+            url = "https://air-quality-api.open-meteo.com/v1/air-quality"
+            params = {
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "current": ["pm10", "pm2_5"],
+                "timezone": "America/Los_Angeles"
+            }
+            responses = openmeteo.weather_api(url, params=params)
 
-        self.longitude = float(attrs.get("longitude", -121))
-        LOGGER.debug(f"Using longitude: {self.longitude}")
+            # Process location
+            response = responses[0]
 
-    async def get_readings(
-        self,
-        *,
-        extra: Optional[Mapping[str, Any]] = None,
-        timeout: Optional[float] = None,
-        **kwargs
-    ) -> Mapping[
-        str,
-        SensorReading,
-    ]:
-        # Set up the Open-Meteo API client with cache and retry on error
-        cache_session = requests_cache.CachedSession(
-          '.cache', expire_after=3600)
-        retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
-        openmeteo = openmeteo_requests.Client(session=retry_session)
+            # Current values. The order of variables needs
+            # to be the same as requested.
+            current = response.Current()
+            current_pm10 = current.Variables(0).Value()
+            current_pm2_5 = current.Variables(1).Value()
 
-        # The order of variables in hourly or daily is
-        # important to assign them correctly below
-        url = "https://air-quality-api.open-meteo.com/v1/air-quality"
-        params = {
-            "latitude": self.latitude,
-            "longitude": self.longitude,
-            "current": ["pm10", "pm2_5"],
-            "timezone": "America/Los_Angeles"
-        }
-        responses = openmeteo.weather_api(url, params=params)
+            LOGGER.info(current_pm2_5)
 
-        # Process location
-        response = responses[0]
-
-        # Current values. The order of variables needs
-        # to be the same as requested.
-        current = response.Current()
-        current_pm10 = current.Variables(0).Value()
-        current_pm2_5 = current.Variables(1).Value()
-
-        LOGGER.info(current_pm2_5)
-
-        # Return a dictionary of the readings
-        return {
-            "pm2_5": current_pm2_5,
-            "pm10": current_pm10
-        }
+            # Return a dictionary of the readings
+            return {
+                "pm2_5": current_pm2_5,
+                "pm10": current_pm10
+            }
 
 
-if __name__ == "__main__":
-    asyncio.run(Module.run_from_registry())
-```
+    if __name__ == "__main__":
+        asyncio.run(Module.run_from_registry())
+    ```
 
-7. Create the Python virtual environment and install the project dependencies:
-
-```console
-python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
-```
+1. Create the Python virtual environment and install the project dependencies:
+    ```console
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    ```
 
 Those were quite a few steps to get through just to set up the project, so great job sticking with it! Now onto the fun part: validation!
 
@@ -284,7 +280,7 @@ Now that there is a practical project in place, you'll explore how to improve th
 
 Focusing on the `validate_config` class method first, the `config.attributes.fields` are a mapping of [attributes](https://docs.viam.com/configure/#components) set as JSON in the configuration for each component or service.
 These fields can be checked for existence (maybe they're required) and verifying the values for those fields are of a specific type; the current implementation is relatively simple for the two fields being validated.
-However, as more configuration attributes are added and extra logic (such as ensuring values are within a certain range), this will become unweildy to maintain.
+However, as more configuration attributes are added and extra logic (such as ensuring values are within a certain range), this will become unwieldy to maintain.
 
 ```python
 @classmethod
@@ -482,68 +478,68 @@ In this section, you'll create a Python project that includes a script based on 
 
 1. Create the project directory through the command line or using the code editor of your choice:
 
-```console
-mkdir viam-env-validation && cd viam-env-validation
-```
+    ```console
+    mkdir viam-env-validation && cd viam-env-validation
+    ```
 
-2. Create a Python virtual environment and install the script dependencies:
+1. Create a Python virtual environment and install the script dependencies:
 
-```console
-python3 -m venv .venv && source .venv/bin/activate && pip install viam-sdk
-```
+    ```console
+    python3 -m venv .venv && source .venv/bin/activate && pip install viam-sdk
+    ```
 
-3. Create the `main.py` script file and add the initial code sample from the Viam app:
+1. Create the `main.py` script file and add the initial code sample from the Viam app:
 
-```python
-import asyncio
+    ```python
+    import asyncio
 
-from viam.robot.client import RobotClient
+    from viam.robot.client import RobotClient
 
-async def connect():
-    opts = RobotClient.Options.with_api_key(
-        # Replace "<API-KEY>" (including brackets) with your machine's api key 
-        api_key='<API-KEY>',
-        # Replace "<API-KEY-ID>" (including brackets) with your machine's api key id
-        api_key_id='<API-KEY-ID>'
-    )
-    return await RobotClient.at_address('my-machine.aabahtjw04.viam.cloud', opts)
+    async def connect():
+        opts = RobotClient.Options.with_api_key(
+            # Replace "<API-KEY>" (including brackets) with your machine's api key 
+            api_key='<API-KEY>',
+            # Replace "<API-KEY-ID>" (including brackets) with your machine's api key id
+            api_key_id='<API-KEY-ID>'
+        )
+        return await RobotClient.at_address('my-machine.aabahtjw04.viam.cloud', opts)
 
-async def main():
-    machine = await connect()
+    async def main():
+        machine = await connect()
 
-    print('Resources:')
-    print(machine.resource_names)
-    
-    # Don't forget to close the machine when you're done!
-    await machine.close()
+        print('Resources:')
+        print(machine.resource_names)
+        
+        # Don't forget to close the machine when you're done!
+        await machine.close()
 
-if __name__ == '__main__':
-    asyncio.run(main())
-```
+    if __name__ == '__main__':
+        asyncio.run(main())
+    ```
 
-4. Update the code sample to use environment variables to set the API key and API key ID, as demonstrated in the [Working with Python environment variables codelab](/guide/environment-variables/index.html):
+1. Update the code sample to use environment variables to set the API key and API key ID, as demonstrated in the [Working with Python environment variables codelab](/guide/environment-variables/index.html):
 
-```python
-import asyncio
-import os
+    ```python
+    import asyncio
+    import os
 
-from viam.robot.client import RobotClient
+    from viam.robot.client import RobotClient
 
-ROBOT_API_KEY = os.getenv('ROBOT_API_KEY')
-ROBOT_API_KEY_ID = os.getenv('ROBOT_API_KEY_ID')
+    ROBOT_API_KEY = os.getenv('ROBOT_API_KEY')
+    ROBOT_API_KEY_ID = os.getenv('ROBOT_API_KEY_ID')
 
-async def connect():
-    opts = RobotClient.Options.with_api_key(
-        # Replace "<API-KEY>" (including brackets) with your machine's api key 
-        api_key=ROBOT_API_KEY,
-        # Replace "<API-KEY-ID>" (including brackets) with your machine's api key id
-        api_key_id=ROBOT_API_KEY_ID,
-    )
-    return await RobotClient.at_address('my-machine.aabahtjw04.viam.cloud', opts)
-```
+    async def connect():
+        opts = RobotClient.Options.with_api_key(
+            # Replace "<API-KEY>" (including brackets) with your machine's api key 
+            api_key=ROBOT_API_KEY,
+            # Replace "<API-KEY-ID>" (including brackets) with your machine's api key id
+            api_key_id=ROBOT_API_KEY_ID,
+        )
+        return await RobotClient.at_address('my-machine.aabahtjw04.viam.cloud', opts)
+    ```
 
-This is fine for getting started; however, it lacks any guarantee that the environment variables will be set as the expected string type. Declaring each of these environment variables to configure any part of the program will also become unweildy and complex as the requirements grow.
-In the next step, you'll learn about Pydantic can help with this use case as well.
+This is fine for getting started; however, it lacks any guarantee that the environment variables will be set as the expected string type. Declaring each of these environment variables to configure any part of the program will also become unwieldy and complex as the requirements grow.
+In the next step, you'll learn how Pydantic can help with this use case as well.
 
 <!-- ------------------------ -->
 ## Add environment variable validation
@@ -553,80 +549,80 @@ Pydantic provides a separate package for handling [settings management](https://
 
 1. Start by installing the `pydantic-settings` dependency in the virtual environment:
 
-```console
-pip install pydantic-settings
-```
+    ```console
+    pip install pydantic-settings
+    ```
 
-2. In the `main.py` script, create the `Settings` class to validate the expected environment variables:
+1. In the `main.py` script, create the `Settings` class to validate the expected environment variables:
 
-```python
-from pydantic_settings import BaseSettings, SettingsConfigDict
+    ```python
+    from pydantic_settings import BaseSettings, SettingsConfigDict
 
-class Settings(BaseSettings):
-    api_key: str = ""
-    api_key_id: str = ""
+    class Settings(BaseSettings):
+        api_key: str = ""
+        api_key_id: str = ""
 
-    model_config = SettingsConfigDict(env_prefix="robot_", env_file=".env")
-```
+        model_config = SettingsConfigDict(env_prefix="robot_", env_file=".env")
+    ```
 
-Similar to the Pydantic `BaseModel`, the `BaseSettings` class references the Python type hints to automatically validate the values set for the environment variables. The `model_config` property allows you to configure the default behavior for managing environment variable parsing and validation, including [case-sensitivity](https://docs.pydantic.dev/latest/concepts/pydantic_settings/#case-sensitivity), referencing [.env files](https://docs.pydantic.dev/latest/concepts/pydantic_settings/#dotenv-env-support), and a [shared prefix for variable names](https://docs.pydantic.dev/latest/concepts/pydantic_settings/#environment-variable-names).
-If there is a `.env` file available, the class will use those values are checking the for global values in the runtime environment.
+    Similar to the Pydantic `BaseModel`, the `BaseSettings` class references the Python type hints to automatically validate the values set for the environment variables. The `model_config` property allows you to configure the default behavior for managing environment variable parsing and validation, including [case-sensitivity](https://docs.pydantic.dev/latest/concepts/pydantic_settings/#case-sensitivity), referencing [.env files](https://docs.pydantic.dev/latest/concepts/pydantic_settings/#dotenv-env-support), and a [shared prefix for variable names](https://docs.pydantic.dev/latest/concepts/pydantic_settings/#environment-variable-names).
+    If there is a `.env` file available, the class will use those values after checking for global values in the runtime environment.
 
-3. In the script, you can use the `Settings` class in the `connect()` method:
+1. In the script, you can use the `Settings` class in the `connect()` method:
 
-```python
-async def connect():
-    settings = Settings()
-    opts = RobotClient.Options.with_api_key(
-        # Replace "<API-KEY>" (including brackets) with your machine's api key 
-        api_key=settings.api_key,
-        # Replace "<API-KEY-ID>" (including brackets) with your machine's api key id
-        api_key_id=settings.api_key_id,
-    )
-    return await RobotClient.at_address('my-machine.aabahtjw04.viam.cloud', opts)
-```
+    ```python
+    async def connect():
+        settings = Settings()
+        opts = RobotClient.Options.with_api_key(
+            # Replace "<API-KEY>" (including brackets) with your machine's api key 
+            api_key=settings.api_key,
+            # Replace "<API-KEY-ID>" (including brackets) with your machine's api key id
+            api_key_id=settings.api_key_id,
+        )
+        return await RobotClient.at_address('my-machine.aabahtjw04.viam.cloud', opts)
+    ```
 
-If there are additional settings you'd like to use in the rest of your script (such as component or service names from the machine configuration), you could move the settings to the `main()` method and pass them into the `connect` method:
+    If there are additional settings you'd like to use in the rest of your script (such as component or service names from the machine configuration), you could move the settings to the `main()` method and pass them into the `connect` method:
 
-```python
-import asyncio
+    ```python
+    import asyncio
 
-from viam.robot.client import RobotClient
-from viam.components.board import Board
+    from viam.robot.client import RobotClient
+    from viam.components.board import Board
 
-from pydantic_settings import BaseSettings, SettingsConfigDict
+    from pydantic_settings import BaseSettings, SettingsConfigDict
 
-class Settings(BaseSettings):
-    api_key: str = ""
-    api_key_id: str = ""
-    board_name: str = "pi"
+    class Settings(BaseSettings):
+        api_key: str = ""
+        api_key_id: str = ""
+        board_name: str = "pi"
 
-    model_config = SettingsConfigDict(env_prefix="robot_", env_file=".env")
+        model_config = SettingsConfigDict(env_prefix="robot_", env_file=".env")
 
-async def connect(settings: Settings):
-    opts = RobotClient.Options.with_api_key(
-        # Replace "<API-KEY>" (including brackets) with your machine's api key 
-        api_key=settings.api_key
-        # Replace "<API-KEY-ID>" (including brackets) with your machine's api key id
-        api_key_id=settings.api_key_id,
-    )
-    return await RobotClient.at_address('my-machine.aabahtjw04.viam.cloud', opts)
+    async def connect(settings: Settings):
+        opts = RobotClient.Options.with_api_key(
+            # Replace "<API-KEY>" (including brackets) with your machine's api key 
+            api_key=settings.api_key
+            # Replace "<API-KEY-ID>" (including brackets) with your machine's api key id
+            api_key_id=settings.api_key_id,
+        )
+        return await RobotClient.at_address('my-machine.aabahtjw04.viam.cloud', opts)
 
-async def main():
-    settings = Settings()
-    machine = await connect(settings)
+    async def main():
+        settings = Settings()
+        machine = await connect(settings)
 
-    print('Resources:')
-    print(machine.resource_names)
-    
-    board = Board.from_robot(machine, settings.board_name)
+        print('Resources:')
+        print(machine.resource_names)
+        
+        board = Board.from_robot(machine, settings.board_name)
 
-    # Don't forget to close the machine when you're done!
-    await machine.close()
+        # Don't forget to close the machine when you're done!
+        await machine.close()
 
-if __name__ == '__main__':
-    asyncio.run(main())
-```
+    if __name__ == '__main__':
+        asyncio.run(main())
+    ```
 
 Now if this script is run in an environment without the proper settings available, it will raise a helpful `ValidationError` to inform you or whoever is using it!
 
