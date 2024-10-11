@@ -16,7 +16,7 @@ jobs:
       - name: Install global env tools
         uses: jdx/mise-action@v2
         with:
-          experimental: true
+          log_level: debug
           mise_toml: |
             [tools]
             node = "20"
