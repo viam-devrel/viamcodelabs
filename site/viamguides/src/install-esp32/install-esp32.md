@@ -42,6 +42,10 @@ Learn how to install the lightweight `viam-micro-server` which can run on resour
 
 ### Watch the Video
 
+Follow along with the step-by-step video.
+
+<video id="yUZMo8l8up4"></video>
+
 <!-- ------------------------ -->
 
 ## Install the viam-micro-server on ESP32
