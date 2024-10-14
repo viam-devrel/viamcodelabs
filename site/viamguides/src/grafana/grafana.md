@@ -41,6 +41,12 @@ Let's visualize sensor data in Viam with a third-party tool, such as Grafana. In
 
 - A Grafana dashboard to monitor real-time air quality sensor data with Viam
 
+### Watch the Video
+
+Follow along with the step-by-step video.
+
+<video id="CGq3XIRQjUQ"></video>
+
 <!-- ------------------------ -->
 
 ## Capture and sync data in Viam
