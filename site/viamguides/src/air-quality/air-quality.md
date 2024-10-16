@@ -51,9 +51,9 @@ Instead of leaving the air filtration running at all times, or forgetting to tur
 
 ### Watch the Video
 
-Follow along with the step-by-step video.
+See a demonstration and overview of the air quality monitoring system in this video.
 
-<!-- <video id="KaJIXznpssw"></video> -->
+<video id="TZJSAncrU4o"></video>
 
 <!-- ------------------------ -->
 ## Set up your air monitoring device
@@ -342,7 +342,7 @@ You can scale up your air monitoring system by creating air sensors in different
 - how to move control code to your machine
 
 ### Related Resources
-- VIDEO
+- [Air quality monitoring | Demo](https://youtu.be/TZJSAncrU4o?feature=shared) video
 - Learn how to [create and deploy a new module](https://docs.viam.com/how-tos/create-module/)
 - [Monitor Air Quality with a Fleet of Sensors](https://docs.viam.com/tutorials/control/air-quality-fleet/) tutorial
 ![fleet management tutorial](assets/dashboard.webp)
