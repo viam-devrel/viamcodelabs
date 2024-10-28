@@ -3,16 +3,19 @@ id: led-blink
 summary: Make an LED blink with a Raspberry Pi
 categories: Getting-Started, Developer
 environments: web
-status: Published 
+status: Published
 feedback link: https://github.com/viam-labs/viamcodelabs/issues
 tags: Getting Started, Developer
 
 # Make an LED Blink With Buttons And With Code
+
 <!-- ------------------------ -->
-## Overview 
+
+## Overview
+
 Duration: 1
 
-Learn how to use Viam to make an LED blink with a Raspberry Pi. 
+Learn how to use Viam to make an LED blink with a Raspberry Pi.
 
 First, you’ll use the control interface on the [Viam app](https://app.viam.com/) to turn the LED on and off. Then, you’ll write code to control the LED using the Viam [software development kits](https://docs.viam.com/build/program/).
 
@@ -26,13 +29,13 @@ First, you’ll use the control interface on the [Viam app](https://app.viam.com
 
 - None. This is a great place to start if you have never built a robot or a circuit before.
 
-### What You’ll Learn 
+### What You’ll Learn
 
 - Set up a circuit
 - Use the Viam app to configure and control a machine
 - Control your machine using the Viam SDK by writing a short program in either Go or Python to make an LED on your Raspberry Pi blink on and off!
 
-### What You’ll Need 
+### What You’ll Need
 
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com).
 - You will also use the following hardware for this tutorial:
@@ -44,11 +47,12 @@ First, you’ll use the control interface on the [Viam app](https://app.viam.com
     - You will use a 100 Ohm resistor, which is the resistor with brown-black-brown bands
   - [An LED](https://amzn.to/2Ex2v5q)
 
-### What You’ll Build 
-
+### What You’ll Build
 
 <!-- ------------------------ -->
+
 ## Set up the Raspberry Pi
+
 Duration: 5
 
 Before you build your circuit, you need to set up the operating system on your Raspberry Pi and install `viam-server` on the Pi:
@@ -58,10 +62,11 @@ Follow the [Raspberry Pi Setup Guide](https://docs.viam.com/get-started/prepare/
 [Add a new machine](https://docs.viam.com/cloud/machines/#add-a-new-machine) in the [Viam app](https://app.viam.com/). Then follow the setup instructions to install `viam-server` on the computer you’re using for your project and connect to the Viam app. Wait until your machine has successfully connected.
 
 > aside positive
-> 
+>
 > If you encounter issues, reach out to the [Viam Community Discord](https://discord.com/invite/viam).
 
 ### Take a Quiz
+
 <form>
   <name>Where is `viam-server` running in this project?</name>
   <input type="radio" value="The Raspberry Pi">
@@ -72,7 +77,9 @@ Follow the [Raspberry Pi Setup Guide](https://docs.viam.com/get-started/prepare/
 Make sure you understand these concepts before moving ahead.
 
 <!-- ------------------------ -->
+
 ## Build the circuit
+
 Duration: 3
 
 The next step is to build a simple LED circuit consisting of an LED and a resistor. The resistor protects the LED by limiting the flow of electricity through the circuit and is called a current-limiting resistor.
@@ -80,6 +87,7 @@ The next step is to build a simple LED circuit consisting of an LED and a resist
 You will connect the LED and resistor to the [pins](https://en.wikipedia.org/wiki/Pin_%28electronics%29) on the Raspberry Pi to complete the circuit. Since the only power for this circuit comes from a Pi pin, controlling the state of the pin will toggle the LED on or off.
 
 ### Understand GPIO pinout
+
 A _general-purpose input/output_ (GPIO) pin is a digital signal pin on a circuit board, like a Raspberry Pi, which may be used as an input or output, or both, and is controllable by software.
 
 ![Raspberry Pi GPIO photo](assets/gpio.webp)
@@ -117,14 +125,16 @@ When hooking up the circuit, **note the polarity of the LED**. You will notice t
 Now that your circuit is wired, reconnect your Pi to power.
 
 <!-- ------------------------ -->
+
 ## Configure your robot
+
 Duration: 4
 
 ### Configure your robot
 
 Before proceeding, be sure that you have [connected your Pi to the Viam app](https://docs.viam.com/tutorials/get-started/blink-an-led/#project-setup).
 
-Now it’s time to configure your machine’s components. Go to the [Viam app](https://app.viam.com/) and navigate to your new machine’s **CONFIGURE** tab.
+Now it’s time to configure your machine’s components. Go to the [Viam app](https://app.viam.com/) under the **LOCATIONS** tab, and navigate to your new machine’s **CONFIGURE** tab.
 
 Add a [board component](https://docs.viam.com/components/board/) to represent your single-board computer, which in this case is the Raspberry Pi. To create the new component, click the **+** icon next to your machine part in the left-hand menu and select **Component**. Select the `board` type, then select the `pi` model. Enter a name or use the suggested name for your board and click **Create**. We used the name `"local"`.
 
@@ -155,7 +165,9 @@ Congratulations! You have just successfully used Viam to make an LED blink with 
 To make your LED blink periodically, you need to use an SDK.
 
 <!-- ------------------------ -->
+
 ## Control your robot using the Viam SDKs
+
 Duration: 5
 
 Now you’re ready to control the LED with code so you don’t have to click buttons to turn it on and off.
@@ -163,14 +175,16 @@ Now you’re ready to control the LED with code so you don’t have to click but
 In this section, you will learn the basics of programming hardware by using either the [Viam Python SDK](https://python.viam.dev/) (software development kit) or the [Viam Go SDK](https://pkg.go.dev/go.viam.com/rdk/robot/client#section-readme) to make your LED blink.
 
 ### Install a Viam SDK
+
 Go ahead and install either the [Viam Python SDK](https://python.viam.dev/) or the [Viam Go SDK](https://pkg.go.dev/go.viam.com/rdk/robot/client#section-readme) on your local computer. Use which ever programming language you are most comfortable with.
 
 Refer to the appropriate SDK documentation for SDK installation instructions:
 
-- [Viam Python SDK](https://python.viam.dev/) 
+- [Viam Python SDK](https://python.viam.dev/)
 - [Viam Go SDK](https://pkg.go.dev/go.viam.com/rdk/robot/client#section-readme)
 
 ### Connect your robot to the Viam SDK
+
 The easiest way to get started writing an application with Viam is to navigate to the CONNECT tab of your machine’s page on the Viam app and select the Code sample page. For this tutorial, we provide Python and Golang code snippets. Select Python or Golang and follow the instructions to connect to your machine.
 
 > aside positive
@@ -250,8 +264,11 @@ go run blink.go
     [rdk:component:board/local rdk:service:sensors/builtin
     rdk:service:motion/builtin rdk:service:data_manager/builtin]
 ```
+
 <!-- ------------------------ -->
-## Write code to blink the LED 
+
+## Write code to blink the LED
+
 Duration: 5
 
 In order to interact with the GPIO pins on our Raspberry Pi, you need to import the [board component](https://docs.viam.com/components/board/) from the Viam SDK.
@@ -260,7 +277,7 @@ The **Code sample** page automatically adds the board import for you, but it doe
 
 > aside positive
 >
->Follow the section below coresponding to whether you're using the Python SDK or Go SDK.
+> Follow the section below coresponding to whether you're using the Python SDK or Go SDK.
 
 ### Write code in Python
 
@@ -321,6 +338,7 @@ import (
   "go.viam.com/rdk/components/board"
 )
 ```
+
 The `fmt` package enables you to print and the `time` package enables you to add time delays.
 
 Next, you need to initialize the Raspberry Pi board and tell Viam which GPIO pin your LED is on. At the bottom of the `main` function, paste the following:
@@ -395,6 +413,7 @@ func main() {
   }
 }
 ```
+
 Run your finished code:
 
 ```bash
@@ -414,15 +433,19 @@ If you get an error, you can check your code against the complete code here:
 **Completed code**: [https://github.com/viam-labs/LED-Blink](https://github.com/viam-labs/LED-Blink)
 
 <!-- ------------------------ -->
+
 ## Conclusion And Resources
+
 Duration: 1
 
 ### What You Learned
+
 - Set up a circuit
 - Use the Viam app to configure and control a machine
 - Control your machine using the Viam SDK by writing a short program in either Go or Python to make an LED on your Raspberry Pi blink on and off!
 
 ### Related Resources
+
 - [Code sample in GitHub repository](https://github.com/viam-labs/LED-Blink)
 - [Viam documentation](https://docs.viam.com/)
 - [Viam YouTube channel](https://www.youtube.com/channel/UCrWzoQBoTmYnF8mslOesUAw)

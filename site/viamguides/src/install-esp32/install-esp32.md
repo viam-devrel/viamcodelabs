@@ -53,7 +53,7 @@ Follow along with the step-by-step video.
 Duration: 5
 
 1. Connect your ESP32 board to your computer with a data cable. Make sure the cable is capable of data transfer (not just charging).
-1. In the [Viam app](https://app.viam.com/), enter a name for a new machine, and **Add machine**.
+1. In the [Viam app](https://app.viam.com/) under the **LOCATIONS** tab, enter a name for a new machine, and **Add machine**.
    ![add machine](assets/addMachine.png)
 1. Under the **CONFIGURE** tab, click the **View setup instructions** button.
    ![view setup instructions](assets/viewSetup.png)
