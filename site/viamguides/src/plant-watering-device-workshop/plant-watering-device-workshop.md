@@ -8,7 +8,9 @@ feedback link: <https://github.com/viam-labs/viamcodelabs/issues>
 tags: Getting Started, Developer, Hardware
 
 # Plant Watering Device Workshop
+
 <!-- ------------------------ -->
+
 ## Overview
 
 Duration: 5
@@ -32,16 +34,16 @@ Follow this workshop to learn how to set up an automatic plant watering system b
 
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com/robots/) to the Viam app.
 - Follow the Raspberry Pi [setup guide](https://docs.viam.com/installation/prepare/rpi-setup/) and flash a Viam-compatible operating system (such as Raspbian, Ubuntu, or Debian) on the Pi. Make sure you are able to SSS into it.
-- Purchase or acquire the hardware necessary for the workshop: 
-    - [a Raspberry Pi](https://www.amazon.com/dp/B07TD42S27)
-    - [a micro-SD card](https://www.amazon.com/dp/B0C1Y87VT3)
-    - [a power supply](https://www.amazon.com/CanaKit-Raspberry-Power-Supply-USB-C/dp/B07TYQRXTK)
-    - [a 5V water pump with tubing](https://www.amazon.com/dp/B097F4576N)
-    - [a relay module](https://www.amazon.com/HiLetgo-Channel-optocoupler-Support-Trigger/dp/B00LW15A4W)
-    - [a moisture sensor](https://www.amazon.com/dp/B01DKISKLO)
-    - [bunch of jumper wires](https://www.amazon.com/dp/B077X99KX1)
-    - [wire connectors](https://www.amazon.com/Splicing-Connector-Lever-Nut-Assortment-Pocket/dp/B07NKSHVF6)
-    - [a webcam (optional for the additional sections)](https://www.amazon.com/EMEET-1080P-Webcam-Microphone-Noise-Canceling/dp/B0CP6BTQKR)
+- Purchase or acquire the hardware necessary for the workshop:
+  - [a Raspberry Pi](https://www.amazon.com/dp/B07TD42S27)
+  - [a micro-SD card](https://www.amazon.com/dp/B0C1Y87VT3)
+  - [a power supply](https://www.amazon.com/CanaKit-Raspberry-Power-Supply-USB-C/dp/B07TYQRXTK)
+  - [a 5V water pump with tubing](https://www.amazon.com/dp/B097F4576N)
+  - [a relay module](https://www.amazon.com/HiLetgo-Channel-optocoupler-Support-Trigger/dp/B00LW15A4W)
+  - [a moisture sensor](https://www.amazon.com/dp/B01DKISKLO)
+  - [bunch of jumper wires](https://www.amazon.com/dp/B077X99KX1)
+  - [wire connectors](https://www.amazon.com/Splicing-Connector-Lever-Nut-Assortment-Pocket/dp/B07NKSHVF6)
+  - [a webcam (optional for the additional sections)](https://www.amazon.com/EMEET-1080P-Webcam-Microphone-Noise-Canceling/dp/B0CP6BTQKR)
 - Have a planter box or flower pot with soil or coffee grounds, a screw driver and a water container ready.
 
 ### What You’ll Need
@@ -57,6 +59,7 @@ Follow along with the step-by-step video.
 <video id="Q6UuUKJpDn0"></video>
 
 <!-- ------------------------ -->
+
 ## Set up your Plant Watering Device
 
 Duration: 10
@@ -106,7 +109,7 @@ Duration: 5
 
 - Go to your Viam app account and [sign in](https://app.viam.com/robots/).
 
-- Create a new machine and follow the setup steps.
+- Under the **LOCATIONS** tab, create a new machine and follow the setup steps.
 
 - Configure your components, start with the board: selecting `pi` for the Raspberry Pi 4 or `pi5` for the Raspberry Pi 5.
 
@@ -124,12 +127,12 @@ Duration: 10
 
 The full example code is in the [project Github repository](https://github.com/viam-labs/plant-watering-workshop). From there, you can:
 
-- follow the "Getting started" instructions in the README to get the program running in a [GitHub Codespace](https://docs.github.com/en/codespaces/overview) 
+- follow the "Getting started" instructions in the README to get the program running in a [GitHub Codespace](https://docs.github.com/en/codespaces/overview)
 - or set it up in your local development environment
-    - In your terminal, [clone the repository to your local development environment](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository): `git clone https://github.com/viam-labs/plant-watering-workshop.git`
-    - Change directories into the newly-cloned project: `cd plant-watering-workshop`
-    - [Set up a Python virtual environment](https://docs.viam.com/sdks/python/python-venv/) to avoid any conflicts with other projects or your system: `python3 -m venv .venv && source .venv/bin/activate`
-    - Install [the Viam Python SDK](https://python.viam.dev): `pip install viam-sdk`
+  - In your terminal, [clone the repository to your local development environment](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository): `git clone https://github.com/viam-labs/plant-watering-workshop.git`
+  - Change directories into the newly-cloned project: `cd plant-watering-workshop`
+  - [Set up a Python virtual environment](https://docs.viam.com/sdks/python/python-venv/) to avoid any conflicts with other projects or your system: `python3 -m venv .venv && source .venv/bin/activate`
+  - Install [the Viam Python SDK](https://python.viam.dev): `pip install viam-sdk`
 
 Grab the machine address, API Key, and API Key ID from the Connect tab, [Code Sample sub-tab](https://docs.viam.com/cloud/machines/#code-sample) and insert them in the `plantwatering.py` provided. This is how your code connects to your device.
 
@@ -152,7 +155,7 @@ async def moisture_loop(board):
     moisture_pin = await board.gpio_pin_by_name(MOISTURE_PIN)
     relay_pin = await board.gpio_pin_by_name(RELAY_PIN)
     detect_moisture = await moisture_pin.get()
-    
+
     # debug
     print(f'moisture_loop: {MOISTURE_PIN}:{detect_moisture}')
     if detect_moisture == True:
@@ -163,7 +166,7 @@ async def moisture_loop(board):
         await relay_pin.set(False)
 
     # return the status of the relay
-    return await relay_pin.get()   
+    return await relay_pin.get()
 ```
 
 The while function in the `main` function, let's you know if the relay is running or not, and allows you to sleep after certain minutes of being on. This will change depending on the size of the pot and how much water you want to pump each cycle.
@@ -184,6 +187,7 @@ Run the program: `python plantwatering.py`
 You should see some output to the console about connecting to the robot, along with messages about the relay running or not running depending on the return value of the `moisture_loop`.
 
 <!-- ------------------------ -->
+
 ## Next Steps
 
 Duration: 1
