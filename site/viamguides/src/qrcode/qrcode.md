@@ -102,7 +102,7 @@ Now that your hardware is working the way you want it, it's time to add a vision
 1. In the `vision-1` panel under the **Depends on** section, check the `camera-1` resource. This configures the vision service to depend on data coming in from the webcam.
 1. **Save** your changes in the top right and wait a few moments for the configuration changes to take effect.
 1. At the bottom of the `vision-1` panel, expand the **TEST** section to ensure you have configured the vision service properly. Point the webcam towards a QR code to see if the camera detects it.
-1. If the scanner detects a QR code, a bounding box will highlight the QR code in the video feed, and decode the data and display it on the right under **Labels**. In the example shown here, the URL decoded was `viam.com`.
+1. If the scanner detects a QR code, a bounding box will highlight the QR code in the video feed, decode the data, and display it on the right under **Labels**. In the example shown here, the URL decoded was `viam.com`.
    ![qr code test](assets/qrCodeTest.png)
 
    > aside negative
