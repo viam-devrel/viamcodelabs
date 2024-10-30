@@ -84,7 +84,7 @@ Duration: 3
 1. At the bottom of the `camera-1` panel, expand the **TEST** section to ensure you have configured the camera properly.
    ![test camera](assets/test.png)
    > aside negative
-   > If any problems occur, check under the **LOGS** tab to see what might be going wrong.
+   > If any problems occur, check under the **LOGS** tab to see what might be going wrong. [Refer to the troubleshooting guide if needed.](https://docs.viam.com/components/camera/webcam/#troubleshooting)
 
 <!-- ------------------------ -->
 
