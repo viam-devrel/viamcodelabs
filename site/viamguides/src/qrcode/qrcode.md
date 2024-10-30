@@ -118,11 +118,17 @@ Now that your hardware is working the way you want it, it's time to add a vision
 
 Duration: 3
 
-Now that you have a camera that detects and decodes QR codes, you can do the following:
+Now that you have a camera that detects and decodes QR codes, you can do the following to enhance your Viam project:
 
 - [train and deploy a custom vision model](https://docs.viam.com/how-tos/train-deploy-ml/) to detect and classify other items besides QR codes
 - extend the [pyzbar module](https://app.viam.com/module/joyce/pyzbar) in the Viam registry to add custom functionality or trigger specific actions
 - [add more components and services](https://docs.viam.com/platform/#the-things-that-make-up-a-machine) to enhance the functionality of your machine
+
+### Additional project ideas for scanning QR codes
+
+- Provide instructions or labels for [roving bots](https://docs.viam.com/tutorials/configure/configure-rover/) that move around an office, home, or outdoor space
+- Permit security access to disable alarms or raise a barrier when the correctly encoded QR is shown
+- Read aloud the linked digital menus through a [text-to-speech (TTS) module](https://app.viam.com/module/viam-labs/speech) for people who can't view them normally due to vision impairment
 
 ### Additional Viam resources
 
