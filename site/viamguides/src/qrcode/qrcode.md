@@ -17,7 +17,7 @@ Duration: 2
 
 QR codes can encode a wide variety of information, including website URLs, contact details, or text and binary data.
 
-In this codelab, you'll learn how to use a QR code scanner to detect and decode QR codes using a Viam module. We'll leverage the `pyzbar` and OpenCV Python libraries to process images from a camera and extract information encoded in QR codes. By the end, you'll have a working solution that can identify QR codes in real-time and trigger relevant actions.
+In this codelab, you'll learn how to use a QR code scanner to detect and decode QR codes using a Viam module. We'll leverage the [`pyzbar`](https://pypi.org/project/pyzbar/) and [OpenCV](https://pypi.org/project/opencv-python/) Python libraries to process images from a camera and extract information encoded in QR codes. By the end, you'll have a working solution that can identify QR codes in real-time and trigger relevant actions.
 
 ![qr code demo](assets/qrCodeDemo.png)
 
