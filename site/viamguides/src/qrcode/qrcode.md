@@ -49,7 +49,9 @@ In this codelab, you'll learn how to use a QR code scanner to detect and decode 
 
 ### Watch the Video
 
-Follow along with the step-by-step video.
+See a demonstration and overview of the QR scanner in this video.
+
+<video id="anHPD2vT8Zw"></video>
 
 <!-- ------------------------ -->
 
