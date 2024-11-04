@@ -116,6 +116,70 @@ Now that your hardware is working the way you want it, it's time to add a vision
 
 <!-- ------------------------ -->
 
+## Trigger an action
+
+Duration: 3
+
+At this point, you have configured and tested your machine and webcam to detect and decode QR codes, but nothing else is happening automatically. In the next section, create an [automatic process](https://docs.viam.com/configure/processes/) to run on your machine to trigger an action when a QR code is detected.
+
+### Create an automation script
+
+1. To configure the machine to automatically run a command to execute a script, use a [Viam process](https://docs.viam.com/configure/processes/). Create a new file on your computer called `process.py`.
+   ```bash
+   $ touch process.py
+   ```
+1. Copy and paste [this sample code](https://github.com/loopDelicious/viam-qrcode/blob/main/process.py) into the new file `process.py`. This code will allow your Raspberry Pi to connect to your vision service and execute our logic.
+1. Now it's time to move your control code to your Raspberry Pi device. [SSH into your Raspberry Pi](https://docs.viam.com/installation/prepare/rpi-setup/#connect-with-ssh) if you're not already SSH'd.
+
+1. From the SSH prompt on your Raspberry Pi, install the Python package manager.
+   ```bash
+   $ sudo apt install -y python3-pip
+   ```
+1. Install the Viam Python SDK into a new directory called `process`.
+   ```bash
+   $ pip3 install --target=process viam-sdk
+   ```
+1. Display the full path of the current directory you are working in on your Raspberry Pi with the `pwd` command. Make a note of this output for the next steps.
+   ```bash
+   $ pwd
+   ```
+1. Find the executable path of Python3 to run `process.py` on your Raspberry Pi with `which python3`. Again, make a note of this output for the next steps.
+   ```bash
+   $ which python3
+   ```
+1. Run the following command from your computer (not the SSH prompt to your Raspberry Pi) to copy the code from your computer to your Raspberry Pi. In the command, you will copy `process.py` over to your Raspberry Pi, with the section following the colon `:` indicating where your file should be copied to on the Raspberry Pi (the path of the directory you are working in on your Raspberry Pi, along with the filename).
+   ```bash
+   $ scp process.py user@host.local:/home/myboard/process/process.py
+   ```
+
+### Configure a Viam process
+
+1.  Now let's allow `viam-server` to run the process as the root user on your Raspberry Pi by configuring a [Viam process](https://docs.viam.com/configure/processes/). In [the Viam app](https://app.viam.com/robots) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Process**.
+1.  Find the corresponding card to `process-1`. Enter the executable path of Python3 running on your Raspberry Pi that you output from a previous step. Add an argument of the `process.py` file to run on your Raspberry Pi. Enter the working directory where you want the process to execute.
+    ![configure process](assets/configProcess.png)
+1.  Still within the `process-1` card, select the advanced settings icon near the top right corner to review the configuration JSON. Create a new `env` property, and add your environment variables within the new property, formatted like the following with your own credentials.
+    ```json
+      "env": {
+        "ROBOT_API_KEY": "your-api-key",
+        "ROBOT_API_KEY_ID": "your-api-key-id",
+        "ROBOT_ADDRESS": "your-robot-address",
+        "CAMERA_NAME": "camera-1",
+        "VISION_NAME": "vision-1"
+      },
+    ```
+    ![configure JSON](assets/configJSON.png)
+    > aside negative
+    > The `CAMERA_NAME` and `VISION_NAME` are the default names for our camera component and vision service when added to our Viam machine. Other machine credentials can be found under the **CONNECT** tab, selecting an SDK, and toggling **Include API key** to reveal your credentials within the code sample.
+        ![get credentials](assets/apiKey.png)
+1.  **Save** your updates.
+1.  You can test the process by [generating an example QR code](https://qrnobs.com/), and displaying it in front of your webcam.
+    > aside negative
+    > If you don't have a monitor connected to your Raspberry Pi (or your Raspberry Pi does not support a browser), you can verify the detection in the logs under the **LOGS** tab.
+
+The process running in this example parses a website URL and opens a browser. However you can trigger any kind of sequence of actuation, upon detecting and decoding a QR code. Keep reading for more inspiration and ideas.
+
+<!-- ------------------------ -->
+
 ## Next Steps
 
 Duration: 3

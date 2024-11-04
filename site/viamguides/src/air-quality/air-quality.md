@@ -292,9 +292,9 @@ At this point, you have configured and tested your machine and peripherals, but 
    ```bash
    $ pwd
    ```
-1. Find the executable path of Python3 to run `process.py` on your Raspberry Pi with `which Python3`. Again, make a note of this output for the next steps.
+1. Find the executable path of Python3 to run `process.py` on your Raspberry Pi with `which python3`. Again, make a note of this output for the next steps.
    ```bash
-   $ which Python3
+   $ which python3
    ```
 1. Run the following command from your computer (not the SSH prompt to your Raspberry Pi) to copy the code from your computer to your Raspberry Pi. In the command, you will copy `process.py` over to your Raspberry Pi, with the section following the colon `:` indicating where your file should be copied to on the Raspberry Pi (the path of the directory you are working in on your Raspberry Pi, along with the filename).
    ```bash
