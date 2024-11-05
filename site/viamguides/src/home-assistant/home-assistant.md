@@ -69,10 +69,10 @@ Duration: 3
 
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Service**, and then `ML model`.
    ![select ML model](assets/viam-config-ml-model.png)
-1. Search for a module called `TFLite CPU`. Then click **Add module**, and **Create** a new vision service called `mlmodel-1`.
+1. Search for a module called `TFLite CPU`. Then click **Add module**, and **Create** a new [ML Model service](https://docs.viam.com/services/ml/) called `mlmodel-1`. This provides the ability to run Tensorflow Lite, a.k.a [LiteRT](https://ai.google.dev/edge/litert), models on the machine.
    ![add module](assets/viam-config-tflite.png)
 1. Notice this creates two new items in the left sidebar. The first is your new ML Model service called `mlmodel-1`, and the second is the `tflite_cpu` module from the Registry.
-1. In the `mlmodel-1` panel, click "Select model" in the **Model** section, search for "COCO" under the **Registry** tab, and select the "EfficientDet-COCO" model from the list.
+1. In the `mlmodel-1` panel, click "Select model" in the **Model** section, search for "COCO" under the **Registry** tab, and select the "EfficientDet-COCO" model from the list. This is a [general object detection model](https://research.google/pubs/efficientdet-scalable-and-efficient-object-detection/) that is very efficient, as the name implies, for resource-constrained devices like a Raspberry Pi.
    ![add model](assets/viam-model-select.png)
 1. Click **Save** in the top right to save and apply your configuration changes.
 
@@ -80,7 +80,7 @@ Duration: 3
 
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Service**, and then `vision`.
    ![select vision](assets/viam-config-vision.png)
-1. Search for a module called `mlmodel`. Then click **Add module**, and **Create** a new vision service called `vision-1`.
+1. Search for a module called `mlmodel`. Then click **Add module**, and **Create** a new [Vision service](https://docs.viam.com/services/vision/) called `vision-1`.
    ![add module](assets/viam-config-vision-name.png)
 1. Notice adding this service adds the vision service called `vision-1`. From the **ML Model** section of the panel, select `mlmodel-1`.
    ![select ML model for vision service](assets/viam-config-vision-model.png)
