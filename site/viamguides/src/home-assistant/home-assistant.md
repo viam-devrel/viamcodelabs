@@ -98,7 +98,7 @@ Duration: 5
 As a community integration, Viam is available through the [Home Assistant Community Store (HACS)](https://hacs.xyz/).
 After [getting started with HACS](https://hacs.xyz/docs/use/#getting-started-with-hacs), the [hipsterbrown/viam-home-assistant-integration repository](https://github.com/HipsterBrown/viam-home-assistant-integration) can be added as a custom repository to the store.
 
-1. From the HACS dashboard in Home Assistant, click on the top-right action menu (three-vertial dots) and select "Custom repositories".
+1. From the HACS dashboard in Home Assistant, click on the top-right action menu (three-vertical dots) and select "Custom 
    ![select custom repos](assets/hacs-custom-repo.png)
 1. In the "Repository" input, enter `hipsterbrown/viam-home-assistant-integration`, then select "Integration" from the "Category" dropdown and click "Add".
    ![enter repository info](assets/hacs-add-repository.png)
