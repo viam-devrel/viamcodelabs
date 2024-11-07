@@ -23,7 +23,7 @@ Instead of leaving the air filtration running at all times, or forgetting to tur
 
 ### Prerequisites
 
-- Sign up for a free Viam account, and then [sign in](https://app.viam.com/robots/) to the Viam app
+- Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/locations/) to the Viam app
 - Hardware and supplies requirements
   - 1 - [Raspberry Pi 5](https://www.amazon.com/Raspberry-Pi-Quad-core-Cortex-A76-Processor/dp/B0CTQ3BQLS/)
   - 1 - [USB flash drive](https://www.amazon.com/Samsung-MUF-128AB-AM-Plus-128GB/dp/B07D7PDLXC/) or microSD card to use with your Pi
@@ -189,7 +189,7 @@ Duration: 5
 
 ### Configure your machine
 
-1. In [the Viam app](https://app.viam.com/robots) under the **LOCATIONS** tab, create a machine by typing in a name and clicking **Add machine**.
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **LOCATIONS** tab, create a machine by typing in a name and clicking **Add machine**.
    ![add machine](assets/addMachine.png)
 1. Click **View setup instructions**.
    ![setup instructions](assets/awaitSetup.png)
@@ -201,7 +201,7 @@ Duration: 5
 
 ### Add your Raspberry Pi
 
-1. In [the Viam app](https://app.viam.com/robots), find the **CONFIGURE** tab. It's time to configure your hardware.
+1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab. It's time to configure your hardware.
 1. Click the **+** icon in the left-hand menu and select **Component**.
    ![select component](assets/selectComponent.png)
 1. Select `board`, and find the `pi5` module. This adds the module for working with the Raspberry Pi 5's GPIO pins. Leave the default name `board-1` for now.
@@ -213,7 +213,7 @@ Duration: 5
 
 ### Add your air sensor
 
-1. In [the Viam app](https://app.viam.com/robots), click the **+** icon and select **Component**. Select `sensor`, find the `air:pms7003` module, and click **Add module**. This module provides the sensor model that supports the specific hardware we are using for this tutorial. Leave the default name `sensor-1` for now.
+1. In [the Viam app](https://app.viam.com/fleet/locations), click the **+** icon and select **Component**. Select `sensor`, find the `air:pms7003` module, and click **Add module**. This module provides the sensor model that supports the specific hardware we are using for this tutorial. Leave the default name `sensor-1` for now.
    ![select air sensor module](assets/selectAirSensor.png)
 1. Notice adding this module adds the sensor hardware component called `sensor-1` as well as a module called `pms7003` which contains the logic for how our Raspberry Pi and air sensor work with each other.
    ![view after adding sensor](assets/addedSensor.png)
@@ -221,7 +221,7 @@ Duration: 5
 
 ### Add your smart plug
 
-1. In [the Viam app](https://app.viam.com/robots), let's configure the rest of our hardware so that your machine can communicate with the smart plug over wifi. Click the **+** icon in the left-hand menu and select **Component**. Select `generic`, and find the `kasa:switch` module. This is a generic module that's been configured to use the `python-kasa` library. In other words, it's a layer of abstraction that lets us use the Kasa manufacturer's APIs with Viam.
+1. In [the Viam app](https://app.viam.com/fleet/locations), let's configure the rest of our hardware so that your machine can communicate with the smart plug over wifi. Click the **+** icon in the left-hand menu and select **Component**. Select `generic`, and find the `kasa:switch` module. This is a generic module that's been configured to use the `python-kasa` library. In other words, it's a layer of abstraction that lets us use the Kasa manufacturer's APIs with Viam.
    ![add smart plug module](assets/genericSwitch.png)
 1. Notice adding this module adds the generic hardware component called `generic-1` as well as a module called `kasasmartplug` which contains the logic for how our Raspberry Pi and smart plug work with each other.
 1. Under the CONFIGURE section of the `generic-1` card, add your own smart plug's IP address that you found in a previous step, formatted like the following.
@@ -241,7 +241,7 @@ Duration: 5
 
 ### Test the air sensor
 
-1. In [the Viam app](https://app.viam.com/robots) under the **CONTROL** tab, you can see two hardware components called `generic-1` and `sensor-1`. They are your smart plug and air sensor that you configured on the **CONFIGURE** tab.
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONTROL** tab, you can see two hardware components called `generic-1` and `sensor-1`. They are your smart plug and air sensor that you configured on the **CONFIGURE** tab.
    ![control tab](assets/controlTab.png)
 1. Find the `sensor-1` card, and expand the TEST accordion. The module we added has a `GetReadings` function to get the readings from our air sensor. Select `Manual refresh`, and then click the refresh icon to manually get the readings.
    ![get readings](assets/getReadings.png)
@@ -253,7 +253,7 @@ Duration: 5
 ### Test the smart plug
 
 1. Next, test that your smart plug is working properly. Make sure the fan is still plugged in to the powered smart plug. Also make sure the fan knob is set to on.
-1. In [the Viam app](https://app.viam.com/robots) under the **CONTROL** tab, find the `generic-1` card, and expand the DOCOMMAND accordion. The module we added has a few functions to control the smart plug. Under the **Input** section, add the following JSON object (if your fan is still running), and then click **Execute** to toggle off the smart plug.
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONTROL** tab, find the `generic-1` card, and expand the DOCOMMAND accordion. The module we added has a few functions to control the smart plug. Under the **Input** section, add the following JSON object (if your fan is still running), and then click **Execute** to toggle off the smart plug.
    ```json
    {
      "toggle_off": []
@@ -303,7 +303,7 @@ At this point, you have configured and tested your machine and peripherals, but 
 
 ### Configure a Viam process
 
-1.  Now let's allow `viam-server` to run the process as the root user on your Raspberry Pi by configuring a [Viam process](https://docs.viam.com/configure/processes/). In [the Viam app](https://app.viam.com/robots) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Process**.
+1.  Now let's allow `viam-server` to run the process as the root user on your Raspberry Pi by configuring a [Viam process](https://docs.viam.com/configure/processes/). In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Process**.
 1.  Find the corresponding card to `process-1`. Enter the executable path of Python3 running on your Raspberry Pi that you output from a previous step. Add an argument of the `process.py` file to run on your Raspberry Pi. Enter the working directory where you want the process to execute.
     ![configure process](assets/configureProcess.png)
 1.  Still within the `process-1` card, select the advanced settings icon near the top right corner to review the configuration JSON. Create a new `env` property, and add your environment variables within the new property, formatted like the following with your own credentials.

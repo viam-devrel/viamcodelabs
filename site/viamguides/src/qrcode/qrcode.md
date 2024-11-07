@@ -75,7 +75,7 @@ Duration: 3
 ### Add your USB webcam
 
 1. Connect the USB webcam to the Raspberry Pi.
-1. In [the Viam app](https://app.viam.com/robots), find the **CONFIGURE** tab. It's time to configure your hardware.
+1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab. It's time to configure your hardware.
 1. Click the **+** icon in the left-hand menu and select **Component**.
    ![select component](assets/component.png)
 1. Select `camera`, and find the `webcam` module. This adds the module for working with a USB webcam. Leave the default name `camera-1` for now.
@@ -154,7 +154,7 @@ At this point, you have configured and tested your machine and webcam to detect 
 
 ### Configure a Viam process
 
-1.  Now let's allow `viam-server` to run the process as the root user on your Raspberry Pi by configuring a [Viam process](https://docs.viam.com/configure/processes/). In [the Viam app](https://app.viam.com/robots) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Process**.
+1.  Now let's allow `viam-server` to run the process as the root user on your Raspberry Pi by configuring a [Viam process](https://docs.viam.com/configure/processes/). In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Process**.
 1.  Find the corresponding card to `process-1`. Enter the executable path of Python3 running on your Raspberry Pi that you output from a previous step. Add an argument of the `process.py` file to run on your Raspberry Pi. Enter the working directory where you want the process to execute.
     ![configure process](assets/configProcess.png)
 1.  Still within the `process-1` card, select the advanced settings icon near the top right corner to review the configuration JSON. Create a new `env` property, and add your environment variables within the new property, formatted like the following with your own credentials.
