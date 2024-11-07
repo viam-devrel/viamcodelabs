@@ -35,4 +35,4 @@ $color-demos: $pcb; //#c7477a;
 @include codelab-card(['developer'], $developer, '');
 @include codelab-card(['devops'], $color-devops, '');
 @include codelab-card(['data'], $color-data, '');
-@include codelab-card(['demos'], $color-demos, '');
+@include codelab-card(['workshops'], $color-demos, '');

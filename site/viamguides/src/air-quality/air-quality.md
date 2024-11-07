@@ -245,8 +245,10 @@ Duration: 5
    ![control tab](assets/controlTab.png)
 1. Find the `sensor-1` card, and expand the TEST accordion. The module we added has a `GetReadings` function to get the readings from our air sensor. Select `Manual refresh`, and then click the refresh icon to manually get the readings.
    ![get readings](assets/getReadings.png)
+
    > aside negative
    > If any problems occur, check under the **LOGS** tab to see what might be going wrong.
+
    > aside positive
    > If you're curious about what these values mean, refer to the U.S. Environmental Protection Agency's [basics on particulate matter (PM)](https://www.epa.gov/pm-pollution/particulate-matter-pm-basics). For measuring the [indoor air quality](https://www.epa.gov/indoor-air-quality-iaq/indoor-pollutants-and-sources) in your home, we'll be looking at PM2.5, a very small particle size.
 
@@ -279,7 +281,6 @@ At this point, you have configured and tested your machine and peripherals, but 
    ```
 1. Copy and paste [this sample code](https://github.com/loopDelicious/viam-pm25-process/blob/main/process.py) into the new file `process.py`. This code will allow your Raspberry Pi to connect to both our sensor and plug and execute our logic.
 1. Now it's time to move your control code to your Raspberry Pi device. [SSH into your Raspberry Pi](https://docs.viam.com/installation/prepare/rpi-setup/#connect-with-ssh) if you're not already SSH'd.
-
 1. From the SSH prompt on your Raspberry Pi, install the Python package manager.
    ```bash
    $ sudo apt install -y python3-pip
@@ -371,6 +372,7 @@ You can scale up your air monitoring system by creating air sensors in different
 ### Related Resources
 
 - [Air quality monitoring | Demo](https://youtu.be/TZJSAncrU4o?feature=shared) video
+- [Visualize sensor data in Grafana Cloud](https://codelabs.viam.com/guide/grafana/index.html?index=..%2F..index#0) codelab
 - Learn how to [create and deploy a new module](https://docs.viam.com/how-tos/create-module/)
 - [Monitor Air Quality with a Fleet of Sensors](https://docs.viam.com/tutorials/control/air-quality-fleet/) tutorial
   ![fleet management tutorial](assets/dashboard.webp)
