@@ -19,7 +19,7 @@ Drive a rover in a square using the Viam TypeScript SDK.
 
 ### Prerequisites
 
-- Sign up for a free Viam account, and then [sign in](https://app.viam.com/robots/) to the Viam app
+- Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/locations/) to the Viam app
 
 ### What You’ll Learn
 

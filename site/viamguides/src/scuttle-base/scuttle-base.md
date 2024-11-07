@@ -23,7 +23,7 @@ When combined with Viam, you can compose hardware and software to build the smar
 
 ### Prerequisites
 
-- Sign up for a free Viam account, and then [sign in](https://app.viam.com/robots/) to the Viam app
+- Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/locations/) to the Viam app
 - Hardware and supplies requirements
   - 1 - [Raspberry Pi 4 Model B](https://www.amazon.com/seeed-studio-Raspberry-Computer-Workstation/dp/B07WBZM4K9)
   - 1 - microSD card to use with your Pi, at least 32GB

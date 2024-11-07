@@ -52,7 +52,7 @@ Duration: 2
 
 ### Add a new Viam machine
 
-1. In [the Viam app](https://app.viam.com/robots) under the **LOCATIONS** tab, create a machine by typing in a name and clicking **Add machine**.
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **LOCATIONS** tab, create a machine by typing in a name and clicking **Add machine**.
    ![add machine](assets/addMachine.png)
 1. Click **View setup instructions**.
    ![setup instructions](assets/awaitSetup.png)

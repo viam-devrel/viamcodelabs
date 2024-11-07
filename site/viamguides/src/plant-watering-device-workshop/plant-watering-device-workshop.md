@@ -32,7 +32,7 @@ Follow this workshop to learn how to set up an automatic plant watering system b
 
 ### Prerequisites
 
-- Sign up for a free Viam account, and then [sign in](https://app.viam.com/robots/) to the Viam app.
+- Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/locations/) to the Viam app.
 - Follow the Raspberry Pi [setup guide](https://docs.viam.com/installation/prepare/rpi-setup/) and flash a Viam-compatible operating system (such as Raspbian, Ubuntu, or Debian) on the Pi. Make sure you are able to SSH into it.
 - Purchase or acquire the hardware necessary for the workshop:
   - [a Raspberry Pi](https://www.amazon.com/dp/B07TD42S27)
@@ -107,7 +107,7 @@ Make sure you understand these concepts before moving ahead.
 
 Duration: 5
 
-- Go to your Viam app account and [sign in](https://app.viam.com/robots/).
+- Go to your Viam app account and [sign in](https://app.viam.com/fleet/locations/).
 
 - Under the **LOCATIONS** tab, create a new machine and follow the setup steps.
 
