@@ -30,7 +30,7 @@ This codelab provides a suggested outline and resources for instructors interest
 
 ### What You’ll Teach
 
-- An air quality monitor that triggers an air filtration system when detected values of particulate (PM2.5) exceeds a certain threshold
+- How to build an air quality monitor that triggers an air filtration system when detected values of particulate (PM2.5) exceeds a certain threshold
 
 ### Watch the Video
 
