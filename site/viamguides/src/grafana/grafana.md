@@ -208,7 +208,7 @@ Grafana supports the ability to directly [query and transform your data](https:/
 
 ### Related Resources
 
-- VIDEO
+- [Visualize sensor data in Grafana](https://www.youtube.com/watch?v=CGq3XIRQjUQ) demo video
 - Learn how to [query data with third-party tools](https://docs.viam.com/how-tos/sensor-data-query-with-third-party-tools/#query-data-using-third-party-tools)
 - [Automate air filtration with air quality sensors](https://codelabs.viam.com/guide/air-quality/index.html?index=..%2F..index#0) codelab
 - [Monitor Air Quality with a Fleet of Sensors](https://docs.viam.com/tutorials/control/air-quality-fleet/) tutorial
