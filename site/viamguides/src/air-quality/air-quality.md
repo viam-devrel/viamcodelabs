@@ -276,9 +276,19 @@ At this point, you have configured and tested your machine and peripherals, but 
 ### Create an automation script
 
 1. To configure the machine to automatically run a command to execute a script, use a [Viam process](https://docs.viam.com/configure/processes/). Create a new file on your computer called `process.py`.
+
+   On MacOS, Linux, or Windows WSL:
+
    ```bash
-   $ touch process.py
+   touch process.py
    ```
+
+   On Windows:
+
+   ```cmd
+   type nul > process.py
+   ```
+
 1. Copy and paste [this sample code](https://github.com/loopDelicious/viam-pm25-process/blob/main/process.py) into the new file `process.py`. This code will allow your Raspberry Pi to connect to both our sensor and plug and execute our logic.
 1. Now it's time to move your control code to your Raspberry Pi device. [SSH into your Raspberry Pi](https://docs.viam.com/installation/prepare/rpi-setup/#connect-with-ssh) if you're not already SSH'd.
 1. From the SSH prompt on your Raspberry Pi, install the Python package manager.

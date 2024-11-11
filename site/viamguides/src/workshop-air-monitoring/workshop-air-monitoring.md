@@ -50,6 +50,7 @@ Review the list of required components (hardware, software), and determine which
 - 1 - [Raspberry Pi 5](https://www.amazon.com/Raspberry-Pi-Quad-core-Cortex-A76-Processor/dp/B0CTQ3BQLS/)
 - 1 - [USB flash drive](https://www.amazon.com/Samsung-MUF-128AB-AM-Plus-128GB/dp/B07D7PDLXC/) or microSD card to use with your Pi
 - 1 - USB cable to power your Pi
+  - Make sure you are using a 5V 5A (25W) power supply. USB boot is disabled by default [when connected to a 3A power supply](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#differences-on-raspberry-pi-5), so adequate amperage is required for the optimal performance of your Raspberry Pi 5.
 - 1 - Store-bought or 3D-printed Raspberry Pi case ([like this one here](https://www.printables.com/model/742926-raspberry-pi-5-case))
 - 1 - [PM2.5 air quality sensor (with G7 transfer board)](https://www.amazon.com/Precision-Quality-Monitoring-Particle-Concentration/dp/B0B1J8FQ7M)
 - 4 - jumper wires to connect the air sensor to the Pi
@@ -64,6 +65,7 @@ Review the list of required components (hardware, software), and determine which
   - Preferred IDE, such as [VS Code](https://code.visualstudio.com/download)
   - [Python3](https://www.python.org/downloads/)
   - [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
+- Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/locations/) to the Viam app
 - A smartphone to download and use the Kasa mobile app
 
 <!-- ------------------------ -->
@@ -107,7 +109,23 @@ Review the suggested agenda, and adjust it according to your goals and audience.
 
 Duration: 15
 
-Follow these step-by-step instructions with checkpoints.
+During the workshop, learners can either reference this page for step-by-step instructions and checkpoints. Alternatively, they can reference a slide deck provided on the following page that can be customized to your specific workshop.
+
+1. **Hardware Assembly**
+   - Set up your air monitoring device
+   - Set up your air filter
+   - Set up your smart plug
+   - Set up your Raspberry Pi
+2. **Software Setup**
+   - Configure your machine
+   - Add your Raspberry Pi
+   - Add your air sensor
+   - Add your smart plug
+3. **Hands-On Experiment**
+   - Test the air sensor
+   - Test the smart plug
+   - Program your air monitoring device
+   - Configure a Viam process
 
 ### 1. Hardware Assembly
 
@@ -132,7 +150,7 @@ Refer to the following wiring diagram to connect the Raspberry Pi to the PMS7003
 To power the Raspberry Pi, you can use the USB cord from earlier to continue providing power from your computer, or use a separate USB power supply.
 
 > aside negative
-> Make sure to use an appropriate 5V power supply to run the Raspberry Pi, so you don't damage the device.
+> Make sure you are using a 5V 5A (25W) power supply. USB boot is disabled by default [when connected to a 3A power supply](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#differences-on-raspberry-pi-5), so adequate amperage is required for the optimal performance of your Raspberry Pi 5.
 
 #### Set up your air filter
 
@@ -146,10 +164,10 @@ Make your own air purifier by combining a box fan and air filter to effectively 
 
 1. Plug your Kasa smart plug into a power outlet.
 1. Set up your smart plug and connect it to your local Wifi [using the Kasa mobile app](https://www.tp-link.com/us/support/faq/946/) from the App Store or Google Play.
-1. Find your smart plug's IP address on your router's admin page. From a web browser, enter your router's IP address (commonly `192.168.1.1` or `192.168.0.1`) and log in using your admin username and password. Look for a section like "Connected Devices," "Device List," or "DHCP Clients." Locate your Kasa smart plug by its name, MAC address (shown in the Kasa mobile app), or manufacturer name (usually TP-Link). Make a note of the IP address since we'll need it again soon.
+1. From the command line of your terminal app, install the [`python-kasa`](https://python-kasa.readthedocs.io/en/stable/index.html) library, and enter the command `kasa discover` to locate the IP address of the connected device. Make a note of the IP address since we'll need it again soon.
    > aside negative
-   > **Command line alternative** install the [`python-kasa`](https://python-kasa.readthedocs.io/en/stable/index.html) library, and enter the command `kasa discover` to locate the IP address of the connected device.
-1. Plug the box fan into the Kasa smart plug.
+   > If you have access to your router's admin page, you can also find your smart plug's IP address from a web browser. From a web browser, enter your router's IP address (commonly `192.168.1.1` or `192.168.0.1`) and log in using your admin username and password. Look for a section like "Connected Devices," "Device List," or "DHCP Clients." Locate your Kasa smart plug by its name, MAC address (shown in the Kasa mobile app), or manufacturer name (usually TP-Link).
+1. Plug the box fan into the Kasa smart plug. Toggle the box fan power with the Kasa app to make sure it's working as expected.
    ![photo of Kasa smart plug with fan](assets/smartPlug.jpg)
 
 #### Set up your Raspberry Pi
@@ -289,15 +307,27 @@ At this point, you have configured and tested your machine and peripherals, but 
 #### Create an automation script
 
 1. To configure the machine to automatically run a command to execute a script, use a [Viam process](https://docs.viam.com/configure/processes/). Create a new file on your computer called `process.py`.
+
+   On MacOS, Linux, or Windows WSL:
+
    ```bash
-   $ touch process.py
+   touch process.py
    ```
+
+   On Windows:
+
+   ```cmd
+   type nul > process.py
+   ```
+
 1. Copy and paste [this sample code](https://github.com/loopDelicious/viam-pm25-process/blob/main/process.py) into the new file `process.py`. This code will allow your Raspberry Pi to connect to both our sensor and plug and execute our logic.
 1. Now it's time to move your control code to your Raspberry Pi device. [SSH into your Raspberry Pi](https://docs.viam.com/installation/prepare/rpi-setup/#connect-with-ssh) if you're not already SSH'd.
 1. From the SSH prompt on your Raspberry Pi, install the Python package manager.
-   ```bash
-   $ sudo apt install -y python3-pip
-   ```
+
+```bash
+$ sudo apt install -y python3-pip
+```
+
 1. Install the Viam Python SDK into a new directory called `process`.
    ```bash
    $ pip3 install --target=process viam-sdk
@@ -356,6 +386,14 @@ Now that your system is working the way you want it, it's time to tidy up our pr
 
 Duration: 5
 
+### Customize slides
+
+Feel free to make a copy of [this sample slide deck](https://docs.google.com/presentation/d/2PACX-1vQASvr1zvA-1Ol5mmfuFJuRVy8TDaT_wFojQ22PnL3WsHG0cAct9XJv75-LDtgOuOCAjqPCeDwZ1PJX/view), customize it, and make it your own.
+
+<a href="https://docs.google.com/presentation/d/13gRV6WFBaN-RZaYp3N7HynGTrFAbewfLf4nMtRBguos/edit#slide=id.p1">
+    <img src="assets/slideThumb.png" alt="workshop slides" width="500">
+</a>
+
 ### Additional resources
 
 - The website [pinout.xyz](https://pinout.xyz/) is a helpful resource with the exact layout and role of each pin for Raspberry Pi.
@@ -363,10 +401,22 @@ Duration: 5
 
 ### Common pitfalls and troubleshooting guidance
 
+#### Flashing firmware
+
 - Make sure you are using a 5V 5A (25W) power supply. USB boot is disabled by default [when connected to a 3A power supply](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#differences-on-raspberry-pi-5), so adequate amperage is required for the optimal performance of your Raspberry Pi 5.
-- Participants must remember the `hostname` and `username` they set while flashing their Raspberry Pi, as they will need this when they SSH into the Pi. To save time, instructors can flash all the Pis ahead of time with pre-determined credentials and share the credentials with participants during the workshop.
-- If you don't have access to your router's admin page to to locate the IP address of the connected Kasa smart plug, use the command line alternative. Install the [`python-kasa`](https://python-kasa.readthedocs.io/en/stable/index.html) library, and enter the command `kasa discover`.
+- Participants must remember the `hostname` and `username` they set while flashing their Raspberry Pi, as they will need this when they SSH into the Pi.
+- To save time, instructors can flash all the Pis ahead of time with pre-determined credentials and share the credentials with participants during the workshop. Each Pi should have a unique `hostname` to avoid conflicts on the shared local network, such as `&lt;student-name&gt;-air` or `&lt;group-name&gt;-air` if they are working in groups.
+  - If you're using SD cards, verify that you have a way to write data onto them before providing them to participants.
+
+#### Locating IP address of smart plug
+
+- In a group setting, configure one smart plug at a time in order to avoid confusion and conflicts in identifying the proper IP addresses on the local area network.
+- If you have access to your router's admin page, you can also find your smart plug's IP address from a web browser. From a web browser, enter your router's IP address (commonly 192.168.1.1 or 192.168.0.1) and log in using your admin username and password. Look for a section like "Connected Devices," "Device List," or "DHCP Clients." Locate your Kasa smart plug by its name, MAC address (shown in the Kasa mobile app), or manufacturer name (usually TP-Link).
+
+#### Configuring machine and peripherals
+
 - If any problems occur while setting up the machine and peripherals in [the Viam app](https://app.viam.com), check under the **LOGS** tab to see what might be going wrong.
+- Also refer to the overall [Viam troubleshooting guide](https://docs.viam.com/appendix/troubleshooting/).
 
 <!-- ------------------------ -->
 
