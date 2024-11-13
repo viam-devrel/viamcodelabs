@@ -3,13 +3,16 @@ id: home-assistant
 summary: Add Viam to your Home Assistant with the community integration.
 categories: Developer
 environments: web
-status: Published 
+status: Published
 feedback link: https://github.com/viam-labs/viamcodelabs/issues
 tags: Developer
 
 # Set up people detection notifications in Home Assistant
+
 <!-- ------------------------ -->
-## Overview 
+
+## Overview
+
 Duration: 1
 
 [Home Assistant](https://home-assistant.io) is one of the most popular smart home platforms in the world with a vast ecosystem of integrations to monitor and automate the devices around our homes.
@@ -19,11 +22,13 @@ In this codelab, you'll learn how to install the integration through the [Home A
 
 ![Home Assistant notification of a person detected](assets/ha-detection-notification.png)
 
-### What You’ll Build 
+### What You’ll Build
+
 - a machine running a local ML model
 - a smart home automation for people detection notifications
 
 ### Prerequisites
+
 - A computer with MacOS, Windows, or Linux to flash your Raspberry Pi and configure the device's components using the Viam app
 - Hardware and supplies:
   - 1 - [Raspberry Pi 5](https://www.amazon.com/Raspberry-Single-2-4GHz-Quad-core-Cortex-A76/dp/B0CLV7DFD2)
@@ -31,12 +36,14 @@ In this codelab, you'll learn how to install the integration through the [Home A
   - 1 - microSD card to use with your Pi
   - 1 - power supply for your Pi
 
-### What You’ll Need 
+### What You’ll Need
+
 - All the hardware components listed in prerequisites.
-- A Home Assistant instance with a [camera integration](https://www.home-assistant.io/integrations/#camera) and [HACS](https://hacs.xyz/docs/use/) installed 
+- A Home Assistant instance with a [camera integration](https://www.home-assistant.io/integrations/#camera) and [HACS](https://hacs.xyz/docs/use/) installed
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/dashboard) to the Viam app
 
-### What You’ll Learn 
+### What You’ll Learn
+
 - How to use a vision service in Viam
 - How to install a community integration in Home Assistant
 - How to configure an automation in Home Assistant
@@ -50,6 +57,7 @@ See a demonstration and overview of the integration in this video.
 <!-- ------------------------ -->
 
 ## Configure your machine
+
 Duration: 3
 
 ### Create your machine
@@ -86,24 +94,20 @@ Duration: 3
    ![select ML model for vision service](assets/viam-config-vision-model.png)
 1. **Save** your changes in the top right and wait a few moments for the configuration changes to take effect.
 
-
 > aside negative
 > If any problems occur, check under the **LOGS** tab to see what might be going wrong.
 
-
 <!-- ------------------------ -->
+
 ## Add Viam integration to Home Assistant
+
 Duration: 5
 
 As a community integration, Viam is available through the [Home Assistant Community Store (HACS)](https://hacs.xyz/).
-After [getting started with HACS](https://hacs.xyz/docs/use/#getting-started-with-hacs), the [hipsterbrown/viam-home-assistant-integration repository](https://github.com/HipsterBrown/viam-home-assistant-integration) can be added as a custom repository to the store.
+After [getting started with HACS](https://hacs.xyz/docs/use/#getting-started-with-hacs), you can add the [Viam integration](https://github.com/HipsterBrown/viam-home-assistant-integration) from the store.
 
-1. From the HACS dashboard in Home Assistant, click on the top-right action menu (three-vertical dots) and select "Custom 
-   ![select custom repos](assets/hacs-custom-repo.png)
-1. In the "Repository" input, enter `hipsterbrown/viam-home-assistant-integration`, then select "Integration" from the "Category" dropdown and click "Add".
-   ![enter repository info](assets/hacs-add-repository.png)
-1. The modal will stay open and show the Viam custom repository information above the form with a red trash can icon to the right. Click on "Viam".
-   ![click on Viam custom repository](assets/hacs-custom-viam.png)
+1. From the HACS dashboard in Home Assistant, search for Viam at the top, and select the top result.
+   ![search Viam](assets/hacs-search.png)
 1. The integration documentation will be displayed. Click on the blue "Download" button in the bottom right to install the code onto your Home Assistant device.
    ![Viam integration docs](assets/hacs-viam-download.png)
 1. Once the installation is complete, go to the "Settings" page and select "Devices & services" to view the integrations dashboard.
@@ -118,10 +122,10 @@ After [getting started with HACS](https://hacs.xyz/docs/use/#getting-started-wit
 1. The Viam integration should now appear on your Integrations Dashboard.
    ![Viam integration in dashboard](assets/ha-integration-viam.png)
 
-
-
 <!-- ------------------------ -->
+
 ## Create People Detection Automation
+
 Duration: 4
 
 The Viam integration provides a few services that can be used in [Home Assistant automations](https://www.home-assistant.io/docs/automation/).
@@ -141,14 +145,14 @@ For this codelab, you'll use the [object detection service](https://github.com/H
    ![detect objects actions](assets/ha-automation-action-search-detect.png)
 1. In the "Viam machine" field, select the configured machine from earlier. Enter the name of the vision service, "vision-1", in the "Detector Name" field. Check the "Camera Entity" box and select the connected camera you would like to use for this automation. Then set the "Response variable" to "people_detections".
    ![detect objects configuration](assets/ha-automation-action-config-detect.png)
-1. Click "+ Add Action"  to open the selection modal, then search for "Condition" and select the top result.
+1. Click "+ Add Action" to open the selection modal, then search for "Condition" and select the top result.
    ![condition action](assets/ha-automation-action-search-condition.png)
 1. Select "Template" for the "Condition type" and enter the following into the "Value template" field:
    ```yaml
-   {{ people_detections.detections|count > 0 }}
-    ```
+   { { people_detections.detections|count > 0 } }
+   ```
    ![condition config](assets/ha-automation-action-config-condition.png)
-1. Click "+ Add Action"  to open the selection modal, then search for "Persist" and select the top result.
+1. Click "+ Add Action" to open the selection modal, then search for "Persist" and select the top result.
    ![notification action](assets/ha-automation-action-search-persist.png)
 1. Click the action menu (three vertical dots) on the new "Persistent Notifications: 'Create'" card, and select "Edit in YAML" to display the YAML editor for creating templated notifications. Replace the `data: {}` line with the following code:
    ```yaml
@@ -157,8 +161,8 @@ For this codelab, you'll use the [object detection service](https://github.com/H
      message: >
        Detected {{ people_detections.detections|join(", ", "name")|default("nothing",
        true) }}: ![captured image]({{ people_detections.img_src }})
-    ```
-    This will create a notification with a list of detected people and the associated image.
+   ```
+   This will create a notification with a list of detected people and the associated image.
    ![notification config](assets/ha-automation-action-config-persist.png)
 1. Click the "Save" button in the bottom-right corner to enter a name for the automation and complete the setup.
 
@@ -169,7 +173,9 @@ For this codelab, you'll use the [object detection service](https://github.com/H
    > - Check the "Settings" -> "System" -> "Logs" page to see more details about any errors.
 
 <!-- ------------------------ -->
+
 ## Next Steps
+
 Duration: 3
 
 Congratulations, you now have automated people detection for your smart home! Building on this experience you can do the following to make it even smarter:
@@ -179,6 +185,7 @@ Congratulations, you now have automated people detection for your smart home! Bu
 - [visualize the collected sensor data](https://docs.viam.com/how-tos/sensor-data-visualize/) using tools like Grafana
 
 ### What You Learned
+
 - How to use a vision service in Viam
 - How to install a community integration in Home Assistant
 - How to configure an automation in Home Assistant
