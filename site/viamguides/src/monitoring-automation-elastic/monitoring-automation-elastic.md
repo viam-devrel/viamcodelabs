@@ -12,30 +12,40 @@ tags: Getting Started, Developer, Data
 ## Overview 
 Duration: 1
 
-Please use [this markdown file](https://raw.githubusercontent.com/viam-labs/viamcodelabs/master/site/viamguides/sample.md) as a template for writing your own Viam Codelab. This example guide has elements that you will use when writing your own guides, including: code snippet highlighting, downloading files, inserting photos, and more. 
+Gathering sensor data starts out simple but over time it can be overwhelming to sift through all that information, especially as more and more sensors come online. If you've worked on a comprehensive web service in the past, you might already know about [Elasticsearch](https://www.elastic.co/elasticsearch) and the rest of the [ELK stack](https://www.elastic.co/elastic-stack) for indexing and analyzing data from any source, including sensors connected to Viam machines!
+One neat feature of the ELK stack is configurable [alerting rules](https://www.elastic.co/guide/en/kibana/current/alerting-getting-started.html) and [actions](https://www.elastic.co/guide/en/kibana/current/alerting-getting-started.html#alerting-concepts-actions) that can be used to automate notifications or even affect the physical world using one of Viam's SDKs.
 
-It is important to include on the first page of your guide the following sections: Prerequisites, What you'll learn, What you'll need, and What you'll build. Remember, part of the purpose of a Viam Guide is that the reader will have **built** something by the end of the tutorial; this means that actual code needs to be included (not just pseudo-code).
-
-The rest of this Viam Guide explains the steps of writing your own guide. 
+In this codelab, you'll learn how to continually index sensor data from Viam into Elasticsearch and display an alert in the real world. 
 
 ### Prerequisites
-- Familiarity with Markdown syntax
-
-### What You’ll Learn 
-- how to set the metadata for a guide (category, author, id, etc)
-- how to set the amount of time each slide will take to finish 
-- how to include code snippets 
-- how to hyperlink items 
-- how to include images 
+- A computer with MacOS, Windows, or Linux to flash your Raspberry Pi and configure the device's components using the Viam app
+- Hardware and supplies:
+  - 1 - [Raspberry Pi 5](https://www.amazon.com/Raspberry-Single-2-4GHz-Quad-core-Cortex-A76/dp/B0CLV7DFD2)
+    - Follow the [Raspberry Pi setup guide](https://docs.viam.com/installation/prepare/rpi-setup/) to make sure your Pi is flashed with a Viam-compatible operating system, and that you are able to SSH into it.
+  - 1 microSD card to use with your Pi
+  - 1 power supply for your Pi
+  - 1 [MPU6050 GY-521 sensor module](https://www.amazon.com/Pre-Soldered-Accelerometer-Raspberry-Compatible-Arduino/dp/B0BMY15TC4)
+  - 1 [LED of any color](https://amzn.to/2Ex2v5q)
+  - 1 [solderless breadboard](https://www.amazon.com/dp/B0135IQ0ZC)
+  - 6 [jumper wires](https://www.amazon.com/dp/B077X99KX1) to connect the sensor to the Pi
 
 ### What You’ll Need 
-- A [GitHub](https://github.com/) Account 
-- [VSCode](https://code.visualstudio.com/download) Installed
-- [NodeJS](https://nodejs.org/en/download/) Installed
-- [GoLang](https://golang.org/doc/install) Installed
+- All the hardware components listed in prerequisites.
+- [Python3](https://www.python.org/downloads/) installed on your computer
+- [VS Code](https://code.visualstudio.com/download) installed, or another similar code editor of your choice.
+- Some way of getting a public URL for a local HTTP server, such as [ngrok](https://ngrok.com/) or [zrok](https://zrok.io/)
+- An [Elastic stack deployment](https://www.elastic.co/guide/en/cloud/current/ec-create-deployment.html)
+- Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/dashboard) to the Viam app
+
+
+### What You’ll Learn 
+- how to wire a movement sensor and LED to a Raspberry Pi
+- how to capture sensor data in Viam
+- how to use webhooks as an [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) process between Viam and Elastic
+- how to use webhooks to blink an LED based on an Elastic alert
 
 ### What You’ll Build 
-- A Viam Guide
+- a production-ready sensor data monitoring and automation system built around Viam and Elastic
 
 <!-- ------------------------ -->
 ## Hardware Setup
