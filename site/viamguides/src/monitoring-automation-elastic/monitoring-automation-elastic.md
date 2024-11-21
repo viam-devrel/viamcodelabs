@@ -33,7 +33,7 @@ In this codelab, you'll learn how to continually index sensor data from Viam int
 - All the hardware components listed in prerequisites.
 - [Python3](https://www.python.org/downloads/) installed on your computer
 - [VS Code](https://code.visualstudio.com/download) installed, or another similar code editor of your choice.
-- Some way of getting a public URL for a local HTTP server, such as [ngrok](https://ngrok.com/) or [zrok](https://zrok.io/)
+- A [zrok](https://zrok.io/) account and [enabled environment](https://docs.zrok.io/docs/getting-started#enabling-your-zrok-environment).
 - An [Elastic stack deployment](https://www.elastic.co/guide/en/cloud/current/ec-create-deployment.html)
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/dashboard) to the Viam app
 
@@ -236,11 +236,72 @@ Duration: 8
 
 To continually update the Elasticsearch index with sensor data, we're going to create a [serverless function](https://en.wikipedia.org/wiki/Function_as_a_service) to be used as a [trigger](https://docs.viam.com/configure/triggers/) whenever new data is synced from the machine.
 
+The full example code is in the [project Github repository](https://github.com/viam-devrel/physical-world-monitoring).
+
 ### Create a function
+
+The function is authored in Python using the [Functions Framework](https://github.com/GoogleCloudPlatform/functions-framework-python), which will make it easy to run locally and deploy to [Google Cloud Functions](https://cloud.google.com/functions/) when you're ready.
+
+1. In your terminal, [clone the repository to your local development environment](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository): `git clone https://github.com/viam-devrel/physical-world-monitoring.git`
+1. Change directories into the newly-cloned project: `cd physical-world-monitoring`
+1. [Install the uv Python project manager](https://docs.astral.sh/uv/getting-started/installation/)
+   On macOS and Linux
+   ```console
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+   On Windows
+   ```console
+   powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+   ```
+1. Install the project dependencies.
+   ```console
+   uv pip install -r pyproject.toml
+   ```
+1. Make a copy of the `.env.example` file called `.env` and fill out the necessary environment variables for the function. Set the `ELASTIC_API_KEY_ID` to "viam-data-ingest" and set the other variables to their respective values from the Elasticsearch index configuration earlier.
+   ```env
+   ELASTIC_API_KEY=""
+   ELASTIC_API_KEY_ID=""
+   ELASTIC_CLOUD_ID=""
+   ```
+1. Run the function server locally:
+   ```console
+   uv run functions-framework --source ./cloud-functions/ingest-sensor-data/main.py --target ingest_data --debug
+   ```
+   This will start a Flask Python server at [http://localhost:8080](http://localhost:8080).
 
 ### Expose the function to the public Internet
 
+To test out the function without going through the process of deploying to a production cloud service, we will create a tunnel from the public Internet to the local server using [zrok](https://zrok.io/).
+This step assumes you already have `zrok` installed and your [environment enabled](https://docs.zrok.io/docs/getting-started#enabling-your-zrok-environment) to start sharing the local server.
+
+1. In a new terminal window or tab, run the command to create a public proxy:
+   ```console
+   zrok share public localhost:8080
+   ```
+1. The public URL will be displayed along with any request logs that come in when the webhook is triggered.
+   ![zrok public proxy terminal UI]()
+
 ### Configure a trigger
+
+The data sync [trigger](https://docs.viam.com/configure/triggers/) will send a request to the webhook whenever data from the sensor is synced to Viam Data in the cloud. That request will include that new data in the body.
+
+1. In the Viam app, looking at the `movement_sensor-1` panel, click the **...** icon in the top-right-hand menu and select "Create trigger".
+1. In the Viam app, click the **+** icon in the left-hand menu and select **Trigger**.
+   ![select trigger]()
+1. Keep the name as `trigger-1` and click "Create".
+   ![create trigger]()
+1. Notice adding this module adds a new panel called `trigger-1`.
+   ![view after adding trigger]()
+1. In the **Event** section of the panel, select "Data has been synced to the cloud" as the Type and "Tabular (sensor)" from the list of Data Types.
+1. In the **Webhooks** section, click "+ Add Webhook" then enter the public URL from zrok in the first field and keep the default 1 minute between notifications.
+   ![configure trigger]()
+1. Click **Save** in the top right to save and apply your configuration changes.
+
+You will then see requests start to come through the zrok logs:
+![POST request log in zrok]()
+
+The function server will also display logs while the request is being processed:
+![logs from the serverless function]()
 
 <!-- ------------------------ -->
 ## Blink an LED from a webhook
@@ -248,9 +309,45 @@ Duration: 5
 
 In order to react to an alert based on the sensor data being monitored in Elastic, we will create another serverless function to handle the event and blink the LED connected to the Raspberry Pi.
 
+The full example code is in the [project Github repository](https://github.com/viam-devrel/physical-world-monitoring).
+
 ### Create a function
 
+The function is authored in Python using the [Functions Framework](https://github.com/GoogleCloudPlatform/functions-framework-python), which will make it easy to run locally and deploy to [Google Cloud Functions](https://cloud.google.com/functions/) when you're ready.
+
+1. Within the "physical-world-monitoring" project directory that you cloned earlier, update the `.env` file by filling out the necessary environment variables for the function. The Viam API key, ID, and machine address can be found in the "Control" tab of your machine in the Viam app.
+   The `PIN_NAME` is the physical GPIO pin number for the LED connected to the Raspberry Pi and the `BOARD_NAME` is the board component name in the machine configuration.
+   ```env
+   VIAM_API_KEY=""
+   VIAM_API_KEY_ID=""
+   MACHINE_ADDRESS=""
+   PIN_NAME="11"
+   BOARD_NAME="board-1"
+   ```
+1. Run the function server locally:
+   ```console
+   uv run functions-framework --source ./cloud-functions/movement-alert/main.py --target alert_movement --debug --port 8081
+   ```
+   This will start a Flask Python server at [http://localhost:8081](http://localhost:8081) to avoid conflicting with the other function server.
+
 ### Expose the function to the public Internet
+
+To test out the function without going through the process of deploying to a production cloud service, we will create a tunnel from the public Internet to the local server using [zrok](https://zrok.io/).
+This step assumes you already have `zrok` installed and your [environment enabled](https://docs.zrok.io/docs/getting-started#enabling-your-zrok-environment) to start sharing the local server.
+
+1. In a new terminal window or tab, run the command to create a public proxy:
+   ```console
+   zrok share public localhost:8081
+   ```
+1. The public URL will be displayed along with any request logs that come in when the webhook is triggered.
+   ![zrok public proxy terminal UI]()
+
+You can test the webhook using cURL, replacing the URL with the one displayed by zrok in your terminal:
+
+```console
+curl -X POST -d '{"hello":"world"}' https://bnqm830gaw6k.share.zrok.io
+```
+The data being sent doesn't matter at this point, as long as it is a valid JSON string.
 
 <!-- ------------------------ -->
 ## Configure an Elastic alert rule
@@ -311,7 +408,14 @@ This step assumes some knowledge of the Elastic console used to manage Elasticse
 ## Conclusion and Resources
 Duration: 1
 
-TBD
+Well done putting all those pieces together! 👏 Now you have a production-ready sensor data monitoring and automation system built around Viam and Elastic. 
+
+Some great next steps include:
+
+- [**Deploying the serverless functions**](https://cloud.google.com/functions/docs/create-deploy-gcloud#deploying_the_function): You don't need to run them indefinitely on your computer.
+- **Modify the sensing**: Swap out the sensor to one that detects light, sound, or air quality.
+- **Modify the actuation**: Instead of blinking an LED, the machine could move a servo or call out a notification with text-to-speech.
+
 
 ### What You Learned
 - how to wire a movement sensor and LED to a Raspberry Pi
@@ -320,5 +424,7 @@ TBD
 - how to use webhooks to blink an LED based on an Elastic alert
 
 ### Related Resources
-- [Source code repo](https://github.com/HipsterBrown/physical-world-monitoring)
+- [Source code repo](https://github.com/viam-devrel/physical-world-monitoring)
 - [Configure data triggers](https://docs.viam.com/configure/triggers/)
+- [Control a motor programmatically](https://docs.viam.com/how-tos/control-motor/#option-3-control-programmatically)
+- [Automate air filtration with air quality sensors](/guide/air-quality)
