@@ -27,40 +27,42 @@ TODO - publish walkthrough video to youtube
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com).
 - Hardware and supplies requirements
   - Raspberry Pi
-  - x3 black acrylic sheets (add dimensions, link)
   - x3 packs of [craft wire](https://www.amazon.com/TecUnite-Aluminum-Bendable-Skeleton-Thickness/dp/B08GCPWVSZ/)
   - x9 [360° micro servo motors (we used MG90S)](https://www.amazon.com/Compatible-Raspberry-Project-Helicopter-Airplane/dp/B0925TDT2D?th=1)
   - x1 [16 channel 12-Bit PWM servo motor driver (PCA9685)](https://www.amazon.com/HiLetgo-PCA9685-Channel-12-Bit-Arduino/dp/B07BRS249H)
   - x2 5V power supply
+  - Something to build the vending machine with (we used black acrylic sheets, screws, and mounting brackets)
 - Software
   - Install the Typescript SDK on your computer.
 
 ### What You’ll Learn
 
-- how to be sad
+- How to build a custom web interface to control a machine (hint: use the Viam Typescript SDK!)
+- How to use servo motors and a motor driver with Viam
+- Your robot personality type 😈
 
 ### What You’ll Need
 
 - A computer running Mac, Windows, or Linux
-- [VS Code](https://code.visualstudio.com/download) installed, or your preferred code editor
-- [Python3](https://www.python.org/downloads/) installed
+- Your preferred code editor
+- A smartphone, for testing!
 - Tools
   - A computer
-  - Laser cutter
-  - 3D printer
-  - Glue / screwdriver
+  - Screwdriver
   - Wire cutter
+  - Tools to construct the vending machine frame (we used a laser cutter and 3D printer)
 
 ### What You’ll Build
 
-- A vending machine controlled by a web application.
+- A vending machine controlled by a custom web application
 
 <!-- ------------------------ -->
 
 ## Set up the electronics
 
 ### Set up your Raspberry Pi
-Follow the Viam [documentation](https://docs.viam.com/installation/prepare/rpi-setup/) to set up your Raspberry Pi with the Viam RDK.
+Follow the Viam [documentation](https://docs.viam.com/installation/prepare/rpi-setup/) to set up your Raspberry Pi with `viam-server`.
+- Be sure to also **enable I2C** while enabling communication protocols -- this will be needed for the motor driver!
 
 ### Set up the dispensing mechanisms
 1. Wind up your craft wire into 9 coils of equal size 
@@ -93,7 +95,7 @@ From here, you should be able to use Viam to control your motors! To test:
 1. Open the test section of the board component
 2. Set the pin to be the pin on the board that you connected your motor to
 3. Set the PWM frequency to whatever your motor specifies
-    - Our motors use a PWM frequency of 50 hz
+    - The MG90S motors use a PWM frequency of 50 hz
 4. (Experimentally) Set the PWM duty cycle
     - Different duty cycles determine the speed and direction of your motor. Due to inconsistencies between motors, it may take some experimentation to find the desired duty cycle
     - Our duty cycles ended up being either 0.075 or 0.09, or 7.5% and 9% (opposite directions)
@@ -174,7 +176,8 @@ That's it! We added a few finishing touches to enhance the experience, but these
 ![finishing touches](assets/finishes.jpeg)
 
 ### LEDs
-  - Connect some LEDs to the SPI pin of the Raspberry Pi
+The LEDs really enliven this project, and let people know that sticker wizard is alive and ready to gift you a sticker! These instructions are for WS2811 LEDs, the LEDs we used here, but any individually-addressible LEDs should do the trick.
+  - Connect some WS2811 LEDs to [a SPI pin of the Raspberry Pi](https://pinout.xyz/pinout/spi)
   - If using a Raspberry Pi 5, write a script using [neopixel_spi](https://docs.circuitpython.org/projects/neopixel_spi/en/latest/) to control the colors of your LEDs. Otherwise, use [rpi_ws281x](https://github.com/jgarff/rpi_ws281x)
   - Encase your LEDs in a pretty display! 
 
