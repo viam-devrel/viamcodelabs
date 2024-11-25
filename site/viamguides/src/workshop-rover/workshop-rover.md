@@ -301,6 +301,7 @@ Now that you know how to manually control the rover using the Viam app, let's co
    ```
 1. At the command-line prompt, input your project name. Or hit **Enter** to accept the default project name, `my-viam-project`.
    ![command line prompt](assets/myViamProject.png)
+1. Select the project template `controlRover`, and hit **Enter**.
 1. Once the project setup is completed, follow the command-line instructions. Navigate into your new project directory. In the example shown below, we are using the default project name `my-viam-project`.
    ```bash
    $ cd my-viam-project
@@ -391,7 +392,8 @@ Participants have several options for continuing their projects beyond the works
 - **Take-home projects**: For participants allowed to take their rover home after the workshop, the `viam-agent` on the Raspberry Pi can simplify the setup process:
 
   - **Provisioning mode**: Upon rebooting the Raspberry Pi in a new environment like at home, the `viam-agent` automatically creates a Wi-Fi hotspot if it cannot connect to a known network.
-  - **Connect to the hotspot**: Look for a network named `viam-setup-HOSTNAME` in your list of available Wi-Fi networks, where `HOSTNAME` is the custom hostname you set during the workshop, and `viamsetup` is the default password. Connect your laptop to this network. Go to the provisioning portal at `http://viam.setup/` in a browser to follow [the on-screen instructions](https://docs.viam.com/fleet/provision/#end-user-experience) to configure the Raspberry Pi for your home Wi-Fi.
+  - **Connect to the hotspot**: Look for a network named `viam-setup-HOSTNAME` in your list of available Wi-Fi networks, where `HOSTNAME` is the custom hostname you set during the workshop, and `viamsetup` is the default password. Connect your laptop to this network.
+  - **Provide network information for the machine**: Go to the provisioning portal at `http://viam.setup/` in a browser to follow [the on-screen instructions](https://docs.viam.com/fleet/provision/#end-user-experience) to configure the Raspberry Pi for your home Wi-Fi.
 
 - **Remote control**: If participants cannot take their rover home but want to continue their projects, they can access their rover remotely:
 
@@ -444,6 +446,7 @@ Here are some ideas for expanding and enhancing the current project to create au
 - [Navigate with a rover base](https://docs.viam.com/tutorials/services/navigate-with-rover-base/) tutorial: to set up user-defined waypoints for your rover to move to in the order that you specify or dynamically adapt using inputs like GPS or vision
 - [Train a custom ML model](https://docs.viam.com/how-tos/train-deploy-ml/) guide: to enable object detection or classification and program the rover to act accordingly, such as moving toward or avoiding detected objects
 - [Add sensors and other components](https://docs.viam.com/appendix/try-viam/rover-resources/rover-tutorial/#extensibility) to extend the functionality of your rover
+- [Use the Viam mobile SDK to build an iOS or Android application](https://docs.viam.com/sdks/#mobile-sdk) to control the machine's components
 
 <img src="assets/logistics.png" alt="viam icons" width="200">
 

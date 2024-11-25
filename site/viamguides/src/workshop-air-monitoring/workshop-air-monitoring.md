@@ -545,7 +545,8 @@ Participants have several options for continuing their projects beyond the works
 - **Take-home projects**: For participants allowed to take their projects home after the workshop, the `viam-agent` on the Raspberry Pi can simplify the setup process:
 
   - **Provisioning mode**: Upon rebooting the Raspberry Pi in a new environment like at home, the `viam-agent` automatically creates a Wi-Fi hotspot if it cannot connect to a known network.
-  - **Connect to the hotspot**: Look for a network named `viam-setup-HOSTNAME` in your list of available Wi-Fi networks, where `HOSTNAME` is the custom hostname you set during the workshop, and `viamsetup` is the default password. Connect your laptop to this network. Go to the provisioning portal at `http://viam.setup/` in a browser to follow [the on-screen instructions](https://docs.viam.com/fleet/provision/#end-user-experience) to configure the Raspberry Pi for your home Wi-Fi.
+  - **Connect to the hotspot**: Look for a network named `viam-setup-HOSTNAME` in your list of available Wi-Fi networks, where `HOSTNAME` is the custom hostname you set during the workshop, and `viamsetup` is the default password. Connect your laptop to this network.
+  - **Provide network information for the machine**: Go to the provisioning portal at `http://viam.setup/` in a browser to follow [the on-screen instructions](https://docs.viam.com/fleet/provision/#end-user-experience) to configure the Raspberry Pi for your home Wi-Fi.
 
 - **Remote control**: If participants are not allowed to take their projects home after the workshop, but want to continue working on their projects from home, they can access the Raspberry Pi remotely from anywhere in the world and continue accessing sensor data. If participants do not have SSH access into the Raspberry Pi, participants can write and run code on their laptops from home.
 
