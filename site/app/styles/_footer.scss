@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-@import "_variables";
+@use "_variables";
+@use "fonts";
 
 #footer {
-  background-color: $black;
+  background-color: variables.$black;
   font-size: 13px;
   padding: 40px 0;
 
@@ -28,7 +29,7 @@
   }
 
   a {
-    color: $grey500;
+    color: variables.$grey500;
   }
 
   .footer-wrapper {
@@ -37,7 +38,7 @@
 
   .link-list {
     flex: 1;
-    margin-right: $keyline*4;
+    margin-right: variables.$keyline*4;
 
     &:last-child {
       margin-right: 0;
@@ -47,8 +48,8 @@
     label {
       display: block;
       color: #fff;
-      margin: $keyline 0;
-      font-family: $lato-bold;
+      margin: variables.$keyline 0;
+      font-family: fonts.$lato-bold;
       text-transform: uppercase;
     }
 
@@ -60,7 +61,7 @@
 }
 
 .footerbar {
-  background-color: $white;
+  background-color: variables.$white;
   color: #000;
   font-size: 13px;
   padding: 10px 0;
@@ -70,15 +71,15 @@
   }
 }
 
-@media (max-width: $phone-breakpoint-max) {
+@media (max-width: variables.$phone-breakpoint-max) {
   #footer {
-    padding: $keyline*3 0;
+    padding: variables.$keyline*3 0;
 
     .footer-wrapper {
       flex-direction: column;
     }
     .link-list {
-      margin: 0 0 $keyline*3 0;
+      margin: 0 0 variables.$keyline*3 0;
     }
   }
 }

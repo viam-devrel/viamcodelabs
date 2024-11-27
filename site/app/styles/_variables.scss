@@ -1,3 +1,4 @@
+@use "sass:color";
 /**
  * Copyright 2015 Google Inc. All rights reserved.
  *
@@ -153,11 +154,11 @@ $keyline: 8px;
 
 $textSize: 16px;
 $textLineHeight: 1.5;
-$textColor: lighten(#000, 20%);
+$textColor: color.adjust(#000, $lightness: 20%);
 
 $helperTextSize: 14px;
 $helperTextLineHeight: 24px;
-$helperTextColor: lighten(#000, 56%);
+$helperTextColor: color.adjust(#000, $lightness: 56%);
 
 $headlineSize: 1.4em;
 $headlineLineHeight: 1em;

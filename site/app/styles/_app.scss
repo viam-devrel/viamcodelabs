@@ -15,7 +15,10 @@
  */
 
 
-@import "_material";
+@use "_material";
+@use "layout";
+@use "variables";
+@use '_buttons';
 
 * {
   box-sizing: border-box;
@@ -24,12 +27,12 @@
 }
 
 body {
-  background: $backgroundColor;
+  background: variables.$backgroundColor;
 
   &.view {
     #banner {
       padding-top: calc(56px + 24px); // "codelabs" topbar height
-      padding-bottom: $keyline * 3;
+      padding-bottom: variables.$keyline * 3;
       position: relative; // ensures bar renders below top toolbar on page load.
     }
   }
@@ -77,8 +80,8 @@ ul, li {
 }
 
 #banner {
-  background-color: $viam-black;
-  @include keyline-40();
+  background-color: variables.$viam-black;
+  @include layout.keyline-40();
   padding: 40px 0 48px 0;
 
   &[down] {
@@ -117,9 +120,9 @@ ul, li {
     top: 0;
     max-width: 100%;
     width: 100%;
-    background-color: $backgroundColor;
-    color: $blueGrey600;
-    padding: $keyline 0;
+    background-color: variables.$backgroundColor;
+    color: variables.$blueGrey600;
+    padding: variables.$keyline 0;
     transform: translateY(-100%);
     transition: transform 400ms cubic-bezier(0,0,0.2,1);
     will-change: transform;
@@ -130,40 +133,40 @@ ul, li {
   }
 
   .banner_arrows {
-    margin-left: $keyline * 2;
+    margin-left: variables.$keyline * 2;
   }
 
   .banner-title {
-    margin-bottom: $keyline;
+    margin-bottom: variables.$keyline;
   }
 
   .banner-description {
     .banner-meta {
-      @include keyline-32();
+      @include layout.keyline-32();
 
       h3 {
-        margin-bottom: $keyline;
+        margin-bottom: variables.$keyline;
       }
     }
   }
 
   paper-button {
-    @include md-font-button();
-    background-color: $blueGrey500;
-    padding: $keyline $keyline * 2;
+    @include material.md-font-button();
+    background-color: variables.$blueGrey500;
+    padding: variables.$keyline variables.$keyline * 2;
     min-width: 150px;
     color: #fff;
     text-align: center;
     line-height: initial;
 
     &.iron-selected {
-      background-color: $blueGrey700;
+      background-color: variables.$blueGrey700;
     }
   }
 }
 
 #sortby {
-  padding: $keyline * 3 0;
+  padding: variables.$keyline * 3 0;
   justify-content: center;
 
   paper-tabs {
@@ -178,31 +181,31 @@ ul, li {
 
 .paper-button-0,
 .paper-menu-button-0 {
-  border-radius: $radius !important;
+  border-radius: variables.$radius !important;
 }
 
 .dropdown-filter {
   background-color: #fff;
-  border-radius: $radius;
+  border-radius: variables.$radius;
 }
 
 .dropdown-content {
-  border-radius: $radius !important;
+  border-radius: variables.$radius !important;
 
   paper-item:hover {
-    background: $grey200;
+    background: variables.$grey200;
     cursor: pointer;
   }
 }
 
-@media (max-width: $phone-breakpoint-max) {
+@media (max-width: variables.$phone-breakpoint-max) {
   #banner {
-    padding: $keyline * 2 0;
+    padding: variables.$keyline * 2 0;
     line-height: 16px;
 
     paper-button {
       display: inline-block;
-      margin: $keyline * 2 0 0 0;
+      margin: variables.$keyline * 2 0 0 0;
     }
   }
 
@@ -236,7 +239,7 @@ ul, li {
     display: none;
   }
   #logo {
-    margin-bottom: $keyline * 2;
+    margin-bottom: variables.$keyline * 2;
   }
 
   .filters {
@@ -244,19 +247,19 @@ ul, li {
   }
 }
 
-@media (min-width: $tablet-breakpoint-min) {
+@media (min-width: variables.$tablet-breakpoint-min) {
   #banner {
     paper-button {
-      margin-bottom: $keyline * 2;
+      margin-bottom: variables.$keyline * 2;
     }
     .banner-title {
-      margin-bottom: $keyline * 2;
+      margin-bottom: variables.$keyline * 2;
     }
   }
 
   .banner-info {
-    margin-right: $keyline * 4;
-    line-height: $keyline * 4;
+    margin-right: variables.$keyline * 4;
+    line-height: variables.$keyline * 4;
   }
   .banner-info a {
     text-decoration: underline;

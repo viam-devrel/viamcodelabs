@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-@import "_variables";
-@import "_categories";
+@use "_variables";
+@use "_categories";
+@use "fonts";
+@use "material";
 
 $card-width: 330px;
 $card-row-height: 250px; // normal mode
@@ -25,7 +27,7 @@ $card-col-height: 200px; // column mode
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-bottom: $keyline * 3;
+  margin-bottom: variables.$keyline * 3;
 }
 
 .codelab-card {
@@ -33,7 +35,7 @@ $card-col-height: 200px; // column mode
   display: flex;
   flex-direction: column;
   flex: 1 0 $card-width;
-  margin: 0 $keyline * 2 $keyline * 2 0;
+  margin: 0 variables.$keyline * 2 variables.$keyline * 2 0;
   max-width: $card-width;
   border-radius: 0;
   border-bottom: 2px solid transparent;
@@ -47,15 +49,15 @@ $card-col-height: 200px; // column mode
   }
 
   img {
-    margin-right: calc($keyline / 2);
+    margin-right: calc(variables.$keyline / 2);
   }
 
   .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $keyline * 2 $keyline * 2 0 $keyline * 2;
-    font-family: $lato-bold !important;
+    padding: variables.$keyline * 2 variables.$keyline * 2 0 variables.$keyline * 2;
+    font-family: fonts.$lato-bold !important;
   }
 
   .card-duration {
@@ -63,7 +65,7 @@ $card-col-height: 200px; // column mode
     align-items: center;
     color: #aaaaaa;
     font-size: 11px;
-    padding: 0 $keyline * 2;
+    padding: 0 variables.$keyline * 2;
     mix-blend-mode: initial;
     justify-content: space-between;
 
@@ -75,17 +77,17 @@ $card-col-height: 200px; // column mode
   .card-author,
   .card-updated {
     font-size: 12px;
-    color: $grey400;
+    color: variables.$grey400;
     line-height: 16px;
     text-align: right;
   }
 
   .description {
-    padding: $keyline * 2 $keyline * 2 0 $keyline * 2;
+    padding: variables.$keyline * 2 variables.$keyline * 2 0 variables.$keyline * 2;
     flex: 1 0 auto;
     color: #212121;
     -webkit-font-smoothing: antialiased;
-    font-family: $lato-bold !important;
+    font-family: fonts.$lato-bold !important;
   }
 }
 
@@ -94,15 +96,15 @@ $card-col-height: 200px; // column mode
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $keyline 2 * $keyline;
+  padding: variables.$keyline 2 * variables.$keyline;
 
   paper-button {
-    @include md-font-button();
+    @include material.md-font-button();
     color: #fff;
     text-transform: none;
     padding: 13px 25px;
     border-radius: 50px !important;
-    font-family: $texta-black;
+    font-family: fonts.$texta-black;
     text-transform: uppercase;
   }
 
@@ -127,14 +129,14 @@ $card-col-height: 200px; // column mode
 
 /* ***** Responsive ***** */
 
-@media (max-width: $phone-breakpoint-max) {
+@media (max-width: variables.$phone-breakpoint-max) {
   #cards {
     flex-direction: column;
     align-items: center;
   }
 
   .codelab-card {
-    margin: 0 0 $keyline * 2;
+    margin: 0 0 variables.$keyline * 2;
     min-width: $card-width;
     max-width: 100%;
     width: 100%;
@@ -150,7 +152,7 @@ $card-col-height: 200px; // column mode
   }
 }
 
-@media (min-width: $phone-breakpoint-max) and (max-width: $desktop-breakpoint-mid) {
+@media (min-width: variables.$phone-breakpoint-max) and (max-width: variables.$desktop-breakpoint-mid) {
   .codelab-card {
     flex: 0 0 32%;
     margin: 0 2% 2% 0;

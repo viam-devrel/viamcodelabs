@@ -1,3 +1,7 @@
+@use "categories";
+@use "fonts";
+@use "variables";
+
 
 #filters {
 
@@ -7,14 +11,14 @@
 
   #tabsContent {
     .paper-tab-0 {
-      font-family: $lato-bold !important;
+      font-family: fonts.$lato-bold !important;
     }
 
   }
 }
 
 .paper-input-container-1 .input-content.paper-input-container input, .paper-input-container-1 .input-content.paper-input-container textarea, .paper-input-container-1 .input-content.paper-input-container iron-autogrow-textarea, .paper-input-container-1 .input-content.paper-input-container .paper-input-input {
-  font-family: $lato !important;
+  font-family: fonts.$lato !important;
 }
 
 .paper-header-panel-0 #dropShadow.has-shadow.paper-header-panel {
@@ -24,15 +28,15 @@
 
 /* Snowflake specific category classes w/Viam overrides */
 
-$color-default: $viam-black;//#134369;
-$color-getting-started: $hologram; //#5bc6d1;
-$developer: $power-button; //#00EF83;
-$color-devops: $raspberry; //#347c3e;
-$color-data: $yoshimi;//#097e89;
-$color-demos: $pcb; //#c7477a;
-@include codelab-card(['default'], $color-default, '');
-@include codelab-card(['getting-started'], $color-getting-started, '');
-@include codelab-card(['developer'], $developer, '');
-@include codelab-card(['devops'], $color-devops, '');
-@include codelab-card(['data'], $color-data, '');
-@include codelab-card(['workshops'], $color-demos, '');
+$color-default: variables.$viam-black;//#134369;
+$color-getting-started: variables.$hologram; //#5bc6d1;
+$developer: variables.$power-button; //#00EF83;
+$color-devops: variables.$raspberry; //#347c3e;
+$color-data: variables.$yoshimi;//#097e89;
+$color-demos: variables.$pcb; //#c7477a;
+@include categories.codelab-card(['default'], $color-default, '');
+@include categories.codelab-card(['getting-started'], $color-getting-started, '');
+@include categories.codelab-card(['developer'], $developer, '');
+@include categories.codelab-card(['devops'], $color-devops, '');
+@include categories.codelab-card(['data'], $color-data, '');
+@include categories.codelab-card(['workshops'], $color-demos, '');

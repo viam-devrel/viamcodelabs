@@ -14,71 +14,71 @@
  * limitations under the License.
  */
 
-@import "material";
-@import "fonts";
+@use "material";
+@use "fonts";
 
 body {
-  @include md-font-subhead();
+  @include material.md-font-subhead();
   // line-height: 32px;
   color: #5c5c5c;
 }
 
 h1 {
-  @include md-font-display3();
+  @include material.md-font-display3();
 }
 
 h2 {
-  @include md-font-display2();
+  @include material.md-font-display2();
 }
 
 h3 {
-  @include md-font-display1();
+  @include material.md-font-display1();
 }
 
 h4 {
-  @include md-font-headline();
+  @include material.md-font-headline();
 }
 
 
 
 body {
-  font-family: $lato;
+  font-family: fonts.$lato;
 }
 
 p {
-  font-family: $lato;
+  font-family: fonts.$lato;
   line-height: 1.75;
 }
 
 h1 {
-  font-family: $texta-black;
+  font-family: fonts.$texta-black;
   text-transform: uppercase;
   line-height: 0.79;
 }
 
 h2 {
-  font-family: $texta-heavy;
+  font-family: fonts.$texta-heavy;
   text-transform: uppercase;
   line-height: 0.9;
 }
 h3 {
-  font-family: $lato-heavy;
+  font-family: fonts.$lato-heavy;
   font-weight: normal;
   line-height: 1.15;
 }
 h4 {
-  font-family: $lato-bold;
+  font-family: fonts.$lato-bold;
   font-weight: normal;
   line-height: 1.25;
 }
 h5 {
-  font-family: $lato-bold;
+  font-family: fonts.$lato-bold;
   font-weight: normal;
   line-height: 1.4;
 }
 h6 {
   text-transform: uppercase;
-  font-family: $lato-bold;
+  font-family: fonts.$lato-bold;
   font-weight: normal;
   line-height: 1.4;
 }

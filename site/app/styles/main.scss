@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-@import "_variables";
-@import "_layout";
-@import "_typography";
-@import "_buttons";
+@use "_variables";
+@use "_layout";
+@use "_typography";
+@use "_buttons";
 
-@import "_app";
-@import "_toolbar";
-@import "_codelab-card";
-@import "_footer";
-@import "_overrides";
+@use "_app";
+@use "_toolbar";
+@use "_codelab-card";
+@use "_footer";
+@use "_overrides";
