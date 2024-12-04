@@ -1,3 +1,6 @@
+@use "sass:string";
+@use "variables";
+
 /**
  * Copyright 2015 Google Inc. All rights reserved.
  *
@@ -16,7 +19,7 @@
 
 /* Google colors */
 
-$snowflake-blue:  #4285f4;
+variables.$snowflake-blue:  #4285f4;
 $color-google-red:  #ea4335;
 $color-google-yellow:  #fbbc05;
 $color-google-green:  #34a853;
@@ -46,31 +49,31 @@ $color-weave-green: #0f9d58;
 
 
 /* Snowflake Colors */
-$snowflake-blue:   #29B5E8;
-$mid-blue:         #11567F;
-$dark-blue:        #0080B0;
-$star-blue:        #71D3DC;
-$valencia-orange:  #FF9F36;
-$purple-moon:      #7D44CF;
-$first-light:      #D45B90;
-$windy-city:       #8A999E;
+variables.$snowflake-blue:   #29B5E8;
+variables.$mid-blue:         #11567F;
+variables.$dark-blue:        #0080B0;
+variables.$star-blue:        #71D3DC;
+variables.$valencia-orange:  #FF9F36;
+variables.$purple-moon:      #7D44CF;
+variables.$first-light:      #D45B90;
+variables.$windy-city:       #8A999E;
 
 $catagory-colors: (
-  $snowflake-blue:   #29B5E8,
-  $mid-blue:         #11567F,
-  $dark-blue:        #0080B0,
-  $star-blue:        #71D3DC,
-  $valencia-orange:  #FF9F36,
-  $purple-moon:      #7D44CF,
-  $first-light:      #D45B90,
-  $windy-city:       #8A999E,
+  variables.$snowflake-blue:   #29B5E8,
+  variables.$mid-blue:         #11567F,
+  variables.$dark-blue:        #0080B0,
+  variables.$star-blue:        #71D3DC,
+  variables.$valencia-orange:  #FF9F36,
+  variables.$purple-moon:      #7D44CF,
+  variables.$first-light:      #D45B90,
+  variables.$windy-city:       #8A999E,
 );
 
 @function str-replace($string, $search, $replace: '') {
-  $index: str-index($string, $search);
+  $index: string.index($string, $search);
 
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
   }
 
   @return $string;

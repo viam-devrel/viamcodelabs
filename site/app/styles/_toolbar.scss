@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-@import "_variables";
+@use "_variables";
+@use "fonts";
 
 #mainToolbar {
   display: flex;
   align-items: center;
-  height: $keyline * 8;
+  height: variables.$keyline * 8;
   background-color: #fff;
   color: #000;
-  padding: $keyline * 2;
+  padding: variables.$keyline * 2;
 
   paper-icon-button[icon="menu"] {
     flex-shrink: 0;
@@ -34,7 +35,7 @@
   }
 
   .logo-icon {
-    margin-right: $keyline * 2;
+    margin-right: variables.$keyline * 2;
     width: 30px;
     height: 24px;
   }
@@ -63,7 +64,7 @@
   }
 }
 
-@media (min-width: $tablet-breakpoint-min) {
+@media (min-width: variables.$tablet-breakpoint-min) {
   #searchbar {
     transition: background-color 400ms cubic-bezier(0,0,0.2,1);
     width: 100%;
@@ -74,10 +75,10 @@
 
     border: 1px solid rgba(138,153,158,.5);
     padding: 2px 0;
-    font-family: $lato;
+    font-family: fonts.$lato;
 
     #icon {
-      color: $mid-blue;
+      color: variables.$mid-blue;
     }
 
     // &:hover {
@@ -85,20 +86,20 @@
     // }
   }
   .logo-devs {
-    margin: 5px $keyline*4 0 0;
+    margin: 5px variables.$keyline*4 0 0;
   }
 }
 
-@media (max-width: $phone-breakpoint-max) {
+@media (max-width: variables.$phone-breakpoint-max) {
   #searchbar paper-input-container {
     display: none;
   }
   #mainToolbar {
-    height: $keyline * 7;
+    height: variables.$keyline * 7;
 
     paper-icon-button[icon="menu"] {
       width: 40px;
-      margin-right: $keyline;
+      margin-right: variables.$keyline;
     }
   }
 }

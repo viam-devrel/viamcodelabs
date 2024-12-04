@@ -1,4 +1,9 @@
+@use "fonts";
+@use "variables";
 
+.my-button {
+	@extend %btn !optional;
+  }
 
 button,
 input[type="button"],
@@ -10,9 +15,9 @@ input[type="submit"],
 	vertical-align: middle;
 	margin: 0 0 1rem 0;
 	padding: 12px 27px;
-	font-family: $texta-black;
+	font-family: fonts.$texta-black;
 	font-size: 16px;
-	background: $mid-blue;
+	background: variables.$mid-blue;
 	color: #fff;
 	line-height: 1;
 	text-transform:uppercase;
@@ -23,13 +28,13 @@ input[type="submit"],
 	transition: all 200ms ease-in-out;
 
 	&:hover {
-		background: $mid-blue-hover;
+		background: variables.$mid-blue-hover;
 		color: #fff;
 	}
 
 	&:active,
 	&:focus {
-		background: $mid-blue-hover;
+		background: variables.$mid-blue-hover;
 		color: #fff;
 	}
 
@@ -39,50 +44,50 @@ input[type="submit"],
 
 	&.hollow {
 		background: none;
-		border: 1px solid $mid-blue;
-		color: $mid-blue;
+		border: 1px solid variables.$mid-blue;
+		color: variables.$mid-blue;
 
 		&:hover,&:active, &:focus {
-			background: $mid-blue;
+			background: variables.$mid-blue;
 			color: #fff;
 		}
 	}
 
 	&.btn-blue {
-		background: $blue;
+		background: variables.$blue;
 		color:#fff;
 
 		&:hover,&:active, &:focus {
-			background: $blue-hover;
+			background: variables.$blue-hover;
 		}
 
 		&.hollow {
 			background: none;
-			border: 1px solid $blue;
-			color: $blue;
+			border: 1px solid variables.$blue;
+			color: variables.$blue;
 
 			&:hover,&:active, &:focus {
-				background: $blue !important;
+				background: variables.$blue !important;
 				color: #fff !important;
 			}
 		}
 	}
 
 	&.btn-valencia-orange {
-		background: $valencia-orange;
+		background: variables.$valencia-orange;
 		color:#fff;
 
 		&:hover,&:active, &:focus {
-			background: $valencia-orange-hover;
+			background: variables.$valencia-orange-hover;
 		}
 
 		&.hollow {
 			background: none;
-			border: 1px solid $valencia-orange;
-			color: $valencia-orange;
+			border: 1px solid variables.$valencia-orange;
+			color: variables.$valencia-orange;
 
 			&:hover,&:active, &:focus {
-				background: $valencia-orange;
+				background: variables.$valencia-orange;
 				color: #fff;
 			}
 		}
@@ -90,87 +95,87 @@ input[type="submit"],
 
 	&.btn-reverse {
 		background: transparent;
-		color: $blue;
-		border: 1px solid $blue;
+		color: variables.$blue;
+		border: 1px solid variables.$blue;
 
 		&:hover,&:active, &:focus {
-			background: $blue-hover;
-			color: $white;
-			border: 1px solid $blue-hover;
+			background: variables.$blue-hover;
+			color: variables.$white;
+			border: 1px solid variables.$blue-hover;
 		}
 	}
 
 	&.btn-first-light {
-		background: $first-light;
+		background: variables.$first-light;
 
 		&:hover,&:active, &:focus {
-			background: $first-light-hover;
+			background: variables.$first-light-hover;
 		}
 
 		&.hollow {
 			background: none;
-			border: 1px solid $first-light;
-			color: $first-light;
+			border: 1px solid variables.$first-light;
+			color: variables.$first-light;
 
 			&:hover,&:active, &:focus {
-				background: $first-light;
+				background: variables.$first-light;
 				color: #fff;
 			}
 		}
 	}
 
 	&.btn-star-blue {
-		background: $star-blue;
+		background: variables.$star-blue;
 
 		&:hover,&:active, &:focus {
-			background: $star-blue-hover;
+			background: variables.$star-blue-hover;
 		}
 
 		&.hollow {
 			background: none;
-			border: 1px solid $star-blue;
-			color: $star-blue;
+			border: 1px solid variables.$star-blue;
+			color: variables.$star-blue;
 
 			&:hover,&:active, &:focus {
-				background: $star-blue;
+				background: variables.$star-blue;
 				color: #fff;
 			}
 		}
 	}
 
 	&.btn-purple-moon {
-		background: $purple-moon;
+		background: variables.$purple-moon;
 
 		&:hover,&:active, &:focus {
-			background: $purple-moon-hover;
+			background: variables.$purple-moon-hover;
 		}
 
 		&.hollow {
 			background: none;
-			border: 1px solid $purple-moon;
-			color: $purple-moon;
+			border: 1px solid variables.$purple-moon;
+			color: variables.$purple-moon;
 
 			&:hover,&:active, &:focus {
-				background: $purple-moon;
+				background: variables.$purple-moon;
 				color: #fff;
 			}
 		}
 	}
 
   &.btn-windy-city {
-		background: $windy-city;
+		background: variables.$windy-city;
 
 		&:hover,&:active, &:focus {
-			background: $windy-city-hover;
+			background: variables.$windy-city-hover;
 		}
 
 		&.hollow {
 			background: none;
-			border: 1px solid $windy-city;
-			color: $windy-city;
+			border: 1px solid variables.$windy-city;
+			color: variables.$windy-city;
 
 			&:hover,&:active, &:focus {
-				background: $windy-city;
+				background: variables.$windy-city;
 				color: #fff;
 			}
 		}
@@ -178,15 +183,15 @@ input[type="submit"],
 
   &.btn-white {
 		background: #fff;
-    color: $blue;
+    color: variables.$blue;
 
 		&:hover,&:active, &:focus {
-			background: $midnight;
+			background: variables.$midnight;
       color: #fff;
 		}
 
 		&.black-text {
-			color: $midnight;
+			color: variables.$midnight;
 
 			&:hover,&:active, &:focus {
 	      color: #fff;
@@ -207,7 +212,7 @@ input[type="submit"],
 	}
 
   &.btn-midnight {
-		background: $midnight;
+		background: variables.$midnight;
     color: #fff;
 
 		&:hover,&:active, &:focus {
@@ -275,7 +280,7 @@ input[type="submit"],
 
 	&:hover {
 		background-color:#fff;
-		color:$blue !important;
+		color:variables.$blue !important;
 		border:1px solid #fff;
 	}
 	&:visited {
