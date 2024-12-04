@@ -234,7 +234,7 @@ Duration: 30
    ![add machine](assets/addMachine.png)
 1. Click **View setup instructions**.
    ![setup instructions](assets/awaitSetup.png)
-1. Install `viam-server` on the Raspberry Pi device that you want to use to communicate with and control your air sensor. Select the `Linux / Aarch64` platform for the Raspberry Pi to control the air sensor, and leave your installation method as [`viam-agent`](https://docs.viam.com/how-tos/provision-setup/#install-viam-agent).
+1. Install `viam-server` on the Raspberry Pi device that you want to use to communicate with and control your rover. Select the `Linux / Aarch64` platform for the Raspberry Pi to control the rover, and leave your installation method as [`viam-agent`](https://docs.viam.com/how-tos/provision-setup/#install-viam-agent).
    ![select platform](assets/selectPlatform.png)
 1. Use the `viam-agent` to download and install `viam-server` on your Raspberry Pi. Follow the instructions to run the command provided in the setup instructions from the SSH prompt of your Raspberry Pi.
    ![installation agent](assets/installAgent.png)
