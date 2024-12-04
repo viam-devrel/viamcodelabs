@@ -1,10 +1,11 @@
 'use strict';
 
-exports.swc = () => {
+exports.swc = () => ({
   jsc: {
     target: 'es2022'
-  }
-}
+  },
+  sourceMaps: false,
+})
 
 exports.closureCompiler = () => {
   return {
