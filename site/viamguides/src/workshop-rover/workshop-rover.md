@@ -145,7 +145,7 @@ The Raspberry Pi boots from a USB flash drive (or microSD card). You need to ins
 1. Connect the USB flash drive (or microSD card) to your computer.
 1. Download the [Raspberry Pi Imager](https://www.raspberrypi.com/software/) and launch it.
    ![raspberry pi imager](assets/imager.png)
-1. Click **CHOOSE DEVICE**. Select your model of Pi, which is Raspberry Pi 5.
+1. Click **CHOOSE DEVICE**. Select your model of Pi, which is Raspberry Pi 4.
 1. Click **CHOOSE OS**. Select **Raspberry Pi OS (64-bit)** from the menu.
 1. Click **CHOOSE STORAGE**. From the list of devices, select the USB flash drive you intend to use in your Raspberry Pi.
    ![raspberry pi storage](assets/osSelect.png)
@@ -209,7 +209,12 @@ Follow these steps [to assemble your Viam rover](https://docs.viam.com/appendix/
 1. Use the smallest Allen key and the provided M2.5 screws to attach the Raspberry Pi to your rover through the standoffs on the motherboard. The Raspberry Pi 4 should be mounted such that the USB ports are to the right, as viewed from above.
    ![ribbon cable](assets/ribbon-cable.jpg)
 1. Use the ribbon cable to connect the Raspberry Pi 4 to the motherboard.
+
+   > aside negative
+   > **If the ribbon cable is connected incorrectly, it can damage the Pi.** Note the alignment of the red line on the cable towards the Raspberry Pi logo on the board, i.e. towards the left side of the board based on the orientation of the picture shown below.
+
    ![ribbon cable top view](assets/ribbon-cable-top.jpg)
+
 1. Connect the webcam’s USB lead to any USB port on your Pi.
 1. Screw the top plate back on with the biggest Allen key.
 1. Use the power switch to turn the rover on. Wait a second the rover motherboard to power on. If the Pi has power, the lights on the Raspberry Pi will light up.
@@ -263,10 +268,9 @@ Duration: 30
 
 <form>
   <name>What is a benefit to using a Viam configuration fragment?</name>
-  <input type="radio" value="A. You can share and machine configurations across multiple machines.">
+  <input type="radio" value="A. You can share machine configurations across multiple machines.">
   <input type="radio" value="B. You can edit a fragment to update the configuration on each deployed machine that uses that fragment.">
-  <input type="radio" value="C. A, but not B.">
-  <input type="radio" value="D. Both A and B.">
+  <input type="radio" value="C. Both A and B.">
 </form>
 
 ### Test drive your rover
@@ -365,6 +369,7 @@ Duration: 5
 
 1. **Safety**
    - Lithium-ion batteries may pose a flammable hazard. This product requires four 18650 lithium-ion batteries OR an RC-type battery. DO NOT connect multiple power sources simultaneously. Refer to the battery manufacturer’s operating instructions to ensure safe operation of the Viam Rover. Dispose of lithium-ion batteries per manufacturer instructions.
+   - Pay attention to the orientation of the ribbon cable while connecting the Raspberry Pi to the rover, as it can damage the Pi if connected incorrectly.
 1. **Security**
    - Do not share your API credentials publicly. Sharing this information could compromise your system security by allowing unauthorized access to your machine, or to the computer running your machine.
 1. **Flashing firmware**
