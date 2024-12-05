@@ -15,12 +15,15 @@ tags: Getting Started, Developer
 
 Duration: 1
 
-Sticker wizard is a sticker vending machine with a twist: you don't get to choose which sticker you get. Instead, you'll scan the QR code, take the "which robot are you?" personality quiz, and then receive the sticker you deserve (along with a free personality analysis). This tutorial will walk you through making your own vending machine from scratch, along with a web application that allows you to operate your machine from any device.
+Sticker wizard is a sticker vending machine with a twist: you don't get to choose which sticker you get. Instead, you'll scan the QR code, take the "which robot are you?" personality quiz, and then receive the sticker you deserve (along with a free personality analysis). 
 
-![sticker wizard](assets/machine.jpeg)
+This tutorial will walk you through making your own vending machine from scratch, along with a web application that allows you to operate your machine from any device.
 
-TODO - publish walkthrough video to youtube
-<!-- <video src="assets/sticker-wizard-walkthrough.mov" width="320" height="240" controls></video> -->
+<div>
+  <img width="300" src="assets/machine.jpeg">
+</div>
+
+<video id="TB40-bLkjDg"></video>
 
 ### Prerequisites
 
@@ -59,6 +62,7 @@ TODO - publish walkthrough video to youtube
 <!-- ------------------------ -->
 
 ## Set up the electronics
+![sticker-wizard-diagram](assets/sticker-wizard-diagram.png)
 
 ### Set up your Raspberry Pi
 Follow the Viam [documentation](https://docs.viam.com/installation/prepare/rpi-setup/) to set up your Raspberry Pi with `viam-server`.
@@ -146,7 +150,7 @@ We built our web application with [SvelteKit](https://svelte.dev/docs/kit/introd
 
 To authenticate your website with your machine, use Viam API keys. We recommend setting up an operator API key so users don't have write access to your machine (and use a `.env` file to avoid committing your API keys to your Github repo!)  
 
-See source code here (TODO)
+Here's our [source code](https://github.com/ehhong/sticker-wizard).
 
 ## Use Viam to run a local web server
 Through Viam, we can host our web server directly on the Raspberry Pi using a [process](https://docs.viam.com/configure/processes/). A process runs every time your machine starts up.
