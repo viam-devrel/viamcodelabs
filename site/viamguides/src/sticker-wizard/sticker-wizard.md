@@ -62,6 +62,9 @@ This tutorial will walk you through making your own vending machine from scratch
 <!-- ------------------------ -->
 
 ## Set up the electronics
+
+Duration: 30
+
 ![sticker-wizard-diagram](assets/sticker-wizard-diagram.png)
 
 ### Set up your Raspberry Pi
@@ -88,6 +91,9 @@ Follow the Viam [documentation](https://docs.viam.com/installation/prepare/rpi-s
 </div>
 
 ## Configure your machine with Viam
+
+Duration: 10
+
 1. Create a machine on [app.viam.com](https://app.viam.com/)
 2. Add a PCA9685 board component to your machine configuration.
     - Configure the `i2c_bus` to `1`
@@ -107,6 +113,8 @@ From here, you should be able to use Viam to control your motors! To test:
 If you cannot find the board, run `i2cdetect -y 1` on your Raspberry Pi to check if your board is connected correctly.
 
 ## Build the structure
+
+Duration: 60
 
 The basic structure of the vending machine is a box with 3 "drawers" of 3 motors each. We prototyped using cardboard, and then made the final structure with acrylic cut to size and screws. We made each layer of motors a drawer for convenient refilling and maintenance. To fit the motors in the drawers, we created dividers between each motor and coil, and 3D printed a motor mount that sits on the drawer.
 
@@ -132,6 +140,9 @@ But your structure can be anything! You could build this out of cardboard and ta
 </div>
 
 ## Build the web app interface
+
+Duration: 60
+
 This part is entirely up to your imagination, you can build any interface you want, using any technology you want! The only requirement is to use [Viam's Typescript SDK](https://docs.viam.com/sdks/#frontend-sdks) to interface between your web application and your machine.
 
 <div>
@@ -153,6 +164,9 @@ To authenticate your website with your machine, use Viam API keys. We recommend 
 Here's our [source code](https://github.com/ehhong/sticker-wizard).
 
 ## Use Viam to run a local web server
+
+Duration: 10
+
 Through Viam, we can host our web server directly on the Raspberry Pi using a [process](https://docs.viam.com/configure/processes/). A process runs every time your machine starts up.
 1. Download your web app's source code to your Raspberry Pi
     - We recommend uploading your source code to Github and then downloading `git` on your Raspberry Pi to pull changes from your website
@@ -174,6 +188,8 @@ Through Viam, we can host our web server directly on the Raspberry Pi using a [p
 To make your local web server available to those not on your local network, use a service like [ngrok](https://ngrok.com/). You can set up ngrok with Viam with a process in the same way so it is always available when your machine is running.
 
 ## Finishing touches
+
+Duration: 10
 
 That's it! We added a few finishing touches to enhance the experience, but these are completely optional.
 
