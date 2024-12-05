@@ -66,9 +66,9 @@ The Raspberry Pi boots from a microSD card. You need to install Raspberry Pi OS 
 1. Check **Set hostname** and enter the name you would like to access the Pi by in that field, for example, `monitor`.
 1. Select the checkbox for **Set username and password** and set a username (for example, your first name) that you will use to log into the Pi. If you skip this step, the default username will be `pi` (not recommended for security reasons). And specify a password.
 1. Connect your Pi to Wi-Fi so that you can run `viam-server` wirelessly. Check **Configure wireless LAN** and enter your wireless network credentials. SSID (short for Service Set Identifier) is your Wi-Fi network name, and password is the network password. Change the section `Wireless LAN country` to where your router is currently being operated.
-   ![raspberry pi hostname username and password]()
+   ![raspberry pi hostname username and password](assets/imager-settings.png)
 1. Select the **SERVICES** tab, check **Enable SSH**, and select **Use password authentication**.
-   ![raspberry pi enable SSH]()
+   ![raspberry pi enable SSH](assets/imager-ssh.png)
    > aside negative
    > Be sure that you remember the `hostname` and `username` you set, as you will need this when you SSH into your Pi.
 1. **Save** your updates, and confirm `YES` to apply OS customization settings. Confirm `YES` to erase data on the SD card. You may also be prompted by your operating system to enter an administrator password. After granting permissions to the Imager, it will begin writing and then verifying the Linux installation to the SD card.
@@ -95,15 +95,20 @@ The Raspberry Pi boots from a microSD card. You need to install Raspberry Pi OS 
    sudo raspi-config
    ```
 1. Use your keyboard to select “Interface Options”, and press return.
-   ![raspi config]()
+   ![raspi config](assets/raspi-config-interface-options.png)
 1. [Enable the relevant protocols](https://docs.viam.com/installation/prepare/rpi-setup/#enable-communication-protocols) to support our hardware. Since you are using a sensor that communicates over I<sup>2</sup>C, enable **I2C**.
-   ![enable I2C]()
+   ![enable I2C](assets/raspi-config-i2c.png)
 1. Confirm the options to enable the I2C interface. And reboot the Pi when you're finished.
+   ```bash
+   sudo reboot
+   ```
 
 
 <!-- ------------------------ -->
 ## Wire your components
 Duration: 5
+
+<img src="./assets/wiring-diagram.png" width="400" />
 
 ### Movement sensor
 
@@ -117,8 +122,6 @@ It communicates over [I<sup>2</sup>C](https://en.wikipedia.org/wiki/I%C2%B2C) us
 
 Refer to the following wiring diagram to connect the Raspberry Pi to the MPU6050 movement sensor component.
 
-![sensor wiring diagram]()
-
 - Pin 1 (3V) to VCC (Power)
 - Pin 3 (SDA) to SDA (Data)
 - Pin 5 (SCL) to SCL (Clock)
@@ -129,8 +132,6 @@ Refer to the following wiring diagram to connect the Raspberry Pi to the MPU6050
 The LED will be used to display the alert from the Elastic rule notification. It needs a wire to a generial purpose input/ouput (GPIO) pin and a wire to ground to toggle it on and off.
 
 Refer to the following wiring diagram to connect the Raspberry Pi to the LED.
-
-![LED wiring diagram]()
 
 - Pin 9 (Ground) to the shorter leg on the LED
 - Pin 11 (GPIO 17) to the longer led on the LED
@@ -149,15 +150,15 @@ Duration: 5
 ### Create your machine
 
 1. In [the Viam app](https://app.viam.com/fleet/dashboard) under the **LOCATIONS** tab, create a machine by typing in a name and clicking **Add machine**.
-   ![add machine]()
+   ![add machine](./assets/viam-add-machine.png)
 1. Click **View setup instructions**.
-   ![setup instructions]()
+   ![setup instructions](./assets/viam-machine-setup-cta.png)
 1. To install `viam-server` on the Raspberry Pi device that you want to use to communicate with and control your webcam, select the `Linux / Aarch64` platform for the Raspberry Pi, and leave your installation method as [`viam-agent`](https://docs.viam.com/how-tos/provision-setup/#install-viam-agent).
-   ![select platform]()
+   ![select platform](./assets/viam-machine-setup-config.png)
 1. Use the `viam-agent` to download and install `viam-server` on your Raspberry Pi. Follow the instructions to run the command provided in the setup instructions from the SSH prompt of your Raspberry Pi.
-   ![installation agent]()
+   ![installation agent](./assets/viam-machine-setup-ssh.png)
 1. The setup page will indicate when the machine is successfully connected.
-   ![successful toast]()
+   ![successful toast](./assets/viam-machine-setup-success.png)
 
 <!-- ------------------------ -->
 ## Configure your machine
@@ -167,39 +168,40 @@ Duration: 5
 
 1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab. It's time to configure your hardware.
 1. Click the **+** icon in the left-hand menu and select **Component**.
-   ![select component]()
+   ![select component](./assets/viam-machine-add-component-board.png)
 1. Select `board`, and find the `pi5` module. This adds the module for working with the Raspberry Pi 5's GPIO pins. Leave the default name `board-1` for now.
+   ![create board component](./assets/viam-machine-create-board-component.png)
 1. Notice adding this module adds the board hardware component called `board-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
-   ![added board]()
+   ![added board](./assets/viam-machine-config-board.png)
 1. Click **Save** in the top right to save and apply your configuration changes.
 
 ### Add your movement sensor
 
 1. In [the Viam app](https://app.viam.com/fleet/locations), click the **+** icon and select **Component**. Select `movement sensor`, find the `gyro-mpu6050` module, and click **Add module**. This module provides the movement sensor model that supports the specific hardware we are using for this tutorial. Leave the default name `movement_sensor-1` for now.
-   ![select movement sensor module]()
+   ![select movement sensor module](./assets/viam-machine-add-component-movement-sensor.png)
 1. Notice adding this module adds the sensor hardware component called `movement_sensor-1`.
-   ![view after adding sensor]()
+   ![view after adding sensor](./assets/viam-machine-create-movement-sensor-component.png)
 1. In the `movement_sensor-1` panel, fill in the "i2c_bus" field under the **Attributes** section with the number "1"
-   ![configure sensor]()
+   ![configure sensor](./assets/viam-machine-config-movement-sensor.png)
 1. **Save** your updates.
 
 ### Add the data manager
 
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Service**, and then `data management`.
-   ![select data management]()
+   ![select data management](./assets/viam-machine-add-service-data-manager.png)
 1. **Create** a new [Data Management service](https://docs.viam.com/services/data/) called `data_manager-1`.
-   ![add module]()
+   ![add module](./assets/viam-machine-create-service-data-manager.png)
 1. Notice adding this service adds the data manager service called `data_manager-1`. It will default to the "Capturing" and "Syncing" toggles as enabled, leave them that way.
-   ![view default configuration for data manager]()
+   ![view default configuration for data manager](./assets/viam-machine-config-data-manager.png)
 1. **Save** your updates.
 
 ### Capture movement data
 
 1. In the `movement_sensor-1` panel, click the "+ Add method" button under the **Data capture** section.
-   ![add data capture method]()
+   ![add data capture method](./assets/viam-machine-add-capture-method.png)
 1. For the "Method" dropdown, select "Readings", enter "0.5" in the "Frequency (hz)" field.
 1. Make sure the data capture toggle is "On".
-   ![configure data capture method]()
+   ![configure data capture method](./assets/viam-machine-config-data-capture.png)
 1. **Save** your updates.
 
 > aside negative
@@ -212,22 +214,22 @@ Duration: 5
 This step assumes some knowledge of the Elastic console used to manage Elasticsearch, Kibana, and other services provided by the platform.
 
 1. In the Elastic app, navigate to the **Search** -> **Content** dashboard, which should default to displaying Elasticsearch indices. Click the "+ Create a new index" button.
-   ![Elasticsearch index dashboard]()
 1. Enter a name for the index, like "movement-data", under the "Index name" field. Keep the "Language analyzer" as "Universal".
 1. Click "Create index" to complete the creation of the index.
-   ![enter index name]()
+   ![enter index name](./assets/elastic-search-index-creation.png)
 
 ### Generate an API key 
 
 On the **Overview** tab of the newly created index, there are instructions for getting start with the Elastic API.
 
 1. Scroll down to the **Generate an API key** section of the page. Click "+ New".
-   ![generate Elastic API key]()
+   ![generate Elastic API key](./assets/elastic-search-index-connection-details.png)
 1. Name your API key "viam-data-ingest" and click "+ Generate API key".
-   ![name API key]()
+   ![name API key](./assets/elastic-search-index-api-key-name.png)
 1. Copy or download the generated API key and store it in a secure place, like a password or secrets manager, for use in the next section. Click "Cancel" to close the modal.
-   ![copy generate key]()
+   ![copy generate key](./assets/elastic-search-index-api-key.png)
 1. Back on the index overview page, scroll to **Copy your connection details** and copy the endpoint URL displayed to the right for use in the next section.
+   ![copy endpoint URL](./assets/elastic-search-index-connection-endpoint.png)
 
 
 <!-- ------------------------ -->
@@ -261,7 +263,7 @@ The function is authored in Python using the [Functions Framework](https://githu
    ```env
    ELASTIC_API_KEY=""
    ELASTIC_API_KEY_ID=""
-   ELASTIC_CLOUD_ID=""
+   ELASTIC_CONNECTION_ENDPOINT=""
    ```
 1. Run the function server locally:
    ```console
@@ -279,29 +281,28 @@ This step assumes you already have `zrok` installed and your [environment enable
    zrok share public localhost:8080
    ```
 1. The public URL will be displayed along with any request logs that come in when the webhook is triggered.
-   ![zrok public proxy terminal UI]()
+   ![zrok public proxy terminal UI](./assets/webhook-proxy.png)
 
 ### Configure a trigger
 
 The data sync [trigger](https://docs.viam.com/configure/triggers/) will send a request to the webhook whenever data from the sensor is synced to Viam Data in the cloud. That request will include that new data in the body.
 
-1. In the Viam app, looking at the `movement_sensor-1` panel, click the **...** icon in the top-right-hand menu and select "Create trigger".
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Trigger**.
-   ![select trigger]()
+   ![select trigger](./assets/viam-machine-add-trigger.png)
 1. Keep the name as `trigger-1` and click "Create".
-   ![create trigger]()
+   ![create trigger](./assets/viam-machine-create-trigger.png)
 1. Notice adding this module adds a new panel called `trigger-1`.
-   ![view after adding trigger]()
+   ![view after adding trigger](./assets/viam-machine-config-trigger-blank.png)
 1. In the **Event** section of the panel, select "Data has been synced to the cloud" as the Type and "Tabular (sensor)" from the list of Data Types.
 1. In the **Webhooks** section, click "+ Add Webhook" then enter the public URL from zrok in the first field and keep the default 1 minute between notifications.
-   ![configure trigger]()
+   ![configure trigger](./assets/viam-machine-trigger.png)
 1. Click **Save** in the top right to save and apply your configuration changes.
 
 You will then see requests start to come through the zrok logs:
-![POST request log in zrok]()
+![POST request log in zrok](./assets/webhook-proxy-logs.png)
 
 The function server will also display logs while the request is being processed:
-![logs from the serverless function]()
+![logs from the serverless function](./assets/webhook-server-logs.png)
 
 <!-- ------------------------ -->
 ## Blink an LED from a webhook
@@ -340,7 +341,7 @@ This step assumes you already have `zrok` installed and your [environment enable
    zrok share public localhost:8081
    ```
 1. The public URL will be displayed along with any request logs that come in when the webhook is triggered.
-   ![zrok public proxy terminal UI]()
+   ![zrok public proxy terminal UI](./assets/webhook-movement-proxy.png)
 
 You can test the webhook using cURL, replacing the URL with the one displayed by zrok in your terminal:
 
@@ -356,26 +357,25 @@ Duration: 5
 This step assumes some knowledge of the Elastic console used to manage Elasticsearch, Kibana, and other services provided by the platform.
 
 1. In the Elastic app, navigate to the **Observability** -> **Alerts** dashboard. Click on "Manage Rules".
-   ![Observability dashboard]()
+   ![Observability dashboard](./assets/elastic-rule-dashboard.png)
 1. Click "Create rule" and select "Custom threshold".
-   ![select custom threshold]()
+   ![select custom threshold](./assets/elastic-rule-type-selection.png)
 1. Enter "movement-threshold" for the name of the rule.
-   ![enter name of the rule]()
 1. Scroll to the **Custom threshold** section, click on the "DATA VIEW" field followed by "Create a new data view".
-   ![create a data view]()
+   ![create a data view](./assets/elastic-rule-data-view-selection.png)
 1. Enter "Movement Data" into the name of the view, then "movement-data" as the index pattern, followed by selecting "time_received" for the timestamp field.
 1. Click "Save data view to Kibana" to complete the creation of the data view
-   ![configure data view]()
+   ![configure data view](./assets/elastic-rule-data-view-create.png)
 1. In the **Define query filter** field, enter a custom query to trigger the alert based on the data you've gathered, for example:
    ```sql
    angular_velocity.y < -1
    ```
-   ![define query filter]()
+   ![define query filter](./assets/elastic-rule-threshold-query.png)
 1. Scroll down to **Actions** and select the **Webhook** connector type, then click the "Create a connector" button.
-   ![select the webhook connector]()
+   ![select the webhook connector](./assets/elastic-threshold-rule-action-selection.png)
 1. Name the connector "Machine Alert", enter the public URL for your running webhook function, and select "None" for the authentication.
 1. Click "Save" to complete creating the connector.
-   ![configure new webhook connector]()
+   ![configure new webhook connector](./assets/elastic-rule-connector-webhook-create.png)
 1. In the body field of the "Machine Alert" action, add some data to include in the request to the webhook.
    ```json
    {
@@ -384,14 +384,15 @@ This step assumes some knowledge of the Elastic console used to manage Elasticse
    }
    ```
    This can be used in conditional logic added later to change the effect of the webhook based on that data.
+   ![configure webhook data](./assets/elastic-rule-connector-webhook-data.png)
 1. Click "Save" to complete creating the rule.
-   ![create threshold rule]()
 
 ### Test the connector
 
 1. To test the webhook connector without waiting for the rule to trigger, navigate to the **Management** -> **Stack Management** -> **Connectors** dashboard.
+   ![test webhook connector](./assets/elastic-manage-connectors.png)
 1. Click on the triangular play icon in the row for "Machine Alert" to open the "Test" panel for the connector.
-   ![test webhook connector]()
+   ![test webhook connector](./assets/elastic-connector-webhook-test.png)
 1. Enter some fake data in the body of the "Create an action" field.
    ```json
    {
