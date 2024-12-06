@@ -17,6 +17,8 @@ One neat feature of the ELK stack is configurable [alerting rules](https://www.e
 
 In this codelab, you'll learn how to continually index sensor data from Viam into Elasticsearch and display an alert in the real world. 
 
+![architecture diagram](./assets/arch-diagram.png)
+
 ### Prerequisites
 - A computer with MacOS, Windows, or Linux to flash your Raspberry Pi and configure the device's components using the Viam app
 - Hardware and supplies:
@@ -34,6 +36,7 @@ In this codelab, you'll learn how to continually index sensor data from Viam int
 - [Python3](https://www.python.org/downloads/) installed on your computer
 - [VS Code](https://code.visualstudio.com/download) installed, or another similar code editor of your choice.
 - A [zrok](https://zrok.io/) account and [enabled environment](https://docs.zrok.io/docs/getting-started#enabling-your-zrok-environment).
+  - Or another [tunneling](https://github.com/anderspitman/awesome-tunneling?tab=readme-ov-file#recommendations) utility like [ngrok](https://ngrok.com/) or [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/) 
 - An [Elastic stack deployment](https://www.elastic.co/guide/en/cloud/current/ec-create-deployment.html)
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/dashboard) to the Viam app
 
