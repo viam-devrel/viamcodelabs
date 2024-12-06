@@ -7,7 +7,7 @@ status: Published
 feedback link: https://github.com/viam-labs/viamcodelabs/issues
 tags: Getting Started, Developer, Data
 
-# Use Sensor Data with Elastic, Kibana, and Webhooks
+# Use Sensor Data with Webhooks and Elastic Cloud
 <!-- ------------------------ -->
 ## Overview 
 Duration: 1
