@@ -66,7 +66,7 @@ The Raspberry Pi boots from a USB flash drive (or microSD card). You need to ins
 1. Connect the USB flash drive (or microSD card) to your computer.
 1. Download the [Raspberry Pi Imager](https://www.raspberrypi.com/software/) and launch it.
    ![raspberry pi imager](assets/imager.png)
-1. Click **CHOOSE DEVICE**. Select your model of Pi, which is Raspberry Pi 5.
+1. Click **CHOOSE DEVICE**. Select your model of Pi, which is Raspberry Pi 4.
 1. Click **CHOOSE OS**. Select **Raspberry Pi OS (64-bit)** from the menu.
 1. Click **CHOOSE STORAGE**. From the list of devices, select the USB flash drive you intend to use in your Raspberry Pi.
    ![raspberry pi storage](assets/osSelect.png)
