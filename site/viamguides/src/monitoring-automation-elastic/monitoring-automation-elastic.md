@@ -24,7 +24,7 @@ In this codelab, you'll learn how to continually index sensor data from Viam int
     - Follow the [Raspberry Pi setup guide](https://docs.viam.com/installation/prepare/rpi-setup/) to make sure your Pi is flashed with a Viam-compatible operating system, and that you are able to SSH into it.
   - 1 microSD card to use with your Pi
   - 1 power supply for your Pi
-  - 1 [MPU6050 GY-521 sensor module](https://www.amazon.com/Pre-Soldered-Accelerometer-Raspberry-Compatible-Arduino/dp/B0BMY15TC4)
+  - 1 [MPU6050 GY-521 movement sensor module](https://www.amazon.com/Pre-Soldered-Accelerometer-Raspberry-Compatible-Arduino/dp/B0BMY15TC4)
   - 1 [LED of any color](https://amzn.to/2Ex2v5q)
   - 1 [solderless breadboard](https://www.amazon.com/dp/B0135IQ0ZC)
   - 6 [jumper wires](https://www.amazon.com/dp/B077X99KX1) to connect the sensor to the Pi
@@ -129,7 +129,7 @@ Refer to the following wiring diagram to connect the Raspberry Pi to the MPU6050
 
 ### LED
 
-The LED will be used to display the alert from the Elastic rule notification. It needs a wire to a generial purpose input/ouput (GPIO) pin and a wire to ground to toggle it on and off.
+The LED will be used to display the alert from the Elastic rule notification. It needs a wire to a general purpose input/ouput (GPIO) pin and a wire to ground to toggle it on and off.
 
 Refer to the following wiring diagram to connect the Raspberry Pi to the LED.
 
@@ -191,7 +191,7 @@ Duration: 5
    ![select data management](./assets/viam-machine-add-service-data-manager.png)
 1. **Create** a new [Data Management service](https://docs.viam.com/services/data/) called `data_manager-1`.
    ![add module](./assets/viam-machine-create-service-data-manager.png)
-1. Notice adding this service adds the data manager service called `data_manager-1`. It will default to the "Capturing" and "Syncing" toggles as enabled, leave them that way.
+1. Notice adding this service adds the data manager service called `data_manager-1`. It will default to the "Capturing" and "Syncing" toggles as enabled. Leave them that way.
    ![view default configuration for data manager](./assets/viam-machine-config-data-manager.png)
 1. **Save** your updates.
 
@@ -220,7 +220,7 @@ This step assumes some knowledge of the Elastic console used to manage Elasticse
 
 ### Generate an API key 
 
-On the **Overview** tab of the newly created index, there are instructions for getting start with the Elastic API.
+On the **Overview** tab of the newly created index, there are instructions for getting started with the Elastic API.
 
 1. Scroll down to the **Generate an API key** section of the page. Click "+ New".
    ![generate Elastic API key](./assets/elastic-search-index-connection-details.png)
@@ -238,14 +238,18 @@ Duration: 8
 
 To continually update the Elasticsearch index with sensor data, we're going to create a [serverless function](https://en.wikipedia.org/wiki/Function_as_a_service) to be used as a [trigger](https://docs.viam.com/configure/triggers/) whenever new data is synced from the machine.
 
-The full example code is in the [project Github repository](https://github.com/viam-devrel/physical-world-monitoring).
+The full example code is in the [project GitHub repository](https://github.com/viam-devrel/physical-world-monitoring).
 
 ### Create a function
 
 The function is authored in Python using the [Functions Framework](https://github.com/GoogleCloudPlatform/functions-framework-python), which will make it easy to run locally and deploy to [Google Cloud Functions](https://cloud.google.com/functions/) when you're ready.
 
-1. In your terminal, [clone the repository to your local development environment](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository): `git clone https://github.com/viam-devrel/physical-world-monitoring.git`
-1. Change directories into the newly-cloned project: `cd physical-world-monitoring`
+1. In your terminal, [clone the repository to your local development environment](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository).
+   ```console
+   git clone https://github.com/viam-devrel/physical-world-monitoring.git
+1. Change directories into the newly-cloned project.
+   ```console
+   cd physical-world-monitoring
 1. [Install the uv Python project manager](https://docs.astral.sh/uv/getting-started/installation/)
    On macOS and Linux
    ```console
@@ -413,7 +417,7 @@ Well done putting all those pieces together! 👏 Now you have a production-read
 
 Some great next steps include:
 
-- [**Deploying the serverless functions**](https://cloud.google.com/functions/docs/create-deploy-gcloud#deploying_the_function): You don't need to run them indefinitely on your computer.
+- [**Deploying the serverless functions**](https://cloud.google.com/functions/docs/create-deploy-gcloud#deploying_the_function): You don't need to run them indefinitely on your computer. This example uses Google Cloud Platform, but you can also work with other serverless platforms.
 - **Modify the sensing**: Swap out the sensor to one that detects light, sound, or air quality.
 - **Modify the actuation**: Instead of blinking an LED, the machine could move a servo or call out a notification with text-to-speech.
 
