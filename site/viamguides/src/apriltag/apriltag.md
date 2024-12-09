@@ -51,7 +51,7 @@ In this codelab, you'll learn how to detect and decode AprilTags using a Viam mo
 
 See a demonstration and overview of the AprilTags scanner in this video.
 
-<!-- <video id="anHPD2vT8Zw"></video> -->
+<video id="7lknmKzZcn4"></video>
 
 <!-- ------------------------ -->
 
