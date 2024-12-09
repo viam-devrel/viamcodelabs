@@ -33,8 +33,8 @@ This codelab provides a suggested delivery plan and resources for instructors in
 
 ### Watch the Video
 
-See a demonstration of the air quality monitoring system in this video.
-<video id="daU5iNsSO0w"></video>
+See a demonstration of controlling the rover using a TypeScript app in this video.
+<video id="VrVqYuKx9ro"></video>
 
 <!-- ------------------------ -->
 
@@ -375,7 +375,7 @@ Duration: 5
 1. **Flashing firmware**
    - Make sure you are using a 5V 5A (25W) power supply.
    - Participants must remember the `hostname` and `username` they set while flashing their Raspberry Pi, as they will need this when they SSH into the Pi.
-   - To save time, instructors can flash all the Pis ahead of time with pre-determined credentials and share the credentials with participants during the workshop. Each Pi should have a unique `hostname` to avoid conflicts on the shared local network, such as `&lt;student-name&gt;-air` or `&lt;group-name&gt;-air` if they are working in groups.
+   - To save time, instructors can flash all the Pis ahead of time with pre-determined credentials and share the credentials with participants during the workshop. Each Pi should have a unique `hostname` to avoid conflicts on the shared local network, such as `&lt;student-name&gt;-rover` or `&lt;group-name&gt;-rover` if they are working in groups.
      - If you're using SD cards, verify that you have a way to write data onto them before providing them to participants.
 1. **Alternative setups**
    - If you're not using a Raspberry Pi 4, you can use [different boards](https://docs.viam.com/appendix/try-viam/rover-resources/rover-tutorial/#motherboard) with your Viam Rover 2 with some [alternative board configurations](https://docs.viam.com/appendix/try-viam/rover-resources/rover-tutorial/#alternative-board-configurations) while attaching the boards.
