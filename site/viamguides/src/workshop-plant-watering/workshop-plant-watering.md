@@ -119,7 +119,7 @@ Duration: 2
 Feel free to make a copy of [this sample slide deck](https://docs.google.com/presentation/d/1BUkv3h-49KYPi-HqHn36P38V67ThM9-UVU-muOQZ0GU/edit#slide=id.g314410d34af_0_25), customize it, and make it your own.
 
 <a href="https://docs.google.com/presentation/d/1_mI__LEwgJApM_3Z2yKwaWOjCPyVPndVNHyrybrDt2g/edit?usp=sharing">
-    <img src="assets/workshopThumb.png" alt="workshop slides" width="500">
+    <img src="assets/presentation-intro.png" alt="workshop slides" width="500">
 </a>
 
 During the workshop, instructors can present this customizable slide deck (see above) tailored to your specific workshop needs. Alternatively, learners can follow step-by-step instructions and checkpoints independently by referencing the pages linked below in a web browser.
@@ -259,10 +259,11 @@ Duration: 30
 
 1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab. It's time to configure your hardware.
 1. Click the **+** icon in the left-hand menu and select **Component**.
-   ![select component]()
-1. Select `board`, and find the `viam:raspberry-pi:rpi` module. This adds the module for working with the Raspberry Pi 4's GPIO pins. Leave the default name `board-1` for now.
+   ![select component](assets/selectComponent.png)
+1. Select `board`, and find the `raspberry-pi:rpi` module. This adds the module for working with the Raspberry Pi 4's GPIO pins. Leave the default name `board-1` for now.
+   ![add board](assets/addBoard.png)
 1. Notice adding this module adds the board hardware component called `board-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
-   ![added board]()
+   ![added board](assets/boardAdded.png)
 1. Click **Save** in the top right to save and apply your configuration changes.
    > aside negative
    > If any problems occur, check under the **LOGS** tab to see what might be going wrong.
@@ -285,8 +286,8 @@ Duration: 40
 
 1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONTROL** tab, you can see the hardware component called `board-1``. That's your Raspberry Pi that you configured on the **CONFIGURE** tab.
    ![control tab](assets/controlTab.png)
-1. Find the `board-1` card, and expand the TEST accordion. The module we added has a `GetReadings` function to get the readings from our air sensor. Select `Manual refresh`, and then click the refresh icon to manually get the readings.
-   ![get readings](assets/getReadings.png)
+1. The module we added has a `GetGPIO` function to get the digital output of a pin. Enter `40` in the "Pin" field, select the "Read" mode, and click "Get" for the "State" section under "READ PIN". "Low" means there is enough moisture, "High" means the moisture level has fallen below the threshold:
+   ![read GPIO](assets/readGPIO.png)
 
    > aside negative
    > If any problems occur, check under the **LOGS** tab to see what might be going wrong.
@@ -295,8 +296,8 @@ Duration: 40
 
 1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONTROL** tab, you can see the hardware component called `board-1``. That's your Raspberry Pi that you configured on the **CONFIGURE** tab.
    ![control tab](assets/controlTab.png)
-1. Find the `board-1` card, and expand the TEST accordion. The module we added has a `GetReadings` function to get the readings from our air sensor. Select `Manual refresh`, and then click the refresh icon to manually get the readings.
-   ![get readings](assets/getReadings.png)
+1. The module we added has a `SetGPIO` function to set the digital output of a pin. Enter `8` in the "Pin" field, select the "Write" mode, then select "High" and click "Set" for the "State" section under "WRITE PIN". "High" will turn on the pump motor, "Low" will turn it off.
+   ![write GPIO](assets/writeGPIO.png)
 
    > aside negative
    > If any problems occur, check under the **LOGS** tab to see what might be going wrong.
@@ -305,7 +306,7 @@ Duration: 40
 
 At this point, you have configured and tested your machine and peripherals, but nothing is happening automatically. In the next section, program your plant watering device to be a little smarter. Make your machine periodically get sensor data, turn on the pump motor if the value is low, and turn off again when the value is high.
 
-![process diagram](assets/diagram.png)
+![process diagram](assets/processDiagram.png)
 
 ### Create an automation script
 
@@ -370,16 +371,16 @@ At this point, you have configured and tested your machine and peripherals, but 
         "ROBOT_ADDRESS": "your-robot-address"
       },
     ```
-    ![configure JSON](assets/configJSON.png)
+    ![configure JSON](assets/configureJSON.png)
     > aside negative
     > The `BOARD_NAME` is the default names for the Raspberry Pi when added to our Viam machine. Other machine credentials can be found under the **CONNECT** tab, selecting an SDK, and toggling **Include API key** to reveal your credentials within the code sample.
-        ![get credentials](assets/apiKey.png)
+        ![get credentials](assets/getCredentials.png)
 1.  **Save** your updates.
 1.  You can test the code by updating the `process.py` file on your Raspberry Pi to swap the logic for the `detect_moisture` value from the pin connected to the moisture sensor. **Save** your code changes, and **Restart** the machine to see if the pump motor turns on when the plant has enough water.
-    ![restart the machine](assets/restart.png)
+    ![restart the machine](assets/restartMachine.png)
     > aside negative
     > You can either edit the file on your computer and copy the updated file over to your Raspberry Pi using `scp` like we did previously. Or you can use the default command-line text editor on Raspberry Pi OS `nano` by entering `nano process.py` from the SSH prompt.
-    > ![edit in Nano](assets/nano.png)
+    > ![edit in Nano](assets/editNano.png)
     > Alternatively, you can try removing water from the soil with a paper towel or lifting the sensor from the soil.
 
 <form>
