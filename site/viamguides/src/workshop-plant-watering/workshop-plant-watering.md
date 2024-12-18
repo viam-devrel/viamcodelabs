@@ -6,7 +6,7 @@ status: Published
 feedback link: https://github.com/viam-labs/viamcodelabs/issues
 tags: Workshop, Developer
 
-# Automatic plant watering [Workshop]
+# Plant watering with moisture sensor and pump [Workshop]
 
 <!-- ------------------------ -->
 
@@ -487,7 +487,8 @@ Review the suggested quiz questions below to evaluate participants' understandin
 Here are some ideas for expanding and enhancing the current project to create autonomous behaviors.
 
 - [Train a custom ML model](https://docs.viam.com/how-tos/train-deploy-ml/) guide: to enable classification to recognize when your plant is healthy or not.
-- [Use the Viam mobile SDK to build an iOS or Android application](https://docs.viam.com/sdks/#mobile-sdk) to control the machine's components
+- [Use the Viam mobile SDK to build an iOS or Android application](https://docs.viam.com/sdks/#mobile-sdk) to control the machine's components.
+- [Create an smart plant assistant](https://youtu.be/l4MQRiHPY6Y?feature=shared) using voice control and a local LLM.
 
 <img src="assets/logistics.png" alt="viam icons" width="200">
 

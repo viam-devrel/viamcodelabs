@@ -7,7 +7,7 @@ status: Published
 feedback link: <https://github.com/viam-labs/viamcodelabs/issues>
 tags: Getting Started, Developer, Hardware
 
-# Automatic plant watering
+# Plant watering with moisture sensor and pump
 
 <!-- ------------------------ -->
 
