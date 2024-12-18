@@ -168,10 +168,16 @@ Connect your Raspberry Pi to the relay module:
 - PIN 14 (GND) to GND
 - PIN 8 (GPIO 14) to IN
 
+
 Last step in the wiring section is connecting the relay and Raspberry Pi to the pump. The wire connectors may be required to connect the jumper wires to the bare wires coming from the pump motor:
 
 - NO (Normally Open) on the relay module to either of the pump motor wires
 - GPIO 39 (GND) on the Raspberry Pi to the remaining pump motor wire
+
+> aside negative
+> You will need to use a small screwdriver to open and close the relay terminals. Make sure the terminals close tight around the jumper wires but don't break them.
+
+Submerge the pump in the cup of water, making sure the wire connectors hang outside the the cup and don't touch the water. The legs of the moisture sensor can be placed in the other cup of soil or coffee grounds.
 
 <form>
   <name>Where is the sensor module getting its power from?</name>
@@ -288,6 +294,9 @@ Duration: 40
    ![control tab](assets/controlTab.png)
 1. The module we added has a `GetGPIO` function to get the digital output of a pin. Enter `40` in the "Pin" field, select the "Read" mode, and click "Get" for the "State" section under "READ PIN". "Low" means there is enough moisture, "High" means the moisture level has fallen below the threshold:
    ![read GPIO](assets/readGPIO.png)
+
+   > aside negative
+   > The moisture threshold is adjusted by turning the screw on the top of the sensor module. As you get into the Control interface of the Viam app, you can refine the threshold based on the needs of your plant.
 
    > aside negative
    > If any problems occur, check under the **LOGS** tab to see what might be going wrong.
