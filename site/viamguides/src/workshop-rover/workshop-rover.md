@@ -57,7 +57,7 @@ Review the list of required components (hardware, software), and determine which
 
 - A Linux, macOS or Windows computer that can run SDK code
 - Preferred IDE, such as [VS Code](https://code.visualstudio.com/download)
-- [Node.js](https://www.python.org/downloads/) installed
+- [Node.js](https://nodejs.org/en/download/package-manager) installed
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/locations/) to the Viam app
 
 <!-- ------------------------ -->
