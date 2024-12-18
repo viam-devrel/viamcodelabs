@@ -116,7 +116,7 @@ Review these setup steps as you're planning the workshop to help prepare for it.
 
 Duration: 2
 
-Feel free to make a copy of [this sample slide deck](https://docs.google.com/presentation/d/1BUkv3h-49KYPi-HqHn36P38V67ThM9-UVU-muOQZ0GU/edit#slide=id.g314410d34af_0_25), customize it, and make it your own.
+Feel free to make a copy of [this sample slide deck](https://docs.google.com/presentation/d/1_mI__LEwgJApM_3Z2yKwaWOjCPyVPndVNHyrybrDt2g/edit?usp=sharing), customize it, and make it your own.
 
 <a href="https://docs.google.com/presentation/d/1_mI__LEwgJApM_3Z2yKwaWOjCPyVPndVNHyrybrDt2g/edit?usp=sharing">
     <img src="assets/presentation-intro.png" alt="workshop slides" width="500">
@@ -212,7 +212,7 @@ The Raspberry Pi boots from a microSD card. You need to install Raspberry Pi OS 
 1. Remove the microSD card from your computer when the installation is complete.
 
 <form>
-  <name>WWhat is the purpose of setting a custom `hostname` during the Raspberry Pi OS configuration?</name>
+  <name>What is the purpose of setting a custom `hostname` during the Raspberry Pi OS configuration?</name>
   <input type="radio" value="To improve the speed of the Raspberry Pi.">
   <input type="radio" value="To identify and access the Pi on the network.">
   <input type="radio" value="To secure the Pi by changing the default password.">
@@ -290,7 +290,7 @@ Duration: 40
 
 ### Test the moisture sensor
 
-1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONTROL** tab, you can see the hardware component called `board-1``. That's your Raspberry Pi that you configured on the **CONFIGURE** tab.
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONTROL** tab, you can see the hardware component called `board-1`. That's your Raspberry Pi that you configured on the **CONFIGURE** tab.
    ![control tab](assets/controlTab.png)
 1. The module we added has a `GetGPIO` function to get the digital output of a pin. Enter `40` in the "Pin" field, select the "Read" mode, and click "Get" for the "State" section under "READ PIN". "Low" means there is enough moisture, "High" means the moisture level has fallen below the threshold:
    ![read GPIO](assets/readGPIO.png)
@@ -303,7 +303,7 @@ Duration: 40
 
 ### Test the pump
 
-1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONTROL** tab, you can see the hardware component called `board-1``. That's your Raspberry Pi that you configured on the **CONFIGURE** tab.
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONTROL** tab, you can see the hardware component called `board-1`. That's your Raspberry Pi that you configured on the **CONFIGURE** tab.
    ![control tab](assets/controlTab.png)
 1. The module we added has a `SetGPIO` function to set the digital output of a pin. Enter `8` in the "Pin" field, select the "Write" mode, then select "High" and click "Set" for the "State" section under "WRITE PIN". "High" will turn on the pump motor, "Low" will turn it off.
    ![write GPIO](assets/writeGPIO.png)
@@ -382,7 +382,7 @@ At this point, you have configured and tested your machine and peripherals, but 
     ```
     ![configure JSON](assets/configureJSON.png)
     > aside negative
-    > The `BOARD_NAME` is the default names for the Raspberry Pi when added to our Viam machine. Other machine credentials can be found under the **CONNECT** tab, selecting an SDK, and toggling **Include API key** to reveal your credentials within the code sample.
+    > The `BOARD_NAME` is the default name for the Raspberry Pi when added to our Viam machine. Other machine credentials can be found under the **CONNECT** tab, selecting an SDK, and toggling **Include API key** to reveal your credentials within the code sample.
         ![get credentials](assets/getCredentials.png)
 1.  **Save** your updates.
 1.  You can test the code by updating the `process.py` file on your Raspberry Pi to swap the logic for the `detect_moisture` value from the pin connected to the moisture sensor. **Save** your code changes, and **Restart** the machine to see if the pump motor turns on when the plant has enough water.
