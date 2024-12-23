@@ -84,9 +84,9 @@ Duration: 2
    ```
 1. **Create and activate a virtual environment**: In the project directory `viam-rover`, create and activate a virtual environment called `.venv` for Python to run in.
    `bash
-    python3 -m venv .venv
-    source .venv/bin/activate
-    `
+python3 -m venv .venv
+source .venv/bin/activate
+`
    Now, `.venv` prepends the commands in your terminal window to indicate the Python packages being used are from this particular environment. You can exit this environment by running `deactivate`.
 
 ### Install the Python SDK
@@ -94,11 +94,9 @@ Duration: 2
 Install the Viam Python SDK and all required general dependencies.
 
 1. **Install the SDK**: From the command line in your terminal window (inside the activated `.venv` Python environment), install the Viam Python SDK:
-
    ```bash
    pip install viam-sdk
    ```
-
    > aside negative
    > Windows is not supported. If you are using Windows, use the [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) and install the Python SDK using the preceding instructions for Linux. For other unsupported systems, see [Installing from source](https://python.viam.dev/#installing-from-source).
 
@@ -192,9 +190,9 @@ Once you have the code working in your local development environment, you may ch
    ```
    Once again, `.venv` prepends the commands in your terminal window to indicate the Python packages being used are from this particular environment. You can exit this environment by running `deactivate`.
 1. **Install dependencies**: Install the Viam Python SDK (and other dependencies if required) into the folder.
-   `bash
-    pip install viam-sdk
-    `
+   ```bash
+   pip install viam-sdk
+   ```
    <!-- TODO do i need to activate a venv? -->
    <!-- TODO do i need to chmod? -->
 1. **Copy file(s) to the machine**: From the original computer you were developing on (not the secure shell prompt accessing your machine), copy the `rover.py` file to your machine.
