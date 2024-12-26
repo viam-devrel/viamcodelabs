@@ -32,7 +32,7 @@
     "tag": "0.5.0",
     "commit": "b14d50f16880c5f5b3e99673ac3a4b40efbe8889"
   },
-  "_source": "git://github.com/WebReflection/url-search-params.git",
-  "_target": "^0.5.0",
+  "_source": "https://github.com/WebReflection/url-search-params.git",
+  "_target": "0.5.0",
   "_originalSource": "WebReflection/url-search-params"
 }

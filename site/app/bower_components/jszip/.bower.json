@@ -27,6 +27,6 @@
     "commit": "f65bd5415f84bd8c86cb93f62a30723364b52c65"
   },
   "_source": "https://github.com/Stuk/jszip.git",
-  "_target": "^2.5.0",
-  "_originalSource": "jszip"
+  "_target": "2.6.1",
+  "_originalSource": "Stuk/jszip"
 }
