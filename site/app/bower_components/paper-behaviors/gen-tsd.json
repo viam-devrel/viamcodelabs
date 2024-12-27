@@ -1,7 +1,0 @@
-{
-  "autoImport": {
-    "@polymer/paper-ripple/paper-ripple.js": [
-      "PaperRippleElement"
-    ]
-  }
-}
