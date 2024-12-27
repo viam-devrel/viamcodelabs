@@ -4,9 +4,6 @@
 const gulp = require('gulp');
 
 // Gulp plugins
-const closureCompilerPackage = require('google-closure-compiler');
-const closureCompiler = closureCompilerPackage.gulp();
-const crisper = require('crisper');
 const gulpif = require('gulp-if');
 const merge = require('ordered-read-streams');
 const lightningcss = require('gulp-lightningcss');
@@ -16,8 +13,6 @@ const through = require('through2');
 const useref = require('gulp-useref');
 const webserver = require('gulp-webserver');
 const livereload = require('gulp-livereload');
-const { Bundler } = require('polymer-bundler')
-const parse5 = require('parse5')
 
 // Terser
 const terser = require('gulp-terser-js');
@@ -85,8 +80,6 @@ const DRY_RUN = !!args.dry;
 
 // VIEWS_FILTER is the filter to use for view inclusion.
 const VIEWS_FILTER = args.viewsFilter || '*';
-
-const bundler = new Bundler(opts.vulcanize())
 
 // clean:build removes the build directory
 gulp.task('clean:build', (callback) => {
