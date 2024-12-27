@@ -8,22 +8,13 @@
     "template": "./init.sh",
     "clean": "gulp clean"
   },
-  "optionalDependencies": {
-    "google-closure-compiler-linux": "^20240317.0.0"
-  },
   "devDependencies": {
-    "@babel/core": "^7.24.9",
-    "@babel/preset-env": "^7.24.8",
     "@swc/core": "^1.7.2",
-    "bower": "^1.8.14",
+    "browserslist": "^4.24.3",
     "css-declaration-sorter": "^7.2.0",
     "del": "^3.0.0",
     "fs-extra": "^7.0.1",
     "glob": "^7.2.0",
-    "google-closure-compiler": "^20240317.0.0",
-    "google-closure-compiler-java": "^20240317.0.0",
-    "gulp-babel": "^8.0.0",
-    "gulp-crisper": "^1.1.0",
     "gulp-flatten": "^0.4.0",
     "gulp-if": "^2.0.2",
     "gulp-ignore": "^2.0.2",
@@ -35,10 +26,8 @@
     "gulp-swc": "2.1.0",
     "gulp-terser-js": "^5.2.2",
     "gulp-useref": "^3.1.3",
-    "gulp-vulcanize": "^8.0.0",
     "gulp-watch": "^4.3.11",
     "gulp-webserver": "^0.1.0",
-    "hydrolysis": "^1.25.0",
     "jscs": "^1.13.1",
     "jshint": "^2.13.4",
     "jshint-stylish": "^2.2.1",
@@ -47,11 +36,10 @@
     "sass": "^1.81.0",
     "swig-templates": "^2.0.3",
     "through2": "^3.0.0",
-    "vulcanize": "^1.16.0",
     "yargs": "^17.4.0"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=20.0.0"
   },
   "browserslist": [
     "defaults"

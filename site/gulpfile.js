@@ -4,9 +4,6 @@
 const gulp = require('gulp');
 
 // Gulp plugins
-const closureCompilerPackage = require('google-closure-compiler');
-const closureCompiler = closureCompilerPackage.gulp();
-const crisper = require('gulp-crisper');
 const gulpif = require('gulp-if');
 const merge = require('ordered-read-streams');
 const lightningcss = require('gulp-lightningcss');
@@ -14,7 +11,6 @@ const sass = require('gulp-sass')(require('sass'));
 const swc = require('gulp-swc');
 const through = require('through2');
 const useref = require('gulp-useref');
-const vulcanize = require('gulp-vulcanize');
 const webserver = require('gulp-webserver');
 const livereload = require('gulp-livereload');
 
@@ -166,7 +162,7 @@ gulp.task('build:html', () => {
 
   streams.push(gulp.src(`app/views/${VIEWS_FILTER}/view.json`, { base: 'app/' })
     .pipe(generateView())
-    .pipe(useref({ searchPath: ['app'] }))
+    .pipe(useref({ allowEmpty: true, searchPath: ['app'] }))
     .pipe(gulpif('*.js', swc(opts.swc())))
     .pipe(gulp.dest('build'))
     .pipe(gulpif(['*.html', '!index.html'], generateDirectoryIndex()))
@@ -213,35 +209,9 @@ gulp.task('build:fonts', () => {
 });
 
 // build:js builds all the javascript into the dest dir
+// no-op due to swc compilation in build:html
 gulp.task('build:js', (callback) => {
-  let streams = [];
-
-  if (!fs.existsSync('app/js/bundle/cardsorter.js')) {
-    // cardSorter is compiled into app/js, not build/scripts, because it is
-    // vulcanized directly into the HTML.
-    const cardSorterSrcs = [
-      'app/js/claat/ui/cards/cardsorter.js',
-      'app/js/claat/ui/cards/cardsorter_export.js',
-    ];
-    streams.push(gulp.src(cardSorterSrcs, { base: 'app/' })
-      .pipe(closureCompiler(opts.closureCompiler(), { platform: ['native', 'java'] }))
-      .pipe(swc(opts.swc()))
-      .pipe(gulp.dest('app/js/bundle'))
-    );
-  }
-
-  const bowerSrcs = [
-    'app/bower_components/webcomponentsjs/webcomponents-lite.min.js',
-    // Needed for async loading - remove after polymer/polymer#2380
-    'app/bower_components/google-codelab-elements/shared-style.html',
-    'app/bower_components/google-prettify/src/prettify.js',
-  ];
-  streams.push(gulp.src(bowerSrcs, { base: 'app/' })
-    .pipe(gulpif('*.js', swc(opts.swc())))
-    .pipe(gulp.dest('build'))
-  );
-
-  return merge(...streams);
+  callback()
 });
 
 gulp.task('build:elements_js', () => {
@@ -253,18 +223,6 @@ gulp.task('build:elements_js', () => {
     .pipe(gulp.dest('build'));
 })
 
-// build:vulcanize vulcanizes html, js, and css
-gulp.task('build:vulcanize', () => {
-  const srcs = [
-    'app/elements/codelab.html',
-    'app/elements/elements.html',
-  ];
-  return gulp.src(srcs, { base: 'app/' })
-    .pipe(vulcanize(opts.vulcanize()))
-    .pipe(crisper(opts.crisper()))
-    .pipe(gulp.dest('build'));
-});
-
 // build builds all the assets
 gulp.task('build', gulp.series(
   'clean',
@@ -274,9 +232,7 @@ gulp.task('build', gulp.series(
   'build:html',
   'build:images',
   'build:fonts',
-  'build:js',
   'build:elements_js',
-  'build:vulcanize',
 ));
 
 // copy copies the built artifacts in build into dist/
@@ -325,7 +281,7 @@ gulp.task('dist', gulp.series(
 
 // watch:css watches css files for changes and re-builds them
 gulp.task('watch:css', () => {
-  gulp.watch('app/**/*.scss', gulp.series('build:css'));
+  gulp.watch('app/**/*.scss', gulp.series('build:scss'));
 });
 
 // watch:html watches html files for changes and re-builds them

@@ -20,13 +20,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="canonical" href="{{canonicalViewUrl(view)}}" />
   <link rel="preconnect" href="https://www.google-analytics.com" />
 
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-N93SVKS');</script>
-<!-- End Google Tag Manager -->
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-N93SVKS');</script>
+  <!-- End Google Tag Manager -->
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-08H27EW14N"></script>
@@ -42,10 +45,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     window.ga = window.ga || function () {(ga.q = ga.q || []).push(arguments)}; ga.l = +new Date;
     ga('create', '{{ga}}', 'auto');
     ga('send', 'pageview');
-    {% if view.ga %}
-    ga('create', '{{view.ga}}', 'auto', {name: 'view'});
-    ga('view.send', 'pageview');
-    {% endif %}
   </script>
   <script async src='https://www.google-analytics.com/analytics.js'></script>
 
@@ -54,34 +53,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="stylesheet" href="/styles/main.css">
 
   {% if view.customStyle %}
-  <link rel="stylesheet" href="{{view.customStyle}}">
+  <link rel="stylesheet" href="default/style.css">
   {%- endif %}
 
-  <link rel="import" href="/elements/elements.html">
-
-  <style is="custom-style">
-    :root {
-      --paper-tabs-selection-bar-color: currentcolor;
-
-      --paper-input-container-underline: {
-        display: none;
-      }
-
-      ;
-
-      --paper-input-container-underline-focus: {
-        display: none;
-      }
-
-      ;
-    }
-
-    .dropdown-filter {
-      --paper-input-container: {
-        padding: 8px;
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+  <script type="importmap">
+    {
+      "imports": {
+        "@material/web/": "https://esm.run/@material/web/"
       }
     }
-  </style>
+  </script>
+  <script type="module">
+    import '@material/web/all.js';
+    import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
+
+    document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+  </script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="#455a64">
@@ -118,175 +107,167 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="twitter:url" property="twitter:url" content="{{canonicalViewUrl(view)}}" />
 </head>
 
-<body id="app" is="body-bind" class="loading fullbleed {% if view.id != 'default' -%}view{%- endif -%}">
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N93SVKS"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  <paper-header-panel id="main" mode="standard" main>
-    {% raw %}
-    <div id="mainToolbar" class="paper-header">
-      <div class="site-width layout horizontal">
-        <a href="/">
-          <img src="/images/viam-logo-black.svg" class="logo-devs" alt="Viam Logo">
-        </a>
-        <div id="searchbar">
-          <paper-input-container no-label-float>
-            <paper-icon-button prefix icon="search"></paper-icon-button>
-            <label>Search</label>
-            <input is="iron-input" bind-value="{{searchVal}}" on-keydown="onSearchKeyDown">
-          </paper-input-container>
-        </div>
+<body id="app" class="loading fullbleed {% if view.id != 'default' -%}view{%- endif -%}">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N93SVKS" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  {% raw %}
+  <div id="mainToolbar" class="paper-header">
+    <div class="site-width layout horizontal">
+      <a href="/">
+        <img src="/images/viam-logo-black.svg" class="logo-devs" alt="Viam Logo">
+      </a>
+      <div id="searchbar">
+        <md-outlined-text-field placeholder="Search" type="search">
+          <md-icon slot="leading-icon">search</md-icon>
+        </md-outlined-text-field>
       </div>
     </div>
-    {% endraw %}
+  </div>
+  {% endraw %}
 
-    {# Event pages force down attribute. On homepage, it's applied dynamically. #}
-    <header id="banner" {% if view.id !='default' -%}down{%- else %}down$="[[_toBoolean(selectedFilter)]]" {%- endif %}>
-      <div class="site-width">
-        {% if view.id == 'default' %}
-        <h2 class="banner-title">Getting Started with Viam</h2>
-        <div class="banner-description" data-filter-selected$="{% raw %}[[_toBoolean(selectedFilter)]]{% endraw %}">
-          <p class="banner-info">
-            Follow along with our tutorials to get you up and running with Viam.
-            <br>
-            <a href="https://github.com/viam-labs/viamcodelabs" target="_blank">Viam Codelabs on GitHub</a>
-            <a href="https://www.viam.com/resources/community#events" target="_blank">Events</a>
-            <a href="https://www.viam.com/product/demo-request" target="_blank">Request Demo</a>
-          </p>
-          {%- else -%}
-          <div class="banner-description">
-            <img id="logo" src="{{view.logoUrl}}" alt="Event logo">
-            <div class="banner-meta">
-              <h3>{{view.title}}</h3>
-              {% if view.description -%}
-              <p>{{view.description}}</p>
-              {%- endif %}
-            </div>
+  {# Event pages force down attribute. On homepage, it's applied dynamically. #}
+  <header id="banner" {% if view.id !='default' -%}down{%- else %}down$="[[_toBoolean(selectedFilter)]]" {%- endif %}>
+    <div class="site-width">
+      {% if view.id == 'default' %}
+      <h2 class="banner-title">Getting Started with Viam</h2>
+      <div class="banner-description" data-filter-selected$="{% raw %}[[_toBoolean(selectedFilter)]]{% endraw %}">
+        <p class="banner-info">
+          Follow along with our tutorials to get you up and running with Viam.
+          <br>
+          <a href="https://github.com/viam-labs/viamcodelabs" target="_blank">Viam Codelabs on GitHub</a>
+          <a href="https://www.viam.com/resources/community#events" target="_blank">Events</a>
+          <a href="https://www.viam.com/product/demo-request" target="_blank">Request Demo</a>
+        </p>
+        {%- else -%}
+        <div class="banner-description">
+          <img id="logo" src="{{view.logoUrl}}" alt="Event logo">
+          <div class="banner-meta">
+            <h3>{{view.title}}</h3>
+            {% if view.description -%}
+            <p>{{view.description}}</p>
             {%- endif %}
           </div>
+          {%- endif %}
         </div>
-    </header>
-
-    <main>
-      <div id="filters" class="site-width layout horizontal center justified">
-        <div id="sortby">
-          <paper-tabs selected="0" noink on-iron-activate="sortBy">
-            <paper-tab>A-Z</paper-tab>
-            <paper-tab>Recent</paper-tab>
-            <paper-tab>Duration</paper-tab>
-          </paper-tabs>
-        </div>
-        {% if view.id == 'default' && views|length > 1 %}
-        <paper-dropdown-menu label="Choose a language" class="dropdown-filter" no-label-float noink no-animations>
-          <paper-listbox id="eventList" slot="dropdown-content" class="dropdown-content">
-            {%- for view in views -%}
-            {%- if view.id != 'default' && !view.hidden -%}
-            <a href="/{{view.url}}/" tabindex="-1">
-              <paper-item>{{view.title}}</paper-item>
-            </a>
-            {%- endif -%}
-            {%- endfor %}
-          </paper-listbox>
-        </paper-dropdown-menu>
-        {% endif %}
-
-        {%- if showcats -%}
-        <paper-dropdown-menu label="Filter by category" class="dropdown-filter" no-label-float noink no-animations>
-          <paper-listbox id="categorylist" slot="dropdown-content" class="dropdown-content"
-            on-iron-activate="onCategoryActivate" attr-for-selected="filter">
-            {% for category in categories -%}
-            {%- if categoryHasShowableCodelabs(category, codelabs) -%}
-            <paper-item filter="{{category}}">{{category}}</paper-item>
-            {%- endif -%}
-            {%- endfor %}
-          </paper-listbox>
-        </paper-dropdown-menu>
-        {%- endif -%}
       </div>
+  </header>
 
-      <card-sorter id="cards" class="site-width">
-        {% for codelab in codelabs -%}
-
-        {# Only filter hidden codelabs from the default view.
-        All other views are explicitly opt-in via metadata. #}
-        {% if codelab.status.indexOf('hidden') === -1 || view.id !== 'default' %}
-        {% set cat = levelledCategory(codelab, view.catLevel) %}
-        <a href="{{codelabUrl(view, codelab)}}" on-tap="navigate"
-          class="codelab-card category-default category-{{categoryClass(codelab, cat.level)}}"
-          data-category="{{codelab.category}}" data-title="{{codelab.title}}" data-duration="{{codelab.duration}}"
-          data-updated="{{codelab.updated}}" data-tags="{{codelab.tags}}" data-pin="{{codelabPin(view, codelab)}}">
-          {%- if codelabPin(view, codelab) -%}
-          <div class="card-pin"></div>
-          {%- endif -%}
-          <div class="description">{{codelab.title}}</div>
-          <div class="card-duration">
-            <span>{%- if codelab.duration -%}{{codelab.duration}} min {%- endif -%}</span>
-            <span>{%- if codelab.updated -%}Updated {{codePrettyDate(codelab.updated)}}{%- endif -%}</span>
-          </div>
-          <div class="card-footer">
-            <div class="category-icon {{categoryClass(codelab, cat.level)}}-icon"></div>
-            <paper-button class="default-bg {{categoryClass(codelab, cat.level)}}-bg">Start</paper-button>
-          </div>
+  <main>
+    <div id="filters" class="site-width layout horizontal center justified">
+      <div id="sortby">
+        <md-tabs>
+          <md-primary-tab active>A-Z</md-primary-tab>
+          <md-primary-tab>Recent</md-primary-tab>
+          <md-primary-tab>Duration</md-primary-tab>
+        </md-tabs>
+      </div>
+      {% if view.id == 'default' && views|length > 1 %}
+      <md-filled-select label="Choose a language" class="dropdown-filter" quick id="eventList">
+        {%- for view in views -%}
+        {%- if view.id != 'default' && !view.hidden -%}
+        <a href="/{{view.url}}/" tabindex="-1">
+          <md-select-option>{{view.title}}</md-select-option>
         </a>
-        {%- endif %}
+        {%- endif -%}
         {%- endfor %}
-      </card-sorter>
+      </md-filled-select>
+      {% endif %}
 
-      <div id="loading-placeholder" class="site-width">
-        Loading guides, please wait...
-      </div>
-    </main>
-
-    <footer id="footer">
-      <div class="footer-wrapper site-width">
-        <div class="link-list">
-          <img class="" alt="Viam Inc." src="/images/viam-logo-white.svg">
-        </div>
-        <div class="link-list">
-          <label>Platform</label>
-          <ul>
-            <li><a href="https://www.viam.com/product/platform-overview">Overview</a></li>
-            <li><a href="https://docs.viam.com/get-started/try-viam/">Try Viam</a></li>
-            <li><a href="https://www.viam.com/product/pricing">Pricing</a></li>
-            <li><a href="https://app.viam.com/registry">Viam Registry</a></li>
-          </ul>
-        </div>
-        <div class="link-list">
-          <label>Connect</label>
-          <ul>
-            <li><a href="https://discord.gg/viam">Discord</a></li>
-            <li><a href="https://www.viam.com/resources/community#events">Events</a></li>
-            <li><a href="https://www.viam.com/blog">Blog</a></li>
-          </ul>
-        </div>
-        <div class="link-list">
-          <label>Resources</label>
-          <ul>
-            <li><a href="https://docs.viam.com/">Documentation</a></li>
-            <li><a href="https://docs.viam.com/use-cases/">How-To Guides</a></li>
-            <li><a href="https://docs.viam.com/tutorials/">Tutorials</a></li>
-            <li><a href="https://github.com/viamrobotics/">GitHub</a></li>
-          </ul>
-        </div>
-      </div>
-    </footer>
-
-    <div class="footerbar">
-      <div class="site-width layout horizontal center justified">
-        <span>
-          <a href="https://www.viam.com/terms">Terms</a>
-          &nbsp; | &nbsp;
-          <a href="https://www.viam.com/privacy">Privacy</a>
-        </span>
-      </div>
+      {%- if showcats -%}
+      <md-filled-select label="Filter by category" class="dropdown-filter" quick id="categorylist">
+        <md-select-option filter="all" selected>all</md-select-option>
+        {% for category in categories -%}
+        {%- if categoryHasShowableCodelabs(category, codelabs) -%}
+        <md-select-option filter="{{category}}">{{category}}</md-select-option>
+        {%- endif -%}
+        {%- endfor %}
+      </md-filled-select>
+      {%- endif -%}
     </div>
 
-  </paper-header-panel>
+    <card-sorter id="cards" class="site-width">
+      {% for codelab in codelabs -%}
 
-  <!-- build:js /scripts/main.js -->
-  <script src="bower_components/url-search-params-polyfill/build/url-search-params.js"></script>
-  <script src="scripts/app.js"></script>
+      {# Only filter hidden codelabs from the default view.
+      All other views are explicitly opt-in via metadata. #}
+      {% if codelab.status.indexOf('hidden') === -1 || view.id !== 'default' %}
+      {% set cat = levelledCategory(codelab, view.catLevel) %}
+      <a href="{{codelabUrl(view, codelab)}}" on-tap="navigate"
+        class="codelab-card category-default category-{{categoryClass(codelab, cat.level)}}"
+        data-category="{{codelab.category}}" data-title="{{codelab.title}}" data-duration="{{codelab.duration}}"
+        data-updated="{{codelab.updated}}" data-tags="{{codelab.tags}}" data-pin="{{codelabPin(view, codelab)}}">
+        {%- if codelabPin(view, codelab) -%}
+        <div class="card-pin"></div>
+        {%- endif -%}
+        <div class="description">{{codelab.title}}</div>
+        <div class="card-duration">
+          <span>{%- if codelab.duration -%}{{codelab.duration}} min {%- endif -%}</span>
+          <span>{%- if codelab.updated -%}Updated {{codePrettyDate(codelab.updated)}}{%- endif -%}</span>
+        </div>
+        <div class="card-footer">
+          <div class="category-icon {{categoryClass(codelab, cat.level)}}-icon"></div>
+          <md-filled-button class="default-bg {{categoryClass(codelab, cat.level)}}-bg">Start</md-filled-button>
+        </div>
+      </a>
+      {%- endif %}
+      {%- endfor %}
+    </card-sorter>
+
+    <div id="loading-placeholder" class="site-width">
+      Loading guides, please wait...
+    </div>
+  </main>
+
+  <footer id="footer">
+    <div class="footer-wrapper site-width">
+      <div class="link-list">
+        <img class="" alt="Viam Inc." src="/images/viam-logo-white.svg">
+      </div>
+      <div class="link-list">
+        <label>Platform</label>
+        <ul>
+          <li><a href="https://www.viam.com/product/platform-overview">Overview</a></li>
+          <li><a href="https://docs.viam.com/get-started/try-viam/">Try Viam</a></li>
+          <li><a href="https://www.viam.com/product/pricing">Pricing</a></li>
+          <li><a href="https://app.viam.com/registry">Viam Registry</a></li>
+        </ul>
+      </div>
+      <div class="link-list">
+        <label>Connect</label>
+        <ul>
+          <li><a href="https://discord.gg/viam">Discord</a></li>
+          <li><a href="https://www.viam.com/resources/community#events">Events</a></li>
+          <li><a href="https://www.viam.com/blog">Blog</a></li>
+        </ul>
+      </div>
+      <div class="link-list">
+        <label>Resources</label>
+        <ul>
+          <li><a href="https://docs.viam.com/">Documentation</a></li>
+          <li><a href="https://docs.viam.com/use-cases/">How-To Guides</a></li>
+          <li><a href="https://docs.viam.com/tutorials/">Tutorials</a></li>
+          <li><a href="https://github.com/viamrobotics/">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <div class="footerbar">
+    <div class="site-width layout horizontal center justified">
+      <span>
+        <a href="https://www.viam.com/terms">Terms</a>
+        &nbsp; | &nbsp;
+        <a href="https://www.viam.com/privacy">Privacy</a>
+      </span>
+    </div>
+  </div>
+
+
+  <!-- build:js /scripts/main.js type="module" -->
+  <script type="module" src="/elements/card-sorter.js"></script>
+  <script type="module" src="/scripts/app.js"></script>
   <!-- endbuild-->
 </body>
 

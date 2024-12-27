@@ -83,6 +83,7 @@ $catagory-colors: (
 
 @mixin codelab-card($categories, $color, $icon) {
   %bg-#{str-replace('' + $color, '#', '')} {
+    --md-filled-button-container-color: $color;
     background-color: $color;
   }
 

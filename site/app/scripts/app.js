@@ -6,6 +6,7 @@
     // and give it some initial binding values
     // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
     let app = document.querySelector('#app');
+    app.currentCategory = null
 
     app.categoryStartCards = {};
     // Tags which should always be kept for filtering,
@@ -39,35 +40,37 @@
       return codelab.url + '?' + codelabUrlParams;
     };
 
-    app.sortBy = function(e, detail) {
-      var order = detail.item.textContent.trim().toLowerCase();
-      this.$.cards.sort(order);
+    app.sortBy = function(e) {
+      const order = e.target.activeTab.textContent.trim().toLowerCase();
+      globalThis.cards.sort(order);
     };
 
     app.filterBy = function(e, detail) {
       if (detail.hasOwnProperty('selected')) {
-        this.$.cards.filterByCategory(detail.selected);
+        globalThis.cards.filterByCategory(detail.selected);
         return;
       }
       detail.kioskTags = app.kioskTags;
-      this.$.cards.filter(detail);
+      globalThis.cards.filter(detail);
     };
 
-    app.onCategoryActivate = function(e, detail) {
-      var item = e.target.selectedItem;
-      if (item && item.getAttribute('filter') === detail.selected) {
-        detail.selected = null;
+    app.onCategoryActivate = function(e) {
+      const [item] = e.target.selectedOptions;
+      if (item && item.getAttribute('filter') === 'all') {
+        app.currentCategory = null;
+      } else {
+        app.currentCategory = item.getAttribute('filter')
       }
-      if (!detail.selected) {
-        this.async(function() { e.target.selected = null; });
+      if (!app.currentCategory) {
+        setTimeout(function() { e.target.reset(); }, 0);
       }
-      this.filterBy(e, {selected: detail.selected});
+      this.filterBy(e, { selected: app.currentCategory });
 
       // Update URL deep link to filter.
       var params = new URLSearchParams(window.location.search.slice(1));
       params.delete('cat'); // delete all cat params
-      if (detail.selected) {
-        params.set('cat',  detail.selected);
+      if (app.currentCategory) {
+        params.set('cat', app.currentCategory);
       }
 
       // record in browser history to make the back button work
@@ -142,7 +145,7 @@
         }
         // Re-run the filter and select a new random codelab
         // from the filtered subset.
-        app.filterBy(null, {tags: tags});
+        app.filterBy(null, { tags: tags });
         updateLuckyLink();
       });
     }
@@ -153,57 +156,40 @@
       var tags = params.getAll('tags');
       var filter = params.get('filter');
       var i = tags.length;
-      while(i--) {
+      while (i--) {
         if (tags[i] === 'kiosk' || tags[i].substr(0, 6) === 'kiosk-') {
           app.kioskTags.push(tags[i]);
           tags.splice(i, 1);
         }
       }
 
-      if (this.$.categorylist) {
-        this.$.categorylist.selected = cat;
+      if (globalThis.categorylist) {
+        globalThis.categorylist.selectItem(globalThis.categorylist.querySelector(`md-select-option[filter=${cat}]`));
       }
-      if (this.$.sidelist) {
-        this.$.sidelist.selected = cat;
+      if (globalThis.sidelist) {
+        globalThis.sidelist.selected = cat;
       }
       if (tags) {
         selectChip(tags);
       }
-      this.filterBy(null, {cat: cat, tags: tags});
+      this.filterBy(null, { cat: cat, tags: tags });
       if (filter) {
-        app.searchVal = filter;
-        app.onSearchKeyDown();
+        app.onSearchKeyDown({ target: { value: filter } });
       }
       updateLuckyLink();
     };
 
-    // Prevent immediate link navigation.
-    app.navigate = function(event) {
-      event.preventDefault();
-
-      var go = function(href) {
-        window.location.href = href;
+    app.debounce = function(func, timeout) {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        setTimeout(() => func(...args), timeout)
       };
+    }
 
-      var target = event.currentTarget;
-      var wait = target.hasAttribute('data-wait-for-ripple');
-      if (wait) {
-        target.addEventListener('transitionend', go.bind(target, target.href));
-      } else {
-        go(target.href);
-      }
-    };
-
-    app.clearSearch = function(e, detail) {
-      this.searchVal = null;
-      this.$.cards.filterByText(null);
-    };
-
-    app.onSearchKeyDown = function(e, detail) {
-      this.debounce('search', function() {
-        this.$.cards.filterByText(app.searchVal);
-      }, 250);
-    };
+    app.onSearchKeyDown = app.debounce(function(e) {
+      globalThis.cards.filterByText(e.target.value);
+    }, 250);
 
     return app;
   };
@@ -220,23 +206,10 @@
 
   // loadWebComponents checks if web components are supported and loads them if
   // they are not present.
-  const loadWebComponents = () => {
-    let supported = (
-      'registerElement' in document &&
-      'import' in document.createElement('link') &&
-      'content' in document.createElement('template')
-    );
-
-    // If web components are supported, we likely missed the event since it
-    // fires before the DOM is ready. Re-fire that event.
-    if (supported) {
-      document.dispatchEvent(new Event('WebComponentsReady'));
-    } else {
-      let script = document.createElement('script');
-      script.async = true;
-      script.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
-      document.head.appendChild(script);
-    }
+  const loadWebComponents = async () => {
+    await customElements.whenDefined('md-select-option')
+    console.log('md-select-option defined')
+    document.dispatchEvent(new Event('WebComponentsReady'));
   }
 
   const init = () => {
@@ -247,35 +220,47 @@
     loadWebComponents();
   }
 
-  // Wait for the app to be ready and initalized, and then remove the class
+  // Wait for the app to be ready and initialized, and then remove the class
   // hiding the unrendered components on the body. This prevents the FOUC as
   // cards are shuffled into the correct order client-side.
   document.addEventListener('AppReady', () => {
     document.body.classList.remove('loading');
   })
 
+
   // Wait for web components to be ready and then load the app.
   document.addEventListener('WebComponentsReady', () => {
     const a = app();
+
+    // Notify the app is ready
+    document.dispatchEvent(new Event('AppReady'));
 
     // TODO: handle forward/backward and filter cards
     window.addEventListener('popstate', () => {
       a.reconstructFromURL();
     })
 
-    // debounce fails with "Cannot read property of undefined" without this
-    if (a._setupDebouncers) {
-      a._setupDebouncers();
-    }
+    document.addEventListener('change', (event) => {
+      if (event.target.matches('#categorylist')) {
+        a.onCategoryActivate(event)
+      }
+      if (event.target.matches('md-tabs')) {
+        a.sortBy(event)
+      }
+    })
+
+    document.addEventListener('keydown', (event) => {
+      if (!event.target.matches('input') && !event.target.closest('#searchbar')) return;
+
+      a.onSearchKeyDown(event)
+    })
 
     // Rebuild and sort cards based on the URL
     a.reconstructFromURL();
 
-    // Notify the app is ready
-    document.dispatchEvent(new Event('AppReady'));
   });
 
-  // This file is loaded asyncronously, so the document might already be fully
+  // This file is loaded asynchronously, so the document might already be fully
   // loaded, in which case we can drop right into initialization. Otherwise, we
   // need to wait for the document to be loaded.
   if (document.readyState === 'complete' || document.readyState === 'loaded' || document.readyState === 'interactive') {
