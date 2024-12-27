@@ -16,16 +16,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <title>app-header-layout demo</title>
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@^2.0.0/webcomponents-loader.js"></script>
 
-  <link rel="import" href="../../../font-roboto/roboto.html">
-  <link rel="import" href="../../../iron-icons/iron-icons.html">
-  <link rel="import" href="../../../paper-icon-button/paper-icon-button.html">
-  <link rel="import" href="../../app-scroll-effects/effects/waterfall.html">
-  <link rel="import" href="../../app-header/app-header.html">
-  <link rel="import" href="../../app-toolbar/app-toolbar.html">
-  <link rel="import" href="../../demo/sample-content.html">
-  <link rel="import" href="../app-header-layout.html">
+  <script type="module">
+    import '@polymer/font-roboto/roboto.js';
+    import '@polymer/iron-icons/iron-icons.js';
+    import '@polymer/paper-icon-button/paper-icon-button.js';
+    // Import effects before app-header.
+    import '../../app-scroll-effects/effects/waterfall.js';
+    import '../../app-header/app-header.js';
+    import '../../app-toolbar/app-toolbar.js';
+    import '../../demo/sample-content.js';
+    import '../app-header-layout.js';
+  </script>
 
   <custom-style>
     <style is="custom-style">

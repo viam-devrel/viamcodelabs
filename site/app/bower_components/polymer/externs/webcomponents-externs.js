@@ -1,6 +1,7 @@
 /**
  * @fileoverview Externs for webcomponents polyfills
  * @externs
+ * @suppress {duplicate}
  *
  * @license
  * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -12,42 +13,54 @@
  */
 /* eslint-disable */
 
-let HTMLImports = {
-  /**
-   * @param {function()} callback
-   */
-  whenReady(callback){},
-  /**
-   * @param {Element} element
-   * @returns {Document} document
-   */
-  importForElement(element){}
-};
+var HTMLImports = {};
+
+/**
+ * @param {function()=} callback
+ */
+HTMLImports.whenReady = function(callback) {};
+
+/**
+ * Returns the import document containing the element.
+ * @param {!Node} element
+ * @return {?HTMLLinkElement|?Document|undefined}
+ */
+HTMLImports.importForElement = function(element) {};
 
 window.HTMLImports = HTMLImports;
 
-let ShadyDOM = {
-  inUse: false,
-  flush(){},
-  /**
-   * @param {!Node} target
-   * @param {function(Array<MutationRecord>, MutationObserver)} callback
-   * @return {MutationObserver}
-   */
-  observeChildren(target, callback){},
-  /**
-   * @param {MutationObserver} observer
-   */
-  unobserveChildren(observer){},
-  /**
-   * @param {Node} node
-   */
-  patch(node){}
-};
+var ShadyDOM = {};
+
+ShadyDOM.inUse;
+ShadyDOM.composedPath;
+
+ShadyDOM.flush = function() {};
+
+/**
+ * @param {!Node} target
+ * @param {function(Array<MutationRecord>, MutationObserver)} callback
+ * @return {MutationObserver}
+ */
+ShadyDOM.observeChildren = function(target, callback) {};
+
+/**
+ * @param {MutationObserver} observer
+ */
+ShadyDOM.unobserveChildren = function(observer) {};
+
+/**
+ * @param {Node} node
+ */
+ShadyDOM.patch = function(node) {};
+
+/**
+ * @param {!ShadowRoot} shadowroot
+ */
+ShadyDOM.flushInitial = function(shadowroot) {};
 
 window.ShadyDOM = ShadyDOM;
 
-let WebComponents = {};
+var WebComponents = {};
 window.WebComponents = WebComponents;
 
 /** @type {Element} */
@@ -62,3 +75,8 @@ HTMLTemplateElement.decorate = function(template){};
  * @param {function(function())} cb callback
  */
 CustomElementRegistry.prototype.polyfillWrapFlushCallback = function(cb){};
+
+/**
+ * @param {string} cssText
+ */
+CSSStyleSheet.prototype.replaceSync = function(cssText) {};

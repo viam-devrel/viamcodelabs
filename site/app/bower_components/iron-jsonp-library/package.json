@@ -1,17 +1,38 @@
 {
-  "name": "@polymer/iron-jsonp-library",
-  "private": true,
   "description": "Loads jsonp libraries",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "behavior"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/PolymerElements/iron-jsonp-library.git"
   },
+  "homepage": "https://github.com/PolymerElements/iron-jsonp-library/",
+  "name": "@polymer/iron-jsonp-library",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@polymer/gen-typescript-declarations": "^1.2.0",
-    "bower": "^1.8.0"
+    "webmat": "^0.2.0",
+    "@polymer/test-fixture": "^4.0.1",
+    "wct-browser-legacy": "^1.0.1",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "@polymer/paper-styles": "^3.0.0-pre.26",
+    "@polymer/paper-spinner": "^3.0.0-pre.26",
+    "@polymer/gen-typescript-declarations": "^1.5.1"
   },
   "scripts": {
-    "update-types": "bower install && gen-typescript-declarations --deleteExisting --outDir ."
+    "format": "webmat",
+    "generate-types": "gen-typescript-declarations --deleteExisting --outDir . --verify",
+    "prepare": "npm run generate-types"
+  },
+  "version": "3.0.1",
+  "main": "iron-jsonp-library.js",
+  "contributors": [
+    "Aleks Totic <a@totic.org>",
+    "The Polymer Authors"
+  ],
+  "dependencies": {
+    "@polymer/polymer": "^3.0.0"
   }
 }

@@ -14,14 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>test for app-drawer-layout</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../../web-component-tester/browser.js"></script>
-  <script src="../../../test-fixture/test-fixture-mocha.js"></script>
-  <link rel="import" href="../../../iron-resizable-behavior/iron-resizable-behavior.html">
-  <link rel="import" href="../../../test-fixture/test-fixture.html">
-  <link rel="import" href="../../app-drawer/app-drawer.html">
-  <link rel="import" href="../app-drawer-layout.html">
-
+  <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
 
   <custom-style>
     <style is="custom-style">
@@ -53,10 +47,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
-    HTMLImports.whenReady(function() {
-      Polymer({is: 'x-resizeable', behaviors: [Polymer.IronResizableBehavior]});
-    });
+  <script type="module">
+    import '../../app-drawer/app-drawer.js';
+    import '../app-drawer-layout.js';
+
+    import {IronResizableBehavior} from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
+    import {Polymer} from '@polymer/polymer/lib/legacy/polymer-fn.js';
+    import {dom, flush} from '@polymer/polymer/lib/legacy/polymer.dom.js';
+    import {Base} from '@polymer/polymer/polymer-legacy.js';
+
+    Polymer({is: 'x-resizeable', behaviors: [IronResizableBehavior]});
 
     suite('basic features', function() {
       var drawerLayout, drawer;
@@ -64,7 +64,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       setup(function() {
         drawerLayout = fixture('testDrawerLayout');
         drawer = drawerLayout.querySelector('app-drawer');
-        Polymer.dom.flush();
+        flush();
       });
 
       test('default values', function() {
@@ -112,12 +112,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         assert.isFalse(drawer.opened);
 
-        Polymer.Base.fire(
+        Base.fire(
             'click', null /* detail */, {node: drawerLayout.querySelector('p')});
 
         assert.isFalse(drawer.opened);
 
-        Polymer.Base.fire('click', null /* detail */, {
+        Base.fire('click', null /* detail */, {
           node: drawerLayout.querySelector('[drawer-toggle]')
         });
 
@@ -126,7 +126,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         drawerLayout.responsiveWidth = '0px';
 
         window.setTimeout(function() {
-          Polymer.Base.fire('click', null /* detail */, {
+          Base.fire('click', null /* detail */, {
             node: drawerLayout.querySelector('[drawer-toggle]')
           });
           assert.isTrue(drawer.opened);
@@ -136,7 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('disable initial drawer transition', function(done) {
         assert.isTrue(drawer.hasAttribute('no-transition'));
-        Polymer.dom.flush();
+        flush();
 
         window.setTimeout(function() {
           assert.isFalse(drawer.hasAttribute('no-transition'));
@@ -209,7 +209,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           drawerLayout = document.body.appendChild(
               document.createElement('app-drawer-layout'));
         });
-        Polymer.dom.flush();
+        flush();
 
         var contentContainer = drawerLayout.$.contentContainer;
         var computedStyle = window.getComputedStyle(contentContainer);
@@ -220,8 +220,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         drawerLayout.responsiveWidth = '0px';
         drawer = document.createElement('app-drawer');
         drawer.setAttribute('slot', 'drawer');
-        Polymer.dom(drawerLayout).appendChild(drawer);
-        Polymer.dom.flush();
+        dom(drawerLayout).appendChild(drawer);
+        flush();
 
         window.setTimeout(function() {
           computedStyle = window.getComputedStyle(contentContainer);

@@ -1,17 +1,35 @@
 {
-  "name": "@polymer/paper-header-panel",
-  "private": true,
   "description": "A header and content wrapper for layout with headers",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "layout"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/PolymerElements/paper-header-panel.git"
   },
+  "homepage": "https://github.com/PolymerElements/paper-header-panel",
+  "name": "@polymer/paper-header-panel",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@polymer/gen-typescript-declarations": "^1.2.0",
-    "bower": "^1.8.0"
+    "webmat": "^0.2.0",
+    "@polymer/paper-styles": "^3.0.0-pre.26",
+    "@polymer/test-fixture": "^4.0.1",
+    "wct-browser-legacy": "^1.0.1",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "@polymer/gen-typescript-declarations": "^1.5.1"
   },
   "scripts": {
-    "update-types": "bower install && gen-typescript-declarations --deleteExisting --outDir ."
+    "format": "webmat",
+    "generate-types": "gen-typescript-declarations --deleteExisting --outDir . --verify",
+    "prepare": "npm run generate-types"
+  },
+  "version": "3.0.1",
+  "main": "paper-header-panel.js",
+  "author": "The Polymer Authors",
+  "dependencies": {
+    "@polymer/polymer": "^3.0.0",
+    "@polymer/iron-flex-layout": "^3.0.0-pre.26"
   }
 }

@@ -15,15 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <title>Contacts Demo</title>
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
-
-  <link rel="import" href="../../../iron-icons/iron-icons.html">
-  <link rel="import" href="../../../paper-icon-button/paper-icon-button.html">
-  <link rel="import" href="../../../paper-fab/paper-fab.html">
-  <link rel="import" href="../../app-toolbar/app-toolbar.html">
-  <link rel="import" href="../../app-scroll-effects/app-scroll-effects.html">
-  <link rel="import" href="../../demo/sample-content.html">
-  <link rel="import" href="../app-header.html">
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@^2.0.0/webcomponents-loader.js"></script>
 
   <custom-style>
     <style is="custom-style">
@@ -109,7 +101,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <sample-content size="100"></sample-content>
 
-  <script>
+  <script type="module">
+    import '@polymer/iron-icons/iron-icons.js';
+    import '@polymer/paper-icon-button/paper-icon-button.js';
+    import '@polymer/paper-fab/paper-fab.js';
+    import '../../app-toolbar/app-toolbar.js';
+    import '../../app-scroll-effects/app-scroll-effects.js';
+    import '../../demo/sample-content.js';
+    import '../app-header.js';
     var fab = document.querySelector('paper-fab');
     var header = document.querySelector('app-header');
 

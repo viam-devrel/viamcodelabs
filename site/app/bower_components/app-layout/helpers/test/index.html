@@ -12,13 +12,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
   <meta charset="UTF-8">
   <title>helpers tests</title>
-  <script src="../../../web-component-tester/browser.js"></script>
+  <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
 </head>
 <body>
   <script>
     WCT.loadSuites([
-      'scroll.html?dom=shadow',
-      'register-effect.html?dom=shadow',
+      'scroll.html',
+      'register-effect.html',
       'scroll.html?wc-shadydom=true&wc-ce=true',
       'register-effect.html?wc-shadydom=true&wc-ce=true'
     ]);

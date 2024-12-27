@@ -1,19 +1,39 @@
 {
-  "name": "@polymer/paper-behaviors",
-  "private": true,
   "description": "Common behaviors across the paper elements",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "paper",
+    "behavior"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/PolymerElements/paper-behaviors"
   },
+  "homepage": "https://github.com/PolymerElements/paper-behaviors",
+  "name": "@polymer/paper-behaviors",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@polymer/gen-typescript-declarations": "^1.2.0",
-    "bower": "^1.8.0",
-    "webmat": "^0.2.0"
+    "webmat": "^0.2.0",
+    "@polymer/iron-test-helpers": "^3.0.0-pre.26",
+    "@polymer/paper-styles": "^3.0.0-pre.26",
+    "@polymer/test-fixture": "^4.0.1",
+    "wct-browser-legacy": "^1.0.1",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "@polymer/gen-typescript-declarations": "^1.5.1"
   },
   "scripts": {
-    "update-types": "bower install && gen-typescript-declarations --deleteExisting --outDir .",
-    "format": "webmat && npm run update-types"
+    "format": "webmat",
+    "generate-types": "gen-typescript-declarations --deleteExisting --outDir . --verify",
+    "prepare": "npm run generate-types"
+  },
+  "version": "3.0.1",
+  "author": "The Polymer Authors",
+  "dependencies": {
+    "@polymer/iron-behaviors": "^3.0.0-pre.26",
+    "@polymer/iron-checked-element-behavior": "^3.0.0-pre.26",
+    "@polymer/paper-ripple": "^3.0.0-pre.26",
+    "@polymer/polymer": "^3.0.0"
   }
 }

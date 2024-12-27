@@ -14,12 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>test for app-header</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../../web-component-tester/browser.js"></script>
-  <script src="../../../test-fixture/test-fixture-mocha.js"></script>
-  <link rel="import" href="../../../test-fixture/test-fixture.html">
-  <link rel="import" href="../../app-toolbar/app-toolbar.html">
-  <link rel="import" href="../app-header.html">
+  <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
 
   <style>
     body {
@@ -75,13 +71,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
+  <script type="module">
+    import '../../app-toolbar/app-toolbar.js';
+    import '../app-header.js';
+    import {flush as flush$0} from '@polymer/polymer/lib/legacy/polymer.dom.js';
+    import {registerEffect} from '../../helpers/helpers.js';
     function scrollTestHelper(scroller, tests) {
       function scrollEventHandler() {
         var nextTest = tests.shift();
         if (nextTest) {
           requestAnimationFrame(function() {
-            Polymer.dom.flush();
+            flush$0();
             nextTest.callback();
             if (tests.length > 0)
               triggerScrollEvent();
@@ -139,7 +139,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suiteSetup(function() {
         testEffect = {setUp: sinon.spy(), tearDown: sinon.spy(), run: sinon.spy()};
-        Polymer.AppLayout.registerEffect('test-effect', testEffect);
+        registerEffect('test-effect', testEffect);
       });
 
       setup(function() {
@@ -501,7 +501,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('sticky element reference', function() {
-        Polymer.dom.flush();
+        flush$0();
         assert.equal(header._stickyEl, header.querySelector('[sticky]'));
       });
 

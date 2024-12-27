@@ -14,12 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>test for app-drawer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../../web-component-tester/browser.js"></script>
-  <script src="../../../test-fixture/test-fixture-mocha.js"></script>
-  <link rel="import" href="../../../polymer/polymer.html">
-  <link rel="import" href="../../../test-fixture/test-fixture.html">
-  <link rel="import" href="../app-drawer.html">
+  <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
   <style is="custom-style">
     body {
       margin: 0;
@@ -44,7 +40,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
+  <script type="module">
+    import '@polymer/polymer/polymer-legacy.js';
+    import '../app-drawer.js';
+
+    import {dom} from '@polymer/polymer/lib/legacy/polymer.dom.js';
+    import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
+
     suite('basic features', function() {
       var drawer, scrim, contentContainer, transformSpy;
 
@@ -103,14 +105,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('set scroll direction', function(done) {
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           assert.oneOf(drawer['__polymerGesturesTouchAction'], ['y', 'pan-y']);
           done();
         });
       });
 
       test('transitionDuration property', function(done) {
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           assertTransitionDuration('200ms');
 
           drawer.transitionDuration = 10;
@@ -365,7 +367,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('disable swipe', function(done) {
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           var drawerWidth = drawer.getWidth();
           var halfWidth = drawerWidth / 2;
           drawer.disableSwipe = true;
@@ -382,7 +384,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('track events block user selection', function(done) {
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           var ev = drawer.fire('track', null /* detail */, {cancelable: true});
 
           assert.isTrue(ev.defaultPrevented);
@@ -391,7 +393,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('styles reset after swiping', function(done) {
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.fire('track', {state: 'start'});
 
           assert.equal(drawer.style.visibility, 'visible');
@@ -408,7 +410,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('styles reset after swiping beyond the end state', function(done) {
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.fire('track', {state: 'start'});
 
           assert.equal(drawer.style.visibility, 'visible');
@@ -427,7 +429,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('left drawer swiping', function(done) {
         drawer.transitionDuration = 10;
         drawer.align = 'left';
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           var drawerWidth = drawer.getWidth();
           var halfWidth = drawerWidth / 2;
           drawer.fire('track', {state: 'start'});
@@ -481,7 +483,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         drawer.transitionDuration = 10;
         drawer.align = 'right';
         window.setTimeout(function() {
-          Polymer.RenderStatus.afterNextRender(drawer, function() {
+          afterNextRender(drawer, function() {
             var drawerWidth = drawer.getWidth();
             var halfWidth = drawerWidth / 2;
             drawer.fire('track', {state: 'start'});
@@ -535,7 +537,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('styles reset after flinging', function(done) {
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.fire('track', {state: 'start'});
 
           assert.equal(drawer.style.visibility, 'visible');
@@ -555,7 +557,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('styles reset after flinging beyond the end state', function(done) {
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.fire('track', {state: 'start'});
 
           assert.equal(drawer.style.visibility, 'visible');
@@ -575,7 +577,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('left drawer flinging open', function(done) {
         drawer.transitionDuration = 10;
         drawer.align = 'left';
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.fire('track', {state: 'start'});
           drawer.fire('track', {state: 'track', dx: 0, ddx: 0});
           drawer.fire('track', {state: 'end', dx: 0.1, ddx: 0.1});
@@ -607,7 +609,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         drawer.transitionDuration = 10;
         drawer.align = 'left';
         drawer.opened = true;
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.fire('track', {state: 'start'});
           drawer.fire('track', {state: 'track', dx: 0, ddx: 0});
           drawer.fire('track', {state: 'end', dx: -0.1, ddx: -0.1});
@@ -639,7 +641,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         drawer.transitionDuration = 10;
         drawer.align = 'right';
         window.setTimeout(function() {
-          Polymer.RenderStatus.afterNextRender(drawer, function() {
+          afterNextRender(drawer, function() {
             drawer.fire('track', {state: 'start'});
             drawer.fire('track', {state: 'track', dx: 0, ddx: 0});
             drawer.fire('track', {state: 'end', dx: -0.1, ddx: -0.1});
@@ -673,7 +675,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         drawer.align = 'right';
         drawer.opened = true;
         window.setTimeout(function() {
-          Polymer.RenderStatus.afterNextRender(drawer, function() {
+          afterNextRender(drawer, function() {
             drawer.fire('track', {state: 'start'});
             drawer.fire('track', {state: 'track', dx: 0, ddx: 0});
             drawer.fire('track', {state: 'end', dx: 0.1, ddx: 0.1});
@@ -743,12 +745,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('focus trap', function(done) {
-        var input = Polymer.dom(drawer).querySelector('input');
-        var div = Polymer.dom(drawer).querySelector('div[tabindex]');
+        var input = dom(drawer).querySelector('input');
+        var div = dom(drawer).querySelector('div[tabindex]');
         var inputFocusSpy = sinon.spy(input, 'focus');
         var divFocusSpy = sinon.spy(div, 'focus');
 
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.transitionDuration = 0;
           drawer.opened = true;
 
@@ -781,11 +783,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('focus trap with app-drawer tabindex set', function(done) {
-        var input = Polymer.dom(drawer).querySelector('input');
+        var input = dom(drawer).querySelector('input');
         var drawerFocusSpy = sinon.spy(drawer, 'focus');
         var inputFocusSpy = sinon.spy(input, 'focus');
 
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.transitionDuration = 0;
           drawer.tabIndex = 0;
           drawer.opened = true;
@@ -799,10 +801,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('no focus trap', function(done) {
-        var input = Polymer.dom(drawer).querySelector('input');
+        var input = dom(drawer).querySelector('input');
         var inputFocusSpy = sinon.spy(input, 'focus');
 
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.transitionDuration = 0;
           drawer.noFocusTrap = true;
           drawer.opened = true;
@@ -813,7 +815,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('esc key handler', function(done) {
-        Polymer.RenderStatus.afterNextRender(drawer, function() {
+        afterNextRender(drawer, function() {
           drawer.transitionDuration = 0;
           drawer.opened = true;
           window.setTimeout(function() {

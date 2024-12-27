@@ -14,11 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>test for app-grid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../../web-component-tester/browser.js"></script>
-  <script src="../../../test-fixture/test-fixture-mocha.js"></script>
-  <link rel="import" href="../../../test-fixture/test-fixture.html">
-  <link rel="import" href="../app-grid-style.html">
+  <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
 
   <style>
     body {
@@ -72,10 +69,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </template>
 
-    <script>
-      HTMLImports.whenReady(function() {
-        Polymer({is: 'x-grid'});
-      });
+    <script type="module">
+      import '../app-grid-style.js';
+      import {Polymer} from '@polymer/polymer/lib/legacy/polymer-fn.js';
+      Polymer({is: 'x-grid'});
     </script>
   </dom-module>
 
@@ -86,7 +83,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
+  <script type="module">
+    import '../app-grid-style.js';
+    import {dom} from '@polymer/polymer/lib/legacy/polymer.dom.js';
     function valueAsInt(obj) {
       var rtn = {top: 0, right: 0, bottom: 0, left: 0, width: 0};
       for (var k in obj) {
@@ -107,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('bounding rectangle for each item', function(done) {
         flush(function() {
           var i, k, currentRect;
-          var gridItems = Polymer.dom(grid.root).querySelectorAll('li');
+          var gridItems = dom(grid.root).querySelectorAll('li');
           var expectedBoundingRect = [
             {top: 16, right: 116, bottom: 116, left: 16, width: 100},
             {top: 16, right: 348, bottom: 116, left: 132, width: 216},

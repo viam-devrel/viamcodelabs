@@ -16,13 +16,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <title>app-toolbar demo</title>
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@^2.0.0/webcomponents-loader.js"></script>
 
-  <link rel="import" href="../../../font-roboto/roboto.html">
-  <link rel="import" href="../../../iron-icons/iron-icons.html">
-  <link rel="import" href="../../../paper-icon-button/paper-icon-button.html">
-  <link rel="import" href="../../../paper-progress/paper-progress.html">
-  <link rel="import" href="../app-toolbar.html">
+  <script type="module">
+    import '@polymer/font-roboto/roboto.js';
+    import '@polymer/iron-icons/iron-icons.js';
+    import '@polymer/paper-icon-button/paper-icon-button.js';
+    import '@polymer/paper-progress/paper-progress.js';
+    import '../app-toolbar.js';
+  </script>
 
   <custom-style>
     <style is="custom-style">

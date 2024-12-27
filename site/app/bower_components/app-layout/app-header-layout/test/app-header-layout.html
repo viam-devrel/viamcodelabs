@@ -14,13 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>test for app-header-layout</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../../web-component-tester/browser.js"></script>
-  <script src="../../../test-fixture/test-fixture-mocha.js"></script>
-  <link rel="import" href="../../../test-fixture/test-fixture.html">
-  <link rel="import" href="../../app-toolbar/app-toolbar.html">
-  <link rel="import" href="../../app-header/app-header.html">
-  <link rel="import" href="../app-header-layout.html">
+  <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
 
   <style>
     body {
@@ -64,7 +59,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
+  <script type="module">
+    import '../../app-toolbar/app-toolbar.js';
+    import '../../app-header/app-header.js';
+    import '../app-header-layout.js';
+
+    import {dom, flush as flush$0} from '@polymer/polymer/lib/legacy/polymer.dom.js';
+
     suite('basic features', function() {
       var headerLayout, header, toolbar;
 
@@ -81,7 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('scrolling region', function(done) {
         headerLayout.hasScrollingRegion = true;
-        Polymer.dom.flush();
+        flush$0();
 
         flush(function() {
           assert.isTrue(
@@ -93,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('header box size', function(done) {
         headerLayout.hasScrollingRegion = false;
-        Polymer.dom.flush();
+        flush$0();
 
         flush(function() {
           requestAnimationFrame(function() {
@@ -104,7 +105,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             headerLayout.style.width = '200px';
             headerLayout.resetLayout();
-            Polymer.dom.flush();
+            flush$0();
 
             flush(function() {
               requestAnimationFrame(function() {
@@ -121,7 +122,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('fullbleed', function() {
         headerLayout.setAttribute('fullbleed', '');
-        Polymer.dom.flush();
+        flush$0();
         assert.deepEqual(
             headerLayout.getBoundingClientRect(),
             headerLayout.offsetParent.getBoundingClientRect());
@@ -129,7 +130,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('initial static position header and content', function(done) {
         assert.isTrue(headerLayout.$.wrapper.classList.contains('initializing'));
-        Polymer.dom.flush();
+        flush$0();
         flush(function() {
           assert.isFalse(headerLayout.$.wrapper.classList.contains('initializing'));
           done();
@@ -145,14 +146,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('Issue #406', function(done) {
-        Polymer.dom.flush();
+        flush$0();
         assert.isTrue(headerLayout.isAttached, 'app-header-layout is attached');
         var header = document.createElement('app-header');
-        Polymer.dom(header).innerHTML = '<app-toolbar></app-toolbar>';
+        dom(header).innerHTML = '<app-toolbar></app-toolbar>';
         header.setAttribute('slot', 'header');
         header.fixed = true;
-        Polymer.dom(headerLayout).appendChild(header);
-        Polymer.dom.flush();
+        dom(headerLayout).appendChild(header);
+        flush$0();
         header.fire('app-reset-layout');
         flush(function() {
           assert.equal(

@@ -14,11 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>test for app-scroll-effects-behavior</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../../web-component-tester/browser.js"></script>
-  <script src="../../../test-fixture/test-fixture-mocha.js"></script>
-  <link rel="import" href="../../../test-fixture/test-fixture.html">
-  <link rel="import" href="x-container.html">
+  <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
 
   <style>
     body {
@@ -45,7 +42,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
+  <script type="module">
+    import './x-container.js';
+    import {registerEffect} from '../../helpers/helpers.js';
     function scrollTestHelper(scroller, tests) {
       function scrollEventHandler() {
         var nextTest = tests.shift();
@@ -84,7 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suiteSetup(function() {
         testEffect = {setUp: sinon.spy(), tearDown: sinon.spy(), run: sinon.spy()};
-        Polymer.AppLayout.registerEffect('test-effect', testEffect);
+        registerEffect('test-effect', testEffect);
       });
 
       setup(function() {
@@ -219,6 +218,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             {
               y: 50,
               callback: function() {
+                assert.isFalse(container.thresholdTriggered);
+                done();
+              }
+            }
+          ]);
+        });
+      });
+
+      test('reset threshold-triggered on attached (#570)', function(done) {
+        flush(function() {
+          var parent = container.parentElement;
+          assert.isUndefined(container.thresholdTriggered);
+          assert.equal(container.threshold, 0);
+          container.threshold = 100;
+
+          scrollTestHelper(container.scrollTarget, [
+            {
+              y: 100,
+              callback: function() {
+                assert.isTrue(container.thresholdTriggered);
+                parent.removeChild(container);
+                assert.isTrue(container.thresholdTriggered);
+              }
+            },
+            {
+              y: 0,
+              callback: function() {
+                assert.isTrue(container.thresholdTriggered);
+                parent.appendChild(container);
                 assert.isFalse(container.thresholdTriggered);
                 done();
               }

@@ -1,19 +1,36 @@
 {
-  "name": "@polymer/iron-a11y-keys-behavior",
-  "private": true,
   "description": "A behavior that enables keybindings for greater a11y.",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "a11y",
+    "input"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/PolymerElements/iron-a11y-keys-behavior.git"
   },
+  "name": "@polymer/iron-a11y-keys-behavior",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@polymer/gen-typescript-declarations": "^1.2.0",
-    "bower": "^1.8.0",
-    "webmat": "^0.2.0"
+    "webmat": "^0.2.0",
+    "@polymer/iron-demo-helpers": "^3.0.1",
+    "@polymer/iron-test-helpers": "^3.0.0-pre.26",
+    "@polymer/test-fixture": "^4.0.1",
+    "wct-browser-legacy": "^1.0.1",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "@polymer/gen-typescript-declarations": "^1.5.1"
   },
   "scripts": {
-    "update-types": "bower install && gen-typescript-declarations --deleteExisting --outDir .",
-    "format": "webmat && npm run update-types"
+    "format": "webmat",
+    "generate-types": "gen-typescript-declarations --deleteExisting --outDir . --verify",
+    "prepare": "npm run generate-types"
+  },
+  "version": "3.0.1",
+  "main": "iron-a11y-keys-behavior.js",
+  "author": "The Polymer Authors",
+  "dependencies": {
+    "@polymer/polymer": "^3.0.0"
   }
 }

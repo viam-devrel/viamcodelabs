@@ -14,11 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>test for app-toolbar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../../web-component-tester/browser.js"></script>
-  <script src="../../../test-fixture/test-fixture-mocha.js"></script>
-  <link rel="import" href="../../../test-fixture/test-fixture.html">
-  <link rel="import" href="../app-toolbar.html">
+  <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
 
   <style>
     body {
@@ -58,7 +55,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
+  <script type="module">
+    import '../app-toolbar.js';
+    import {dom} from '@polymer/polymer/lib/legacy/polymer.dom.js';
     suite('basic features', function() {
       var toolbar;
 
@@ -69,7 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('Items', function() {
         var barHeight = toolbar.offsetHeight;
         var topItem = document.elementFromPoint(0, 0);
-        var title = Polymer.dom(toolbar).querySelector('[main-title]');
+        var title = dom(toolbar).querySelector('[main-title]');
         var titleRect = title.getBoundingClientRect();
         var barRect = toolbar.getBoundingClientRect();
         var bottomItem = document.elementFromPoint(0, barHeight - 1);
