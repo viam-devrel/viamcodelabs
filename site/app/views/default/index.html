@@ -20,13 +20,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="canonical" href="{{canonicalViewUrl(view)}}" />
   <link rel="preconnect" href="https://www.google-analytics.com" />
 
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-N93SVKS');</script>
-<!-- End Google Tag Manager -->
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-N93SVKS');</script>
+  <!-- End Google Tag Manager -->
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-08H27EW14N"></script>
@@ -42,10 +45,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     window.ga = window.ga || function () {(ga.q = ga.q || []).push(arguments)}; ga.l = +new Date;
     ga('create', '{{ga}}', 'auto');
     ga('send', 'pageview');
-    {% if view.ga %}
-    ga('create', '{{view.ga}}', 'auto', {name: 'view'});
-    ga('view.send', 'pageview');
-    {% endif %}
   </script>
   <script async src='https://www.google-analytics.com/analytics.js'></script>
 
@@ -54,10 +53,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="stylesheet" href="/styles/main.css">
 
   {% if view.customStyle %}
-  <link rel="stylesheet" href="{{view.customStyle}}">
+  <link rel="stylesheet" href="default/style.css">
   {%- endif %}
 
-  <link rel="import" href="/elements/elements.html">
+  <link rel="import" href="/app/elements/elements.html">
 
   <style is="custom-style">
     :root {
@@ -119,10 +118,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body id="app" is="body-bind" class="loading fullbleed {% if view.id != 'default' -%}view{%- endif -%}">
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N93SVKS"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N93SVKS" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <paper-header-panel id="main" mode="standard" main>
     {% raw %}
     <div id="mainToolbar" class="paper-header">
@@ -132,9 +131,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </a>
         <div id="searchbar">
           <paper-input-container no-label-float>
-            <paper-icon-button prefix icon="search"></paper-icon-button>
-            <label>Search</label>
-            <input is="iron-input" bind-value="{{searchVal}}" on-keydown="onSearchKeyDown">
+            <paper-icon-button slot="prefix" icon="search"></paper-icon-button>
+            <label slot="label">Search</label>
+            <iron-input slot="input" on-keydown="onSearchKeyDown">
+              <input />
+            </iron-input>
           </paper-input-container>
         </div>
       </div>
@@ -285,8 +286,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </paper-header-panel>
 
   <!-- build:js /scripts/main.js -->
-  <script src="bower_components/url-search-params-polyfill/build/url-search-params.js"></script>
-  <script src="scripts/app.js"></script>
+  <script src="/scripts/app.js"></script>
   <!-- endbuild-->
 </body>
 

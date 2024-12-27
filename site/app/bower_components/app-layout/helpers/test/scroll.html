@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="../../../web-component-tester/browser.js"></script>
   <script src="../../../test-fixture/test-fixture-mocha.js"></script>
   <link rel="import" href="../../../test-fixture/test-fixture.html">
+  <link rel="import" href="../../app-header/app-header.html">
   <link rel="import" href="../helpers.html">
 
   <style>
@@ -35,14 +36,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
 
   <div id="region">
-    <div class="content"></div>
+    <div class="content">
+      <app-header></app-header>
+    </div>
   </div>
   <div class="content"></div>
 
   <script>
-
     suite('Polymer.AppLayout.scroll', function() {
-
       test('document scrolling', function(done) {
         var x = 500;
         var y = 500;
@@ -55,7 +56,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.equal(window.pageYOffset, y, 'document scrollTop');
           done();
         }, 100);
-
       });
 
       test('scrolling region', function(done) {
@@ -70,13 +70,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.equal(region.scrollTop, y, 'region scrollTop');
           done();
         }, 100);
-
       });
 
-      test('behavior: silent', function() {
-        Polymer.AppLayout.scroll({left: 100, top: 200, behavior: 'silent'});
+      test('behavior: silent', function(done) {
+        var header = document.querySelector('app-header');
 
-        assert.isTrue(document.documentElement.classList.contains('app-layout-silent-scroll'));
+        assert.isFalse(header.disabled);
+        Polymer.AppLayout.scroll({left: 100, top: 200, behavior: 'silent'});
+        assert.isTrue(header.hasAttribute('silent-scroll'));
+        requestAnimationFrame(function() {
+          assert.isFalse(header.hasAttribute('silent-scroll'));
+          done();
+        });
       });
 
       test('behavior: smooth', function(done) {
@@ -86,7 +91,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Polymer.AppLayout.scroll({top: 500, behavior: 'smooth'});
 
         window.setTimeout(function() {
-          assert.isAbove(scrollSpy.callCount, 1, 'scroll top should be fired multiple times');
+          assert.isAbove(
+              scrollSpy.callCount, 1, 'scroll top should be fired multiple times');
           done();
         }, 300);
       });
@@ -105,9 +111,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }, 200);
         });
       });
-
     });
-
   </script>
 
 </body>

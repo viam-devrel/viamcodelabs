@@ -6,7 +6,7 @@ const gulp = require('gulp');
 // Gulp plugins
 const closureCompilerPackage = require('google-closure-compiler');
 const closureCompiler = closureCompilerPackage.gulp();
-const crisper = require('gulp-crisper');
+const crisper = require('crisper');
 const gulpif = require('gulp-if');
 const merge = require('ordered-read-streams');
 const lightningcss = require('gulp-lightningcss');
@@ -14,9 +14,10 @@ const sass = require('gulp-sass')(require('sass'));
 const swc = require('gulp-swc');
 const through = require('through2');
 const useref = require('gulp-useref');
-const vulcanize = require('gulp-vulcanize');
 const webserver = require('gulp-webserver');
 const livereload = require('gulp-livereload');
+const { Bundler } = require('polymer-bundler')
+const parse5 = require('parse5')
 
 // Terser
 const terser = require('gulp-terser-js');
@@ -84,6 +85,8 @@ const DRY_RUN = !!args.dry;
 
 // VIEWS_FILTER is the filter to use for view inclusion.
 const VIEWS_FILTER = args.viewsFilter || '*';
+
+const bundler = new Bundler(opts.vulcanize())
 
 // clean:build removes the build directory
 gulp.task('clean:build', (callback) => {
@@ -166,7 +169,7 @@ gulp.task('build:html', () => {
 
   streams.push(gulp.src(`app/views/${VIEWS_FILTER}/view.json`, { base: 'app/' })
     .pipe(generateView())
-    .pipe(useref({ searchPath: ['app'] }))
+    .pipe(useref({ allowEmpty: true, searchPath: ['app'] }))
     .pipe(gulpif('*.js', swc(opts.swc())))
     .pipe(gulp.dest('build'))
     .pipe(gulpif(['*.html', '!index.html'], generateDirectoryIndex()))
@@ -231,7 +234,7 @@ gulp.task('build:js', (callback) => {
   }
 
   const bowerSrcs = [
-    'app/bower_components/webcomponentsjs/webcomponents-lite.min.js',
+    'app/bower_components/webcomponentsjs/webcomponents-lite.js',
     // Needed for async loading - remove after polymer/polymer#2380
     'app/bower_components/google-codelab-elements/shared-style.html',
     'app/bower_components/google-prettify/src/prettify.js',
@@ -254,15 +257,35 @@ gulp.task('build:elements_js', () => {
 })
 
 // build:vulcanize vulcanizes html, js, and css
-gulp.task('build:vulcanize', () => {
+gulp.task('build:vulcanize', async () => {
   const srcs = [
     'app/elements/codelab.html',
     'app/elements/elements.html',
   ];
-  return gulp.src(srcs, { base: 'app/' })
-    .pipe(vulcanize(opts.vulcanize()))
-    .pipe(crisper(opts.crisper()))
-    .pipe(gulp.dest('build'));
+  const { documents } = await bundler.bundle(await bundler.generateManifest(srcs));
+  for (const [url, document] of documents) {
+    console.log({ url })
+    const name = path.basename(url, '.html')
+    const outDir = path.dirname(url)
+    const contents = parse5.serialize(document.ast);
+    const split = crisper({ ...opts.crisper(), source: contents, jsFileName: `${name}.js` })
+    const htmlOut = path.resolve(path.join('build', outDir, `${name}.html`));
+    const jsOut = path.resolve(path.join('build', outDir, `${name}.js`));
+    fs.mkdirpSync(path.resolve(path.join('build', outDir)))
+
+    const htmlFD = fs.openSync(htmlOut, 'w');
+    fs.writeSync(htmlFD, split.html + '\n');
+    fs.closeSync(htmlFD);
+
+    const jsFD = fs.openSync(jsOut, 'w');
+    fs.writeSync(jsFD, split.js + '\n');
+    fs.closeSync(jsFD);
+  }
+  return
+  // return gulp.src(srcs, { base: 'app/' })
+  //   .pipe(vulcanize(opts.vulcanize()))
+  //   .pipe(crisper(opts.crisper()))
+  //   .pipe(gulp.dest('build'));
 });
 
 // build builds all the assets

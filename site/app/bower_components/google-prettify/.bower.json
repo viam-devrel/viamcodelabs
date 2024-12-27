@@ -37,11 +37,11 @@
     "tests",
     "tools"
   ],
-  "_release": "760e6e7312",
+  "_release": "e006587b4a",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "760e6e7312ff9f6f6d2c0e02447186092b429feb"
+    "commit": "e006587b4a893f0281e9dc9a53001c7ed584d4e7"
   },
   "_source": "https://github.com/google/code-prettify.git",
   "_target": "*",

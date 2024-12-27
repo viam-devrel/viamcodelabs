@@ -33,23 +33,24 @@ to single column when 2 columns (plus a defined gutter margin) no longer fit on 
     <style>
 
       :host {
-        @apply(--layout-horizontal);
-        @apply(--layout-wrap);
+        @apply --layout-horizontal;
+        @apply --layout-wrap;
         max-width: calc(2 * var(--grid-column-width) + 4 * var(--grid-gutter));
         margin: var(--grid-gutter) auto;
         /* item has width/height ratio 4:3 */
         --grid-item-height: calc(3 * var(--grid-column-width) / 4);
       }
 
-      :host > ::content > * {
-        @apply(--layout-flex-none);
+      :host > ::slotted(*) {
+        @apply --layout-flex-none;
         width: var(--grid-column-width);
         height: var(--grid-item-height);
         margin: var(--grid-gutter);
         box-sizing: border-box;
       }
 
-      :host > ::content > *:nth-of-type(3n - 2) {
+      /* https://github.com/webcomponents/shadycss/issues/15 */
+      :host > ::slotted(*:nth-of-type(3n-2)) {
         width: calc(100% - 2 * var(--grid-gutter));
         /* large item has widht/height ratio 2:1 */
         height: calc(var(--grid-column-width)  + 2 * var(--grid-gutter));
@@ -60,7 +61,7 @@ to single column when 2 columns (plus a defined gutter margin) no longer fit on 
         margin: 0 var(--grid-gutter);
       }
 
-      :host([narrow-layout]) > ::content > * {
+      :host([narrow-layout]) > ::slotted(*) {
         width: 100% !important;
         height: var(--grid-item-height) !important;
         margin: var(--grid-gutter) 0;
@@ -72,14 +73,13 @@ to single column when 2 columns (plus a defined gutter margin) no longer fit on 
 
     </style>
 
-    <content></content>
+    <slot></slot>
 
-    <iron-media-query query="{{query}}" query-matches="{{narrowLayout}}"></iron-media-query>
+    <iron-media-query query="[[query]]" query-matches="{{narrowLayout}}"></iron-media-query>
 
   </template>
 
   <script>
-
     Polymer({
 
       is: 'two-columns-grid',
@@ -89,37 +89,27 @@ to single column when 2 columns (plus a defined gutter margin) no longer fit on 
         /**
          * The width of the column in px.
          */
-        columnWidth: {
-          type: Number,
-          value: 300
-        },
+        columnWidth: {type: Number, value: 300},
 
         /**
          * The gutter width in px.
          */
-        gutter: {
-          type: Number,
-          value: 8
-        },
+        gutter: {type: Number, value: 8},
 
         /**
-         * Indicates it is in narrow layout which means the grid is displayed as single column.
+         * Indicates it is in narrow layout which means the grid is displayed as
+         * single column.
          */
-        narrowLayout: {
-          type: Boolean,
-          notify: true,
-          reflectToAttribute: true
-        }
+        narrowLayout: {type: Boolean, notify: true, reflectToAttribute: true}
 
       },
 
-      observers: [
-        '_updateLayout(columnWidth, gutter)'
-      ],
+      observers: ['_updateLayout(columnWidth, gutter)'],
 
       attached: function() {
-        // observers may run before attached, and updateStyles() will skip if it is not attached.
-        // So we need to make sure updateStyles() is called after it's attached.
+        // observers may run before attached, and updateStyles() will skip if it is
+        // not attached. So we need to make sure updateStyles() is called after it's
+        // attached.
         this._updateCustomStyles();
       },
 
@@ -136,7 +126,6 @@ to single column when 2 columns (plus a defined gutter margin) no longer fit on 
       }
 
     });
-
   </script>
 
 </dom-module>

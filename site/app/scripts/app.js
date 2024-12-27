@@ -41,16 +41,16 @@
 
     app.sortBy = function(e, detail) {
       var order = detail.item.textContent.trim().toLowerCase();
-      this.$.cards.sort(order);
+      globalThis.cards.sort(order);
     };
 
     app.filterBy = function(e, detail) {
       if (detail.hasOwnProperty('selected')) {
-        this.$.cards.filterByCategory(detail.selected);
+        globalThis.cards.filterByCategory(detail.selected);
         return;
       }
       detail.kioskTags = app.kioskTags;
-      this.$.cards.filter(detail);
+      globalThis.cards.filter(detail);
     };
 
     app.onCategoryActivate = function(e, detail) {
@@ -59,15 +59,15 @@
         detail.selected = null;
       }
       if (!detail.selected) {
-        this.async(function() { e.target.selected = null; });
+        setTimeout(function() { e.target.selected = null; }, 0);
       }
-      this.filterBy(e, {selected: detail.selected});
+      this.filterBy(e, { selected: detail.selected });
 
       // Update URL deep link to filter.
       var params = new URLSearchParams(window.location.search.slice(1));
       params.delete('cat'); // delete all cat params
       if (detail.selected) {
-        params.set('cat',  detail.selected);
+        params.set('cat', detail.selected);
       }
 
       // record in browser history to make the back button work
@@ -142,7 +142,7 @@
         }
         // Re-run the filter and select a new random codelab
         // from the filtered subset.
-        app.filterBy(null, {tags: tags});
+        app.filterBy(null, { tags: tags });
         updateLuckyLink();
       });
     }
@@ -153,26 +153,25 @@
       var tags = params.getAll('tags');
       var filter = params.get('filter');
       var i = tags.length;
-      while(i--) {
+      while (i--) {
         if (tags[i] === 'kiosk' || tags[i].substr(0, 6) === 'kiosk-') {
           app.kioskTags.push(tags[i]);
           tags.splice(i, 1);
         }
       }
 
-      if (this.$.categorylist) {
-        this.$.categorylist.selected = cat;
+      if (globalThis.categorylist) {
+        globalThis.categorylist.selected = cat;
       }
-      if (this.$.sidelist) {
-        this.$.sidelist.selected = cat;
+      if (globalThis.sidelist) {
+        globalThis.sidelist.selected = cat;
       }
       if (tags) {
         selectChip(tags);
       }
-      this.filterBy(null, {cat: cat, tags: tags});
+      this.filterBy(null, { cat: cat, tags: tags });
       if (filter) {
-        app.searchVal = filter;
-        app.onSearchKeyDown();
+        app.onSearchKeyDown({ target: { value: filter } });
       }
       updateLuckyLink();
     };
@@ -185,7 +184,7 @@
         window.location.href = href;
       };
 
-      var target = event.currentTarget;
+      var target = event.target.closest('a');
       var wait = target.hasAttribute('data-wait-for-ripple');
       if (wait) {
         target.addEventListener('transitionend', go.bind(target, target.href));
@@ -194,16 +193,17 @@
       }
     };
 
-    app.clearSearch = function(e, detail) {
-      this.searchVal = null;
-      this.$.cards.filterByText(null);
-    };
+    app.debounce = function(func, timeout) {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        setTimeout(() => func(...args), timeout)
+      };
+    }
 
-    app.onSearchKeyDown = function(e, detail) {
-      this.debounce('search', function() {
-        this.$.cards.filterByText(app.searchVal);
-      }, 250);
-    };
+    app.onSearchKeyDown = app.debounce(function(e) {
+      globalThis.cards.filterByText(e.target.value);
+    }, 250);
 
     return app;
   };
@@ -234,7 +234,7 @@
     } else {
       let script = document.createElement('script');
       script.async = true;
-      script.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+      script.src = '/bower_components/webcomponentsjs/webcomponents-lite.js';
       document.head.appendChild(script);
     }
   }
@@ -247,12 +247,13 @@
     loadWebComponents();
   }
 
-  // Wait for the app to be ready and initalized, and then remove the class
+  // Wait for the app to be ready and initialized, and then remove the class
   // hiding the unrendered components on the body. This prevents the FOUC as
   // cards are shuffled into the correct order client-side.
   document.addEventListener('AppReady', () => {
     document.body.classList.remove('loading');
   })
+
 
   // Wait for web components to be ready and then load the app.
   document.addEventListener('WebComponentsReady', () => {
@@ -263,10 +264,26 @@
       a.reconstructFromURL();
     })
 
-    // debounce fails with "Cannot read property of undefined" without this
-    if (a._setupDebouncers) {
-      a._setupDebouncers();
-    }
+    document.addEventListener('iron-activate', (event) => {
+      if (event.target.matches('#categorylist')) {
+        a.onCategoryActivate(event, event.detail)
+      }
+      if (event.target.matches('paper-tabs')) {
+        a.sortBy(event, event.detail)
+      }
+    })
+
+    document.addEventListener('tap', (event) => {
+      if (event.target.closest('card-sorter')) {
+        a.navigate(event)
+      }
+    })
+
+    document.addEventListener('keydown', (event) => {
+      if (!event.target.matches('input') && !event.target.closest('#searchbar')) return;
+
+      a.onSearchKeyDown(event)
+    })
 
     // Rebuild and sort cards based on the URL
     a.reconstructFromURL();
