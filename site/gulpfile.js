@@ -216,35 +216,9 @@ gulp.task('build:fonts', () => {
 });
 
 // build:js builds all the javascript into the dest dir
+// no-op due to swc compilation in build:html
 gulp.task('build:js', (callback) => {
-  let streams = [];
-
-  if (!fs.existsSync('app/js/bundle/cardsorter.js')) {
-    // cardSorter is compiled into app/js, not build/scripts, because it is
-    // vulcanized directly into the HTML.
-    const cardSorterSrcs = [
-      'app/js/claat/ui/cards/cardsorter.js',
-      'app/js/claat/ui/cards/cardsorter_export.js',
-    ];
-    streams.push(gulp.src(cardSorterSrcs, { base: 'app/' })
-      .pipe(closureCompiler(opts.closureCompiler(), { platform: ['native', 'java'] }))
-      .pipe(swc(opts.swc()))
-      .pipe(gulp.dest('app/js/bundle'))
-    );
-  }
-
-  const bowerSrcs = [
-    'app/bower_components/webcomponentsjs/webcomponents-lite.js',
-    // Needed for async loading - remove after polymer/polymer#2380
-    'app/bower_components/google-codelab-elements/shared-style.html',
-    'app/bower_components/google-prettify/src/prettify.js',
-  ];
-  streams.push(gulp.src(bowerSrcs, { base: 'app/' })
-    .pipe(gulpif('*.js', swc(opts.swc())))
-    .pipe(gulp.dest('build'))
-  );
-
-  return merge(...streams);
+  callback()
 });
 
 gulp.task('build:elements_js', () => {
@@ -256,38 +230,6 @@ gulp.task('build:elements_js', () => {
     .pipe(gulp.dest('build'));
 })
 
-// build:vulcanize vulcanizes html, js, and css
-gulp.task('build:vulcanize', async () => {
-  const srcs = [
-    'app/elements/codelab.html',
-    'app/elements/elements.html',
-  ];
-  const { documents } = await bundler.bundle(await bundler.generateManifest(srcs));
-  for (const [url, document] of documents) {
-    console.log({ url })
-    const name = path.basename(url, '.html')
-    const outDir = path.dirname(url)
-    const contents = parse5.serialize(document.ast);
-    const split = crisper({ ...opts.crisper(), source: contents, jsFileName: `${name}.js` })
-    const htmlOut = path.resolve(path.join('build', outDir, `${name}.html`));
-    const jsOut = path.resolve(path.join('build', outDir, `${name}.js`));
-    fs.mkdirpSync(path.resolve(path.join('build', outDir)))
-
-    const htmlFD = fs.openSync(htmlOut, 'w');
-    fs.writeSync(htmlFD, split.html + '\n');
-    fs.closeSync(htmlFD);
-
-    const jsFD = fs.openSync(jsOut, 'w');
-    fs.writeSync(jsFD, split.js + '\n');
-    fs.closeSync(jsFD);
-  }
-  return
-  // return gulp.src(srcs, { base: 'app/' })
-  //   .pipe(vulcanize(opts.vulcanize()))
-  //   .pipe(crisper(opts.crisper()))
-  //   .pipe(gulp.dest('build'));
-});
-
 // build builds all the assets
 gulp.task('build', gulp.series(
   'clean',
@@ -297,9 +239,7 @@ gulp.task('build', gulp.series(
   'build:html',
   'build:images',
   'build:fonts',
-  'build:js',
   'build:elements_js',
-  'build:vulcanize',
 ));
 
 // copy copies the built artifacts in build into dist/
@@ -348,7 +288,7 @@ gulp.task('dist', gulp.series(
 
 // watch:css watches css files for changes and re-builds them
 gulp.task('watch:css', () => {
-  gulp.watch('app/**/*.scss', gulp.series('build:css'));
+  gulp.watch('app/**/*.scss', gulp.series('build:scss'));
 });
 
 // watch:html watches html files for changes and re-builds them

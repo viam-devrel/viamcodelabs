@@ -25,10 +25,6 @@
   color: #000;
   padding: variables.$keyline * 2;
 
-  paper-icon-button[icon="menu"] {
-    flex-shrink: 0;
-  }
-
   a {
     display: flex;
     align-items: center;
@@ -49,24 +45,6 @@
 
 #searchbar {
   border-radius: 52.5px;
-
-
-  paper-input-container {
-    padding: 0;
-
-    label,
-    input {
-      color: #000;
-    }
-
-    label {
-      opacity: 0.5;
-    }
-
-    input {
-      border: 0;
-    }
-  }
 }
 
 @media (min-width: variables.$tablet-breakpoint-min) {
@@ -75,8 +53,6 @@
     width: 100%;
 
     background: #fff;
-    // -webkit-box-shadow: 0 5px 10px 0 rgba(0,0,0,.03);
-    // box-shadow: 0 5px 10px 0 rgba(0,0,0,.03);
 
     border: 0;
     padding: 2px 0;
@@ -86,9 +62,9 @@
       color: variables.$mid-blue;
     }
 
-    // &:hover {
-    //   background-color: $blueGrey400;
-    // }
+    md-outlined-text-field {
+      width: 100%;
+    }
   }
 
   .logo-devs {
@@ -97,16 +73,11 @@
 }
 
 @media (max-width: variables.$phone-breakpoint-max) {
-  #searchbar paper-input-container {
+  #searchbar md-outlined-text-field {
     display: none;
   }
 
   #mainToolbar {
     height: variables.$keyline * 7;
-
-    paper-icon-button[icon="menu"] {
-      width: 40px;
-      margin-right: variables.$keyline;
-    }
   }
 }

@@ -26,6 +26,34 @@
   outline: none;
 }
 
+:root {
+  // tabs
+  --md-primary-tab-container-color: transparent;
+  --md-primary-tab-active-indicator-color: black;
+  --md-primary-tab-active-label-text-color: var(--md-primary-tab-active-indicator-color);
+  --md-primary-tab-active-pressed-label-text-color: var(--md-primary-tab-active-indicator-color);
+  --md-primary-tab-active-focus-label-text-color: var(--md-primary-tab-active-indicator-color);
+  --md-primary-tab-active-hover-label-text-color: var(--md-primary-tab-active-indicator-color);
+  --md-primary-tab-active-hover-state-layer-color: var(--md-primary-tab-active-indicator-color);
+  --md-primary-tab-active-pressed-state-layer-color: var(--md-primary-tab-active-indicator-color);
+  --md-primary-tab-active-pressed-state-text-color: var(--md-primary-tab-active-indicator-color);
+
+  // category select
+  --md-filled-select-text-field-container-color: transparent;
+  --md-filled-select-text-field-active-indicator-color: black;
+  --md-filled-select-text-field-label-text-color: var(--md-filled-select-text-field-active-indicator-color);
+  --md-filled-select-text-field-focus-active-indicator-color: var(--md-filled-select-text-field-active-indicator-color);
+  --md-filled-select-text-field-focus-label-text-color: var(--md-filled-select-text-field-active-indicator-color);
+  --md-menu-container-color: white;
+  --md-menu-item-container-color: white;
+  --md-menu-item-selected-container-color: lightgray;
+
+  // search field
+  --md-outlined-text-field-focus-outline-color: black;
+  --md-outlined-text-field-container-shape: 2rem;
+}
+
+
 body {
   background: variables.$backgroundColor;
 

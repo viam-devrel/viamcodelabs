@@ -6,6 +6,7 @@
     // and give it some initial binding values
     // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
     let app = document.querySelector('#app');
+    app.currentCategory = null
 
     app.categoryStartCards = {};
     // Tags which should always be kept for filtering,
@@ -39,8 +40,8 @@
       return codelab.url + '?' + codelabUrlParams;
     };
 
-    app.sortBy = function(e, detail) {
-      var order = detail.item.textContent.trim().toLowerCase();
+    app.sortBy = function(e) {
+      const order = e.target.activeTab.textContent.trim().toLowerCase();
       globalThis.cards.sort(order);
     };
 
@@ -53,21 +54,23 @@
       globalThis.cards.filter(detail);
     };
 
-    app.onCategoryActivate = function(e, detail) {
-      var item = e.target.selectedItem;
-      if (item && item.getAttribute('filter') === detail.selected) {
-        detail.selected = null;
+    app.onCategoryActivate = function(e) {
+      const [item] = e.target.selectedOptions;
+      if (item && item.getAttribute('filter') === 'all') {
+        app.currentCategory = null;
+      } else {
+        app.currentCategory = item.getAttribute('filter')
       }
-      if (!detail.selected) {
-        setTimeout(function() { e.target.selected = null; }, 0);
+      if (!app.currentCategory) {
+        setTimeout(function() { e.target.reset(); }, 0);
       }
-      this.filterBy(e, { selected: detail.selected });
+      this.filterBy(e, { selected: app.currentCategory });
 
       // Update URL deep link to filter.
       var params = new URLSearchParams(window.location.search.slice(1));
       params.delete('cat'); // delete all cat params
-      if (detail.selected) {
-        params.set('cat', detail.selected);
+      if (app.currentCategory) {
+        params.set('cat', app.currentCategory);
       }
 
       // record in browser history to make the back button work
@@ -161,7 +164,7 @@
       }
 
       if (globalThis.categorylist) {
-        globalThis.categorylist.selected = cat;
+        globalThis.categorylist.selectItem(globalThis.categorylist.querySelector(`md-select-option[filter=${cat}]`));
       }
       if (globalThis.sidelist) {
         globalThis.sidelist.selected = cat;
@@ -174,23 +177,6 @@
         app.onSearchKeyDown({ target: { value: filter } });
       }
       updateLuckyLink();
-    };
-
-    // Prevent immediate link navigation.
-    app.navigate = function(event) {
-      event.preventDefault();
-
-      var go = function(href) {
-        window.location.href = href;
-      };
-
-      var target = event.target.closest('a');
-      var wait = target.hasAttribute('data-wait-for-ripple');
-      if (wait) {
-        target.addEventListener('transitionend', go.bind(target, target.href));
-      } else {
-        go(target.href);
-      }
     };
 
     app.debounce = function(func, timeout) {
@@ -220,23 +206,10 @@
 
   // loadWebComponents checks if web components are supported and loads them if
   // they are not present.
-  const loadWebComponents = () => {
-    let supported = (
-      'registerElement' in document &&
-      'import' in document.createElement('link') &&
-      'content' in document.createElement('template')
-    );
-
-    // If web components are supported, we likely missed the event since it
-    // fires before the DOM is ready. Re-fire that event.
-    if (supported) {
-      document.dispatchEvent(new Event('WebComponentsReady'));
-    } else {
-      let script = document.createElement('script');
-      script.async = true;
-      script.src = '/bower_components/webcomponentsjs/webcomponents-lite.js';
-      document.head.appendChild(script);
-    }
+  const loadWebComponents = async () => {
+    await customElements.whenDefined('md-select-option')
+    console.log('md-select-option defined')
+    document.dispatchEvent(new Event('WebComponentsReady'));
   }
 
   const init = () => {
@@ -259,23 +232,20 @@
   document.addEventListener('WebComponentsReady', () => {
     const a = app();
 
+    // Notify the app is ready
+    document.dispatchEvent(new Event('AppReady'));
+
     // TODO: handle forward/backward and filter cards
     window.addEventListener('popstate', () => {
       a.reconstructFromURL();
     })
 
-    document.addEventListener('iron-activate', (event) => {
+    document.addEventListener('change', (event) => {
       if (event.target.matches('#categorylist')) {
-        a.onCategoryActivate(event, event.detail)
+        a.onCategoryActivate(event)
       }
-      if (event.target.matches('paper-tabs')) {
-        a.sortBy(event, event.detail)
-      }
-    })
-
-    document.addEventListener('tap', (event) => {
-      if (event.target.closest('card-sorter')) {
-        a.navigate(event)
+      if (event.target.matches('md-tabs')) {
+        a.sortBy(event)
       }
     })
 
@@ -288,11 +258,9 @@
     // Rebuild and sort cards based on the URL
     a.reconstructFromURL();
 
-    // Notify the app is ready
-    document.dispatchEvent(new Event('AppReady'));
   });
 
-  // This file is loaded asyncronously, so the document might already be fully
+  // This file is loaded asynchronously, so the document might already be fully
   // loaded, in which case we can drop right into initialization. Otherwise, we
   // need to wait for the document to be loaded.
   if (document.readyState === 'complete' || document.readyState === 'loaded' || document.readyState === 'interactive') {
