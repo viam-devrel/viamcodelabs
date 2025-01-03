@@ -228,6 +228,11 @@ At this point, you have configured and tested your machine and piezo buzzer to m
 
 You can 3-D print a case for the Raspberry Pi that allows access to your GPIO pins for expanding your project ([like this one here](https://makerworld.com/en/models/62316#profileId-226178)). You can also design and 3-D print a custom mount to hold your buzzer in place, or 3-D print a megaphone ([like this one here](https://makerworld.com/en/models/946353?from=search#profileId-913226)) to amplify the buzzer volume.
 
+In addition to the project ideas mentioned above, consider other ways to continue your journey with Viam.
+
+- Browse other modules in [the Viam registry](https://app.viam.com/registry) similar to the [prebuilt module for the buzzer](https://github.com/loopDelicious/viam-piezo).
+- Learn [how to create your own module](https://docs.viam.com/how-tos/hello-world-module/) with custom functionality for the piezo buzzer or other components and services.
+
 ### Real-world applications and projects for piezo buzzers
 
 Piezo buzzers are small, but mighty components used in industries requiring audible feedback, alerts, or tone generation. Their applications include:
