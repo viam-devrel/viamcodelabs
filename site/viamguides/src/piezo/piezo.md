@@ -47,11 +47,11 @@ Duration: 1
 - How to use modules from the Viam registry
 - How to use pulse width modulation (PWM) to control the sound of a passive piezo
 
-<!-- ### Watch the Video
+### Watch the Video
 
-See a demonstration and overview of the AprilTags scanner in this video.
+See a demonstration sounding the piezo buzzer in this video.
 
-<video id="7lknmKzZcn4"></video> -->
+<video id="DH3kkFjmGss"></video>
 
 <!-- ------------------------ -->
 
