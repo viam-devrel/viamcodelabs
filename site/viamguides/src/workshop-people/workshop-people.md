@@ -315,7 +315,7 @@ Make sure your webcam is already connected to the Pi.
 
 ### Configure your piezo buzzer
 
-You can manually and programmatically use the GPIO pins of the `board` component to send PWM signals to control your buzzer. However, to streamline this next step, let's use a prebuilt module.
+You can manually and programmatically use the GPIO pins of the [`board`](https://docs.viam.com/components/board/) component to send PWM signals to control your buzzer. However, to streamline this next step, let's use a prebuilt module.
 
 1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component**.
 1. Select `generic`, and find the `buzzer:piezo` module. This adds the module for controlling your buzzer. Name the component `piezo`.
