@@ -19,7 +19,7 @@ Duration: 2
 >
 > - [**Build an automatic plant watering device**](https://codelabs.viam.com/guide/plant-watering-device-workshop/index.html?index=..%2F..index#0)
 
-This codelab provides a suggested delivery plan and resources for instructors interested in delivering a hands-on workshop. Take these resources, and make it your own!
+This codelab is part of the [Viam for educators](https://education.viam.com/) program, and provides a suggested delivery plan and resources for instructors interested in delivering a hands-on workshop. Take these resources, and make it your own!
 
 ### Workshop Overview
 
@@ -168,7 +168,6 @@ Connect your Raspberry Pi to the relay module:
 - PIN 14 (GND) to GND
 - PIN 8 (GPIO 14) to IN
 
-
 Last step in the wiring section is connecting the relay and Raspberry Pi to the pump. The wire connectors may be required to connect the jumper wires to the bare wires coming from the pump motor:
 
 - NO (Normally Open) on the relay module to either of the pump motor wires
@@ -259,7 +258,6 @@ Duration: 30
   <input type="radio" value="To eliminate the need for a physical Raspberry Pi.">
   <input type="radio" value="To ensure the machine only works offline.">
 </form>
-
 
 ### Add your Raspberry Pi
 

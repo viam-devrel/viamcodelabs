@@ -15,7 +15,7 @@ tags: Workshop, Developer
 
 Duration: 2
 
-This codelab provides a suggested delivery plan and resources for instructors interested in delivering a hands-on workshop. Take these resources, and make it your own!
+This codelab is part of the [Viam for educators](https://education.viam.com/) program, and provides a suggested delivery plan and resources for instructors interested in delivering a hands-on workshop. Take these resources, and make it your own!
 
 ### Workshop Overview
 
@@ -199,7 +199,7 @@ The Raspberry Pi boots from a USB flash drive (or microSD card). You need to ins
 1. **Connect the webcam**: Connect the webcam's USB lead to any USB port on your Pi. The webcam transmits video data to the Raspberry Pi through the USB interface.
 1. **Connect the piezo buzzer**: The passive piezo buzzer can be controlled via a GPIO pin on the Raspberry Pi. Refer to the following wiring diagram to connect the Raspberry Pi to the piezo buzzer.
 
-![wiring diagram](assets/piezoWiringDiagram.png)
+![wiring diagram](assets/wiring.png)
 
 - Pin 35 (GPIO 19) to Positive
 - Pin 39 (GND) to Negative
