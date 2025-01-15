@@ -1,2 +1,2 @@
-node 20
-go latest
+nodejs 22
+golang latest
