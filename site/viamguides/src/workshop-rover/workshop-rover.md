@@ -19,7 +19,7 @@ Duration: 2
 >
 > - [**Drive a rover using TypeScript**](https://codelabs.viam.com/guide/drive-rover-ts/index.html?index=..%2F..index#0)
 
-This codelab provides a suggested delivery plan and resources for instructors interested in delivering a hands-on workshop. Take these resources, and make it your own!
+This codelab is part of the [Viam for educators](https://education.viam.com/) program, and provides a suggested delivery plan and resources for instructors interested in delivering a hands-on workshop. Take these resources, and make it your own!
 
 ### Workshop Overview
 
