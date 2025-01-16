@@ -126,13 +126,13 @@ ssh <USERNAME>@<HOSTNAME>.local
    sudo raspi-config
    ```
 1. Select `Advanced Options`
-   ![Advanced Options selection in raspi-config]()
+   ![Advanced Options selection in raspi-config](assets/raspi-config-select-advanced.png)
 1. Select `PCIe Speed`
-   ![PCI2 Speed selection in raspi-config]()
+   ![PCI2 Speed selection in raspi-config](assets/raspi-config-select-pcei-speed.png)
 1. Choose `Yes` to enable PCIe Gen 3 mode
-   ![Yes selection in raspi-config]()
+   ![Yes selection in raspi-config](assets/raspi-config-select-yes.png)
 1. Select `Finish` to exit the configuration interface
-   ![Finish raspi-config]()
+   ![Finish raspi-config](assets/raspi-config-finish.png)
 1. Reboot the device
    ```console
    sudo reboot
@@ -186,7 +186,6 @@ Duration: 3
 1. In [the Viam app](https://app.viam.com/fleet/dashboard) under the **LOCATIONS** tab, create a machine by typing in a name and clicking **Add machine**.
    ![add machine](assets/newMachine.png)
 1. Click **View setup instructions**.
-   <!-- ![setup instructions](assets/awaiting.png) -->
 1. To install `viam-server` on the Raspberry Pi device that you want to use, select the `Linux / Aarch64` platform for the Raspberry Pi, and leave your installation method as [`viam-agent`](https://docs.viam.com/how-tos/provision-setup/#install-viam-agent).
    ![select platform](assets/platform.png)
 1. Use the `viam-agent` to download and install `viam-server` on your Raspberry Pi. Follow the instructions to run the command provided in the setup instructions from the SSH prompt of your Raspberry Pi.
@@ -199,20 +198,20 @@ Duration: 3
 1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component**.
 1. Select `camera`, and find the `webcam` module. This adds the module for working with a USB webcam. Leave the default name `camera-1` for now.
 1. Notice adding this component adds the webcam hardware component called `camera-1`. From the **Attributes** section of the panel, select a `video_path`.
-   <!-- ![select video path](assets/addCam.png) -->
+   ![select video path](assets/addCam.png)
 1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
 1. At the bottom of the `camera-1` panel, expand the **TEST** section to ensure you have configured the camera properly and see a video feed.
-   <!-- ![test camera](assets/testCam.png) -->
+   ![test camera](assets/testCam.png)
 
 ### Configure your vision service
 
 1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Service**.
 1. Select `vision`, and find the `hailo-rt` module. This adds the module for working with Hailo Runtime used by the AI HAT+. Select "Add module". Leave the default name `vision-1` for now.
 1. Notice adding this service adds the computer vision software service called `vision-1`. From the **Depends on** section of the panel, select `camera-1` from the "Search resources" dropdown.
-   <!-- ![select camera dependency](assets/addServiceDep.png) -->
+   ![select camera dependency](assets/addServiceDep.png)
 1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
 1. At the bottom of the `vision-1` panel, expand the **TEST** section to ensure you have configured the service properly and see images from `camera-1` with object detection boxes on top.
-   <!-- ![test vision service](assets/testService.png) -->
+   ![test vision service](assets/testService.png)
 
 <!-- ------------------------ -->
 
@@ -235,23 +234,14 @@ Duration: 1
 
 At this point, you have created an edge device that can perform real-time object detection and monitor it remotely from anywhere! You can keep building on this project with additional features:
 
-- Model out a smart city control system by connecting red, yellow, and green LEDs to the Pi for simulated traffic light control.
-- Another one
-- Another one
+- Model out a smart city control system by connecting [red, yellow, and green LEDs](https://codelabs.viam.com/guide/led-blink/index.html?index=..%2F..index#0) to the Pi for simulated traffic light control.
+- Make your smart home even smarter by [integrating with Home Assistant](https://codelabs.viam.com/guide/home-assistant/index.html?index=..%2F..index#0)
+- Put it on a rover and [make it mobile](https://codelabs.viam.com/guide/drive-rover-ts/index.html?index=..%2F..index#0)
 
 In addition to the project ideas mentioned above, consider other ways to continue your journey with Viam.
 
 - Browse other modules in [the Viam registry](https://app.viam.com/registry) similar to the [prebuilt module for the AI HAT+](https://github.com/hipsterbrown/viam-pi-hailo-ml).
 - Learn [how to create your own module](https://docs.viam.com/how-tos/hello-world-module/) with custom functionality for other computer vision runtimes or models.
-
-### Real-world applications and projects for real-time object detection
-
-<!-- Piezo buzzers are small, but mighty components used in industries requiring audible feedback, alerts, or tone generation. Their applications include: -->
-
-<!-- - **Alarms and Alerts**: Piezo buzzers create auditory signals in security systems, smoke detectors, and medical devices to notify users of critical events or malfunctions. -->
-<!-- - **Interactive Robotics**: Robots use piezo buzzers to provide audio feedback to signal a task is completed or to prompt user interaction. -->
-<!-- - **Home Automation**: Smart home devices and other consumer electronics utilize piezo buzzers for notifications, such as doorbell chimes, appliance alerts, or system warnings. -->
-<!-- - **Gaming and Toys**: Toys and games use piezo buzzers for sound effects and melodies, enhancing the interactive user experience. -->
 
 ### Related Viam resources
 
