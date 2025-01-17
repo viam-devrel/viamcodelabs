@@ -17,11 +17,13 @@ To address this use case, the Raspberry Pi company released the [Raspberry Pi AI
 
 <img src="assets/pi5-ai-hat-top.jpg" alt="Raspberry Pi 5 with AI Kit on top" width="400">
 
+This additional hardware enables the Raspberry Pi 5 to run models like [YOLO](https://www.viam.com/post/guide-yolo-model-real-time-object-detection-with-examples) with live camera streams while keeping the computer's compact form factor.
+
 ### What You’ll Build
 
 - A live traffic monitoring dashboard 
 
-<img src="assets/pi5-ai-hat-cam-setup.jpg" alt="Raspberry Pi 5 with webcam pointed out a window" width="400">
+<img src="assets/teleop-dashboard-live.png" alt="Teleop dashboard with camera stream and time series graph" width="600">
 
 ### Prerequisites
 
@@ -50,7 +52,7 @@ Follow the [official documentation](https://www.raspberrypi.com/documentation/ac
 - How to configure and test a device's components using Viam
 - How to use modules from the Viam registry
 - How to use a vision service for object detection
-- How to integrate vision service data into an application
+- How to integrate vision service data into a teleop dashboard
 
 ### Watch the Video
 
@@ -173,7 +175,10 @@ ssh <USERNAME>@<HOSTNAME>.local
 
 1. Connect the webcam's USB lead to any USB port on your Pi. The webcam transmits video data to the Raspberry Pi through the USB interface.
 
-Now that we have physically connected our hardware components, let's configure the software in the next section.
+Now that we have physically connected our hardware components, place them in a spot with a good view of the traffic. In the next section, we'll configure our machine.
+
+<img src="assets/pi5-ai-hat-cam-setup.jpg" alt="Raspberry Pi 5 with webcam pointed out a window" width="400">
+
 
 <!-- ------------------------ -->
 
@@ -278,7 +283,7 @@ Duration: 1
 - How to configure and test a device's components using Viam
 - How to use modules from the Viam registry
 - How to use a vision service for object detection
-- How to integrate vision service data into an application
+- How to integrate vision service data into a teleop dashboard
 
 ### Building advanced scenarios with Viam and the Raspberry Pi AI HAT+
 
