@@ -213,11 +213,61 @@ Duration: 3
 1. At the bottom of the `vision-1` panel, expand the **TEST** section to ensure you have configured the service properly and see images from `camera-1` with object detection boxes on top.
    ![test vision service](assets/testService.png)
 
+### Configure your detections sensor
+
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component**.
+1. Select `sensor`, and find the `detections` module. This adds a module for capturing object detection data from a vision service. Leave the default name `sensor-1` for now.
+1. Notice adding this component adds the sensor component called `sensor-1`. From the **Attributes** section of the panel, add the following JSON configuration.
+   ```json
+   {
+       "camera": "camera-1",
+       "detector": "vision-1",
+       "labels": ["car", "bus", "person"]
+   }
+   ```
+1. From the **Data capture** section of the panel, click "+ Add method". Set the "Method" as "Readings", "Frequency (hz)" as 1. Click "Create data management service" in the banner within the panel to automatically create a Data Management Service called `data_manager-1`.
+   ![configure sensor component](assets/addSensorFull.png)
+   ![configure sensor component](assets/addDataManager.png)
+1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
+1. At the bottom of the `sensor-1` panel, expand the **TEST** section to ensure you have configured the sensor properly and see a list of the configured labels with the number of detections refreshed regularly.
+   ![test camera](assets/testSensor.png)
+
+With all the components and services in place, you can move on to creating a live tele-operations dashboard for your machine!
+
 <!-- ------------------------ -->
 
 ## Create your traffic dashboard
+Duration: 3
 
-TBD
+This step walks through how to use the [teleop (or tele-operations) feature](https://docs.viam.com/manage/troubleshoot/teleoperate/custom-interface/) of the Viam app.
+
+### Configure your teleop workspace
+
+1. In [the Viam app](https://app.viam.com/fleet/dashboard) under the **TELEOP** tab, create a new dashboard by clicking **Create workspace**.
+   ![create workspace](assets/teleop-landing.png)
+1. Click on "untitle-workspace" to set the name of your dashboard.
+   ![set dashboard name](assets/teleop-set-name.png)
+1. Click "Select machine" and choose your previously configured machine from the list.
+   ![select active machine](assets/teleop-select-machine.png)
+
+### Configure camera stream widget
+
+1. Click "+ Add widget" and select "Camera stream".
+   ![select camera stream widget](assets/teleop-add-camera.png)
+1. Notice adding this widget creates a panel called `Camera`. Select `camera-1` from the "Camera name" field, keep the "Refresh type" as "Live".
+   ![select camera component](assets/teleop-camera-select.png)
+
+### Configure time series graph widget
+
+1. Click "+ Add widget" and select "Time series".
+   ![select time series graph](assets/teleop-add-graph.png)
+1. Notice adding this widget creates a new panel called `Time series`. Set the "Title" to "Traffic" and "Time range (min)" to 30.
+1. Under the **Lines** section of the panel, select `sensor-1` for the "Resource name", `Readings` for "Capture method", `cars` for "Title", and `readings.car` for "Path".
+   ![set graph line](assets/teleop-graph-lines.png)
+1. Add new lines by click "+ Add line". Create a line for each remaining label captured by the sensor: `bus` and `person`.
+1. Click "Save changes" to see the camera stream and data updating live.
+
+![working teleop dashboard](assets/teleop-dashboard-live.png)
 
 <!-- ------------------------ -->
 ## Conclusion And Resources
