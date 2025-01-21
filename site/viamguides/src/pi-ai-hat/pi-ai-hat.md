@@ -269,7 +269,7 @@ This step walks through how to use the [teleop (or tele-operations) feature](htt
 1. Notice adding this widget creates a new panel called `Time series`. Set the "Title" to "Traffic" and "Time range (min)" to 30.
 1. Under the **Lines** section of the panel, select `sensor-1` for the "Resource name", `Readings` for "Capture method", `cars` for "Title", and `readings.car` for "Path".
    ![set graph line](assets/teleop-graph-lines.png)
-1. Add new lines by click "+ Add line". Create a line for each remaining label captured by the sensor: `bus` and `person`.
+1. Add new lines by clicking "+ Add line". Create a line for each remaining label captured by the sensor: `bus` and `person`.
 1. Click "Save changes" to see the camera stream and data updating live.
 
 ![working teleop dashboard](assets/teleop-dashboard-live.png)
