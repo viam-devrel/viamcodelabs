@@ -54,11 +54,11 @@ Follow the [official documentation](https://www.raspberrypi.com/documentation/ac
 - How to use a vision service for object detection
 - How to integrate vision service data into a teleop dashboard
 
-### Watch the Video
+<!-- ### Watch the Video -->
 
-See a demonstration of the traffic monitor in this video.
+<!-- See a demonstration of the traffic monitor in this video. -->
 
-**TBD**
+<!-- **TBD** -->
 
 <!-- <video id="DH3kkFjmGss"></video> -->
 
@@ -157,19 +157,19 @@ ssh <USERNAME>@<HOSTNAME>.local
    ```console
    hailortcli fw-control identify
    ```
-   You should see output similar to the follow:
-   ```console
-   Executing on device: 0000:01:00.0
-   Identifying board
-   Control Protocol Version: 2
-   Firmware Version: 4.17.0 (release,app,extended context switch buffer)
-   Logger Version: 0
-   Board Name: Hailo-8
-   Device Architecture: HAILO8L
-   Serial Number: HLDDLBB234500054
-   Part Number: HM21LB1C2LAE
-   Product Name: HAILO-8L AI ACC M.2 B+M KEY MODULE EXT TMP
-   ```
+You should see output similar to the follow:
+```console
+Executing on device: 0000:01:00.0
+Identifying board
+Control Protocol Version: 2
+Firmware Version: 4.17.0 (release,app,extended context switch buffer)
+Logger Version: 0
+Board Name: Hailo-8
+Device Architecture: HAILO8L
+Serial Number: HLDDLBB234500054
+Part Number: HM21LB1C2LAE
+Product Name: HAILO-8L AI ACC M.2 B+M KEY MODULE EXT TMP
+```
 
 ### Add your webcam
 
@@ -242,7 +242,7 @@ With all the components and services in place, you can move on to creating a liv
 <!-- ------------------------ -->
 
 ## Create your traffic dashboard
-Duration: 3
+Duration: 4
 
 This step walks through how to use the [teleop (or tele-operations) feature](https://docs.viam.com/manage/troubleshoot/teleoperate/custom-interface/) of the Viam app.
 
@@ -292,6 +292,10 @@ At this point, you have created an edge device that can perform real-time object
 - Model out a smart city control system by connecting [red, yellow, and green LEDs](https://codelabs.viam.com/guide/led-blink/index.html?index=..%2F..index#0) to the Pi for simulated traffic light control.
 - Make your smart home even smarter by [integrating with Home Assistant](https://codelabs.viam.com/guide/home-assistant/index.html?index=..%2F..index#0)
 - Put it on a rover and [make it mobile](https://codelabs.viam.com/guide/drive-rover-ts/index.html?index=..%2F..index#0)
+
+The default [YOLO-based models](https://www.viam.com/post/guide-yolo-model-real-time-object-detection-with-examples) can do more than detect traffic! You can find the full list of identifiable objects included in the module repo: [https://github.com/HipsterBrown/viam-pi-hailo-ml/](https://github.com/HipsterBrown/viam-pi-hailo-ml/blob/main/assets/coco.txt)
+
+If none of those items suit your project requirements, you can explore the full suite of model types in the [Hailo Model Zoo](https://github.com/hailo-ai/hailo_model_zoo/blob/master/docs/PUBLIC_MODELS.rst) or [retrain a model](https://github.com/hailo-ai/hailo_model_zoo/blob/master/training/yolov8/README.rst) on a custom dataset. 
 
 In addition to the project ideas mentioned above, consider other ways to continue your journey with Viam.
 
