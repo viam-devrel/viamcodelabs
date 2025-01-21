@@ -260,7 +260,7 @@ Duration: 30
    ![insert fragment](assets/insertFragment.png)
 1. Select [`ViamRover2-2024-rpi4-a`](https://app.viam.com/fragment/7c413f24-691d-4ae6-a759-df3654cfe4c8/json).
    ![select fragment](assets/selectFragment.png)
-1. Click I**nsert fragment** again to add the fragment to your machine.
+1. Click **Insert fragment** again to add the fragment to your machine.
    ![confirm fragment](assets/confirmFragment.png)
 1. Notice adding this fragment adds several hardware components to your machine’s JSON configuration. Each component is listed in the left sidebar, along with a corresponding panel on the right with more details.
    ![sidebar and panels](assets/fullFragment.png)
