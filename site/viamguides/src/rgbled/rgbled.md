@@ -109,21 +109,35 @@ Duration: 2
 
 ### Add your RGB LED
 
-1. **Connect the RGB LED**: The LED can be controlled via a GPIO pin on the Raspberry Pi. Refer to the following wiring diagram to connect the Raspberry Pi to the RGB LED, using the breadboard and also resistors to control the flow of electricity.
+1. **Review the wiring diagram**: The LED can be controlled via a GPIO pin on the Raspberry Pi. Refer to the following wiring diagram to see how to connect the Raspberry Pi to the RGB LED, using the breadboard and also resistors to control the flow of electricity.
 
-![wiring diagram](assets/rgbledWiring.png)
+   ![wiring diagram](assets/rgbledWiring.png)
 
-- Pin 12 (GPIO 18) to Blue
-- Pin 32 (GPIO 12) to Green
-- Pin 33 (GPIO 13) to Red
-- Pin 34 (GND) to Common
+   - Pin 12 (GPIO 18) to Blue
+   - Pin 32 (GPIO 12) to Green
+   - Pin 33 (GPIO 13) to Red
+   - Pin 34 (GND) to Common
 
-> aside positive
-> The website [pinout.xyz](https://pinout.xyz/) is a helpful resource with the exact layout and role of each pin for Raspberry Pi. When working with Viam, make sure to reference the physical pin numbers, and not the GPIO numbers listed on `pinout.xyz`.
+   > aside positive
+   > The website [pinout.xyz](https://pinout.xyz/) is a helpful resource with the exact layout and role of each pin for Raspberry Pi. When working with Viam, make sure to reference the physical pin numbers, and not the GPIO numbers listed on `pinout.xyz`.
 
-![photo of LED connected to Raspberry Pi](assets/brightLED.png)
+1. **Review the LED orientation**: A common cathode RGB LED has four legs:
 
-Now that we have physically connected our hardware components, let's configure the software in the next section.
+   - **Common Cathode (GND)**: The longest leg should be connected to ground.
+   - **Red (R)**: Typically the leg next to the common cathode (to the left as shown below).
+   - **Green (G)**: The leg on the other side of the cathode (to the right as shown below).
+   - **Blue (B)**: The farthest leg from the cathode.
+
+   ![common cathode diagram](assets/commonCathode.png)
+
+1. **Wire the RGB LED to the Raspberry Pi**: The breadboard simplifies the wiring process by providing a secure platform to connect components without soldering. Connect the longest leg of the LED (common cathode) to the ground (GND) pin (physical pin 34) on the Raspberry Pi. Then, connect the red, green, and blue legs of the LED to resistors (68Ω for red, 10Ω for green, and 10Ω for blue). These resistors should then be connected to pins 33, 32, and 12, respectively. Double-check connections to ensure correct polarity and avoid miswiring.
+
+   > aside positive
+   > Your LED may come with resistors of the recommended resistance. If the Ohm level is too high, then no power will get to the LED. You can figure out which ones you're using with [this handy tool](https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code).
+
+   ![photo of LED connected to Raspberry Pi](assets/brightLED.png)
+
+Now that you have physically connected the hardware components, let's configure the software in the next section.
 
 ---
 
@@ -195,7 +209,7 @@ You can manually and programmatically use the GPIO pins of the [`board`](https:/
    }
    ```
    ![test rgb led](assets/testLED.png)
-   You are executing a [`DoCommand`](https://docs.viam.com/components/generic/#api) on a generic component that has been predefined to accept parameters within a `control_rgb_led` command, such as `red`, `green`, `blue`, and `duration`.
+   You are executing a [`DoCommand`](https://docs.viam.com/components/generic/#api) on a generic component that has been predefined to accept parameters within a `control_rgb_led` command, such as `red`, `green`, `blue`, and `duration`. With these values, red will be at 80% brightness, green at 50% brightness, blue at 20% brightness - displaying a pulsating mixed color for a total duration of 2 seconds.
 1. Experiment with different numerical values in those fields to see what happens when you execute the command again. If you have extra time, try sending the following Do command.
    ```json
    {
