@@ -19,11 +19,11 @@
 
 /* Google colors */
 
-variables.$snowflake-blue:  #4285f4;
-$color-google-red:  #ea4335;
-$color-google-yellow:  #fbbc05;
-$color-google-green:  #34a853;
-$color-google-grey:  #9aa0a6;
+/* variables.$snowflake-blue:  #4285f4; */
+$color-google-red: #ea4335;
+$color-google-yellow: #fbbc05;
+$color-google-green: #34a853;
+$color-google-grey: #9aa0a6;
 
 /* Other colors */
 
@@ -49,31 +49,31 @@ $color-weave-green: #0f9d58;
 
 
 /* Snowflake Colors */
-variables.$snowflake-blue:   #29B5E8;
-variables.$mid-blue:         #11567F;
-variables.$dark-blue:        #0080B0;
-variables.$star-blue:        #71D3DC;
-variables.$valencia-orange:  #FF9F36;
-variables.$purple-moon:      #7D44CF;
-variables.$first-light:      #D45B90;
-variables.$windy-city:       #8A999E;
+/* variables.$snowflake-blue:   #29B5E8; */
+/* variables.$mid-blue:         #11567F; */
+/* variables.$dark-blue:        #0080B0; */
+/* variables.$star-blue:        #71D3DC; */
+/* variables.$valencia-orange:  #FF9F36; */
+/* variables.$purple-moon:      #7D44CF; */
+/* variables.$first-light:      #D45B90; */
+/* variables.$windy-city:       #8A999E; */
 
-$catagory-colors: (
-  variables.$snowflake-blue:   #29B5E8,
-  variables.$mid-blue:         #11567F,
-  variables.$dark-blue:        #0080B0,
-  variables.$star-blue:        #71D3DC,
-  variables.$valencia-orange:  #FF9F36,
-  variables.$purple-moon:      #7D44CF,
-  variables.$first-light:      #D45B90,
-  variables.$windy-city:       #8A999E,
-);
+/* $catagory-colors: ( */
+/*   variables.$snowflake-blue:   #29B5E8, */
+/*   variables.$mid-blue:         #11567F, */
+/*   variables.$dark-blue:        #0080B0, */
+/*   variables.$star-blue:        #71D3DC, */
+/*   variables.$valencia-orange:  #FF9F36, */
+/*   variables.$purple-moon:      #7D44CF, */
+/*   variables.$first-light:      #D45B90, */
+/*   variables.$windy-city:       #8A999E, */
+/* ); */
 
 @function str-replace($string, $search, $replace: '') {
   $index: string.index($string, $search);
 
   @if $index {
-    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+    @return string.slice($string, 1, $index - 1)+$replace +str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
   }
 
   @return $string;
@@ -81,14 +81,23 @@ $catagory-colors: (
 
 /* Mixins */
 
-@mixin codelab-card($categories, $color, $icon) {
-  %bg-#{str-replace('' + $color, '#', '')} {
-    --md-filled-button-container-color: $color;
-    background-color: $color;
+@mixin codelab-card($categories, $primary-color, $secondary-color, $icon) {
+  %bg-#{str-replace('' + $primary-color, '#', '')} {
+    --md-filled-button-container-color: $primary-color;
+    --md-filled-button-label-text-color: #000;
+    --md-filled-button-hover-label-text-color: #000;
+    background-color: $primary-color;
+    border: 1px solid $secondary-color;
+
+    &:hover,
+    &:focus {
+      --md-filled-button-container-color: $secondary-color;
+      background-color: $secondary-color;
+    }
   }
 
-  %border-#{str-replace('' + $color, '#', '')} {
-    border-bottom-color: $color;
+  %border-#{str-replace('' + $primary-color, '#', '')} {
+    border-bottom-color: $secondary-color;
   }
 
   %icon-#{$icon} {
@@ -97,11 +106,11 @@ $catagory-colors: (
 
   @each $category in $categories {
     .codelab-card.category-#{$category} {
-      @extend %border-#{str-replace('' + $color, '#', '')};
+      @extend %border-#{str-replace('' + $primary-color, '#', '')};
     }
 
     .#{$category}-bg {
-      @extend %bg-#{str-replace('' + $color, '#', '')};
+      @extend %bg-#{str-replace('' + $primary-color, '#', '')};
     }
 
     // .#{$category}-icon {

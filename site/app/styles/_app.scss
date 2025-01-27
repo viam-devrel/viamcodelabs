@@ -19,6 +19,7 @@
 @use "layout";
 @use "variables";
 @use '_buttons';
+@use "fonts";
 
 * {
   box-sizing: border-box;
@@ -27,10 +28,13 @@
 }
 
 :root {
+  --color-light-grey: #f5f5f5;
+  --font-public-sans: 'Public Sans';
   // tabs
   --md-primary-tab-container-color: transparent;
   --md-primary-tab-active-indicator-color: black;
   --md-primary-tab-active-label-text-color: var(--md-primary-tab-active-indicator-color);
+  --md-primary-tab-label-text-font: var(--font-public-sans);
   --md-primary-tab-active-pressed-label-text-color: var(--md-primary-tab-active-indicator-color);
   --md-primary-tab-active-focus-label-text-color: var(--md-primary-tab-active-indicator-color);
   --md-primary-tab-active-hover-label-text-color: var(--md-primary-tab-active-indicator-color);
@@ -42,17 +46,29 @@
   --md-filled-select-text-field-container-color: transparent;
   --md-filled-select-text-field-active-indicator-color: black;
   --md-filled-select-text-field-label-text-color: var(--md-filled-select-text-field-active-indicator-color);
+  --md-filled-select-text-field-label-text-font: fonts.$public-sans;
   --md-filled-select-text-field-focus-active-indicator-color: var(--md-filled-select-text-field-active-indicator-color);
   --md-filled-select-text-field-focus-label-text-color: var(--md-filled-select-text-field-active-indicator-color);
   --md-menu-container-color: white;
   --md-menu-item-container-color: white;
+  --md-menu-item-label-text-font: var(--font-public-sans);
+  --md-menu-item-text-font: var(--font-public-sans);
   --md-menu-item-selected-container-color: lightgray;
 
   // search field
   --md-outlined-text-field-focus-outline-color: black;
-  --md-outlined-text-field-container-shape: 2rem;
-}
+  --md-outlined-text-field-container-shape: 0px;
+  --md-outlined-text-field-text-font: var(--font-public-sans);
 
+  --md-outlined-text-field-top-space: 8px;
+  --md-outlined-text-field-bottom-space: 8px;
+  --md-outlined-field-outline-label-padding: 8px;
+
+  --md-filled-field-content-font: var(--font-public-sans);
+  --md-outlined-field-content-font: var(--font-public-sans);
+  --md-ref-typeface-brand: 'Space Grotesk';
+  --md-ref-typeface-plain: 'Public Sans';
+}
 
 body {
   background: variables.$backgroundColor;
@@ -109,9 +125,9 @@ li {
 }
 
 #banner {
-  background-color: variables.$viam-black;
+  /* background-color: variables.$viam-black; */
   @include layout.keyline-40();
-  padding: 40px 0 48px 0;
+  padding: 60px 0 60px 0;
 
   &[down] {
     .banner-slider {
@@ -123,13 +139,14 @@ li {
     }
   }
 
+  h1,
   h2,
   h3 {
-    color: #fff;
+    color: variables.$viam-black;
   }
 
   p {
-    color: #fff;
+    color: variables.$viam-black;
 
     a {
       margin-top: 1.5rem;
@@ -196,6 +213,14 @@ li {
   }
 }
 
+main {
+  padding: 60px 0 60px 0;
+
+  h2 {
+    color: variables.$viam-black;
+  }
+}
+
 #sortby {
   padding: variables.$keyline * 3 0;
   justify-content: center;
@@ -207,25 +232,6 @@ li {
       padding: 0 5px;
       margin: auto 7px;
     }
-  }
-}
-
-.paper-button-0,
-.paper-menu-button-0 {
-  border-radius: variables.$radius !important;
-}
-
-.dropdown-filter {
-  background-color: #fff;
-  border-radius: variables.$radius;
-}
-
-.dropdown-content {
-  border-radius: variables.$radius !important;
-
-  paper-item:hover {
-    background: variables.$grey200;
-    cursor: pointer;
   }
 }
 

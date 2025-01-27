@@ -15,112 +15,133 @@
  * limitations under the License.
  */
 
- /* Viam Colors */
+/* Viam Colors */
 
- $viam-black:   #000000;
- $medium-grey: #E7E5E4;
- $light-grey:  #F5F5F5;
+$viam-black: #000000;
+$medium-grey: #E7E5E4;
+$light-grey: #F5F5F5;
 
- $pcb: #00501F;
- $power-button: #00EF83;
- $solar: #FFD400;
- $mars-rover: #FF7D80;
- $raspberry: #9F0049;
- $hologram: #00E8E8;
- $yoshimi: #FF79FF;
- $cyberpunk: #A51AFF;
- $hyperlink: #0000EA;
- $power-wire: #FF0047;
+$pcb: #00501F;
+$power-button: #00EF83;
+$solar: #FFD400;
+$mars-rover: #FF7D80;
+$raspberry: #9F0049;
+$hologram: #00E8E8;
+$yoshimi: #FF79FF;
+$cyberpunk: #A51AFF;
+$hyperlink: #0000EA;
+$power-wire: #FF0047;
 
- /* Snowflake Colors */
+$cyberpunk-50: #D18AFF;
 
- $black:            #000000;
- $white:            #FFFFFF;
- $grey:             #F8F8F9;
+$light-cyberpunk: #F4D9FF;
+$light-hologram: #DCFCFC;
+$light-power-button: #C2FBE1;
+$light-rover: #FFD8D9;
+$light-solar: #FFE875;
+$light-yoshimi: #FFE5FF;
 
- $snowflake-blue:   #00A1E0;
- $snowflake-blue:   $viam-black;
- $blue:             $snowflake-blue;
- 
- $mid-blue:         #11567F;
- $mid-blue:         $cyberpunk;
- 
- $dark-blue:        #0080B0;
- $dark-blue:        $hologram;
+/* Snowflake Colors */
 
- $midnight:         #000000;
+$black: #000000;
+$white: #FFFFFF;
+$grey: #F8F8F9;
 
- $star-blue:        #71D3DC;
- $star-blue:        $yoshimi;
+$snowflake-blue: #00A1E0;
+$snowflake-blue: $viam-black;
+$blue: $snowflake-blue;
 
- $valencia-orange:  #FF9F36;
- $valencia-orange:  $solar;
+$mid-blue: #11567F;
+$mid-blue: $cyberpunk;
 
- $purple-moon:      #7D44CF;
-  $purple-moon:      $mars-rover;
- 
- $first-light:      #D45B90;
- $first-light:      $power-button;
+$dark-blue: #0080B0;
+$dark-blue: $hologram;
 
- $windy-city:       #8A999E;
- $windy-city:       $pcb;
+$midnight: #000000;
 
- $snow:             #ffffff;
+$star-blue: #71D3DC;
+$star-blue: $yoshimi;
 
- $error:            #F60000;
- $error:           $power-wire;
+$valencia-orange: #FF9F36;
+$valencia-orange: $solar;
 
- $blue-hover:              #077EA8;
- $mid-blue-hover:          #013D61;
- $star-blue-hover:         #429DA6;
- $valencia-orange-hover:   #CF7B1F;
- $purple-moon-hover:       #56269B;
- $first-light-hover:       #8A2F57;
- $windy-city-hover:        #5A6569;
+$purple-moon: #7D44CF;
+$purple-moon: $mars-rover;
+
+$first-light: #D45B90;
+$first-light: $power-button;
+
+$windy-city: #8A999E;
+$windy-city: $pcb;
+
+$snow: #ffffff;
+
+$error: #F60000;
+$error: $power-wire;
+
+$blue-hover: #077EA8;
+$mid-blue-hover: #013D61;
+$star-blue-hover: #429DA6;
+$valencia-orange-hover: #CF7B1F;
+$purple-moon-hover: #56269B;
+$first-light-hover: #8A2F57;
+$windy-city-hover: #5A6569;
 
 
- /* Snowflake Gradients */
- .g-data-engineering {
-   background: rgb(55,180,226);
-   background: linear-gradient(180deg, rgba(55,180,226,1) 0%, rgba(0,138,192,1) 100%);
- }
- .g-data-lake {
-   background: rgb(0,160,168);
-   background: linear-gradient(-44deg, rgba(0,160,168,1) 35%, rgba(0,175,193,1) 61%);
- }
- .g-data-warehouse {
-   background: rgb(0,51,71);
-   background: linear-gradient(-41deg, rgba(0,51,71,1) 0%, rgba(0,74,105,1) 50%);
- }
- .g-data-science {
-   background: rgb(152,76,155);
-   background: linear-gradient(135deg, rgba(152,76,155,1) 39%, rgba(103,42,117,1) 100%);
- }
- .g-data-application {
-   background: rgb(44,93,169);
-   background: linear-gradient(135deg, rgba(44,93,169,1) 3%, rgba(71,92,167,1) 46%, rgba(46,49,144,1) 100%);
- }
- .g-data-exchange {
-   background: rgb(40,42,114);
-   background: linear-gradient(-43deg, rgba(40,42,114,1) 32%, rgba(43,51,142,1) 62%);
- }
- .g-snowflake-blue-gt {
-   background: rgb(41,181,232);
-   background: linear-gradient(45deg, rgba(41,181,232,1) 0%, rgba(0,127,175,1) 100%);
- }
- .g-mid-blue-gt {
-   background: rgb(41,181,232);
-   background: linear-gradient(135deg, rgba(41,181,232,1) 0%, rgba(0,0,0,1) 100%);
- }
- .bg-white {
-   background-color: #ffffff;
- }
- .bg-blue, .bg-snowflake-blue, .blue-section {
-   background-color: $snowflake-blue !important;
- }
- .bg-mid-blue {
-   background-color: $mid-blue !important;
- }
+/* Snowflake Gradients */
+.g-data-engineering {
+  background: rgb(55, 180, 226);
+  background: linear-gradient(180deg, rgba(55, 180, 226, 1) 0%, rgba(0, 138, 192, 1) 100%);
+}
+
+.g-data-lake {
+  background: rgb(0, 160, 168);
+  background: linear-gradient(-44deg, rgba(0, 160, 168, 1) 35%, rgba(0, 175, 193, 1) 61%);
+}
+
+.g-data-warehouse {
+  background: rgb(0, 51, 71);
+  background: linear-gradient(-41deg, rgba(0, 51, 71, 1) 0%, rgba(0, 74, 105, 1) 50%);
+}
+
+.g-data-science {
+  background: rgb(152, 76, 155);
+  background: linear-gradient(135deg, rgba(152, 76, 155, 1) 39%, rgba(103, 42, 117, 1) 100%);
+}
+
+.g-data-application {
+  background: rgb(44, 93, 169);
+  background: linear-gradient(135deg, rgba(44, 93, 169, 1) 3%, rgba(71, 92, 167, 1) 46%, rgba(46, 49, 144, 1) 100%);
+}
+
+.g-data-exchange {
+  background: rgb(40, 42, 114);
+  background: linear-gradient(-43deg, rgba(40, 42, 114, 1) 32%, rgba(43, 51, 142, 1) 62%);
+}
+
+.g-snowflake-blue-gt {
+  background: rgb(41, 181, 232);
+  background: linear-gradient(45deg, rgba(41, 181, 232, 1) 0%, rgba(0, 127, 175, 1) 100%);
+}
+
+.g-mid-blue-gt {
+  background: rgb(41, 181, 232);
+  background: linear-gradient(135deg, rgba(41, 181, 232, 1) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-blue,
+.bg-snowflake-blue,
+.blue-section {
+  background-color: $snowflake-blue !important;
+}
+
+.bg-mid-blue {
+  background-color: $mid-blue !important;
+}
 
 
 

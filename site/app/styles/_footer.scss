@@ -18,11 +18,14 @@
 @use "fonts";
 
 #footer {
-  background-color: variables.$black;
-  font-size: 13px;
-  padding: 40px 0;
+  background-color: variables.$white;
+  border-top: 1px solid variables.$viam-black;
+  color: variables.$viam-black;
+  font-size: 14px;
+  padding: 60px 0 0 0;
 
-  ul, li {
+  ul,
+  li {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -47,14 +50,14 @@
 
     label {
       display: block;
-      color: #fff;
+      color: variables.$viam-black;
       margin: variables.$keyline 0;
-      font-family: fonts.$lato-bold;
+      font-family: fonts.$public-sans;
       text-transform: uppercase;
     }
 
     ul li a {
-      color: #fff;
+      color: variables.$viam-black;
 
     }
   }
@@ -78,6 +81,7 @@
     .footer-wrapper {
       flex-direction: column;
     }
+
     .link-list {
       margin: 0 0 variables.$keyline*3 0;
     }

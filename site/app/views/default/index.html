@@ -56,7 +56,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="stylesheet" href="default/style.css">
   {%- endif %}
 
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
   <script type="importmap">
     {
@@ -114,7 +119,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- End Google Tag Manager (noscript) -->
   {% raw %}
   <div id="mainToolbar" class="paper-header">
-    <div class="site-width layout horizontal">
+    <div class="site-width layout horizontal center">
       <a href="/">
         <img src="/images/viam-logo-black.svg" class="logo-devs" alt="Viam Logo">
       </a>
@@ -131,13 +136,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <header id="banner" {% if view.id !='default' -%}down{%- else %}down$="[[_toBoolean(selectedFilter)]]" {%- endif %}>
     <div class="site-width">
       {% if view.id == 'default' %}
-      <h2 class="banner-title">Getting Started with Viam</h2>
+      <h1 class="banner-title">Getting Started with Viam</h1>
       <div class="banner-description" data-filter-selected$="{% raw %}[[_toBoolean(selectedFilter)]]{% endraw %}">
         <p class="banner-info">
           Follow along with our tutorials to get you up and running with Viam.
           <br>
-          <a href="https://github.com/viam-labs/viamcodelabs" target="_blank">Viam Codelabs on GitHub</a>
-          <a href="https://www.viam.com/resources/community#events" target="_blank">Events</a>
+          <a href="https://github.com/viam-labs/viamcodelabs" target="_blank">Contribute</a>
+          <a href="https://www.viam.com/resources/community#events" target="_blank">Attend Events</a>
           <a href="https://www.viam.com/product/demo-request" target="_blank">Request Demo</a>
         </p>
         {%- else -%}
@@ -155,6 +160,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </header>
 
   <main>
+    <div class="site-width">
+      <h2>Codelabs</h2>
+    </div>
     <div id="filters" class="site-width layout horizontal center justified">
       <div id="sortby">
         <md-tabs>
@@ -223,7 +231,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <footer id="footer">
     <div class="footer-wrapper site-width">
       <div class="link-list">
-        <img class="" alt="Viam Inc." src="/images/viam-logo-white.svg">
+        <img class="" alt="Viam Inc." src="/images/viam-logo-black.svg">
       </div>
       <div class="link-list">
         <label>Platform</label>

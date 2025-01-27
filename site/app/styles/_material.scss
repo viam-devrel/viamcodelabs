@@ -15,7 +15,7 @@
  */
 
 @mixin md-font-base() {
-  font-family: 'Lato-Regular', sans-serif;
+  font-family: 'Public Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -57,26 +57,23 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 56px;
-  font-weight: 400;
-  letter-spacing: -.026em;
-  line-height: 60px;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 56px;
 }
 
 @mixin md-font-display2() {
   @include md-font-base();
-  font-size: 45px;
-  font-weight: 400;
-  letter-spacing: -.018em;
-  line-height: 48px;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 42px;
 }
 
 @mixin md-font-display1() {
   @include md-font-base();
-  font-size: 34px;
-  font-weight: 400;
-  letter-spacing: -.01em;
-  line-height: 40px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
 }
 
 @mixin md-font-button() {
