@@ -2,8 +2,8 @@
 @use "variables";
 
 .my-button {
-	@extend %btn !optional;
-  }
+  @extend %btn !optional;
+}
 
 button,
 input[type="button"],
@@ -11,281 +11,320 @@ input[type="reset"],
 input[type="submit"],
 %btn,
 .btn {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0 0 1rem 0;
-	padding: 12px 27px;
-	font-family: fonts.$texta-black;
-	font-size: 16px;
-	background: variables.$mid-blue;
-	color: #fff;
-	line-height: 1;
-	text-transform:uppercase;
-	text-decoration:none;
-	border:none;
-	white-space: nowrap;
-	border-radius: 40px;
-	transition: all 200ms ease-in-out;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 1rem 0;
+  padding: 8px 32px;
+  font-family: fonts.$space-grotesk;
+  font-size: 14px;
+  background: variables.$light-grey;
+  color: #000;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid variables.$viam-black;
+  white-space: nowrap;
+  transition: all 200ms ease-in-out;
 
-	&:hover {
-		background: variables.$mid-blue-hover;
-		color: #fff;
-	}
+  &:hover {
+    background: variables.$medium-grey;
+    border-radius: 40px;
+    color: #000;
+  }
 
-	&:active,
-	&:focus {
-		background: variables.$mid-blue-hover;
-		color: #fff;
-	}
+  &:active,
+  &:focus {
+    background: variables.$medium-grey;
+    color: #000;
+  }
 
-	&:visited {
-		color: #fff;
-	}
+  &:visited {
+    color: #000;
+  }
 
-	&.hollow {
-		background: none;
-		border: 1px solid variables.$mid-blue;
-		color: variables.$mid-blue;
+  &.hollow {
+    background: none;
+    border: 1px solid variables.$mid-blue;
+    color: variables.$mid-blue;
 
-		&:hover,&:active, &:focus {
-			background: variables.$mid-blue;
-			color: #fff;
-		}
-	}
-
-	&.btn-blue {
-		background: variables.$blue;
-		color:#fff;
-
-		&:hover,&:active, &:focus {
-			background: variables.$blue-hover;
-		}
-
-		&.hollow {
-			background: none;
-			border: 1px solid variables.$blue;
-			color: variables.$blue;
-
-			&:hover,&:active, &:focus {
-				background: variables.$blue !important;
-				color: #fff !important;
-			}
-		}
-	}
-
-	&.btn-valencia-orange {
-		background: variables.$valencia-orange;
-		color:#fff;
-
-		&:hover,&:active, &:focus {
-			background: variables.$valencia-orange-hover;
-		}
-
-		&.hollow {
-			background: none;
-			border: 1px solid variables.$valencia-orange;
-			color: variables.$valencia-orange;
-
-			&:hover,&:active, &:focus {
-				background: variables.$valencia-orange;
-				color: #fff;
-			}
-		}
-	}
-
-	&.btn-reverse {
-		background: transparent;
-		color: variables.$blue;
-		border: 1px solid variables.$blue;
-
-		&:hover,&:active, &:focus {
-			background: variables.$blue-hover;
-			color: variables.$white;
-			border: 1px solid variables.$blue-hover;
-		}
-	}
-
-	&.btn-first-light {
-		background: variables.$first-light;
-
-		&:hover,&:active, &:focus {
-			background: variables.$first-light-hover;
-		}
-
-		&.hollow {
-			background: none;
-			border: 1px solid variables.$first-light;
-			color: variables.$first-light;
-
-			&:hover,&:active, &:focus {
-				background: variables.$first-light;
-				color: #fff;
-			}
-		}
-	}
-
-	&.btn-star-blue {
-		background: variables.$star-blue;
-
-		&:hover,&:active, &:focus {
-			background: variables.$star-blue-hover;
-		}
-
-		&.hollow {
-			background: none;
-			border: 1px solid variables.$star-blue;
-			color: variables.$star-blue;
-
-			&:hover,&:active, &:focus {
-				background: variables.$star-blue;
-				color: #fff;
-			}
-		}
-	}
-
-	&.btn-purple-moon {
-		background: variables.$purple-moon;
-
-		&:hover,&:active, &:focus {
-			background: variables.$purple-moon-hover;
-		}
-
-		&.hollow {
-			background: none;
-			border: 1px solid variables.$purple-moon;
-			color: variables.$purple-moon;
-
-			&:hover,&:active, &:focus {
-				background: variables.$purple-moon;
-				color: #fff;
-			}
-		}
-	}
-
-  &.btn-windy-city {
-		background: variables.$windy-city;
-
-		&:hover,&:active, &:focus {
-			background: variables.$windy-city-hover;
-		}
-
-		&.hollow {
-			background: none;
-			border: 1px solid variables.$windy-city;
-			color: variables.$windy-city;
-
-			&:hover,&:active, &:focus {
-				background: variables.$windy-city;
-				color: #fff;
-			}
-		}
-	}
-
-  &.btn-white {
-		background: #fff;
-    color: variables.$blue;
-
-		&:hover,&:active, &:focus {
-			background: variables.$midnight;
+    &:hover,
+    &:active,
+    &:focus {
+      background: variables.$mid-blue;
       color: #fff;
-		}
+    }
+  }
 
-		&.black-text {
-			color: variables.$midnight;
-
-			&:hover,&:active, &:focus {
-	      color: #fff;
-			}
-		}
-
-    &.hollow {
-			background: none;
-			border: 1px solid #fff !important;
-			color: #fff !important;
-
-			&:hover,&:active, &:focus {
-				background: #fff !important;
-				color: #000 !important;
-			}
-		}
-
-	}
-
-  &.btn-midnight {
-		background: variables.$midnight;
+  &.btn-blue {
+    background: variables.$blue;
     color: #fff;
 
-		&:hover,&:active, &:focus {
-			background: #fff;
-      color: #000;
-		}
+    &:hover,
+    &:active,
+    &:focus {
+      background: variables.$blue-hover;
+    }
 
     &.hollow {
-			background: none;
-			border: 1px solid #000;
-			color: #000;
+      background: none;
+      border: 1px solid variables.$blue;
+      color: variables.$blue;
 
-			&:hover,&:active, &:focus {
-				background: #000;
-				color: #fff;
-			}
-		}
+      &:hover,
+      &:active,
+      &:focus {
+        background: variables.$blue !important;
+        color: #fff !important;
+      }
+    }
+  }
 
-	}
+  &.btn-valencia-orange {
+    background: variables.$valencia-orange;
+    color: #fff;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: variables.$valencia-orange-hover;
+    }
+
+    &.hollow {
+      background: none;
+      border: 1px solid variables.$valencia-orange;
+      color: variables.$valencia-orange;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: variables.$valencia-orange;
+        color: #fff;
+      }
+    }
+  }
+
+  &.btn-reverse {
+    background: transparent;
+    color: variables.$blue;
+    border: 1px solid variables.$blue;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: variables.$blue-hover;
+      color: variables.$white;
+      border: 1px solid variables.$blue-hover;
+    }
+  }
+
+  &.btn-first-light {
+    background: variables.$first-light;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: variables.$first-light-hover;
+    }
+
+    &.hollow {
+      background: none;
+      border: 1px solid variables.$first-light;
+      color: variables.$first-light;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: variables.$first-light;
+        color: #fff;
+      }
+    }
+  }
+
+  &.btn-star-blue {
+    background: variables.$star-blue;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: variables.$star-blue-hover;
+    }
+
+    &.hollow {
+      background: none;
+      border: 1px solid variables.$star-blue;
+      color: variables.$star-blue;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: variables.$star-blue;
+        color: #fff;
+      }
+    }
+  }
+
+  &.btn-purple-moon {
+    background: variables.$purple-moon;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: variables.$purple-moon-hover;
+    }
+
+    &.hollow {
+      background: none;
+      border: 1px solid variables.$purple-moon;
+      color: variables.$purple-moon;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: variables.$purple-moon;
+        color: #fff;
+      }
+    }
+  }
+
+  &.btn-windy-city {
+    background: variables.$windy-city;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: variables.$windy-city-hover;
+    }
+
+    &.hollow {
+      background: none;
+      border: 1px solid variables.$windy-city;
+      color: variables.$windy-city;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: variables.$windy-city;
+        color: #fff;
+      }
+    }
+  }
+
+  &.btn-white {
+    background: #fff;
+    color: variables.$blue;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: variables.$midnight;
+      color: #fff;
+    }
+
+    &.black-text {
+      color: variables.$midnight;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: #fff;
+      }
+    }
+
+    &.hollow {
+      background: none;
+      border: 1px solid #fff !important;
+      color: #fff !important;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: #fff !important;
+        color: #000 !important;
+      }
+    }
+
+  }
+
+  &.btn-midnight {
+    background: variables.$midnight;
+    color: #fff;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: #fff;
+      color: #000;
+    }
+
+    &.hollow {
+      background: none;
+      border: 1px solid #000;
+      color: #000;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: #000;
+        color: #fff;
+      }
+    }
+
+  }
 
 
 
 }
 
 .btn-small {
-	padding: 8px 20px;
-	font-size: 12px !important;
-	height: auto;
+  padding: 8px 20px;
+  font-size: 12px !important;
+  height: auto;
 }
 
 .btn-medium {
-	padding: 12px 27px;
-	font-size: 16px;
+  padding: 12px 27px;
+  font-size: 16px;
 }
 
 .btn-large {
-	padding: 12px 27px;
-	font-size: 18px;
+  padding: 12px 27px;
+  font-size: 18px;
 }
 
 
 .btn-icon {
-	i {
-		margin-right:3px;
-		font-size: 16px;
-		margin-left: -10px;
-	}
+  i {
+    margin-right: 3px;
+    font-size: 16px;
+    margin-left: -10px;
+  }
 }
 
 .btn-editor {
-    margin: 1rem 0;
+  margin: 1rem 0;
 }
 
 .btn-ghost {
-	text-transform:uppercase;
-	color:#fff;
-	border:1px solid #fff;
-	padding: 12px 27px;
-	color: #F9F7F5;
-	text-decoration:none;
-	margin: 0;
-	white-space: nowrap;
-	background-color: transparent;
-	line-height:1;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 12px 27px;
+  color: #F9F7F5;
+  text-decoration: none;
+  margin: 0;
+  white-space: nowrap;
+  background-color: transparent;
+  line-height: 1;
 
-	&:hover {
-		background-color:#fff;
-		color:variables.$blue !important;
-		border:1px solid #fff;
-	}
-	&:visited {
-		color:#fff;
-	}
+  &:hover {
+    background-color: #fff;
+    color: variables.$blue !important;
+    border: 1px solid #fff;
+  }
+
+  &:visited {
+    color: #fff;
+  }
 }
 
 .button-group {

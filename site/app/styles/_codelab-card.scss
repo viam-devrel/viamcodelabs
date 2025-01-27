@@ -40,8 +40,8 @@ $card-col-height: 200px; // column mode
   border-radius: 0;
   border-bottom: 2px solid transparent;
 
-  -webkit-box-shadow: 2px 4px 10px 0 rgba(0,0,0,.1);
-  box-shadow: 2px 4px 10px 0 rgba(0,0,0,.1);
+  -webkit-box-shadow: 2px 4px 10px 0 rgba(0, 0, 0, .1);
+  box-shadow: 2px 4px 10px 0 rgba(0, 0, 0, .1);
   background-color: #fff;
 
   &:nth-of-type(3n) {
@@ -57,7 +57,8 @@ $card-col-height: 200px; // column mode
     justify-content: space-between;
     align-items: center;
     padding: variables.$keyline * 2 variables.$keyline * 2 0 variables.$keyline * 2;
-    font-family: fonts.$lato-bold !important;
+    font-family: fonts.$public-sans !important;
+    font-weight: 400;
   }
 
   .card-duration {
@@ -87,7 +88,7 @@ $card-col-height: 200px; // column mode
     flex: 1 0 auto;
     color: #212121;
     -webkit-font-smoothing: antialiased;
-    font-family: fonts.$lato-bold !important;
+    font-family: fonts.$public-sans !important;
   }
 }
 
@@ -98,14 +99,21 @@ $card-col-height: 200px; // column mode
   justify-content: space-between;
   padding: variables.$keyline 2 * variables.$keyline;
 
-  paper-button {
+  md-filled-button {
+    --md-filled-button-container-shape: 0px;
     @include material.md-font-button();
-    color: #fff;
+    color: #000;
     text-transform: none;
-    padding: 13px 25px;
-    border-radius: 50px !important;
-    font-family: fonts.$texta-black;
+    padding: 8px 24px;
+    font-family: fonts.$space-grotesk;
     text-transform: uppercase;
+    transition: border-radius .2s ease-in-out;
+
+    &:hover,
+    &:visited,
+    &:focus {
+      --md-filled-button-container-shape: 50px;
+    }
   }
 
   .category-icon {

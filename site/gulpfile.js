@@ -140,9 +140,9 @@ gulp.task('build:codelabs', gulp.series(
 // build:scss builds all the scss files into the dist dir
 gulp.task('build:scss', () => {
   return gulp.src('app/**/*.scss')
-    .pipe(sass(opts.sass()))
+    .pipe(sass.sync(opts.sass()).on('error', sass.logError))
     .pipe(gulp.dest('build'))
-    .pipe(livereload());;
+    .pipe(livereload());
 });
 
 // build:css builds all the css files into the dist dir

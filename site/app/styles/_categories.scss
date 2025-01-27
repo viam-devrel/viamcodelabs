@@ -19,11 +19,10 @@
 
 /* Google colors */
 
-variables.$snowflake-blue:  #4285f4;
-$color-google-red:  #ea4335;
-$color-google-yellow:  #fbbc05;
-$color-google-green:  #34a853;
-$color-google-grey:  #9aa0a6;
+$color-google-red: #ea4335;
+$color-google-yellow: #fbbc05;
+$color-google-green: #34a853;
+$color-google-grey: #9aa0a6;
 
 /* Other colors */
 
@@ -48,32 +47,11 @@ $color-unity-grey: #222c37;
 $color-weave-green: #0f9d58;
 
 
-/* Snowflake Colors */
-variables.$snowflake-blue:   #29B5E8;
-variables.$mid-blue:         #11567F;
-variables.$dark-blue:        #0080B0;
-variables.$star-blue:        #71D3DC;
-variables.$valencia-orange:  #FF9F36;
-variables.$purple-moon:      #7D44CF;
-variables.$first-light:      #D45B90;
-variables.$windy-city:       #8A999E;
-
-$catagory-colors: (
-  variables.$snowflake-blue:   #29B5E8,
-  variables.$mid-blue:         #11567F,
-  variables.$dark-blue:        #0080B0,
-  variables.$star-blue:        #71D3DC,
-  variables.$valencia-orange:  #FF9F36,
-  variables.$purple-moon:      #7D44CF,
-  variables.$first-light:      #D45B90,
-  variables.$windy-city:       #8A999E,
-);
-
 @function str-replace($string, $search, $replace: '') {
   $index: string.index($string, $search);
 
   @if $index {
-    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+    @return string.slice($string, 1, $index - 1)+$replace +str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
   }
 
   @return $string;
@@ -81,14 +59,23 @@ $catagory-colors: (
 
 /* Mixins */
 
-@mixin codelab-card($categories, $color, $icon) {
-  %bg-#{str-replace('' + $color, '#', '')} {
-    --md-filled-button-container-color: $color;
-    background-color: $color;
+@mixin codelab-card($categories, $primary-color, $secondary-color, $icon) {
+  %bg-#{str-replace('' + $primary-color, '#', '')} {
+    --md-filled-button-container-color: $primary-color;
+    --md-filled-button-label-text-color: #000;
+    --md-filled-button-hover-label-text-color: #000;
+    background-color: $primary-color;
+    border: 1px solid $secondary-color;
+
+    &:hover,
+    &:focus {
+      --md-filled-button-container-color: $secondary-color;
+      background-color: $secondary-color;
+    }
   }
 
-  %border-#{str-replace('' + $color, '#', '')} {
-    border-bottom-color: $color;
+  %border-#{str-replace('' + $primary-color, '#', '')} {
+    border-bottom-color: $secondary-color;
   }
 
   %icon-#{$icon} {
@@ -97,143 +84,11 @@ $catagory-colors: (
 
   @each $category in $categories {
     .codelab-card.category-#{$category} {
-      @extend %border-#{str-replace('' + $color, '#', '')};
+      @extend %border-#{str-replace('' + $primary-color, '#', '')};
     }
 
     .#{$category}-bg {
-      @extend %bg-#{str-replace('' + $color, '#', '')};
+      @extend %bg-#{str-replace('' + $primary-color, '#', '')};
     }
-
-    // .#{$category}-icon {
-    //   @extend %icon-#{$icon};
-    // }
   }
 }
-
-
-/* Actual CSS classes */
-
-
-// @include codelab-card(['about'],
-//   $snowflake-blue, 'google-g.svg');
-
-// @include codelab-card(['ads'],
-//   $snowflake-blue, 'google-ads.svg');
-
-// @include codelab-card(['analytics'],
-//   $color-analytics-orange, 'google-analytics.svg');
-
-// @include codelab-card(['android', 'android-kotlin', 'android-tv'],
-//   $color-android-green, 'android.svg');
-// @include codelab-card(['android-auto'],
-//   $color-android-auto-blue, 'android-auto.svg');
-// @include codelab-card(['android-things'],
-//   $color-android-things-grey, 'android-things.svg');
-// @include codelab-card(['android-wear'],
-// $snowflake-blue, 'wear-os.svg');
-
-// @include codelab-card(['assistant'],
-//   $snowflake-blue, 'google-assistant.svg');
-
-// @include codelab-card(['ar', 'ar-core', 'augmented-reality', 'augmented-reality-core'],
-//   $color-ar-core-purple, 'ar-core.svg');
-
-// @include codelab-card(['cardboard', 'games', 'play-games', 'vr', 'virtualreality', 'virtualreality-games', 'virtual-reality', 'virtual-reality-games'],
-//   $color-cardboard-brown, 'cardboard.svg');
-
-// @include codelab-card(['gsuite', 'g-suite', 'apps'],
-//   $color-google-grey, 'gsuite.svg');
-// @include codelab-card(['docs'],
-//   $snowflake-blue, 'google-docs.svg');
-// @include codelab-card(['drive'],
-//   $snowflake-blue, 'google-drive.svg');
-// @include codelab-card(['sheets'],
-//   $color-google-green, 'google-sheets.svg');
-// @include codelab-card(['slides'],
-//   $color-google-yellow, 'google-slides.svg');
-
-// @include codelab-card(['blockly'],
-//   $color-blockly-blue, 'blockly.svg');
-
-// @include codelab-card(['brillo'],
-//   $color-brillo-blue, 'brillo.svg');
-
-// @include codelab-card(['cast', 'chromecast', 'chrome-cast'],
-//   $color-cast-grey, 'cast.svg');
-
-// @include codelab-card(['chrome', 'google-chrome', 'googlechrome'],
-//   $snowflake-blue, 'chrome.svg');
-
-// @include codelab-card(['cloud', 'cloud-about', 'cloud-general', 'cloud-other', 'cloud-others', 'cloud-platform', 'cloud-tools', 'cloud-cloud-tools'],
-//   $snowflake-blue, 'cloud-platform.svg');
-
-// @include codelab-card(['cloud-appengine', 'cloud-app-engine'],
-//   $snowflake-blue, 'cloud-appengine.svg');
-// @include codelab-card(['cloud-bigquery', 'cloud-big-query', 'bigquery', 'big-query'],
-//   $snowflake-blue, 'cloud-bigquery.svg');
-// @include codelab-card(['cloud-build'],
-//   $snowflake-blue, 'cloud-build.svg');
-// @include codelab-card(['cloud-compute', 'cloud-compute-engine'],
-//   $snowflake-blue, 'cloud-compute-engine.svg');
-// @include codelab-card(['cloud-data'],
-//   $snowflake-blue, 'cloud-sql.svg'); // This exists, but it's the logo for Cloud SQL /shrug
-// @include codelab-card(['cloud-datalab', 'cloud-data-lab'],
-//   $snowflake-blue, 'cloud-datalab.svg');
-// @include codelab-card(['cloud-iam'],
-//   $snowflake-blue, 'cloud-iam.svg');
-// @include codelab-card(['cloud-iot', 'cloud-iot-core', 'iot-core', 'iot'],
-//   $snowflake-blue, 'cloud-iot-core.svg');
-// @include codelab-card(['cloud-key-management-service', 'cloud-kms'],
-//   $snowflake-blue, 'cloud-key-management-service.svg');
-// @include codelab-card(['cloud-ml', 'cloud-machine-learning'],
-//   $snowflake-blue, 'cloud-machine-learning.svg');
-// @include codelab-card(['cloud-monitoring', 'cloud-monitor'],
-//   $snowflake-blue, 'cloud-monitoring.svg');
-// @include codelab-card(['cloud-networking', 'cloud-network'],
-//   $snowflake-blue, 'cloud-networking.svg');
-// @include codelab-card(['cloud-security', 'cloud-security-command-center'],
-//   $snowflake-blue, 'cloud-security-command-center.svg');
-// @include codelab-card(['cloud-sql'],
-//   $snowflake-blue, 'cloud-sql.svg');
-// @include codelab-card(['cloud-web'],
-//   $snowflake-blue, 'web.svg');
-
-// @include codelab-card(['design'],
-//   $color-design-grey, 'design.svg');
-
-// @include codelab-card(['firebase', 'firebase-web'],
-//   $color-firebase-orange, 'firebase.svg');
-
-// @include codelab-card(['flutter', 'flutter-firebase',
-//                        'flutter-android', 'design-flutter'],
-//   $color-flutter-blue, 'flutter.svg');
-
-// @include codelab-card(['google-maps', 'googlemaps', 'maps', 'geo'],
-//   $color-google-maps-green, 'google-maps.svg');
-
-// @include codelab-card(['nest'],
-//   $color-nest-grey, 'nest.svg');
-
-// @include codelab-card(['openthread', 'open-thread'],
-//   $color-openthread-grey, 'openthread.svg');
-
-// @include codelab-card(['search'],
-//   $snowflake-blue, 'google-g.svg');
-
-// @include codelab-card(['slurm', 'hpc', 'cloud-hpc'],
-//   $color-slurm-blue, 'slurm.svg');
-
-// @include codelab-card(['tensorflow', 'tensor-flow'],
-//   $color-tensorflow-orange, 'tensorflow.svg');
-
-// @include codelab-card(['unity'],
-//   $color-unity-grey, 'unity.svg');
-
-// @include codelab-card(['weave'],
-// $color-weave-green, 'weave.svg');
-
-// @include codelab-card(['wear', 'wear-os'],
-//   $snowflake-blue, 'wear-os.svg');
-
-// @include codelab-card(['web'],
-//   $snowflake-blue, 'web.svg');

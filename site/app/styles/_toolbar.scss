@@ -43,10 +43,6 @@
   }
 }
 
-#searchbar {
-  border-radius: 52.5px;
-}
-
 @media (min-width: variables.$tablet-breakpoint-min) {
   #searchbar {
     transition: background-color 400ms cubic-bezier(0, 0, 0.2, 1);
@@ -55,14 +51,15 @@
     background: #fff;
 
     border: 0;
-    padding: 2px 0;
-    font-family: fonts.$lato;
+    font-family: fonts.$public-sans;
 
     #icon {
       color: variables.$mid-blue;
     }
 
     md-outlined-text-field {
+      background: variables.$light-grey;
+      font-size: 14px;
       width: 100%;
     }
   }
