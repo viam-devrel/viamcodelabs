@@ -17,24 +17,24 @@ input[type="submit"],
   padding: 8px 32px;
   font-family: fonts.$space-grotesk;
   font-size: 14px;
-  background: variables.$light-cyberpunk;
+  background: variables.$light-grey;
   color: #000;
   line-height: 1;
   text-transform: uppercase;
   text-decoration: none;
-  border: 1px solid variables.$cyberpunk;
+  border: 1px solid variables.$viam-black;
   white-space: nowrap;
   transition: all 200ms ease-in-out;
 
   &:hover {
-    background: variables.$cyberpunk-50;
+    background: variables.$medium-grey;
     border-radius: 40px;
     color: #000;
   }
 
   &:active,
   &:focus {
-    background: variables.$cyberpunk-50;
+    background: variables.$medium-grey;
     color: #000;
   }
 

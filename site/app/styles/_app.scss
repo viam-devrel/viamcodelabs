@@ -126,7 +126,7 @@ li {
 
 #banner {
   @include layout.keyline-40();
-  padding: 60px 0 60px 0;
+  padding: 60px 0 0 0;
 
   &[down] {
     .banner-slider {
@@ -213,11 +213,7 @@ li {
 }
 
 main {
-  padding: 60px 0 60px 0;
-
-  h2 {
-    color: variables.$viam-black;
-  }
+  padding: 0 0 60px 0;
 }
 
 #sortby {
