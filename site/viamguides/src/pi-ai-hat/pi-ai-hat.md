@@ -54,13 +54,11 @@ Follow the [official documentation](https://www.raspberrypi.com/documentation/ac
 - How to use a vision service for object detection
 - How to integrate vision service data into a teleop dashboard
 
-<!-- ### Watch the Video -->
+### Watch the Video
 
-<!-- See a demonstration of the traffic monitor in this video. -->
+See a demonstration of the AI HAT+ object detection:
 
-<!-- **TBD** -->
-
-<!-- <video id="DH3kkFjmGss"></video> -->
+<video id="fpK4J9NzD2Q"></video>
 
 <!-- ------------------------ -->
 
