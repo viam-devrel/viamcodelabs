@@ -4,7 +4,7 @@ summary: Resources for instructors to deliver an air quality monitoring workshop
 categories: Workshop, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Workshop, Developer
 
 # Air quality monitoring [Workshop]

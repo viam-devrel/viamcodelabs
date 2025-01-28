@@ -4,7 +4,7 @@ summary: Resources for instructors to deliver a people detection alert workshop
 categories: Workshop, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Workshop, Developer
 
 # People detection alert with computer vision [Workshop]

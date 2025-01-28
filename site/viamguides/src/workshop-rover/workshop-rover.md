@@ -3,7 +3,7 @@ summary: Resources for instructors to deliver a rover workshop
 categories: Workshop, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Workshop, Developer
 
 # Control a rover [Workshop]

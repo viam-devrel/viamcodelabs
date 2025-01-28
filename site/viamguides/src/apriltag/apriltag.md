@@ -4,7 +4,7 @@ summary: Detect AprilTags on a camera using apriltag and OpenCV
 categories: Getting-Started, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
 # Use an AprilTag scanner

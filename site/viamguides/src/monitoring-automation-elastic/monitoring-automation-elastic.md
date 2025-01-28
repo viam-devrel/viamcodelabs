@@ -4,7 +4,7 @@ summary: Monitoring and automate the physical world using sensor data from machi
 categories: Getting-Started, Developer
 environments: web
 status: Published 
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer, Data
 
 # Use Sensor Data with Webhooks and Elastic Cloud
