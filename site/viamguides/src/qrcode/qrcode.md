@@ -4,7 +4,7 @@ summary: Detect QR codes on a camera using Pyzbar and OpenCV
 categories: Getting-Started, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
 # Use a QR code scanner

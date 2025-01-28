@@ -4,7 +4,7 @@ summary: Use Python environment variables in development and in production
 categories: Getting-Started, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
 # Working with Python environment variables

@@ -4,7 +4,7 @@ summary: Automate air filtration with air quality sensors
 categories: Data, Getting-Started, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer, Data
 
 # Automate air filtration with air quality sensors

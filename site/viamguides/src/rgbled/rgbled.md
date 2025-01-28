@@ -4,7 +4,7 @@ summary: Control an RGB LED with a Raspberry Pi
 categories: Getting-Started, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer, Data
 
 # Control an RGB LED with a Raspberry Pi

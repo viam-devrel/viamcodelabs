@@ -3,7 +3,7 @@ summary: Resources for instructors to deliver an automatic plant watering device
 categories: Workshop, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Workshop, Developer
 
 # Plant watering with moisture sensor and pump [Workshop]

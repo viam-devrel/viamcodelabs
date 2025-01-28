@@ -4,7 +4,7 @@ summary: Sticker vending machine
 categories: Getting-Started, Developer
 environments: web
 status: Unpublished
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
 # Make your own sticker vending machine

@@ -4,7 +4,7 @@ summary: Use real-time object detection with the Raspberry Pi AI HAT
 categories: Getting-Started, Developer
 environments: web
 status: Published 
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
 # Real-Time Object Detection with Raspberry Pi AI HAT

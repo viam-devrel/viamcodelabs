@@ -4,7 +4,7 @@ summary: Configure Viam to drive a SCUTTLE base
 categories: Getting-Started, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer, Scuttle, Rover
 
 # Build a SCUTTLE bot
