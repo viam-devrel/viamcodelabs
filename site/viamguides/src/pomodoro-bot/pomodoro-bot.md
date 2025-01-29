@@ -27,7 +27,7 @@ Features include:
 
 With a sleek design and a focus on intelligent functionality, the Pomodoro Bot is more than just a timer; it’s your dedicated partner in productivity. Whether you're working from home or at the office, this bot ensures you stay productive, healthy, and on schedule.
 
-![finished product](assets/pomodoroBot.png)
+![finished product](assets/pomodoroBot.jpg)
 
 ### Prerequisites
 
@@ -180,8 +180,19 @@ Now let's set up your Pomodoro Bot to work with Google Calendar, so you can stay
       ![Manage Keys](assets/manageKeys.png)
       ![Create Key](assets/createKey.png)
       ![Download Key](assets/downloadKey.png)
-
     * Keep the file in a secure location.
+    * To transfer this file from your PC to Raspberry Pi, you can use SCP command in the following format
+      <br><br>
+      Using hostname
+      ```bash 
+         #Format: scp service-account-file.json username@hostname.local:/path/on/raspberrypi
+         scp pomodorobot-service-account-file.json pi@raspberrypi.local:/home/pi/
+      ```
+      Using IP Address
+      ```bash
+         #Format: scp service-account-file-name.json username@ip-address-of-raspberrypi:/path/on/raspberrypi
+         scp pomodorobot-service-account-file.json pi@192.168.1.4:/home/pi/
+      ```
 
 ### Share Your Calendar with the Service Account
 
@@ -214,7 +225,14 @@ Now let's set up your Pomodoro Bot to work with Google Calendar, so you can stay
       ![Test Meeting](assets/testMeeting.png)
 2. Go back to the Viam app and open the **Control** tab.
       ![Control Tab](assets/controlTab.png)
-3. Use the command interface to check for upcoming calendar events.
+3. Use the given command in the **DO COMMAND** interface to check for upcoming calendar events.
+      ```json
+         {
+            "get_events": {
+               "max_results": 10
+            }
+         }
+      ```
       ![Test Calendar](assets/testCalendar.png)
 
 If everything is working correctly, you should see your test event ("Test Meeting") listed in the results. This confirms that your Pomodoro Bot is successfully linked to your Google Calendar.
@@ -225,17 +243,19 @@ Duration: 10
 
 Let's integrate the ENS160 air quality sensor with your Pomodoro Bot to monitor indoor air quality effectively. The ENS160 sensor tracks VOCs (volatile organic compounds), eCO2 (equivalent carbon dioxide), and provides an Air Quality Index (AQI) – vital for maintaining an optimal workspace environment.
 
-![ENS160](assets/ens160.png)
+![ENS160](assets/ens160.jpg)
 
 ### Hardware Setup
 
 * **Power Connections:**
-    * Connect the `VCC` pin of the ENS160 sensor to the `3.3 Volts` pin on the Raspberry Pi.
-    * Connect the `Ground` pin of the ENS160 sensor to a `Ground` pin on the Raspberry Pi.
+    * Connect the `VCC` pin of the ENS160 sensor to the [`3.3 Volts`](https://pinout.xyz/pinout/3v3_power) pin on the Raspberry Pi.
+    * Connect the `Ground` pin of the ENS160 sensor to a [`Ground`](https://pinout.xyz/pinout/ground) pin on the Raspberry Pi.
 
 * **I2C Communication:**
-    * Wire the `SCL` pin of the ENS160 sensor to the `SCL` pin on the Raspberry Pi.
-    * Wire the `SDA` pin of the ENS160 sensor to the `SDA` pin on the Raspberry Pi.
+    * Wire the `SCL` pin of the ENS160 sensor to the [`SCL`](https://pinout.xyz/pinout/pin5_gpio3/) pin on the Raspberry Pi.
+    * Wire the `SDA` pin of the ENS160 sensor to the [`SDA`](https://pinout.xyz/pinout/pin3_gpio2/) pin on the Raspberry Pi.
+
+![ENS160 Connection Diagram](assets/ens160Circuit.svg)
 
 Ensure all connections are secure and double-check your wiring to avoid any issues.
 
@@ -244,8 +264,9 @@ Ensure all connections are secure and double-check your wiring to avoid any issu
 * **Add the ENS160 Sensor to the Viam App:**
     1. Open the Viam app.
     2. Navigate to the **CONFIGURE** tab.
-    3. Add a new component for the ENS160 sensor and wait for the component to finish setup.
+    3. Add a new component for the ENS160 sensor.
     ![Add ENS160](assets/addENS160.png)
+    4. Click "Save" and wait for the component to finish setup.
 
 * **Testing the Integration:**
     1. Switch to the **Control** tab in the Viam app.
@@ -263,21 +284,22 @@ Enhance your Pomodoro Bot by integrating the TEMT6000 ambient light sensor, whic
 
 * **Components:**
     * TEMT6000 Ambient Light Sensor
-      ![TEMT 6000](assets/temt6000.png)
+      ![TEMT 6000](assets/temt6000.jpg)
     * ADS1115 Analog-to-Digital Converter (ADC)
-      ![ADS1115 ADC](assets/ads1115.png)
+      ![ADS1115 ADC](assets/ads1115.jpg)
 
 * **Connections:**
     * **TEMT6000 to ADS1115:**
-        * Connect the analog output pin of the TEMT6000 to one of the analog input channels (e.g., A0) on the ADS1115.
-        * Connect the VCC pin of the TEMT6000 to the 3.3V or 5V power supply.
-        * Connect the Ground pin of the TEMT6000 to the Ground pin on the ADS1115.
+        * Connect the `S` or `SIG` Pin(analog output pin) of the TEMT6000 to one of the analog input channels (e.g., A0) on the ADS1115.
+        * Connect the `VCC` pin of the TEMT6000 to the `3.3V` pin on the Raspberry Pi.
+        * Connect the `Ground` pin of the TEMT6000 to the `Ground` pin on the ADS1115.
 
     * **ADS1115 to Raspberry Pi:**
-        * Connect the SCL pin of the ADS1115 to the SCL pin on the Raspberry Pi.
-        * Connect the SDA pin of the ADS1115 to the SDA pin on the Raspberry Pi.
-        * Connect the VCC pin of the ADS1115 to the 3.3V pin on the Raspberry Pi.
-        * Connect the Ground pin of the ADS1115 to a Ground pin on the Raspberry Pi.
+        * Connect the `SCL` pin of the ADS1115 to the [`SCL`](https://pinout.xyz/pinout/pin5_gpio3/) pin on the Raspberry Pi.
+        * Connect the `SDA` pin of the ADS1115 to the [`SDA`](https://pinout.xyz/pinout/pin3_gpio2/) pin on the Raspberry Pi.
+        * Connect the `VCC` pin of the ADS1115 to the [`3.3 Volts`](https://pinout.xyz/pinout/3v3_power) pin on the Raspberry Pi.
+        * Connect the `Ground` pin of the ADS1115 to a [`Ground`](https://pinout.xyz/pinout/ground) pin on the Raspberry Pi.
+    ![TEMT6000 Connection Diagram](assets/temt6000Circuit.jpg)
 
 ### Software Integration
 
@@ -287,6 +309,7 @@ Enhance your Pomodoro Bot by integrating the TEMT6000 ambient light sensor, whic
     3. Add the TEMT6000 sensor as a new component, specifying its ADC channel.
     ![addTEMT6000](assets/addTEMT6000.png)
     ![TEMT6000 Configuration](assets/temt6000Config.png)
+    4. Click "Save" and wait for the component to finish setup.
 
 * **Testing the Sensor:**
     1. Switch to the **Control** tab in the Viam app.
@@ -320,7 +343,7 @@ Adding a display to your Pomodoro Bot elevates it from a functional productivity
 3. Connect the HDMI port of the Raspberry Pi to the LCD.
 4. Connect USB-C on Display to USB port on Raspberry Pi to enable touch interactions.
 
-![LCD Connected To RPI 5](assets/lcdConnect.png)
+![LCD Connected To RPI 5](assets/lcdConnect.jpg)
 
 ### Software Setup
 
@@ -347,6 +370,24 @@ gpu_mem=128
 
 <!-- ------------------------ -->
 
+## Integrate Button To Pomodoro Bot
+
+To enhance the functionality of your Pomodoro Bot, you can integrate a push button to allow manual control, such as starting or stopping tasks, resetting timers, or triggering specific actions. Here's how to add a push button:
+
+### Hardware Setup
+
+**Components Needed:**
+* Push button module
+![Push Button Module](assets/pushbutton.jpg)
+* Jumper wires
+
+**Wiring:**
+* Connect `VCC` pin of the push button to a [`5V`](https://pinout.xyz/pinout/5v_power) pin on the Raspberry Pi.
+* Connect `GND` pin of the push button to a [`Ground`](https://pinout.xyz/pinout/ground) pin on the Raspberry Pi.
+* Connect `OUT` pin of the push button to a [`GPIO 17`](https://pinout.xyz/pinout/pin11_gpio17/) on the Raspberry Pi.
+
+By adding a push button, you can make your Pomodoro Bot more interactive and user-friendly! 
+
 <!-- ------------------------ -->
 ## 3D Design and Fabrication
 
@@ -367,11 +408,11 @@ After finalizing the design, we brought our concept to life through 3D printing.
 * Create the bot's physical form with precision and efficiency.
 * Achieve a durable and well-crafted model that perfectly matched our design vision. 
 
-![3D Printing](assets/3dPrinting.png)
+![3D Printing](assets/3dPrinting.jpg)
 
-![3D Printed Parts](assets/3dParts1.png)
+![3D Printed Parts](assets/3dParts1.jpg)
 
-![3D Printed Parts](assets/3dParts2.png)
+![3D Printed Parts](assets/3dParts2.jpg)
 
 This 3D printing step was crucial in transforming the digital design into a tangible, high-quality physical product.
 
@@ -380,20 +421,20 @@ This 3D printing step was crucial in transforming the digital design into a tang
 Duration: 10
 
 * **Soldering:** We began by soldering wires to all necessary components, ensuring reliable electrical connections.
-   ![Soldering](assets/soldering.png)
+   ![Soldering](assets/soldering.jpg)
 * **Component Mounting:** We secured the components together using tiny screws, creating a firm and stable assembly. 
-   ![Components](assets/mounting.png)
+   ![Components](assets/mounting.jpg)
 * **Raspberry Pi and Display Integration:** The Raspberry Pi and Waveshare display were carefully installed into the main body of the project.
-   ![RPI Integration](assets/rpiInstallation.png)
+   ![RPI Integration](assets/rpiInstallation.jpg)
 * **Modular Connections:** Female headers were utilized to solder connections between the components and the Raspberry Pi, facilitating modularity and ease of maintenance.
 * **Power Delivery:** Male and female USB breakout boards were employed to efficiently power the Raspberry Pi.
-   ![Power](assets/powerUSB.png)
+   ![Power](assets/powerUSB.jpg)
 
 * **Final Assembly:** The back cover was positioned and secured, completing the assembly process.
-   ![Back Cover](assets/backCover.png)   
+   ![Back Cover](assets/backCover.jpg)   
 
 * **Result:** The final result is a sleek and functional Pomodoro Bot ready to enhance productivity and brighten any workspace.
-   ![Assembled Product](assets/finalProduct.png)  
+   ![Assembled Product](assets/finalProduct.jpg)  
 
 ## Giving Life To Our Pomodoro Bot
 
@@ -409,7 +450,7 @@ After powering up, take a moment to verify that everything is functioning as exp
 
 ### 3. Download Source Code
 
-The next step is to download the source code for the Pomodoro Bot application. You can download the code from the following GitHub repository:
+The next step is to download the source code for the Pomodoro Bot application on to your Raspberry Pi. You can download the code from the following GitHub repository:
 
 * [https://github.com/CodersCafeTech/PomodoroBot](https://github.com/CodersCafeTech/PomodoroBot)
 
@@ -424,13 +465,16 @@ The next step is to download the source code for the Pomodoro Bot application. Y
 ### 5. Run the Pomodoro Bot Code
 
 - Once you've made the necessary edits to `main.py`, save the changes.
-- Open a terminal window on your Raspberry Pi.
-- Navigate to the directory containing the `main.py` file.
-- Run the Pomodoro Bot application using the following command:
-   
-   ```bash
-   python3 main.py
-   ```
+- Back in the **Configure** tab in the Viam app, add a new **Process**.
+  ![Add Process](assets/addProcess.png)
+- Configure the Process by adding relevant details like Executable, Arguments and Working Directory.
+   * **Executable**: python3
+   * **Arguments**: main.py (Python script name)
+   * **Working Directory**: /home/pi/PomodoroBot/Code (Your working directory)
+
+  ![Configure Process](assets/configureProcess.png)
+- **Save** and wait for the process to finish setup.
+ 
 
 ### 6. See Your Pomodoro Bot Alive!
 
