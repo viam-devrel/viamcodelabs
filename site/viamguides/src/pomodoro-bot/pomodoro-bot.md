@@ -416,6 +416,8 @@ After finalizing the design, we brought our concept to life through 3D printing.
 
 This 3D printing step was crucial in transforming the digital design into a tangible, high-quality physical product.
 
+Find the STL Files [here](https://github.com/CodersCafeTech/PomodoroBot/tree/main/3D).
+
 ## Assembly
 
 Duration: 10
