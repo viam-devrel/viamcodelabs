@@ -3,13 +3,16 @@ id: pi-ai-hat
 summary: Use real-time object detection with the Raspberry Pi AI HAT
 categories: Getting-Started, Developer
 environments: web
-status: Published 
+status: Published
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
 # Real-Time Object Detection with Raspberry Pi AI HAT
+
 <!-- ------------------------ -->
-## Overview 
+
+## Overview
+
 Duration: 1
 
 The Raspberry Pi 5 is a very useful and adaptable platform for various embedded and edge computing applications. However, when working with computer vision models, the performance on the single board computer can lack in either accuracy, speed, or both.
@@ -21,7 +24,7 @@ This additional hardware enables the Raspberry Pi 5 to run models like [YOLO](ht
 
 ### What You’ll Build
 
-- A live traffic monitoring dashboard 
+- A live traffic monitoring dashboard
 
 <img src="assets/teleop-dashboard-live.png" alt="Teleop dashboard with camera stream and time series graph" width="600">
 
@@ -115,6 +118,7 @@ Duration: 5
 ![photo of AI HAT connected to Raspberry Pi](assets/pi5-ai-hat-profile.jpg)
 
 Connect to the Pi with SSH, if you're not still connected from the previous step.
+
 ```bash
 ssh <USERNAME>@<HOSTNAME>.local
 ```
@@ -155,7 +159,9 @@ ssh <USERNAME>@<HOSTNAME>.local
    ```console
    hailortcli fw-control identify
    ```
-You should see output similar to the follow:
+
+You should see output similar to the following:
+
 ```console
 Executing on device: 0000:01:00.0
 Identifying board
@@ -176,7 +182,6 @@ Product Name: HAILO-8L AI ACC M.2 B+M KEY MODULE EXT TMP
 Now that we have physically connected our hardware components, place them in a spot with a good view of the traffic. In the next section, we'll configure our machine.
 
 <img src="assets/pi5-ai-hat-cam-setup.jpg" alt="Raspberry Pi 5 with webcam pointed out a window" width="400">
-
 
 <!-- ------------------------ -->
 
@@ -223,9 +228,9 @@ Duration: 3
 1. Notice adding this component adds the sensor component called `sensor-1`. From the **Attributes** section of the panel, add the following JSON configuration.
    ```json
    {
-       "camera": "camera-1",
-       "detector": "vision-1",
-       "labels": ["car", "bus", "person"]
+     "camera": "camera-1",
+     "detector": "vision-1",
+     "labels": ["car", "bus", "person"]
    }
    ```
 1. From the **Data capture** section of the panel, click "+ Add method". Set the "Method" as "Readings", "Frequency (hz)" as 1. Click "Create data management service" in the banner within the panel to automatically create a Data Management Service called `data_manager-1`.
@@ -240,15 +245,17 @@ With all the components and services in place, you can move on to creating a liv
 <!-- ------------------------ -->
 
 ## Create your traffic dashboard
+
 Duration: 4
 
 This step walks through how to use the [teleop (or tele-operations) feature](https://docs.viam.com/manage/troubleshoot/teleoperate/custom-interface/) of the Viam app.
 
 ### Configure your teleop workspace
 
-1. In [the Viam app](https://app.viam.com/fleet/dashboard) under the **TELEOP** tab, create a new dashboard by clicking **Create workspace**.
+1. In [the Viam app](https://app.viam.com/fleet/dashboard), return to the home page.
+1. Then under the **TELEOP** tab, create a new dashboard by clicking **Create workspace**.
    ![create workspace](assets/teleop-landing.png)
-1. Click on "untitle-workspace" to set the name of your dashboard.
+1. Click on "untitled-workspace" to set the name of your dashboard.
    ![set dashboard name](assets/teleop-set-name.png)
 1. Click "Select machine" and choose your previously configured machine from the list.
    ![select active machine](assets/teleop-select-machine.png)
@@ -273,7 +280,9 @@ This step walks through how to use the [teleop (or tele-operations) feature](htt
 ![working teleop dashboard](assets/teleop-dashboard-live.png)
 
 <!-- ------------------------ -->
+
 ## Conclusion And Resources
+
 Duration: 1
 
 ### What you learned
@@ -293,7 +302,7 @@ At this point, you have created an edge device that can perform real-time object
 
 The default [YOLO-based models](https://www.viam.com/post/guide-yolo-model-real-time-object-detection-with-examples) can do more than detect traffic! You can find the full list of identifiable objects included in the module repo: [https://github.com/HipsterBrown/viam-pi-hailo-ml/](https://github.com/HipsterBrown/viam-pi-hailo-ml/blob/main/assets/coco.txt)
 
-If none of those items suit your project requirements, you can explore the full suite of model types in the [Hailo Model Zoo](https://github.com/hailo-ai/hailo_model_zoo/blob/master/docs/PUBLIC_MODELS.rst) or [retrain a model](https://github.com/hailo-ai/hailo_model_zoo/blob/master/training/yolov8/README.rst) on a custom dataset. 
+If none of those items suit your project requirements, you can explore the full suite of model types in the [Hailo Model Zoo](https://github.com/hailo-ai/hailo_model_zoo/blob/master/docs/PUBLIC_MODELS.rst) or [retrain a model](https://github.com/hailo-ai/hailo_model_zoo/blob/master/training/yolov8/README.rst) on a custom dataset.
 
 In addition to the project ideas mentioned above, consider other ways to continue your journey with Viam.
 
