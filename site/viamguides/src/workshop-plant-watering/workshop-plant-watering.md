@@ -148,7 +148,7 @@ Before programming the Pi to make the plant watering robot functional, you need 
 
 Refer back to this full wiring diagram as you complete the steps to wire your hardware.
 
-![Full Wiring Diagram](assets/DIAGRAM.png)
+![Full Wiring Diagram](assets/plantWatering_bb.png)
 
 > aside positive
 > The website [pinout.xyz](https://pinout.xyz/) is a helpful resource with the exact layout and role of each pin for Raspberry Pi.
