@@ -133,8 +133,7 @@ During the workshop, instructors can present this customizable slide deck (see a
 3. <a href="./index.html#6" target="_self">**Hands-On Experiment**</a>
    - Test the moisture sensor
    - Test the pump
-   - Program your plant watering device
-   - Configure a Viam process
+   - Configure a custom service
 
 <!-- ------------------------ -->
 
@@ -311,91 +310,47 @@ Duration: 40
 
 ### Program your plant watering device
 
-At this point, you have configured and tested your machine and peripherals, but nothing is happening automatically. In the next section, program your plant watering device to be a little smarter. Make your machine periodically get sensor data, turn on the pump motor if the value is low, and turn off again when the value is high.
+At this point, you have configured and tested your machine and peripherals, but nothing is happening automatically.
+In the next section, you'll add a custom service to make your device a little smarter. The service will periodically get sensor data, turn on the pump motor if the value is low, and turn off again when the value is high.
 
-![process diagram](assets/processDiagram.png)
+![service diagram](assets/serviceDiagram.webp)
 
-### Create an automation script
+### Add the watering-controller service 
 
-1. To configure the machine to automatically run a command to execute a script, use a [Viam process](https://docs.viam.com/configure/processes/). Create a new file on your computer called `process.py`.
+1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
+1. Click the **+** icon in the left-hand menu and select **Service**.
+1. Select `generic`, and find the `watering-controller:plant-watering` module. This adds the module for automating the water pump based on the digital sensor feedback. Set the name to `watering`.
+   ![add board](assets/addService.webp)
+1. Notice adding this module adds the watering-controller service called `watering`. From the **Attributes** section of the panel, add the following JSON configuration.
+    ```json
+    {
+        "board_name": "board-1"
+    }
+    ```
+   ![added service](assets/serviceAdded.webp)
+1. Click **Save** in the top right to save and apply your configuration changes.
+   > aside negative
+   > If any problems occur, check under the **LOGS** tab to see what might be going wrong.
 
-   On MacOS, Linux, or Windows WSL:
+This will automatically start the "control loop" visualized in the above diagram. If you need to stop the loop at any point, you can send the "stop" command from the **CONTROL** tab using the following JSON message:
+```json
+{
+    "stop": ""
+}
+```
+Then restart it again by send the "start" command.
 
-   ```bash
-   touch process.py
-   ```
+Or disable the resource from the **CONFIGURE** tab:
+![disable resource](assets/disableResource.webp)
 
-   On Windows:
-
-   ```cmd
-   type nul > process.py
-   ```
-
-1. Copy and paste [this sample code](https://github.com/viam-labs/plant-watering-workshop/blob/main/plantwatering.py) into the new file `process.py`. This code will allow your Raspberry Pi to connect to both the sensor and pump and execute our logic.
-1. Now it's time to move your control code to your Raspberry Pi device. [SSH into your Raspberry Pi](https://docs.viam.com/installation/prepare/rpi-setup/#connect-with-ssh) if you're not already SSH'd.
-1. From the SSH prompt on your Raspberry Pi, install the Python package manager.
-
-   ```bash
-   $ sudo apt install -y python3-pip
-   ```
-
-1. Install the Viam Python SDK into a new directory called `process`.
-   ```bash
-   $ pip3 install --target=process viam-sdk
-   ```
-1. Display the full path of the current directory you are working in on your Raspberry Pi with the `pwd` command. Make a note of this output for the next steps.
-   ```bash
-   $ pwd
-   ```
-1. Find the executable path of Python3 to run `process.py` on your Raspberry Pi with `which python3`. Again, make a note of this output for the next steps.
-   ```bash
-   $ which python3
-   ```
-1. Run the following command from your computer (not the SSH prompt to your Raspberry Pi) to copy the code from your computer to your Raspberry Pi. In the command, you will copy `process.py` over to your Raspberry Pi, with the section following the colon `:` indicating where your file should be copied to on the Raspberry Pi (the path of the directory you are working in on your Raspberry Pi, along with the filename).
-   ```bash
-   $ scp process.py user@host.local:/home/myboard/process/process.py
-   ```
+You can find the source code and documentation for the service on GitHub: [https://github.com/viam-devrel/watering-controller](https://github.com/viam-devrel/watering-controller)
 
 <form>
-  <name>What is the primary role of the `process.py` script in the plant watering system?</name>
+  <name>What is the primary role of the `watering-controller` service in the plant watering system?</name>
   <input type="radio" value="To display moisture sensor readings directly on the Raspberry Pi.">
   <input type="radio" value="To define the logic for periodically checking sensor readings and toggling the pump.">
   <input type="radio" value="To update the firmware of the moisture sensor and motor pump.">
   <input type="radio" value="To configure the network settings for the Raspberry Pi.">
-</form>
-
-### Configure a Viam process
-
-1.  Now let's allow `viam-server` to run the process as the root user on your Raspberry Pi by configuring a [Viam process](https://docs.viam.com/configure/processes/). In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Process**.
-1.  Find the corresponding card to `process-1`. Enter the executable path of Python3 running on your Raspberry Pi that you output from a previous step. Add an argument of the `process.py` file to run on your Raspberry Pi. Enter the working directory where you want the process to execute.
-    ![configure process](assets/configureProcess.png)
-1.  Still within the `process-1` card, select the advanced settings icon near the top right corner to review the configuration JSON. Create a new `env` property, and add your environment variables within the new property, formatted like the following with your own credentials.
-    ```json
-      "env": {
-        "BOARD_NAME": "board-1",
-        "ROBOT_API_KEY": "your-api-key",
-        "ROBOT_API_KEY_ID": "your-api-key-id",
-        "ROBOT_ADDRESS": "your-robot-address"
-      },
-    ```
-    ![configure JSON](assets/configureJSON.png)
-    > aside negative
-    > The `BOARD_NAME` is the default name for the Raspberry Pi when added to our Viam machine. Other machine credentials can be found under the **CONNECT** tab, selecting an SDK, and toggling **Include API key** to reveal your credentials within the code sample.
-        ![get credentials](assets/getCredentials.png)
-1.  **Save** your updates.
-1.  You can test the code by updating the `process.py` file on your Raspberry Pi to swap the logic for the `detect_moisture` value from the pin connected to the moisture sensor. **Save** your code changes, and **Restart** the machine to see if the pump motor turns on when the plant has enough water.
-    ![restart the machine](assets/restartMachine.png)
-    > aside negative
-    > You can either edit the file on your computer and copy the updated file over to your Raspberry Pi using `scp` like we did previously. Or you can use the default command-line text editor on Raspberry Pi OS `nano` by entering `nano process.py` from the SSH prompt.
-    > ![edit in Nano](assets/editNano.png)
-    > Alternatively, you can try removing water from the soil with a paper towel or lifting the sensor from the soil.
-
-<form>
-  <name>Why is the `process-1` configuration in the Viam app important for running the continuous process?</name>
-  <input type="radio" value="It specifies the environment variables and paths required for the Raspberry Pi to execute the process automatically.">
-  <input type="radio" value="It ensures the moisture sensor is calibrated before each reading.">
-  <input type="radio" value="It logs all moisture data directly to the Raspberry Pi’s storage.">
-  <input type="radio" value="It enables real-time monitoring of the moisture on a connected device.">
 </form>
 
 <!-- ------------------------ -->
@@ -478,7 +433,7 @@ Review the suggested quiz questions below to evaluate participants' understandin
    - How does the Viam app simplify the process of testing and controlling hardware components like the board?
 1. **Hands-on Experiment**
    - What is the primary role of `viam-server` in the system architecture of your plant watering setup?
-   - What is the purpose of the `env` field in your process configuration?
+   - What is the purpose of the `board_name` field in the watering-controller service configuration?
 
 ### Next-level projects
 
