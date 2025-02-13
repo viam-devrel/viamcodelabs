@@ -31,10 +31,15 @@ This codelab is part of the [Viam for educators](https://education.viam.com/) pr
 
 - How to build a smart system that triggers a water pump to irrigate the plant when the soil moisture falls below a certain threshold.
 
-### Watch the Video
+### Watch the Demo Video
 
 See a demonstration of the plant watering automation in this video.
 <video id="Q6UuUKJpDn0"></video>
+
+### Watch the Workshop Recording
+
+See a full-length recording of this workshop for reference.
+<video id="UU3qPwZTzbk"></video>
 
 <!-- ------------------------ -->
 
