@@ -194,8 +194,7 @@ You can manually and programmatically use the GPIO pins of the [`board`](https:/
      "blue_pin": "12"
    }
    ```
-1. Select your board `board-1` from the **Depends on** field.
-   ![configure led](assets/configureLED.png)
+   ![configure led](assets/genericInViamApp.png)
 1. Click **Save** to apply your configuration changes. This may take a moment.
 1. Since we are using a generic component, let's test it out under the **CONTROL** tab. Find your `rgb-led` component on this page. Expand the **DO COMMAND** field, input the following code, and hit **Execute**.
    ```json
