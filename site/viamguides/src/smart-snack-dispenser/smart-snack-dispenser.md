@@ -151,7 +151,7 @@ It's time to get your hands dirty by taking apart the food dispenser and upgradi
 
 1. Use the above wiring diagram to connect the hardware peripherals and power together. The stripped wires from the snack dispenser can be connected to the jumper wires unless the WAGO lever nuts.
 
-   <video src="assets/hardwareWiring.webm"></video>
+   <video id="0RIr4VqZPBU"></video>
 
    ![WAGO connection](assets/hardwareComponentsClipped.webp)
 
