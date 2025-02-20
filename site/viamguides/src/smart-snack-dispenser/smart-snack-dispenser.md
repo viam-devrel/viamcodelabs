@@ -68,18 +68,18 @@ The Raspberry Pi boots from a USB flash drive (or microSD card). You need to ins
 
 1. Connect the USB flash drive (or microSD card) to your computer.
 1. Download the [Raspberry Pi Imager](https://www.raspberrypi.com/software/) and launch it.
-   ![raspberry pi imager](assets/imager.png)
+   ![raspberry pi imager](assets/imager.webp)
 1. Click **CHOOSE DEVICE**. Select your model of Pi, which is Raspberry Pi 4.
 1. Click **CHOOSE OS**. Select **Raspberry Pi OS (64-bit)** from the menu.
 1. Click **CHOOSE STORAGE**. From the list of devices, select the storage device you intend to use in your Raspberry Pi.
-   ![raspberry pi storage](assets/osSelect.png)
+   ![raspberry pi storage](assets/osSelect.webp)
 1. Configure your Raspberry Pi for remote access. Click **Next**. When prompted to apply OS customization settings, select **EDIT SETTINGS**.
 1. Check **Set hostname** and enter the name you would like to access the Pi by in that field, for example, `test`.
 1. Select the checkbox for **Set username and password** and set a username (for example, your first name) that you will use to log into the Pi. If you skip this step, the default username will be `pi` (not recommended for security reasons). And specify a password.
 1. Connect your Pi to Wi-Fi so that you can run `viam-server` wirelessly. Check **Configure wireless LAN** and enter your wireless network credentials. SSID (short for Service Set Identifier) is your Wi-Fi network name, and password is the network password. Change the section `Wireless LAN country` to where your router is currently being operated.
-   ![raspberry pi hostname username and password](assets/generalSettings.png)
+   ![raspberry pi hostname username and password](assets/generalSettings.webp)
 1. Select the **SERVICES** tab, check **Enable SSH**, and select **Use password authentication**.
-   ![raspberry pi enable SSH](assets/sshSettings.png)
+   ![raspberry pi enable SSH](assets/sshSettings.webp)
    > aside negative
    > Be sure that you remember the `hostname` and `username` you set, as you will need this when you SSH into your Pi.
 1. **Save** your updates, and confirm `YES` to apply OS customization settings. Confirm `YES` to erase data on the USB flash drive. You may also be prompted by your operating system to enter an administrator password. After granting permissions to the Imager, it will begin writing and then verifying the Linux installation to the USB flash drive.
@@ -95,7 +95,7 @@ The Raspberry Pi boots from a USB flash drive (or microSD card). You need to ins
    ssh <USERNAME>@<HOSTNAME>.local
    ```
 1. If you are prompted “Are you sure you want to continue connecting?”, type “yes” and hit enter. Then, enter the password for your username. You should be greeted by a login message and a command prompt.
-   ![raspberry pi SSH login](assets/sshLogin.png)
+   ![raspberry pi SSH login](assets/sshLogin.webp)
 1. Update your Raspberry Pi to ensure all the latest packages are installed
    ```bash
    sudo apt update
@@ -147,7 +147,7 @@ It's time to get your hands dirty by taking apart the food dispenser and upgradi
 
 ### Connect hardware components
 
-![wiring diagram](assets/wiring.png)
+![wiring diagram](assets/wiring.webp)
 
 1. Use the above wiring diagram to connect the hardware peripherals and power together. The stripped wires from the snack dispenser can be connected to the jumper wires unless the WAGO lever nuts.
 
@@ -213,14 +213,14 @@ Duration: 5
 ### Configure your machine
 
 1. In [the Viam app](https://app.viam.com/fleet/dashboard) under the **LOCATIONS** tab, create a machine by typing in a name and clicking **Add machine**.
-   ![add machine](assets/newMachine.png)
+   ![add machine](assets/newMachine.webp)
 1. Click **View setup instructions**.
 1. To install `viam-server` on the Raspberry Pi device that you want to use, select the `Linux / Aarch64` platform for the Raspberry Pi, and leave your installation method as [`viam-agent`](https://docs.viam.com/how-tos/provision-setup/#install-viam-agent).
-   ![select platform](assets/platform.png)
+   ![select platform](assets/platform.webp)
 1. Use the `viam-agent` to download and install `viam-server` on your Raspberry Pi. Follow the instructions to run the command provided in the setup instructions from the SSH prompt of your Raspberry Pi.
-   ![installation agent](assets/ssh.png)
+   ![installation agent](assets/ssh.webp)
 1. The setup page will indicate when the machine is successfully connected.
-   ![successful toast](assets/success.png)
+   ![successful toast](assets/success.webp)
 
 ### Configure your Raspberry Pi board
 
@@ -228,10 +228,10 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 
 1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
 1. Click the **+** icon in the left-hand menu and select **Component**.
-   ![add component](assets/addComponent.png)
+   ![add component](assets/addComponent.webp)
 1. Select `board`, and find the `raspberry-pi:rpi4` module. This adds the module for working with the Raspberry Pi 4's GPIO pins. Leave the default name `board-1` for now.
 1. Notice adding this module adds the board hardware component called `board-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
-   ![added board](assets/addBoard.png)
+   ![added board](assets/addBoard.webp)
 1. Click **Save** in the top right to save and apply your configuration changes.
 
 ### Configure your encoder
@@ -244,10 +244,10 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
    - Select `board-1` from the dropdown under the "board" field.
    - Click the "Add pins" button to reveal the field for setting the encoder's interrupt pin
    - Set the "i" field to "22"
-   ![configure encoder](assets/configureEncoder.png)
+   ![configure encoder](assets/configureEncoder.webp)
 1. Click **Save** in the top right to save and apply your configuration changes.
 1. At the bottom of the `encoder-1` panel, expand the **TEST** section to ensure you have configured the encoder correctly. You should see the ticks count under "GetPosition" increase when pressing down and releasing the limit switch.
-   ![test encoder](assets/testEncoder.png)
+   ![test encoder](assets/testEncoder.webp)
 
 ### Configure your motor
 
@@ -263,21 +263,21 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
    - Under the "Component pin assignment" section, set the "Type" field to "Direction"
    - Set the "dir" field to 16
    - Set the "pwm" field to 18
-   ![configure motor attributes](assets/configureMotorAttrs.png)
-   ![configure motor pins](assets/configureMotorPins.png)
+   ![configure motor attributes](assets/configureMotorAttrs.webp)
+   ![configure motor pins](assets/configureMotorPins.webp)
 1. Click **Save** in the top right to save and apply your configuration changes.
 1. At the bottom of the `motor-1` panel, expand the **TEST** section to ensure you have configured the motor correctly and can move it using the "FORWARD" or "BACKWARD" buttons.
-   ![test motor](assets/testMotor.png)
+   ![test motor](assets/testMotor.webp)
 
 ### Configure your webcam
 
 1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component**.
 1. Select `camera`, and find the `webcam` module. This adds the module for working with a USB webcam. Leave the default name `camera-1` for now.
 1. Notice adding this component adds the webcam hardware component called `camera-1`. From the **Attributes** section of the panel, select a `video_path`.
-   ![select video path](assets/configureCamera.png)
+   ![select video path](assets/configureCamera.webp)
 1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
 1. At the bottom of the `camera-1` panel, expand the **TEST** section to ensure you have configured the camera properly and see a video feed.
-   ![test camera](assets/testCamera.png)
+   ![test camera](assets/testCamera.webp)
 
 > aside negative
 > **TROUBLESHOOTING**: Double check the wiring on your components. Also check under the **LOGS** tab to see what might be going wrong.
@@ -294,9 +294,9 @@ To get started with capturing training data for the machine learning model used 
 
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Service**, and then `data management`.
 1. **Create** a new [Data Management service](https://docs.viam.com/services/data/) called `data_manager-1`.
-   ![select data management](./assets/addDataManager.png)
+   ![select data management](./assets/addDataManager.webp)
 1. Notice adding this service adds the data manager service called `data_manager-1`. It will default to the "Capturing" and "Syncing" toggles as enabled.
-   ![view default configuration for data manager](./assets/configureDataManager.png)
+   ![view default configuration for data manager](./assets/configureDataManager.webp)
 1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
 
 ### Capture images from the webcam
@@ -304,13 +304,13 @@ To get started with capturing training data for the machine learning model used 
 1. In the `camera-1` panel, click the "+ Add method" button under the **Data capture** section.
 1. For the "Method" dropdown, select "ReadImage", enter "0.25" in the "Frequency (hz)" field to capture an image every 4 seconds.
 1. Make sure the data capture toggle is "On".
-   ![add data capture method](./assets/configureCameraCapture.png)
+   ![add data capture method](./assets/configureCameraCapture.webp)
 1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
 1. At the bottom of the `camera-1` panel, expand the **TEST** section to view the images as they're being captured.
-   ![test camera](assets/testCamera.png)
+   ![test camera](assets/testCamera.webp)
 1. Click the "Toggle picture-in-picture" button to create a separate window of the camera view.
 1. Go to the `motor-1` panel and expand the **TEST** section at the bottom. Use the controls to turn the motor and dispense the snacks into the bowl.
-   ![dispense snacks with motor](assets/enableMotorControl.png)
+   ![dispense snacks with motor](assets/enableMotorControl.webp)
 1. Once the bowl is full, empty the bowl back into the container and dispense more snacks. Go through this cycle a few times to ensure you have enough image data to train an accurate model.
 1. When you feel you have enough images, you can close the picture-in-picture window of the camera and turn off data capture in the `camera-1` panel.
 1. Click **Save** in the top right to save and apply your configuration changes.
@@ -318,19 +318,19 @@ To get started with capturing training data for the machine learning model used 
 ### Create a dataset of labeled images
 
 1. In the `camera-1` panel, click the **...** button in the top-right to reveal an action menu. Select "View captured data" to see all the captured images from the machine in the **Data** tab of the Viam app.
-   ![view captured data](assets/viewCapturedData.png)
+   ![view captured data](assets/viewCapturedData.webp)
 1. From this filtered view of image data, click the first image to reveal a right sidebar of actions. Click the expanding arrows button in the top-left of the sidebar to display the full-screen annotation view.
-   ![image action sidebar](assets/dataSidebar.png)
-   ![full screen annotations](assets/imageAnnotationsFull.png)
+   ![image action sidebar](assets/dataSidebar.webp)
+   ![full screen annotations](assets/imageAnnotationsFull.webp)
 1. In the right sidebar of **Actions**, click the "+" button under the **TAGS** section to add a tag that classifies the image as either "full" or "empty". 
    The first time you add one of these labels you will need to select the "+ <tag name>" option (where `<tag name>` is either "empty" or "full" depending on which you're adding at that time) in the tag dropdown to create it before adding it to the image.
-   ![image tagging](assets/imageTagAdd.png)
+   ![image tagging](assets/imageTagAdd.webp)
 1. In the right side of the **Actions**, click the "+" button under the **DATASETS** section to add the image to a dataset of images called "snacks" used for training a machine learning model.
    The first time you add an image to a dataset, you will need to select the "+ snacks" option in the datasets dropdown to create it before adding the image.
-   ![add image to dataset](assets/imageDatasetAdd.png)
+   ![add image to dataset](assets/imageDatasetAdd.webp)
 1. Use the arrow buttons next to the image, or your computer keyboard arrow keys, to view the next captured image to tag and add to the "snacks" dataset.
    You can use the "Recent" list of options under the **TAGS** and **DATASETS** sections to quickly tag and add each image.
-   ![recent actions list](assets/imageAnnotateRecents.png)
+   ![recent actions list](assets/imageAnnotateRecents.webp)
 1. Continue tagging and adding images until you have at least 10 of each tag in the "snacks" dataset. The more images in the training data, the more accurate your model will be.
 1. Once you've completed this process, click the "snacks" dataset button in the **DATASETS** section of one of the images to view the full dataset.
 
@@ -338,21 +338,21 @@ To get started with capturing training data for the machine learning model used 
 
 1. From the "snacks" dataset view, you can see details about the collection of training data, including total number of images (should be at least 20) and the number of images for each tag (should be at least 10 per tag).
    Click the "Train model" button to start configuring a training job for your custom model.
-   ![dataset details](assets/datasetDetails.png)
+   ![dataset details](assets/datasetDetails.webp)
 1. Keep the default options to train a new model using the built-in training scripts for computer vision models. Click the "Next steps" button to continue.
-   ![training configuration settings](assets/trainingModelSettings1.png)
+   ![training configuration settings](assets/trainingModelSettings1.webp)
 1. Enter "snack-refill" in the Name text field. Keep the rest of the default options to train a single label classification model with the "full" and "empty" labels (based on the tags on the images in the associated "snacks" dataset).
    Click the "Train model" button to start the training job.
-   ![training configuration settings](assets/trainingModelSettings2.png)
+   ![training configuration settings](assets/trainingModelSettings2.webp)
 1. From the "TRAINING" tab in the Viam app, click on the ID of the training job for your "snack-refill" model based on the "snacks" dataset.
-   ![training jobs list](assets/trainingJobList.png)
+   ![training jobs list](assets/trainingJobList.webp)
 1. From the training job view, you can see details about the active job being run in the Viam cloud infrastructure. Depending on the amount of images in the dataset, this process can take between 10 and 20 minutes.
    Enjoy some of your snacks as a reward for making it this far while you wait!
-   ![training job details](assets/trainingJobRunning.png)
+   ![training job details](assets/trainingJobRunning.webp)
 1. When the job completes, you will see a stream of logs and the "Completed" badge on the details page. You will also receive an email notification in case you moved on to something else in the meantime.
-   ![completed training job details](assets/trainingJobLogs.png)
+   ![completed training job details](assets/trainingJobLogs.webp)
 1. Click on the "snack-refill" model button under the "Model" section of the job details to view the model details in the Viam Registry. By default, it will be private to your organization.
-   ![model details](assets/modelDetails.png)
+   ![model details](assets/modelDetails.webp)
 
 > aside negative
 > **TROUBLESHOOTING**: Double check your dataset. Also check logs in the training job details page for more information.
@@ -367,28 +367,28 @@ Duration: 5
 
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Service**, and then `ML model`.
 1. Search for a module called `TFLite CPU`. Then click **Add module**, and **Create** a new [ML Model service](https://docs.viam.com/services/ml/) called `mlmodel-1`. This provides the ability to run Tensorflow Lite, a.k.a [LiteRT](https://ai.google.dev/edge/litert), models on the machine.
-   ![add ML model](assets/addMLModel.png)
+   ![add ML model](assets/addMLModel.webp)
 1. Notice this creates two new items in the left sidebar. The first is your new ML Model service called `mlmodel-1`, and the second is the `tflite_cpu` module from the Registry.
 1. In the `mlmodel-1` panel, click "Select model" in the **Model** section, search for "snacks-refill" under the **My organization** tab, and select your trained model from the list.
-   ![add model](assets/configureMLModel.png)
+   ![add model](assets/configureMLModel.webp)
 1. Click **Save** in the top right to save and apply your configuration changes.
 
 ### Add a vision service
 
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Service**, and then `vision`.
 1. Search for a module called `mlmodel`. Then click **Add module**, and **Create** a new [Vision service](https://docs.viam.com/services/vision/) called `vision-1`.
-   ![add module](assets/addVision.png)
+   ![add module](assets/addVision.webp)
 1. Notice adding this service adds the vision service called `vision-1`. From the **ML Model** section of the panel, select `mlmodel-1`.
-   ![select ML model for vision service](assets/configureVision.png)
+   ![select ML model for vision service](assets/configureVision.webp)
 1. **Save** your changes in the top right and wait a few moments for the configuration changes to take effect.
 1. At the bottom of the `vision-1` panel, expand the **TEST** section to ensure you have configured the service properly and 
-   ![test vision service](assets/testVision.png)
+   ![test vision service](assets/testVision.webp)
 
 ### Add a refill-controller service
 
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Service**, and then `generic`.
 1. Search for a module called `refill-controller:refiller`. Then click **Add module**, and **Create** a new [refill-controller service](https://github.com/viam-devrel/refill-controller) called `refiller`.
-   ![add module](assets/addRefiller.png)
+   ![add module](assets/addRefiller.webp)
 1. Notice adding this service adds the generic service called `refiller`.
 1. In the new `refiller` panel, configure the service by adding the following attributes in the **CONFIGURE** field. This tells the refill-controller service to use specific motor and camera components as well as a vision service.
    ```json
@@ -398,7 +398,7 @@ Duration: 5
      "vision_name": "vision-1"
    }
    ```
-   ![configure refiller service](assets/configureRefiller.png)
+   ![configure refiller service](assets/configureRefiller.webp)
 1. **Save** your changes in the top right and wait a few moments for the configuration changes to take effect.
 1. Test out the service by emptying the snack bowl and watch the machine automatically dispense more snacks until the bowl is full.
 
