@@ -149,10 +149,13 @@ Duration: 5
 1. **Connect the CP2102 serial adapter**: Plug the adapter into the USB-A port of the Raspberry Pi.
 1. **Wire the LD2410 sensor to the adapter**: Refer to the following wiring diagram to see how to connect the adapter to the LD2410 mmwave sensor. Make sure the transmitting pin (TX) on the adapter is connected to the receiving pin (RX) on the sensor, and vice versa. Refer to the [sensor product specifications](https://www.hlktech.net/index.php?id=1095) for additional details.
 
-   - Transmitting (TX) to Receiving (RX)
-   - Receiving (RX) to Transmitting (TX)
-   - +5V to VCC
-   - Ground (GND) to GND
+   | CP2102 | LD2410 |
+   | ------ | --------- |
+   | Transmitting (TXO) | Receiving (RX) |
+   | Receiving (RXI) | Transmitting (TX) |
+   | Power (+5V) | VCC |
+   | Ground (GND) | GND |
+
 
    ![wiring diagram](assets/mmwaveWiring.png)
 
