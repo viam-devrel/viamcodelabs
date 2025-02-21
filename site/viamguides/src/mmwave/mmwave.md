@@ -17,13 +17,15 @@ Duration: 1
 
 [Millimeter-wave (mmWave) sensors](https://en.wikipedia.org/wiki/Mmwave_sensing) are advanced radar-based sensing devices that operate in the 30 GHz to 300 GHz frequency range. Unlike traditional motion detection technologies such as infrared (PIR) or ultrasonic sensors, mmWave sensors use radio waves to detect objects, motion, and even micro-movements (like a heartbeat) with high precision.
 
-These sensors can distinguish between static and moving objects, detect motion at different distances, and provide real-time data about detected targets. These mmwave sensors are ideal for home automation, security, and smart lighting, enabling intelligent automation based on motion presence, rather than just movement alone.
+These sensors can distinguish between static and moving objects, detect motion at different distances, and provide real-time data about detected targets. Intelligent automation based on motion presence, rather than just movement alone, is ideal for home automation, security, and smart lighting.
 
-<img src="assets/longDemo.gif" alt="close up view of mmwave sensor" width="400">
+<img src="assets/sensorCloseup.png" alt="close up view of LD2410c mmwave sensor" width="400">
 
 ### What You’ll Build
 
 - A presence detector with a visual indicator light.
+
+![general layout of the project hardware](assets/orientation3.png)
 
 ### Prerequisites
 
@@ -49,13 +51,14 @@ These sensors can distinguish between static and moving objects, detect motion a
 ### What You’ll Learn
 
 - How to configure and test hardware components using Viam
+- How to configure and test a service using Viam
 - How to use modules from the Viam registry
 
-### Watch the Video
+<!-- ### Watch the Video
 
 See a demonstration of detecting presence in this video.
 
-<video id="J-wYpYclU78"></video>
+<video id="J-wYpYclU78"></video> -->
 
 <!-- ------------------------ -->
 
@@ -144,18 +147,16 @@ Duration: 5
 1. **Connect the CP2102 serial adapter**: Plug the adapter into the USB-A port of the Raspberry Pi.
 1. **Wire the LD2410 sensor to the adapter**: Refer to the following wiring diagram to see how to connect the adapter to the LD2410 mmwave sensor. Make sure the transmitting pin (TX) on the adapter is connected to the receiving pin (RX) on the sensor, and vice versa. Refer to the [sensor product specifications](https://www.hlktech.net/index.php?id=1095) for additional details.
 
-   ![wiring diagram](assets/mmwaveWiring.png)
-
-   - Transmitting (TXD) to Receiving (RX)
-   - Receiving (RXD) to Transmitting (TX)
+   - Transmitting (TX) to Receiving (RX)
+   - Receiving (RX) to Transmitting (TX)
    - +5V to VCC
    - Ground (GND) to GND
+
+   ![wiring diagram](assets/mmwaveWiring.png)
 
 ![wiring photo](assets/mmwaveWiringPhoto.png)
 
 Now that you have physically connected the hardware components, let's configure the software in the next section.
-
-<img src="assets/mmwaveSensor.png" alt="close up view of mmwave sensor" width="300">
 
 ---
 
@@ -229,27 +230,11 @@ You can manually and programmatically use the GPIO pins of the [`board`](https:/
    ```
    ![test rgb led](assets/testLED.png)
    You are executing a [`DoCommand`](https://docs.viam.com/components/generic/#api) on a generic component that has been predefined to accept parameters within a `control_rgb_led` command, such as `red`, `green`, `blue`, and `duration`. With these values, red will be at 80% brightness, green at 50% brightness, blue at 20% brightness - displaying a pulsating mixed color for a total duration of 2 seconds.
-1. Experiment with different numerical values in those fields to see what happens when you execute the command again. If you have extra time, try sending the following Do command.
-   ```json
-   {
-     "ripple": {
-       "duration": 7.0
-     }
-   }
-   ```
-
-<form>
-  <name>What is the primary purpose for using PWM (Pulse Width Modulation) to control an RGB LED?</name>
-  <input type="radio" value="To provide a constant high voltage to the LED.">
-  <input type="radio" value="To control the brightness and color of the LED by adjusting the signal duty cycle.">
-  <input type="radio" value="To make sure the LED operates at full brightness without additional wiring.">
-  <input type="radio" value="To power the LED directly from a USB port.">
-</form>
 
 ### Configure your mmwave sensor
 
 1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component**.
-1. Select `sensor`, and find the `mmwave:mmwave` module. This adds the module for controlling your LD2410C mmwave sensor.
+1. Select `sensor`, and find the `mmwave:mmwave` module. This adds the module for getting readings from your LD2410C mmwave sensor.
    ![select sensor mmwave component](assets/addMmwave.png)
 1. Name the component `mmwave-sensor`.
    ![name the sensor mmwave component](assets/nameMmwave.png)
@@ -268,7 +253,9 @@ Duration: 3
 
 Now that we've connected and configured both the RGB LED and the mmWave sensor, let's program the LED to change color dynamically based on the sensor's detected states.
 
-### Configure the mmwave to LED controller
+We've already learned how to use a prebuilt Viam module to work with hardware components. In the next section, we'll set up a presence detection service using a prebuilt Viam module that contains the control code for working with the hardware that we've already configured.
+
+### Configure the presence detection service
 
 1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Service**.
 1. Select `generic`, and find the `presence-detector:mmwave-rgbled` module. This adds the module for controlling the LED based on detected presence.
@@ -284,9 +271,8 @@ Now that we've connected and configured both the RGB LED and the mmWave sensor, 
    }
    ```
    ![configure service](assets/configureService.png)
-1. Click **Save** to apply your configuration changes. This may take a moment.
-1. The LED will display a ripple effect when the program begins. You can also view the logs under the **LOGS** tab for more details about what's happening behind the scenes.
-1. Once the program begins, the LED should display the following colors according to the state detected by the sensor.
+1. Click **Save** to apply your configuration changes. This may take a moment. The LED will display a ripple effect when the program begins.
+1. Once the program begins, the LED should display the following colors according to the state detected by the sensor. You can view the logs under the **LOGS** tab for more details about what's happening behind the scenes, and the detected states as they correspond to the LED.
    ![color mapping](assets/colorMapping.png)
 
 <img src="assets/longDemo.gif" alt="close up view of mmwave sensor" width="400">
@@ -297,16 +283,55 @@ Now that we've connected and configured both the RGB LED and the mmWave sensor, 
 
 Duration: 3
 
-Now that your presence detector is working the way you want it, it's time to tidy up our project so it's not a loose jumble of wires and parts.
+Now that your presence detector is working, it's time to tidy up our project so it's not a loose jumble of wires and parts.
+
+  <img src="assets/orientation4.png" alt="raspberry pi project in dim lighting" width="400">
 
 ### Provide enclosures
 
-1. **Assemble an enclosure for the Pi**: 3D print (or buy) an enclosure for your Raspberry Pi. I found [an existing design that I liked](https://makerworld.com/en/models/62316#profileId-226178) to fit a Raspberry Pi 4 Model B that provides access to the GPIO pins. You can additionally modify an existing design to include a built-in mount for your LED.
-1. **Assemble an LED display**: 3D print (or buy) a display for your RGB LED.
+1. **Assemble an enclosure for the Pi**: 3D print (or buy) an enclosure for your Raspberry Pi. I found [an existing design that I liked](https://makerworld.com/en/models/62316#profileId-226178) to fit a Raspberry Pi 4 Model B that provides access to the GPIO pins. You can additionally modify an existing design to include a built-in mount for your sensor and LED.
+1. **Assemble an mmwave sensor enclosure**: I found [an existing design that I liked](https://www.printables.com/model/462054-ld2410c-case-d1_miniesp32_d1_mini). Since the design had enough space to accommodate wires, I simply switched from female-to-male to female-to-female jumpers. You could also solder the connections if you wish. The enclosure includes a slot to securely slide the mmWave sensor into place, ensuring it is oriented correctly for detecting motion and presence.
+   ![mmwave enclosure with wires coiled inside](assets/mmwaveCase.png)
+1. **Assemble an LED display**: I found [an existing design that I liked](https://www.printables.com/model/234231-usb-led-minecraft-torchnightlight) to contain the soldered LED and wires, and also function as a lamp shade to illuminate more surface area.
+   ![minecraft torch](assets/orientation3.png)
    > aside negative
-   > **Stuffed Mushroom**: I found [these mushrooms that I liked](https://makerworld.com/en/models/95343?from=search#profileId-101704) originally designed for wireless LEDs, but could contain the LED and wires, and also function as a lamp shade to illuminate more surface area. In this other codelab [to control an RGB LED](https://codelabs.viam.com/guide/rgbled/index.html?index=..%2F..index#4), I used solder, heat shrink tubing, and electrical tape to bundle everything together in a 3D-printed mushroom.
-1. **Assemble an mmwave sensor enclsoure**: If you're using presence detection for smart lighting, consider mounting the sensor in a case on the wall, ceiling, or a desktop enclosure. Position the sensor to best fit your automation needs. For example, if you want a light to turn on when someone enters a room, place the sensor above a doorway or in clear line of sight of the entrance for optimal detection.
-   ![mmwave enclosure with wires coiled inside](assets/mmwaveSensor.png)
+   > **Stuffed Mushroom**: In this other codelab [to control an RGB LED](https://codelabs.viam.com/guide/rgbled/index.html?index=..%2F..index#4), I used [this design for a 3D-printed mushroom](https://makerworld.com/en/models/95343?from=search#profileId-101704), along with solder, heat shrink tubing, and electrical tape to bundle everything together.
+1. **Position the sensor enclosure**: If you're using presence detection for smart lighting, consider mounting the sensor in a case on the wall, ceiling, or a desktop enclosure. Position the sensor to best fit your automation needs. For example, if you want a light to turn on when someone enters a room, place the sensor above a doorway or in clear line of sight of the entrance for optimal detection.
+   ![point the mmwave sensor in the direction of detection](assets/orientation2.png)
+
+### Customize the detection lights
+
+1. **Configure colors**: The [`presence-detector`](https://github.com/loopDelicious/viam-control-mmwave-led) module accepts optional parameters to change the color of the lights to your liking. Update the configuration in the Viam app, by adding a `color_attributes` property, formatted like the following:
+   ```json
+   {
+     "board": "board-1",
+     "rgb_led": "rgb-led",
+     "sensor": "mmwave-sensor",
+     "color_attributes": {
+       "no_target": {
+         "red": 0.1,
+         "green": 0.1,
+         "blue": 0.8
+       },
+       "moving_target": {
+         "red": 1,
+         "green": 0.5,
+         "blue": 0
+       },
+       "static_target": {
+         "red": 0,
+         "green": 1,
+         "blue": 0.5
+       },
+       "moving_and_static_targets": {
+         "red": 1,
+         "green": 0.2,
+         "blue": 1
+       }
+     }
+   }
+   ```
+1. **Use a different module**: If you want to further customize the controller's logic, such as turning lights on when you enter a room and off when you leave, you can use a prebuilt module [like this one](https://github.com/loopDelicious/viam-control-mmwave-kasa), which works with a TP-Link Kasa smart plug. Alternatively, you can replace the `presence-detector:mmwave-rgbled` module by [creating your own custom module](https://docs.viam.com/operate/get-started/other-hardware/hello-world-module/)
 
 <!-- ------------------------ -->
 
@@ -317,6 +342,7 @@ Duration: 1
 ### What you learned
 
 - How to configure and test hardware components using Viam
+- How to configure and test a service using Viam
 - How to use modules from the Viam registry
 
 <img src="assets/quickDemo.gif" alt="close up view of mmwave sensor" width="400">
@@ -325,10 +351,10 @@ Duration: 1
 
 At this point, you have configured and tested your presence detector and have a helpful visual indicator light. There are more possibilities to explore to enhance this project.
 
-- **Alternative sensors**: The LD2410C is only one type of mmwave sensor, others are designed for fall detection, sleep monitoring, or expansive exterior spaces.
-- **Alternative actuation**: Incorporate more actuation, such as [triggering a piezo buzzer](https://codelabs.viam.com/guide/piezo/index.html?index=..%2F..index#0) as an alarm, or providing access to a secure space by removing a barricade.
-- **Custom logic**: You can customize the logic of the controller, for example to choose different colors or add conditional logic prior to execution, by [creating your own module](https://docs.viam.com/operate/get-started/other-hardware/hello-world-module/) using [the original module repository](https://github.com/loopDelicious/viam-control-mmwave-led?tab=readme-ov-file) as a starting point for your code. The original module uses [this underlying Python library](https://www.piwheels.org/project/ld2410/), but there are others to choose from.
-- **Scale up using affordable boards**: Manage a fleet of mmwave sensors throughout your home to automatically turn on (and turn off) lights throughout your home, for example by incorporating smart switches. To do this more cost effectively, you can migrate the project to an alternative board, such as an ESP32 or Raspberry Pi zero W.
+- **Alternative sensors**: The LD2410C is only one type of mmwave sensor. Other mmwave sensors are designed for fall detection, sleep monitoring, or expansive exterior spaces.
+- **Alternative actuation**: Incorporate more actuation, such as [triggering a piezo buzzer](https://codelabs.viam.com/guide/piezo/index.html?index=..%2F..index#0) as an alarm, [triggering smart switches](https://github.com/loopDelicious/viam-control-mmwave-kasa), or providing access to a secure space by removing a barricade.
+- **Custom logic**: You can customize the logic of the controller, for example to require additional conditions prior to execution, by [creating your own module](https://docs.viam.com/operate/get-started/other-hardware/hello-world-module/) using [the original module repository](https://github.com/loopDelicious/viam-control-mmwave-led?tab=readme-ov-file) as a starting point for your code. The original module uses [this underlying Python library](https://www.piwheels.org/project/ld2410/), but there are others to choose from.
+- **Scale up using affordable boards**: Manage a fleet of mmwave sensors throughout your home to automatically turn on (and turn off) lights throughout your home. To do this more cost effectively, you can migrate the project to an alternative board, such as an ESP32 or Raspberry Pi Zero W.
 
 In addition to the project ideas mentioned above, consider other ways to continue your journey with Viam.
 
@@ -339,7 +365,8 @@ In addition to the project ideas mentioned above, consider other ways to continu
 
 Providing high precision and reliability in a variety of environmental conditions, mmWave sensors are widely-used in industrial and home automation, safety, and real-time decision-making across multiple domains.
 
-- **Smart Home & Security**: mmWave sensors enhance motion detection and presence sensing in security systems, lighting automation, and fall detection for elderly care—working accurately even through walls or furniture.
+- **Smart Home & Security**: mmWave sensors enhance motion detection and presence sensing in security systems, [lighting automation](https://github.com/loopDelicious/viam-control-mmwave-kasa), and fall detection for elderly care—working accurately even through walls or furniture.
+  <img src="assets/0221.gif" alt="smart light turning off when no presence detected" width="400">
 - **Automotive & Transportation**: Used in collision avoidance and blind-spot detection, mmWave sensors improve safety and efficiency in modern vehicles.
 - **Healthcare & Medical Monitoring**: These sensors enable contactless vital sign monitoring, tracking heart rate, respiration, and sleep patterns without requiring wearables.
 - **Industrial & Robotics**: In warehouses and manufacturing, mmWave sensors assist in object tracking, people counting, and automation workflows, helping robots navigate and interact safely with humans.
@@ -347,5 +374,5 @@ Providing high precision and reliability in a variety of environmental condition
 ### Related Viam resources
 
 - [Viam documentation](https://docs.viam.com/)
-- [Viam how-to guides](https://docs.viam.com/how-tos/)
+- Other [Viam codelabs](https://codelabs.viam.com/)
 - [Viam Discord community](http://discord.gg/viam)
