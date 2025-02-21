@@ -118,10 +118,12 @@ Duration: 5
 
    ![wiring diagram](assets/rgbledWiring.png)
 
-   - Pin 12 (GPIO 18) to Blue
-   - Pin 32 (GPIO 12) to Green
-   - Pin 33 (GPIO 13) to Red
-   - Pin 34 (GND) to Common
+   | Board | RGB LED |
+   | ------ | --------- |
+   | Pin 12 (GPIO 18) | Blue leg |
+   | Pin 32 (GPIO 12) | Green |
+   | Pin 33 (GPIO 13) | Red |
+   | Pin 34 (GND) | Common |
 
    > aside positive
    > The website [pinout.xyz](https://pinout.xyz/) is a helpful resource with the exact layout and role of each pin for Raspberry Pi. When working with Viam, make sure to reference the physical pin numbers, and not the GPIO numbers listed on `pinout.xyz`.
