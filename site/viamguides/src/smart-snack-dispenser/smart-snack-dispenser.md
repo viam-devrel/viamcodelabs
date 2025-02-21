@@ -82,8 +82,8 @@ The Raspberry Pi boots from a USB flash drive (or microSD card). You need to ins
    ![raspberry pi enable SSH](assets/sshSettings.webp)
    > aside negative
    > Be sure that you remember the `hostname` and `username` you set, as you will need this when you SSH into your Pi.
-1. **Save** your updates, and confirm `YES` to apply OS customization settings. Confirm `YES` to erase data on the USB flash drive. You may also be prompted by your operating system to enter an administrator password. After granting permissions to the Imager, it will begin writing and then verifying the Linux installation to the USB flash drive.
-1. Remove the USB flash drive from your computer when the installation is complete.
+1. **Save** your updates, and confirm `YES` to apply OS customization settings. Confirm `YES` to erase data on your storage device. You may also be prompted by your operating system to enter an administrator password. After granting permissions to the Imager, it will begin writing and then verifying the Linux installation to your storage device.
+1. Remove the storage device from your computer when the installation is complete.
 
 ### Connect with SSH
 
@@ -122,7 +122,7 @@ It's time to get your hands dirty by taking apart the food dispenser and upgradi
    ![food dispenser without bowl](assets/hardwarePrepped.webp)
 1. Turn the dispenser upside down to access the screws on the bottom of the device.
    ![flip the machine](assets/hardwareFlip.webp)
-1. Use the screwdriver to remove the screws in each corner. Set them aside for in a safe place for later when reassembling.
+1. Use the screwdriver to remove the screws in each corner. Set them aside in a safe place for later when reassembling.
    ![unscrew base](assets/hardwareUnscrew.webp)
 1. **Carefully**, flip the device over again with the food container (hopper) facing up. Slowly, lift the container to separate it from the base of the device and expose the internal wiring.
    ![separate container from base](assets/hardwareDisassemble.webp)
@@ -240,7 +240,7 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 1. Click the **+** icon in the left-hand menu and select **Component**.
 1. Select encoder, and find the `single` module. This adds the module for reading the limit switch as an encoder with a board's GPIO pins. Leave the default name `encoder-1` for now.
 1. Notice adding this module adds the encoder hardware component called `encoder-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
-1. In the new `encoder-1` panel, configure your component by updates the following attributes in the **CONFIGURE** field. This tells your encoder component to use a specific pin on a specific board (called `board-1` in the Viam app).
+1. In the new `encoder-1` panel, configure your component by updating the following attributes in the **CONFIGURE** field. This tells your encoder component to use a specific pin on a specific board (called `board-1` in the Viam app).
    - Select `board-1` from the dropdown under the "board" field.
    - Click the "Add pins" button to reveal the field for setting the encoder's interrupt pin
    - Set the "i" field to "22"
@@ -255,7 +255,7 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 1. Click the **+** icon in the left-hand menu and select **Component**.
 1. Select `motor`, and find the `gpio` module. This adds the module for controlling a motor with a board's GPIO pins. Leave the default name `motor-1` for now.
 1. Notice adding this module adds the motor hardware component called `motor-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
-1. In the new `motor-1` panel, configure your component by updates the following attributes in the **CONFIGURE** field. This tells your motor component to use specific pins and settings on a specific board (called `board-1` in the Viam app).
+1. In the new `motor-1` panel, configure your component by updating the following attributes in the **CONFIGURE** field. This tells your motor component to use specific pins and settings on a specific board (called `board-1` in the Viam app).
    - Select `board-1` from the dropdown under the "board" field.
    - Click the "Show more" button to reveal additional configuration detail.
    - Select `encoder-1` from the "encoder" field.
@@ -312,7 +312,7 @@ To get started with capturing training data for the machine learning model used 
 1. Go to the `motor-1` panel and expand the **TEST** section at the bottom. Use the controls to turn the motor and dispense the snacks into the bowl.
    ![dispense snacks with motor](assets/enableMotorControl.webp)
 1. Once the bowl is full, empty the bowl back into the container and dispense more snacks. Go through this cycle a few times to ensure you have enough image data to train an accurate model.
-1. When you feel you have enough images, you can close the picture-in-picture window of the camera and turn off data capture in the `camera-1` panel.
+1. When you feel you have enough images (with a minimum of 20), you can close the picture-in-picture window of the camera and turn off data capture in the `camera-1` panel.
 1. Click **Save** in the top right to save and apply your configuration changes.
 
 ### Create a dataset of labeled images
@@ -381,7 +381,7 @@ Duration: 5
 1. Notice adding this service adds the vision service called `vision-1`. From the **ML Model** section of the panel, select `mlmodel-1`.
    ![select ML model for vision service](assets/configureVision.webp)
 1. **Save** your changes in the top right and wait a few moments for the configuration changes to take effect.
-1. At the bottom of the `vision-1` panel, expand the **TEST** section to ensure you have configured the service properly and 
+1. At the bottom of the `vision-1` panel, expand the **TEST** section to ensure you have configured the service properly and can see the classifications table and its label predictions.
    ![test vision service](assets/testVision.webp)
 
 ### Add a refill-controller service
@@ -422,7 +422,7 @@ While this project serves up treats, it's also given you a taste of key hardware
 
 ### Building advanced scenarios with Viam and the smart snack dispenser
 
-At this point, you have configured and tested your machine to recognize a snack food and automatically refill the bowl. Consider adding feature like:
+At this point, you have configured and tested your machine to recognize a snack food and automatically refill the bowl. Consider adding features like:
 
 - training the model on multiple snack types to make it a more flexible feeder
 - add voice control using a [speech module](https://app.viam.com/module/viam-labs/speech)
