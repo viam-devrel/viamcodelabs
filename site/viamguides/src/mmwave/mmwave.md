@@ -54,11 +54,11 @@ These sensors can distinguish between static and moving objects, detect motion a
 - How to configure and test a service using Viam
 - How to use modules from the Viam registry
 
-<!-- ### Watch the Video
+### Watch the Video
 
 See a demonstration of detecting presence in this video.
 
-<video id="J-wYpYclU78"></video> -->
+<video id="vjwsI9xSlBI"></video>
 
 <!-- ------------------------ -->
 
