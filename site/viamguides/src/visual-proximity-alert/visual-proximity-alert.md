@@ -199,7 +199,9 @@ Next, we'll set up the RGB LED. You'll need your
     | Blue | to | GPIO 18 (Physical Pin 12) |
 
 > aside positive
-> **New to wiring?** If needed, the following instructions take you step-by-step on how to wire your RGB LED correctly. Feel free to skip to the next section (Configure your machine) if you are comfortable with wiring diagrams and are able to wire your hardware without additional guidance!
+> **New to wiring?** If needed, the following instructions take you step-by-step on how to wire your RGB LED correctly. The website [pinout.xyz](https://pinout.xyz/) is also a helpful resource where you can interact with the exact layout and role of each pin for Raspberry Pi. When working with Viam, make sure to reference the physical pin numbers, and not the GPIO numbers listed on `pinout.xyz`. 
+> 
+> Feel free to skip to the next section (Configure your machine) if you are comfortable with wiring diagrams and are able to wire your hardware without additional guidance!
 
 ### Step-by-step wiring instructions
 
@@ -370,7 +372,6 @@ This project is a great way to learn about combining different components to pro
 - Prevent crashes between heavy machinery and with workers on foot, with color-coded displays to indicate levels of proximity.
 - Maintain safe distances from moving parts or machinery, whether on the assembly line or warehouse.
 - Avoid collisons in blind spots or corners in high-traffic environments like restaurant kitchens or sports arenas.
-- Warn employees when food storage temperatures are outside of safe ranges.
 
 ### Extend your proximity alert with Viam
 Right now, you can give visual indicators based on proximity with the RGB LED. But there are other things you can do to extend your proximity alert!  As an example, you could:
