@@ -1,13 +1,13 @@
 author: HipsterBrown
 id: smart-snack-dispenser
-summary: Turn an existing pet feeder into automatically refilling snack bowl
+summary: Turn an existing pet feeder into automatically refilling snack bowl using computer vision
 categories: Getting-Started, Developer
 environments: web
 status: Published 
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
-# Build a Smart Snack Dispenser
+# Build a Smart Snack Dispenser with CV
 <!-- ------------------------ -->
 ## Overview 
 Duration: 1
