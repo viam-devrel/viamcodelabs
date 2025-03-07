@@ -102,7 +102,7 @@ Duration: 1
 
 It's now time to wire our hardware components together! Here's what you'll be wiring together:
 
-![full proximity alert wiring diagrm](./assets/fullProximityAlert.svg)
+![full proximity alert wiring diagrm](assets/fullProximityAlert.svg)
 
 The following sections will focus on a single component at a time and show the localized wiring diagram. However, feel free to reference this full diagram when needed.
 
@@ -125,7 +125,7 @@ First, we'll set up the ultrasonic sensor. You'll need your
 1. **Review the wiring diagram**: Refer to the following wiring diagram to see how to connect the ultrasonic sensor to the Raspberry Pi, using the breadboard and resistors to control the flow of electricity:
 
 
-    ![ultrasonic to pi wiring diagram](./assets/ultrasonicToPi.svg)
+    ![ultrasonic to pi wiring diagram](assets/ultrasonicToPi.svg)
 
     The ultrasonic sensor will use 4 GPIO pins on the Raspberry Pi
       
@@ -142,34 +142,34 @@ First, we'll set up the ultrasonic sensor. You'll need your
 ### Step-by-step wiring instructions
 
 2. Plug four of your jumper wires into the pins of the HC-SR04.
-    ![ultrasonic pins connected to jumper wires](./assets/jumpersOnUltrasonicPins.webp)
+    ![ultrasonic pins connected to jumper wires](assets/jumpersOnUltrasonicPins.webp)
 
 3. **Plug your VCC wire into the positive rail of your breadboard and your GND wire into the negative rail**. From this point on, we'll use the breadboard to simplify the wiring process and provide a secure platform to connect components without soldering.
-    ![Wiring VCC to positive and GND negative breadboard rail](./assets/VCCGNDToPositiveNegative.jpg)
+    ![Wiring VCC to positive and GND negative breadboard rail](assets/VCCGNDToPositiveNegative.jpg)
 
 4. Plug a jumper wire into GPIO 5V (Physical Pin 2) on your Pi and connect that wire to the positive rail of your breadboard, which connects it to VCC.
-    ![Pi pin 2 to positive](./assets/Pi2Pi6.jpg)
+    ![Pi pin 2 to positive](assets/Pi2Pi6.jpg)
 
 5. Plug a jumper wire into GPIO GND (Physical Pin 6) on your Pi and connect that wire to the negative rail of your breadboard, which connects it to GND.
-    ![Pi pins 2, 6 to positive, negative](./assets/Pi2Pi6ToBreadboard.jpg)
+    ![Pi pins 2, 6 to positive, negative](assets/Pi2Pi6ToBreadboard.jpg)
 
 6. Plug the TRIG wire from your ultrasonic sensor into a blank rail on your breadboard, then use another jumper wire to connect that rail to your Pi's GPIO 23 (Physical Pin 16) pin. (Technically, you can skip the connection on the breadboard and connect the TRIG wire directly to the Pi; it's a matter of preference!)
-    <img src="./assets/TrigToBreadboard.jpg" alt="TRIG pin to breadboard" width="350" />
-    <img src="./assets/TrigBreadboardToPi16.jpg" alt="TRIG pin breadboard to Pi" width="350" />
+    <img src="assets/TrigToBreadboard.jpg" alt="TRIG pin to breadboard" width="350" />
+    <img src="assets/TrigBreadboardToPi16.jpg" alt="TRIG pin breadboard to Pi" width="350" />
 
 7. Plug the ECHO wire from your ultrasonic sensor into another blank rail, then link it to another blank rail using a 1000 Ohm resistor (R1).
-    ![ECHO pin with 1K Ohm resistor](./assets/echo1KResistor.jpg)
+    ![ECHO pin with 1K Ohm resistor](assets/echo1KResistor.jpg)
 
 8. Link your R1 rail to your GND rail using a 2000 Ohm (R2) resistor. Be sure to leave a space between the two resistors.
-    ![2K Ohm resistor to GND](./assets/2KResistorToGND.jpg)
+    ![2K Ohm resistor to GND](assets/2KResistorToGND.jpg)
 
 9. Plug a jumper wire right where you left a space in between the resistors and connect that wire into your Pi's GPIO 24 (Physical Pin 18) pin.
-    ![ultrasonic resistors wiring](./assets/ultrasonicResistorsWiring.webp)
+    ![ultrasonic resistors wiring](assets/ultrasonicResistorsWiring.webp)
 
 Sweet! You've set up the ultrasonic sensor.
 
-<img src="./assets/finishedUltrasonicWiring.webp" alt="finished ultrasonic sensor wiring on breadboard" width="350"/>
-<img src="./assets/finishedUltrasonicSensor.webp" alt="finished ultrasonic sensor" width="350"/>
+<img src="assets/finishedUltrasonicWiring.webp" alt="finished ultrasonic sensor wiring on breadboard" width="350"/>
+<img src="assets/finishedUltrasonicSensor.webp" alt="finished ultrasonic sensor" width="350"/>
 
 This will enable you to capture distance readings. Let's add the RGB LED next!
 
@@ -187,7 +187,7 @@ Next, we'll set up the RGB LED. You'll need your
 
 1. **Review the wiring diagram**: Refer to the following wiring diagram (ultrasonic wiring omitted for clarity) to see how to connect the RGB LED to the Raspberry Pi, using the breadboard and resistors to control the flow of electricity:
 
-    ![RGB LED wiring to Pi](./assets/PiToRGBLED.svg)
+    ![RGB LED wiring to Pi](assets/PiToRGBLED.svg)
     <br>
 
     The RGB LED will use 4 GPIO pins on the Raspberry Pi
@@ -208,26 +208,26 @@ Next, we'll set up the RGB LED. You'll need your
   - **Red (R)**: Typically the leg next to the common cathode (to the left as shown below).
   - **Green (G)**: The leg on the other side of the cathode (to the right as shown below).
   - **Blue (B)**: The farthest leg from the cathode.
-![common cathode RGB LED](./assets/commonCathode.png)
+![common cathode RGB LED](assets/commonCathode.png)
 
 1. **Plug your RGB LED into a blank rail on your breadboard**. From here, you'll use jumper wires and resistors to connect it to your Pi.
-    ![RGB LED into breadboard](./assets/RGBToBreadboard.jpg)
+    ![RGB LED into breadboard](assets/RGBToBreadboard.jpg)
 
 1. Plug a jumper wire next to the longest leg of the LED, then connect that wire to the Pi's GND pin (Physical Pin 34). This will be your ground.
-    ![RGB LED GND to Pi](./assets/RGBGNDToPi.jpg)
+    ![RGB LED GND to Pi](assets/RGBGNDToPi.jpg)
 
 1. Link a 100 Ohm resistor to the red leg of the LED.
-    ![100 Ohm resistor to RGB LED red leg](./assets/100ResistorToRed.jpg)
+    ![100 Ohm resistor to RGB LED red leg](assets/100ResistorToRed.jpg)
 
 1. Link a 10 Ohm resistor to the green leg and another 10 Ohm resistor to the blue leg of the LED.
-    ![10 Ohm resistors to RGB LED green and blue legs](./assets/10ResistorsToGreenAndBlue.jpg)
+    ![10 Ohm resistors to RGB LED green and blue legs](assets/10ResistorsToGreenAndBlue.jpg)
 
 1. **Connect the resistors to the Pi**.
     - Connect a jumper wire from the red leg (100 Ohm resistor) to the Pi's GPIO 13 pin (Physical Pin 33)
     - Connect a jumper wire from the green leg (10 Ohm resistor) to the Pi's GPIO 12 pin (Physical Pin 32)
     - Connect a jumper wire from the blue leg (10 Ohm resistor) to the Pi's GPIO 18 pin (Physical Pin 12)
-    <img src="./assets/finishedRGB.webp" alt="finished RGB Wiring on breadboard" width="300" />
-    <img src="./assets/RGBResistorsToPi.jpg" alt="finished RGB Wiring on Pi" width="300" />
+    <img src="assets/finishedRGB.webp" alt="finished RGB Wiring on breadboard" width="300" />
+    <img src="assets/RGBResistorsToPi.jpg" alt="finished RGB Wiring on Pi" width="300" />
 
 1. Double-check connections to ensure correct polaity and avoid miswiring. 
 
@@ -250,9 +250,9 @@ Duration: 10
 1. To install `viam-server` on your Raspberry Pi (so you can communicate with and control your sensor and the RGB LED), select the `Linux / Aarch64` platform for the Raspberry Pi, and leave your installation method as [`viam-agent`](https://docs.viam.com/how-tos/provision-setup/#install-viam-agent).
    ![select platform](assets/selectPlatform.png)
 1. Use the `viam-agent` to download and install `viam-server` on your Raspberry Pi. Follow the instructions to run the command provided in the setup instructions from the SSH prompt of your Raspberry Pi.
-    ![install viam-server](./assets/installViamServer.png)
+    ![install viam-server](assets/installViamServer.png)
 1. The setup page will indicate when the machine is successfully connected.
-    <img src="./assets/machineConnected.png" alt="machine connected" width="450"/>
+    <img src="assets/machineConnected.png" alt="machine connected" width="450"/>
 
 With a machine configured and connected, it's time to add the peripherals. First, the board (AKA your Raspberry Pi).
 
@@ -265,15 +265,15 @@ To access the GPIO pins of your Raspberry Pi, add the board to your machine in t
 
 1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
 1. Click the **+** icon in the left-hand menu and select **Component**.
-   ![add board component](./assets/addComponent.png)
+   ![add board component](assets/addComponent.png)
 1. Select `board`, and find the `raspberry-pi:rpi4` module. Click **Add Module**. Leave the default name `board-1` for now, then click **Create**. This adds the module for working with the Raspberry Pi 4's GPIO pins.
-   <img src="./assets/findRPI4.png" alt="find Raspberry Pi 4 board" width="300" />
+   <img src="assets/findRPI4.png" alt="find Raspberry Pi 4 board" width="300" />
 1. Notice adding this module adds the board hardware component called `board-1`. You'll see a collapsible card on the right, where you can configure the board component, and the corresponding `board-1` part listed in the left sidebar.
-   ![added board](./assets/boardAdded.png)
+   ![added board](assets/boardAdded.png)
 1. Click **Save** in the top right to save and apply your configuration changes.
 1. Expand the **TEST** section of the panel to experiment with writing to physical pins. For example, since our RGB LED's red leg is connected to physical pin 33, type `33` into the `Pin` field and set it's signal to `High`. This should turn the RGB LED on and emit a red light.
    
-   <img src="./assets/testRGBOnBoard.png" alt="test GPIO pins on board" width="550" />
+   <img src="assets/testRGBOnBoard.png" alt="test GPIO pins on board" width="550" />
 1. Set the signal to `Low` (for each pin previously set to `High`) to turn off the LED.
 
 > aside negative
@@ -289,12 +289,12 @@ Duration: 5
 To access the ultrasonic sensor's measurements, add the sensor to your machine.
 1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
 1. Click the **+** icon in the left-hand menu and select **Component**.
-   ![add ultrasonic component](./assets/addUltrasonicComponent.png)
+   ![add ultrasonic component](assets/addUltrasonicComponent.png)
 1. Select `sensor`, and find the `ultrasonic:sensor` module. Click **Add Module**. Leave the default name `sensor-1` for now, then click **Create**. This adds the module that gives you access to the ultrasonic sensor's readings.
     <br>
-    <img src="./assets/findUltrasonic.png" alt="find ultrasonic sensor component" width="300" />
+    <img src="assets/findUltrasonic.png" alt="find ultrasonic sensor component" width="300" />
 1. Notice adding this module adds the sensor hardware component called `sensor-1`. You'll see a collapsible card on the right, where you can configure the sensor component, and the corresponding `sensor-1` part listed in the left sidebar.
-   ![added ultrasonic sensor](./assets/ultrasonicAdded.png)
+   ![added ultrasonic sensor](assets/ultrasonicAdded.png)
 1. In the **JSON configuration** field (within the **CONFIGURE** panel), add the following attributes. This tells your sensor which pins to use for its Echo Pulse Output (`ECHO`) and Trigger Pulse Input (`TRIG`) and which board it is wired to. In your case, that's `board-1`, which is the Raspberry Pi you added earlier. You can read more about each attribute in the **Documentation** panel that's next to your JSON configuration
     ```JSON
     {
@@ -304,7 +304,7 @@ To access the ultrasonic sensor's measurements, add the sensor to your machine.
       "timeout_ms": 1000 // Optional; 
     }
     ```
-    ![ultrasonic sensor JSON config](./assets/ultrasonicConfig.png)
+    ![ultrasonic sensor JSON config](assets/ultrasonicConfig.png)
 1. Click **Save** in the top right to save and apply your configuration changes.
 1. Expand the **TEST** section of the panel to experiment with the sensor. You should see a `Get Readings` label and a continuously updating measurement. Try placing your hand in front of the sensor and moving it farther away. The readings should reflect these changes, returning a smaller value as you place an object closer to the sensor and a larger value as you move the object farther away from the sensor.
 
@@ -327,11 +327,11 @@ We can indicate when something is too close or within a safe distance (relative 
 
 1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
 1. Click the **+** icon in the left-hand menu and select **Service**.
-   ![add service](./assets/addService.png)
+   ![add service](assets/addService.png)
 1. Select `generic`, and find the `proximity-alert:hc-sr04_rgb-led` module. Click **Add Module**. Be sure to change the default name to something more descriptive, like `proximity-alert-service`, then click **Create**. This adds a service that automatically turns the RGB LED red or green depending on the ultrasonic sensor's readings and a distance threshold you'll specify soon. 
-    <img src="./assets/findProximityAlert.png" alt="find proximity alert generic service" width="400">
+    <img src="assets/findProximityAlert.png" alt="find proximity alert generic service" width="400">
 1. Notice adding this module adds the generic service of your chosen name. You'll see a collapsible card on the right, where you can configure the proximity alert module, and the corresponding part listed in the left sidebar.
-   ![added proximity alert service](./assets/proximityAdded.png)
+   ![added proximity alert service](assets/proximityAdded.png)
 1. In the **CONFIGURE** panel, add the following attributes (minus the comments). This tells the service which board and sensor to use (which should be the ones you've just configured), which GPIO pins to use to control the RGB LED, and a safe distance threshold to determine when to turn red or green.
     ```JSON
     // "board" and "sensor" values need to match your board and sensor component names in the Viam app
@@ -345,7 +345,7 @@ We can indicate when something is too close or within a safe distance (relative 
       "safe_distance": "0.3"
     }
     ```
-    ![proximity service JSON config](./assets/proximityServiceConfig.png)
+    ![proximity service JSON config](assets/proximityServiceConfig.png)
 1. Click **Save** to apply your configuration changes. This may take a moment. 
 1. After a few moments, your RGB LED should flicker on and emit a light. Test it out! Place your hand immediately in front of the ultrasonic sensor. It should quickly emit a red light and stay red as long as you keep your hand there. When you remove your hand (and assuming there are no other objects in front of the sensor's path that is within the unsafe distance), the LED should emit a green light. To continue testing the service and ensure a bit more accuracy, position the ultrasonic sensor so that it faces some open space and that you are able to move an object within its path at variable ranges.
 
