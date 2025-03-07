@@ -3,7 +3,7 @@ id: visual-proximity-alert
 summary: Build a visual proximity alert with an ultrasonic sensor, RGB LED, and Raspberry Pi
 categories: Getting-Started, Developer
 environments: web
-status: Draft 
+status: Published 
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
