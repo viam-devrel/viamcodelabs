@@ -310,6 +310,9 @@ To access the ultrasonic sensor's measurements, add the sensor to your machine.
 1. Click **Save** in the top right to save and apply your configuration changes.
 1. Expand the **TEST** section of the panel to experiment with the sensor. You should see a `Get Readings` label and a continuously updating measurement. Try placing your hand in front of the sensor and moving it farther away. The readings should reflect these changes, returning a smaller value as you place an object closer to the sensor and a larger value as you move the object farther away from the sensor.
 
+     > aside positive
+    > **A note on the Get Readings values**: The readings returned here are actually the time it takes for the sensor to emit a pulse and receive it back, typically in microseconds. In order to get a meaningful distance, some [further calculations](https://www.youtube.com/watch?v=C02oB1n7rcg&t=134s) are required. For now, we can still assume that a large reading means "farther away" and a smaller one means "closer".
+
     ![Testing ultrasonic sensor readings](assets/testingUltrasonicReadings.gif)
 
     > aside negative
