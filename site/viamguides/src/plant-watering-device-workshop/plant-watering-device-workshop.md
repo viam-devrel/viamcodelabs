@@ -57,13 +57,13 @@ The Raspberry Pi boots from a microSD card. You need to install Raspberry Pi OS 
 1. Connect the microSD card to your computer.
 1. Launch the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
    ![raspberry pi imager](assets/imager.png)
-1. Click **CHOOSE DEVICE**. Select your model of Pi, which is Raspberry Pi 4.
+1. Click **CHOOSE DEVICE**. Select your model of Pi, i.e. Raspberry Pi 4 or Raspberry Pi 5.
 1. Click **CHOOSE OS**. Select **Raspberry Pi OS (64-bit)** from the menu.
 1. Click **CHOOSE STORAGE**. From the list of devices, select the microSD card you intend to use in your Raspberry Pi.
    ![raspberry pi storage](assets/imagerInitialSettings.png)
 1. Configure your Raspberry Pi for remote access. Click **Next**. When prompted to apply OS customization settings, select **EDIT SETTINGS**.
    ![raspberry pi edit settings](assets/applyOSSettings.png)
-1. Check **Set hostname** and enter the name you would like to access the Pi by in that field, for example, `test`.
+1. Check **Set hostname** and enter the name you would like to access the Pi by in that field, for example, `echo`.
 1. Select the checkbox for **Set username and password** and set a username (for example, your first name) that you will use to log into the Pi. If you skip this step, the default username will be `pi` (not recommended for security reasons). And specify a password.
 1. Check **Configure wireless LAN** and enter your wireless network credentials. SSID (short for Service Set Identifier) is your Wi-Fi network name, and password is the network password. Also change the section **Wireless LAN country** to where your router is currently being operated. This will allow your Pi to connect to your Wi-Fi so that you can run `viam-server` wirelessly. 
 1. Check **Set locale settings** and set your time zone and keyboard layout.
@@ -112,28 +112,40 @@ Refer back to this full wiring diagram as you complete the steps to wire your ha
 
 First, wire the **sensor module** to the Raspberry Pi:
 
-![sensor module wiring diagram](assets/sensorModuleWireDiagram.png)
+  ![sensor module wiring diagram](assets/sensorModuleWireDiagram.png)
 
-- PIN 4 (5V) to VCC (Power)
-- PIN 6 (GND) to GND (Ground)
-- PIN 40 (DIGITAL OUTPUT) to DO (Digital Output)
-- For connecting the soil moisture sensor to the sensor module, + goes to +, and - to -.
+  | **Raspberry Pi** | <-> | **Sensor Module** |
+  | -------- | ------- | ------- |
+  | PIN 4 (5V)  | to | VCC (Power) |
+  | PIN 6 (GND) | to | GND (Ground) |
+  | PIN 40 (DIGITAL OUTPUT) | to | DO (Digital Output) |
+
+  | **Soil Moisture Sensor** | <-> | **Sensor Module** |
+  | -------- | ------- | ------- |
+  | +  | to | + |
+  | -  | to | - |
+
 
 Next is the relay. The relay will connect to both the Raspberry Pi and the pump motor. First, wire the connections between the relay and the Raspberry Pi:
 
 ![relay wiring diagram](assets/relayToPiWireDiagram.png)
 
-- PIN 1 (3.3V) to COM
-- PIN 2 (5V) to 5V
-- PIN 14 (GND) to GND
-- PIN 8 (IN) to IN
+| **Raspberry Pi** | <-> | **Relay** |
+| -------- | ------- | ------- |
+| PIN 1 (3.3V)  | to | COM |
+| PIN 2 (5V) | to | 5V |
+| PIN 14 (GND) | to | GND |
+| PIN 8 (IN) | to | IN |
+
 
 Lastly, wire the connections between the relay and the pump motor. Use a wire connector (sometimes called wago connector) to connect a jumper wire from the relay to the wire on the pump motor.
 
 ![relay wiring diagram](assets/relayToPumpWireDiagram.png)
 
-- NO (Normally Open) to pump motor
-- GPIO 39 (GND) to pump motor
+| **Relay** | <-> | **Pump Motor** |
+| -------- | ------- | ------- |
+| NO (Normally Open)  | to | Pump Motor |
+| PIN 39 (GND)  | to | Pump Motor |
 
 > aside positive
 > **TROUBLESHOOTING** Double check that wires have full contact on the relay and in the wire (wago) connectors. The wago connectors take a bit of effort to flip open and close shut - try gently pulling on the wires and see if they slip out. If they do, try reconnecting them in the wago connector. The wire should be pushed as far back into the connector as possible and then properly closed; this should keep the wire in place.
