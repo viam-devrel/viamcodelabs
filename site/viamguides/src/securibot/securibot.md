@@ -250,7 +250,7 @@ Next, let’s set up a process to ensure the camera is always running the facial
    pip install viam-sdk
    ```
 1. **Refer to Python sample code**: In the Viam app, go to the **CONNECT** tab, and select **Python**.
-   <!-- ![Connect tab](assets/Connect.png) -->
+   ![Connect tab](assets/connect.png)
 1. **Show secrets**: The sample code shows you how to authenticate and connect to a machine, as well as some of the methods you can use on your configured components and services. To show your machine’s API key and API key ID in the sample code, toggle **Include secret** on the CONNECT tab’s Code sample page.
    <!-- ![Code sample](assets/Code.png) -->
 1. **Hide secrets**: Instead of leaving our sensitive credentials hard coded in this code sample, let's set up our API key and API key ID as environment variables. Toggle **Include secrets** once again, this time to remove the credentials from the code sample.
