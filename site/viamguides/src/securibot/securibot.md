@@ -115,28 +115,22 @@ Your door setup may differ, so this section may need to be adjusted based on you
 
 1. **Review the wiring diagram**: The servo can be controlled via a GPIO pin on the Raspberry Pi. Refer to the following wiring diagram to see how to connect the Raspberry Pi to the servo, using the breadboard and also resistors to control the flow of electricity. The breadboard simplifies the wiring process by providing a secure platform to connect components without soldering.
 
-   ![wiring diagram](assets/wiringServo.jpg)
+   ![wiring diagram](assets/securibot_bb.png)
 
-   #### Board to Motor Driver:
-
-   | **Raspberry Pi** | **MAX14870 Motor Driver** |
-   | ---------------- | ------------------------- |
-   | Pin 4 (5V)       | VIN                       |
-   | Pin 6 (Ground)   | GND (below VIN)           |
-   | Pin 14 (Ground)  | GND (below EN)            |
-   | Pin 16 (GPIO 23) | DIR                       |
-   | Pin 18 (GPIO 24) | PWM                       |
+   | **Raspberry Pi** | **Servo and Heated pad** |
+   | ---------------- | ------------------------ |
+   | Pin 2 (5V)       | Power for heated pad     |
+   | Pin 4 (5V)       | Power for servo          |
+   | Pin 6 (Ground)   | GND for servo            |
+   | Pin 9 (Ground)   | GND for heated pad       |
+   | Pin 16 (GPIO 23) | GPIO for servo           |
 
    > aside positive
    > The website [pinout.xyz](https://pinout.xyz/) is a helpful resource with the exact layout and role of each pin for Raspberry Pi. When working with Viam, make sure to reference the physical pin numbers, and not the GPIO numbers listed on `pinout.xyz`.
 
-1. **Wire the servo to the Raspberry Pi**: The breadboard simplifies the wiring process by providing a secure platform to connect components without soldering.
+1. **Wire the servo to the Raspberry Pi**: Connect the peripherals referencing the wiring diagram from above. You can optionally use a breadboard to simplify the wiring process by providing a secure platform to connect components without soldering.
 
-![wiring photo](assets/wiringServo2.jpg)
-
-### Mount the servo
-
-1.
+   ![wiring photo](assets/wiringServo2.jpg)
 
 Now that you have physically connected the hardware components, let's configure the software in the next section.
 
@@ -159,23 +153,44 @@ Duration: 5
 1. The setup page will indicate when the machine is successfully connected.
    ![successful toast](assets/success.png)
 
-### Add your USB webcam
+### Configure your Raspberry Pi board
+
+To access the GPIO pins, let's add our Raspberry Pi board to our machine in the Viam app.
+
+1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
+1. Click the **+** icon in the left-hand menu and select **Component**.
+   ![add component](assets/addComponent.png)
+1. Select `board`, and find the `raspberry-pi:rpi4` module. This adds the module for working with the Raspberry Pi 4's GPIO pins. Leave the default name `board-1` for now.
+1. Notice adding this module adds the board hardware component called `board-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
+   ![added board](assets/addBoard.png)
+1. Click **Save** in the top right to save and apply your configuration changes.
+
+### Configure your servo
+
+1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
+1. Click the **+** icon in the left-hand menu and select **Component**.
+1. Select `servo`, and find the `gpio` module. This adds the module for working with the servo using the Raspberry Pi 4's GPIO pins. Leave the default name `servo-1` for now.
+1. Notice adding this module adds the board hardware component called `servo-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
+1. Under the **Attributes** section, select `board-1` as the Raspberry Pi board, and input `16` as the physical pin number on the Raspberry Pi where we will be controlling the servo motor.
+1. Click **Save** in the top right to save and apply your configuration changes.
+1. Expand the **TEST** section to make sure you can control the servo using the current configuration.
+
+   > aside negative
+   > If any problems occur, check under the **LOGS** tab to see what might be going wrong. [Refer to the troubleshooting guide if needed.](https://docs.viam.com/components/camera/webcam/#troubleshooting).
+
+### Add and configure your USB webcam
 
 1. Connect the USB webcam to the Raspberry Pi.
 1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
 1. Click the **+** icon in the left-hand menu and select **Component**.
-   <!-- ![select component](assets/component.png) -->
 1. Select `camera`, and find the `webcam` module. This adds the module for working with a USB webcam. Leave the default name `camera-1` for now.
-   <!-- ![select webcam](assets/webcam.png) -->
-1. Notice adding this component adds the webcam hardware component called `camera-1`. The collapsible panel on the right corresponds to the part listed in the left sidebar. From the **Attributes** section of the panel, select a `video_path`.
-   <!-- ![select video path](assets/videoPath.png) -->
-1. Click the **+** icon in the left-hand menu and select **Service**.
-   <!-- ![select discovery service](assets/component.png) -->
+1. Notice adding this component adds the webcam hardware component called `camera-1`. The collapsible panel on the right corresponds to the part listed in the left sidebar.
+1. Under **Attributes**, leave the `video_path` blank and the camera will use the default video path for your machine. If this doesn’t work when you test your camera later, you can try a different video path by following the prompt in the Viam app to add a webcam discovery service and identify path options.
 1. Click **Save** in the top right to save and apply your configuration changes.
 1. At the bottom of the `camera-1` panel, expand the **TEST** section to ensure you have configured the camera properly.
-   <!-- ![test camera](assets/test.png) -->
+   ![test the camera](assets/testCamera.png)
    > aside negative
-   > If any problems occur, check under the **LOGS** tab to see what might be going wrong. [Refer to the troubleshooting guide if needed.](https://docs.viam.com/components/camera/webcam/#troubleshooting)
+   > You may also need to follow the prompt in the Viam app to add a [webcam discovery service](https://app.viam.com/module/rand/find-webcams) to identify path options if the default path is not working.
 
 <!-- ------------------------ -->
 
@@ -230,45 +245,23 @@ Now that your hardware is working the way you want it, it's time to add a vision
 1. If the camera detects a face, a bounding box will highlight the item in the video feed, and display it on the right under **Labels**.
    <!-- ![apriltag test](assets/apriltagDetected.png) -->
 
-### Add the control code to your machine
+### Configure an automation service
 
-Next, let’s set up a process to ensure the camera is always running the facial detection program. When a recognized face is detected, the servo will activate to unlock the door. If the face is not recognized, no action will be taken.
+Next, let’s set up a service to ensure the camera is always running the facial detection program. When a recognized face is detected, the servo will activate to unlock the door. If the face is not recognized, no action will be taken.
 
-1. SSH into your PI if you haven't already.
-1. **Create a project directory**: Create a new directory on your machine to hold your project code. And then change into that directory.
-   ```bash
-   mkdir robot && cd robot
+1. In the Viam app, click the **+** icon in the left-hand menu and select **Service**, and then `generic`. Then search for a module called `securibot:doorbot`.
+   ![add module](assets/moduleSecuribot.png)
+1. Click **Add module**, and **Create** a new vision service, renaming the service as `automation`.
+1. Notice this creates two new items in the left sidebar. The first is your new generic service called `automation` based on a module called `doorbot`.
+1. In the `automation` panel for the generic service under the **CONFIGURE** section, add the following attributes. This configures the service to depend on data coming in from the named webcam (`camera-1`), trigger the named servo (`servo-1`), and named vision service (`face-identification`).
+   ```json
+   {
+       "camera_name": <string>,
+       "servo_name": <string>,
+       "vision_name": <string>
+   }
    ```
-1. **Create and activate a virtual environment**: In the new directory, create and activate a virtual environment called `.venv` for Python to run in.
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
-   Notice that `.venv` prepends the commands in your terminal window to indicate the Python packages being used are from this particular environment. You can exit this environment by running `deactivate`.
-1. **Install dependencies**: Install the Viam Python SDK (and other dependencies if required) into the folder.
-   ```bash
-   pip install viam-sdk
-   ```
-1. **Refer to Python sample code**: In the Viam app, go to the **CONNECT** tab, and select **Python**.
-   ![Connect tab](assets/connect.png)
-1. **Show secrets**: The sample code shows you how to authenticate and connect to a machine, as well as some of the methods you can use on your configured components and services. To show your machine’s API key and API key ID in the sample code, toggle **Include secret** on the CONNECT tab’s Code sample page.
-   <!-- ![Code sample](assets/Code.png) -->
-1. **Hide secrets**: Instead of leaving our sensitive credentials hard coded in this code sample, let's set up our API key and API key ID as environment variables. Toggle **Include secrets** once again, this time to remove the credentials from the code sample.
-1. **Create `.env` file**: From the command line of the Pi, create a new file called `.env` to store our environment variables to use in local development.
-   ```bash
-   touch .env
-   ```
-1. **Input environment variables**: Add your own environment variables to the `.env` file, formatted like the following. Make sure to update the values with your own environment variables from the code sample in the Viam app, placed between the double quotes as shown here.
-   ```
-   ROBOT_API_KEY="sijdb24bjnxsmp18mij0hace6smihu0r"
-   ROBOT_API_KEY_ID="9e135013-f3bf-40fc-a0e3-e6fc66a418d7"
-   ```
-1. **Create a script on the Pi**: Use your preferred IDE, such as Nano shown here to create a file called `script.py` in your project directory. Then copy and paste this example code [TODO link]. Save your changes.
-   ```bash
-   nano script.py
-   ```
-1. Save your updates: in Nano, press **Ctrl + O** (the letter O, not zero) to write out (save) the file. Press **Enter** to confirm the file name, and save. Then press **Ctrl + X** to exit Nano.
-1. TODO: run tmux session
+1. **Save** your changes in the top right and wait a few moments for the configuration changes to take effect.
 
 <!-- ------------------------ -->
 
@@ -306,6 +299,8 @@ In addition to the project ideas mentioned above, consider other ways to continu
 
 - Explore other relevant modules in [the Viam registry](https://app.viam.com/registry), such as object detection or speech input.
 - Learn [how to create your own module](https://docs.viam.com/how-tos/hello-world-module/) if you want to extend functionality, like integrating face model training directly on the device or adding support for new hardware.
+
+  ![example of object detection used in sports](assets/sports.png)
 
 ### Real-World Applications of Face-Based Access Systems
 
