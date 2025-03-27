@@ -1,11 +1,11 @@
 author: Joyce
 id: securibot
-summary: This is a sample Viam Guide
+summary: Detect and identify faces to unlock doors with computer vision
 categories: Getting-Started, Developer
 environments: web
 status: Published
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
-tags: Getting Started, Developer, Data
+tags: Getting Started, Developer
 
 # Face identification for access control with Raspberry Pi and Camera
 
@@ -107,13 +107,13 @@ The Raspberry Pi boots from a USB flash drive (or microSD card). You need to ins
 
 Duration: 5
 
-The Viam office currently uses a fob system to unlock a security door. By adding computer vision and facial recognition, we can verify that specific individuals are authorized to enter and automatically unlock the door. In this setup, a webcam is mounted above the door to detect faces. When an authorized face is recognized, a servo waves a heated pad in front of a PIR motion sensor (originally intended for people leaving the office) to trigger the door to unlock.
+The Viam office currently uses a fob system to unlock a security door. By adding computer vision and facial recognition, we can verify that specific individuals are authorized to enter and automatically unlock the door. In this setup, a webcam can be mounted above the door to detect faces. When an authorized face is recognized, a servo waves a heated pad in front of a PIR motion sensor (originally intended for people leaving the office) to trigger the door to unlock.
 
 Your door setup may differ, so this section may need to be adjusted based on your specific configuration.
 
 ### Add your servo
 
-1. **Review the wiring diagram**: The servo can be controlled via a GPIO pin on the Raspberry Pi. Refer to the following wiring diagram to see how to connect the Raspberry Pi to the servo, using the breadboard and also resistors to control the flow of electricity. The breadboard simplifies the wiring process by providing a secure platform to connect components without soldering.
+1. **Wire the servo to the Raspberry Pi**: The servo can be controlled via a GPIO pin on the Raspberry Pi. Refer to the following wiring diagram to connect the Raspberry Pi to the servo and heated pad.
 
    ![wiring diagram](assets/securibot_bb.png)
 
@@ -127,8 +127,6 @@ Your door setup may differ, so this section may need to be adjusted based on you
 
    > aside positive
    > The website [pinout.xyz](https://pinout.xyz/) is a helpful resource with the exact layout and role of each pin for Raspberry Pi. When working with Viam, make sure to reference the physical pin numbers, and not the GPIO numbers listed on `pinout.xyz`.
-
-1. **Wire the servo to the Raspberry Pi**: Connect the peripherals referencing the wiring diagram from above. You can optionally use a breadboard to simplify the wiring process by providing a secure platform to connect components without soldering.
 
    ![wiring photo](assets/wiringServo2.jpg)
 
@@ -223,9 +221,8 @@ Now that your hardware is working the way you want it, it's time to add a vision
 ### Configure a vision service
 
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Service**, and then `vision`.
-   <!-- ![select vision](assets/vision.png) -->
 1. Search for a module called `face-identification`. Then click **Add module**, and **Create** a new vision service, renaming the service as `face-identification`.
-   <!-- ![add module](assets/apriltag.png) -->
+   ![add module](assets/faceIDmodule.png)
 1. Notice this creates two new items in the left sidebar. The first is your new vision service called `face-identification` based on a module also called `face-identification`.
    ![two new items in the sidebar](assets/twoItems.png)
 1. In the `face-identification` panel for the vision service under the **CONFIGURE** section, add the following attributes. This configures the vision service to depend on data coming in from the named webcam, refer to a directory of `known_faces` to be stored on the Raspberry Pi, and establish a sensitivity threshold for the vision service.
@@ -256,9 +253,9 @@ Next, let’s set up a service to ensure the camera is always running the facial
 1. In the `automation` panel for the generic service under the **CONFIGURE** section, add the following attributes. This configures the service to depend on data coming in from the named webcam (`camera-1`), trigger the named servo (`servo-1`), and named vision service (`face-identification`).
    ```json
    {
-       "camera_name": "camera-1",
-       "servo_name": "servo-1",
-       "vision_name": "face-identification"
+     "camera_name": "camera-1",
+     "servo_name": "servo-1",
+     "vision_name": "face-identification"
    }
    ```
 1. **Save** your changes in the top right and wait a few moments for the configuration changes to take effect.
