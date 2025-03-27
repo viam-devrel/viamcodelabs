@@ -256,9 +256,9 @@ Next, let’s set up a service to ensure the camera is always running the facial
 1. In the `automation` panel for the generic service under the **CONFIGURE** section, add the following attributes. This configures the service to depend on data coming in from the named webcam (`camera-1`), trigger the named servo (`servo-1`), and named vision service (`face-identification`).
    ```json
    {
-       "camera_name": <string>,
-       "servo_name": <string>,
-       "vision_name": <string>
+       "camera_name": "camera-1",
+       "servo_name": "servo-1",
+       "vision_name": "face-identification"
    }
    ```
 1. **Save** your changes in the top right and wait a few moments for the configuration changes to take effect.
