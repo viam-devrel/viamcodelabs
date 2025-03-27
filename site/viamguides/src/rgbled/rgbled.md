@@ -139,7 +139,7 @@ Duration: 2
 
 Now that you have physically connected the hardware components, let's configure the software in the next section.
 
----
+<!-- ------------------------ -->
 
 ## Configure your machine and peripherals
 
