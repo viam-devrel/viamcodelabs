@@ -49,7 +49,7 @@ Whether you're securing a home, office, or secret lair, this project shows you h
 - All the hardware components listed in prerequisites.
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/dashboard) to the Viam app
 
-### Watch the Video -->
+### Watch the Video
 
 See a demonstration of the "Securibot", the door access system, in action:
 
