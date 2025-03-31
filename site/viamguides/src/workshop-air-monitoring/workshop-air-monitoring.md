@@ -4,7 +4,7 @@ summary: Resources for instructors to deliver an air quality monitoring workshop
 categories: Workshop, Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Workshop, Developer
 
 # Air quality monitoring [Workshop]
@@ -20,7 +20,7 @@ Duration: 2
 >
 > - [**Automate air filtration with air quality sensors**](https://codelabs.viam.com/guide/air-quality/index.html?index=..%2F..index#0)
 
-This codelab provides a suggested delivery plan and resources for instructors interested in delivering a hands-on workshop. Take these resources, and make it your own!
+This codelab is part of the [Viam for educators](https://education.viam.com/) program, and provides a suggested delivery plan and resources for instructors interested in delivering a hands-on workshop. Take these resources, and make it your own!
 
 ### Workshop Overview
 

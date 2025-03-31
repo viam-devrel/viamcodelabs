@@ -3,7 +3,7 @@ id: sample
 categories: Getting-Started, Developer
 environments: web
 status: Hidden 
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Data, Developer, DevOps
 authors: Viam
 
@@ -54,7 +54,7 @@ It is important to set the correct metadata for your Viam Guide. The metadata co
   - `web` is default. If this will be published for a specific event or  conference, include it here.
 - **status**: Published
   - (`Draft`, `Published`, `Deprecated`, `Hidden`) to indicate the progress and whether the viamguide is ready to be published. `Hidden` implies the viamguide is for restricted use, should be available only by direct URL, and should not appear on the main landing page.
-- **feedback link**: https://github.com/viam-labs/viamcodelabs/issues
+- **feedback link**: https://github.com/viam-devrel/viamcodelabs/issues
 - **tags**: Getting Started, Developer, Data 
   - Add relevant  tags to make your viamguide easily found and SEO friendly.
 - **authors**: Joyce Lin

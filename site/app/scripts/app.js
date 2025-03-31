@@ -163,7 +163,7 @@
         }
       }
 
-      if (globalThis.categorylist) {
+      if (globalThis.categorylist && cat !== null) {
         globalThis.categorylist.selectItem(globalThis.categorylist.querySelector(`md-select-option[filter=${cat}]`));
       }
       if (globalThis.sidelist) {
@@ -208,7 +208,6 @@
   // they are not present.
   const loadWebComponents = async () => {
     await customElements.whenDefined('md-select-option')
-    console.log('md-select-option defined')
     document.dispatchEvent(new Event('WebComponentsReady'));
   }
 

@@ -40,6 +40,10 @@ replica of what will appear on staging/production.
 $ npm run prod
 ```
 
+## Images
+
+By default screenshots and photos are quite large; affecting the performance when loading the site and cloning the repository. Image assets used in codelabs should be preprocessed through a tool like [Squoosh](https://squoosh.app/) before being committed to the repo.
+
 ### Views
 
 Views are themed/styled collections of codelabs, served from the same url.

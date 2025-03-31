@@ -4,7 +4,7 @@ summary: Use Pydantic models to validate module configuration and environment va
 categories: Developer, Validation, Modules
 environments: web
 status: Published 
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Modules, Developer, Validation, Intermediate
 
 # Module and environment variable validation with Pydantic

@@ -42,43 +42,47 @@ h4 {
 
 
 body {
-  font-family: fonts.$lato;
+  font-family: fonts.$public-sans;
 }
 
 p {
-  font-family: fonts.$lato;
+  font-family: fonts.$public-sans;
   line-height: 1.75;
 }
 
 h1 {
-  font-family: fonts.$texta-black;
+  font-family: fonts.$space-grotesk;
   text-transform: uppercase;
   line-height: 0.79;
 }
 
 h2 {
-  font-family: fonts.$texta-heavy;
+  font-family: fonts.$space-grotesk;
   text-transform: uppercase;
   line-height: 0.9;
 }
+
 h3 {
-  font-family: fonts.$lato-heavy;
+  font-family: fonts.$space-grotesk;
   font-weight: normal;
   line-height: 1.15;
 }
+
 h4 {
-  font-family: fonts.$lato-bold;
+  font-family: fonts.$space-grotesk;
   font-weight: normal;
   line-height: 1.25;
 }
+
 h5 {
-  font-family: fonts.$lato-bold;
+  font-family: fonts.$space-grotesk;
   font-weight: normal;
   line-height: 1.4;
 }
+
 h6 {
   text-transform: uppercase;
-  font-family: fonts.$lato-bold;
+  font-family: fonts.$space-grotesk;
   font-weight: normal;
   line-height: 1.4;
 }

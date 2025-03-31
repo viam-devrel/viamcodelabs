@@ -4,7 +4,7 @@ summary: Add Viam to your Home Assistant with the community integration.
 categories: Developer
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Developer
 
 # Set up people detection notifications in Home Assistant

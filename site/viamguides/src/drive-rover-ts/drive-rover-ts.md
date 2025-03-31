@@ -4,7 +4,7 @@ summary: Demo of Viam TypScript SDK to drive a rover in a square
 categories: Developer, Getting-Started, Demos
 environments: web
 status: Published
-feedback link: https://github.com/viam-labs/viamcodelabs/issues
+feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer, Demos
 
 # Drive a rover using TypeScript
@@ -30,7 +30,7 @@ Drive a rover in a square using the Viam TypeScript SDK.
 
 - A Linux, macOS or Windows computer that can run SDK code
 - [VS Code](https://code.visualstudio.com/download) installed, or your preferred code editor
-- [Node](https://www.python.org/downloads/) installed
+- [Node](https://nodejs.org/en/download) installed
 
 ### What You’ll Build
 
