@@ -19,7 +19,7 @@ If you've ever been curious how those smart webcams from Insta360 or gimbals fro
 
 - An object tracking camera with servos and computer vision
 
-![pan-tilt camera]()
+![ai tracking camera](assets/wiring-complete.webp)
 
 ### Prerequisites
 
@@ -35,7 +35,7 @@ If you've ever been curious how those smart webcams from Insta360 or gimbals fro
   - 1 - [Assortment of WAGO lever nuts](https://a.co/d/2uE9KNc)
   - 1 - [Assortment of jumper wires](https://www.amazon.com/dp/B077X99KX1)
   - 1 - Phillips screwdriver
-- 1 - [3D printed base]() (optional)
+- 1 - [3D printed base](https://www.printables.com/model/1251325-tower-servo-base) (optional)
 
 ### What You’ll Learn 
 - How to configure and test a device's components using Viam
@@ -255,6 +255,24 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 1. Notice adding this module adds the board hardware component called `board-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
 1. Click **Save** in the top right to save and apply your configuration changes.
 
+### Configure your webcam
+
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component**.
+1. Select `camera`, and find the `webcam` module. This adds the module for working with a USB webcam. Leave the default name `camera-1` for now.
+1. Notice adding this component adds the webcam hardware component called `camera-1`. From the **Configure** section of the panel, switch to the JSON configuration mode using the `{}` icon in the top-right:
+   ![switch configuration mode](assets/switchCameraConfig.webp)
+1. In this mode, configure your component with the following JSON in the **CONFIGURE** field. This will tell the component to look for the default camera connected to the device, which will be the USB webcam.
+   ```json
+   {
+       "video_path": ""
+   }
+   ```
+   ![set the blank video path](assets/configureCamera.webp)
+1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
+1. At the bottom of the `camera-1` panel, expand the **TEST** section to ensure you have configured the camera properly and see a video feed.
+   ![test camera](assets/testCamera.webp)
+
+
 ### Configure your pan servo
 
 1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
@@ -292,23 +310,6 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 1. Click **Save** in the top right to save and apply your configuration changes.
 1. At the bottom of the `tilt` panel, expand the **TEST** section to ensure you have configured the servo correctly. You should see the servo move the camera mount up and down using the **Quick move** controls.
    ![test servo](assets/testServo.webp)
-
-### Configure your webcam
-
-1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component**.
-1. Select `camera`, and find the `webcam` module. This adds the module for working with a USB webcam. Leave the default name `camera-1` for now.
-1. Notice adding this component adds the webcam hardware component called `camera-1`. From the **Configure** section of the panel, switch to the JSON configuration mode using the `{}` icon in the top-right:
-   ![switch configuration mode](assets/switchCameraConfig.webp)
-1. In this mode, configure your component with the following JSON in the **CONFIGURE** field. This will tell the component to look for the default camera connected to the device, which will be the USB webcam.
-   ```json
-   {
-       "video_path": ""
-   }
-   ```
-   ![set the blank video path](assets/configureCamera.webp)
-1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
-1. At the bottom of the `camera-1` panel, expand the **TEST** section to ensure you have configured the camera properly and see a video feed.
-   ![test camera](assets/testCamera.webp)
 
 ### Configure your base
 
