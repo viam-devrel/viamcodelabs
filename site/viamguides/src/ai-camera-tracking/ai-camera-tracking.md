@@ -12,7 +12,7 @@ tags: Getting Started, Developer
 ## Overview 
 Duration: 1
 
-In this tutorial, we'll show you how build your own pan-tilt camera that can track any object using computer vision.
+In this tutorial, we'll show you how to build your own pan-tilt camera that can track any object using computer vision.
 If you've ever been curious how those smart webcams from Insta360 or gimbals from DJI work, you'll learn those fundamentals while building this project.
 
 ### What You’ll Build
@@ -79,7 +79,7 @@ The Raspberry Pi boots from a storage device, such as a USB flash drive or micro
 1. Select the **SERVICES** tab, check **Enable SSH**, and select **Use password authentication**.
    ![raspberry pi enable SSH](assets/sshSettings.webp)
    > aside negative
-   > Be sure that you remember the `hostname` and `username` you set, as you will need this when you SSH into your Pi.
+   > Be sure that you remember the `hostname`, `username`, and `password` you set, as you will need this when you SSH into your Pi.
 1. **Save** your updates, and confirm `YES` to apply OS customization settings. Confirm `YES` to erase data on your storage device. You may also be prompted by your operating system to enter an administrator password. After granting permissions to the Imager, it will begin writing and then verifying the Linux installation to your storage device.
 1. Remove the storage device from your computer when the installation is complete.
 
@@ -161,7 +161,7 @@ If you prefer to follow along with video, you can find that [here](https://www.a
    ![prepare the webcam mount parts](assets/buildStep24.webp)
 1. Set the mount screw into the washer with the flat part facing down.
    ![set the mount screw into the washer](assets/buildStep25.webp)
-1. Push the mount screw through the bottom of the center hole on the top bracket, then turn the webcam onto the screw, tighen by hand in the expected direction.
+1. Push the mount screw through the bottom of the center hole on the top bracket, then turn the webcam onto the screw, tighten by hand in the expected direction.
    ![set the camera mount in place](assets/buildStep26.webp)
    ![set the camera mount in place](assets/buildStep27.webp)
 
@@ -251,8 +251,8 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 1. Click the **+** icon in the left-hand menu and select **Component**.
    ![add component](assets/addComponent.webp)
 1. Select `board`, and find the `raspberry-pi:rpi4` module. This adds the module for working with the Raspberry Pi 4's GPIO pins. Leave the default name `board-1` for now.
-1. Notice adding this module adds the board hardware component called `board-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
    ![added board](assets/addBoard.webp)
+1. Notice adding this module adds the board hardware component called `board-1`. The collapsible card on the right corresponds to the part listed in the left sidebar.
 1. Click **Save** in the top right to save and apply your configuration changes.
 
 ### Configure your pan servo
@@ -369,7 +369,7 @@ Duration: 5
 1. In the new `tracking` panel, configure the service by adding the following attributes in the **CONFIGURE** field. This tells the tracker service to use specific base and camera components along with a specific vision service to look for a certain object label:
    ```json
    {
-     "base_name": "camera-1",
+     "base_name": "base-1",
      "camera_name": "camera-1",
      "vision_name": "vision-1",
      "auto_start": True,
