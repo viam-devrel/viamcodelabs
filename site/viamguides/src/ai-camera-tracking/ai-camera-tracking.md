@@ -382,10 +382,11 @@ Duration: 5
 1. Test out the service by looking at the **TEST** panel of the vision service and move around in front of the camera. You will see it respond to your movements to keep you in the center of the frame.
    Experiment with changing the "object_label" field to any of the detected labels displayed by the vision service, such as "Cellphone", and use that object to guide the camera movement.
 
-<!-- ![machine in action](assets/aiCameraTracker.gif) -->
-
 > aside negative
 > **TROUBLESHOOTING**: Double check your service configuration. Look at the **LOGS** tab to see what might be going wrong.
+
+<video id="r6aH_3yNEHA"></video>
+
 <!-- ------------------------ -->
 ## Conclusion And Resources
 Duration: 1
