@@ -44,6 +44,11 @@ Proximity alerts can be very useful, whether you're backing into a parking spot 
 - How to use modules from the Viam registry
 - How to control an RGB LED based on an ultrasonic sensor's input
 
+### Watch the video
+See a demonstration of the visual proximity alert:
+
+<video id="MC5Zew6knxg"></video>
+
 <!-- ------------------------ -->
 ## Set up your Raspberry Pi
 
