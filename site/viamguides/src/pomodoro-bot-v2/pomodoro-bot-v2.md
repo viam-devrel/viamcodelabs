@@ -7,7 +7,7 @@ status: Published
 feedback link: https://github.com/viam-labs/viamcodelabs/issues
 tags: Getting Started, Developer, Data, Robotics, Environmental Monitoring, Sensors, Pomodoro, LLM, Local AI, ChatBot
 
-# Build Your Own Pomodoro Bot With Viam - Version 2
+# Add Voice Control and Local LLM to Pomodoro Bot
 
 <!-- ------------------------ -->
 
@@ -43,21 +43,24 @@ Before getting into the build, let's start by seeing our **Pomodoro Bot V2** in 
 <!-- ------------------------ -->
 
 
-## Prerequisites
+### Prerequisites
 
 Duration: 5
 
 - All V1 components +
 - **New Hardware:**
-   - USB microphone
-   - 4Ω 2.5W speaker 
-   - PAM8403 amplifier
+   - [USB microphone](https://www.adafruit.com/product/3367)
+   - [4Ω 2.5W speaker](https://www.sparkfun.com/thin-speaker-4-ohm-2-5w-28mm.html) 
+   - [PAM8403 amplifier](https://robu.in/product/pam8403-5v-two-channel-stereo-mini-class-d-3w3w-audio-amplifier/)
    - Custom PCB
-   - JST connectors and cables
+   - [2 Pin JST Connectors](https://robodo.in/products/2-pin-connector-2mm-pitch-10-pcs)
+   - [3 Pin JST Connectors](https://robodo.in/products/3-pin-male-and-female-cable-micro-male-and-female-connector-plug-with-silicone-10inch-wire)
+   - [4 Pin JST Connectors](https://hitechxyz.in/products/4-pin-jst-xh-2-54mm-pitch-plug-and-socket-with-cable)
+   - [2 Pin Screw Terminal Block](https://robu.in/product/xy300va-5-0-xinya-2-pin-screw-terminal-blockgreen/)
 - **New Software:**
-   - Viam LOCAL-LLM service
-   - Deepseek R1 GGUF model
-   - Picovoice wake word engine
+   - [Viam LOCAL-LLM service](https://app.viam.com/module/viam-labs/local-llm)
+   - [Deepseek R1 GGUF model](https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-1.5B-GGUF)
+   - [Picovoice wake word engine](https://picovoice.ai/platform/porcupine/)
 
 ## Audio System
 
@@ -107,7 +110,7 @@ Duration: 5
 With the **audio setup complete**, the next step is integrating **VIAM** and **Local LLM** to enable real-time voice interactions. This allows the **Pomodoro Bot** to process speech, understand queries, and respond intelligently.  
 
 ### Adding Local LLM to the Bot  
-VIAM’s **Local-LLM module** enables running **offline AI models** without relying on the cloud. It supports **TinyLlama, Deepseek R1**, and other models using **llama.cpp**.  
+VIAM’s **[Local-LLM module](https://app.viam.com/module/viam-labs/local-llm)** enables running **offline AI models** without relying on the cloud. It supports **TinyLlama, Deepseek R1**, and other models using **llama.cpp**. 
 
 #### Steps to Integrate Local LLM  
 1. **Navigate to the CONFIGURE tab** in VIAM.  
@@ -148,6 +151,7 @@ To enable **hands-free interaction**, we’re integrating a **wake word detector
 #### Access PicoVoice Console  
 - **Go to the [PicoVoice Console](https://console.picovoice.ai/)**.  
    ![PicoVoice Console](assets/picovoice_console.jpg)
+- If you don’t have an account, sign up first, then log in.
 - Navigate to the **Porcupine** section.  
    ![Porcupine Home](assets/porcupine_select.jpg)
 
@@ -174,6 +178,8 @@ To enable **hands-free interaction**, we’re integrating a **wake word detector
 Next, we’ll configure the **wake word engine in our code**. Here's a sample code to test whether your wake word detection is working fine or not.
 
 ```python
+
+#wake_word_test.py
 
 import pvporcupine
 import pyaudio
@@ -216,6 +222,19 @@ finally:
 
 ```
 
+To run the above code install the required libraries using following commands
+
+```
+sudo apt-get install portaudio19-dev
+pip install pvporcupine pyaudio
+```
+
+Now run the code as
+
+```
+python3 wake_word_test.py
+```
+
 And just like that, our Pomodoro bot is now intelligent, interactive, and fully voice-enabled!
 
 <!-- ------------------------ -->
@@ -240,7 +259,7 @@ After the fabrication process was completed, we received our custom PCBs, precis
 
 ![Fabricated PCBs](assets/fabricated_pcb.jpg)
 
-This custom PCB simplifies the wiring process, enhances durability, and improves the overall aesthetics of the Pomodoro bot. You can get your own PCBs using this [Gerber File](https://github.com/CodersCafeTech/PomodoroBot-V2/blob/main/PCB/Gerber_PCB_Pomodoro_Bot.zip).
+This custom PCB simplifies the wiring process, enhances durability, and improves the overall aesthetics of the Pomodoro bot. You can get your own PCBs using this [Gerber File](https://github.com/CodersCafeTech/PomodoroBot-V2/blob/main/PCB).
 <!-- ------------------------ -->
 
 ## 3D Design and Fabrication
@@ -271,7 +290,7 @@ This redesign elevates the bot’s functionality and personality, creating a mor
 
    ![3D Printed Parts](assets/3d_printed_parts.jpg)
 
-Find the 3D Files [here](https://github.com/CodersCafeTech/PomodoroBot-V2/blob/main/CAD/PomodoroBot_V2.step).
+Find the 3D Files [here](https://github.com/CodersCafeTech/PomodoroBot-V2/blob/main/CAD).
 
 ## Assembly
 
@@ -352,12 +371,17 @@ The next step is to download the source code for the Pomodoro Bot application on
 - Within `main.py`, you will need to replace the following placeholders with your own values:
     * **API Key:** Locate the section where the API key is stored and replace it with your own API key. 
     * **API Key ID:** Similarly, find the section where the API Key ID is stored and replace it with your unique ID.
+    * **Robot Address:** Replace the address with Machine Address in the CONNECT tab.
     * **Porcupine Access Key:** Find the section containing the Porcupine Access Key and replace it with your own.
     * **Component Names (Optional):** If you have used different component names during configuration, you may need to modify the corresponding names within the code.
 
 ### 5. Run the Pomodoro Bot Code
 
 - Once you've made the necessary edits to `main.py`, save the changes.
+- Install the necessary python packages using the following command
+   ```bash
+      pip install -r requirements.txt
+   ```
 - Run the python code from the terminal using
    ```bash
       python3 main.py
