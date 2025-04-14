@@ -250,11 +250,8 @@ Right now, you can detect your favorite drinks using your custom model. But ther
 
 - [Add a piezo buzzer](https://codelabs.viam.com/guide/piezo/index.html) to play a tone when a drink is detected.
 - [Send a text notification](https://github.com/mcvella/viam-twilio-sms) when your drink has been removed from the fridge!
-- [Build a custom module]() to 
 
 ### Related Resources
-- [Proximity alert module](https://app.viam.com/module/atacke/proximity-alert)
-- [Proximity alert GitHub repo](https://github.com/viam-devrel/proximity-controller)
 - [Viam documentation](https://docs.viam.com/) 
 - [Viam how-to guides](https://docs.viam.com/how-tos/)
 - [Viam Discord community](http://discord.gg/viam)
