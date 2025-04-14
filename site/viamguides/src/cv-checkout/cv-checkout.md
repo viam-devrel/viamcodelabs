@@ -83,7 +83,7 @@ Great, your machine now has eyes!
 ## Create a dataset and capture some training data
 Duration: 15
 
-To train a custom model based on your beverages, you'll need a dataset the TensorFlow Lite framework can use. Here, you'll create a dataset and add some images of your beverages using the webcam you configured in the last step.
+To train a custom model based on your beverages, you'll need a dataset the [LiteRT](https://ai.google.dev/edge/litert) framework (previously known as TensorFlow Lite) can use. Here, you'll create a dataset and add some images of your beverages using the webcam you configured in the last step. (Note that the rest of this codelab will still refer to `TensorFlow Lite` in some areas)
 
 1. In [the Viam app](https://app.viam.com/data/), find the **DATASETS** tab.
 1. Click the **+ Create dataset** button and give your dataset a name, like `beverages`. Click the **Create dataset** button again to save.
@@ -143,7 +143,7 @@ Having images to train a model is a good start. However, they won't be useful un
 1. In the **OBJECTS** panel on the right, you'll see your beverage listed, with an object count of `1`. If you hover over this item, you'll see the `spindrift_pog` label appear in the image and the bounding box fill with color.
    ![drink annotated](assets/drinkAnnotated.png)
 1. Repeat this for the rest of the images that match the label. You can quickly navigate between images by pressing the `>` (right arrow) or `<` (left arrow) keys on your keyboard.
-1. Once you get to a new beverage, create another descriptive label, draw the bounding box, and repeat for the rest of the images of the same beverage. Double check that each image only has one label and detects the correct beverage!
+1. Once you get to a new beverage, create another descriptive label, draw the bounding box, and repeat for the rest of the images of the same beverage. Double check that each image only has one label and detects the correct beverage! _(Multiple labels and therefore, bounding boxes, are allowed and make sense for more complex detections. Since we are just trying to accurately detect the correct beverage one at a time, one label per image is recommended for this codelab)_
    ![new drink label and annotation](assets/newLabelAnnotation.gif)
 1. When you are finished annotating all of your images, you can exit out of the annotation editor by clicking on the "X" in the top-left corner. Notice that a breakdown of your bounding box labels are calculated and displayed:
    <img src="assets/labelBreakdown.png" alt="label breakdown" width=300 />
@@ -248,6 +248,8 @@ Specifically for beverages, some real-world use cases can include:
 ### Extend your CV-checkout with Viam
 Right now, you can detect your favorite drinks using your custom model. But there are other things you can do!  As an example, you could:
 
+- Integrate with an existing Point of Sale system to enable CV-powered self-checkout.
+- Incorporate automatic pricing and calculations based on detected items.
 - [Add a piezo buzzer](https://codelabs.viam.com/guide/piezo/index.html) to play a tone when a drink is detected.
 - [Send a text notification](https://github.com/mcvella/viam-twilio-sms) when your drink has been removed from the fridge!
 
