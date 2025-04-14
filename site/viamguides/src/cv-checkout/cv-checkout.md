@@ -66,7 +66,7 @@ Duration: 5
 1. Paste the copied `video_path` value into your camera component's `video_path` input, which is in the **Attributes** section:
 ![paste video_path value](assets/pasteVideoPath.png)
 1. Click **Save** in the top right once more to save and apply your configuration changes.
-1. Expand your camera component's **TEST** panel. If things are properly configured, you should see the image streaming from your camera.
+1. Expand your camera component's **TEST** panel. If things are properly configured, you should see the video streaming from your camera.
    ![test camera feed](assets/testCamera.png)
 1. With your camera added and working, you can now delete the `discovery-1` service and `find-webcams` module as you'll no longer need them. Click the *...* next to each item, then select **Delete**. 
    <br>
@@ -158,7 +158,7 @@ Duration: 5
 
 1. In your dataset overview, click **Train model** located within the left-hand panel.
    <img src="assets/trainModelButton.png" alt="train model button" width=400 />
-1. Select your model training options. For now, leave the default selections of **New model** and **Built-in (TensorFlow Lite)**. Confirm that the correct dataset is selected. Click **Next steps**
+1. Select your model training options. For now, leave the default selections of **New model** and **Built-in (TensorFlow Lite)**. Confirm that the correct dataset is selected. Click **Next steps**.
    ![train a model options](assets/modelTrainingOptions.png)
 1. Give your model a name, for example `beverage-detector`
    <img src="assets/nameYourModel.png" alt="naming your custom model" width=350 />
@@ -253,5 +253,5 @@ Right now, you can detect your favorite drinks using your custom model. But ther
 
 ### Related Resources
 - [Viam documentation](https://docs.viam.com/) 
-- [Viam how-to guides](https://docs.viam.com/how-tos/)
+- Other [Viam codelabs](https://codelabs.viam.com/)
 - [Viam Discord community](http://discord.gg/viam)
