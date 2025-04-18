@@ -144,7 +144,7 @@ This helps the model learn how to recognize the different objects.
 1. In [the Viam app](https://app.viam.com/data/datasets), find the **DATASETS** tab.
 1. Click on the name of your dataset (`yolo-objects`).
    ![select dataset](assets/select-objects-dataset.png)
-1. Here, you'll see all of the images you've captured. Select one image from the dataset. A side panel will appear on the right-hand side. You can see details about this image, such as any objects annotated, associated tags, which datasets the image belongs to, among other details.
+1. Here, you'll see all of the images you've captured. 
    ![dataset overview](assets/dataset-overview.png)
 Select one image from the dataset. A side panel will appear on the right-hand side. You can see details about this image, such as any objects annotated, associated tags, which datasets the image belongs to, among other details.
    ![dataset side panel when single image selected](assets/select-single-image.png)
