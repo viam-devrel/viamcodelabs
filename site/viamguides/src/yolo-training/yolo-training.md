@@ -14,27 +14,14 @@ Duration: 1
 
 In the world of computer vision, [YOLO](https://docs.ultralytics.com/#yolo-a-brief-history) (You Only Look Once) has revolutionized object detection with its speed and accuracy. Unlike traditional methods that scan images multiple times at different scales, YOLO divides images into a grid and predicts bounding boxes and class probabilities in a single pass – hence the name "You Only Look Once."
 This approach makes YOLO exceptionally fast while maintaining high accuracy, perfect for real-time applications.
-Why use YOLO for your projects? It offers several key advantages:
 
-- Speed: YOLO processes images in real-time (up to 45-155 FPS depending on the model variant)
-- Accuracy: It achieves competitive performance on standard detection benchmarks
-- Versatility: Works well with objects of various sizes and in complex scenes
-- Resource efficiency: Lighter variants can run on resource-constrained devices
-- Active community: Continuous improvements and extensive documentation
-
-Custom training scripts for YOLO, like the one we'll use in this codelab, exist because while pre-trained models are powerful, they only recognize common objects they were trained on. Custom training allows you to:
-
-- Detect specific objects unique to your application
-- Optimize for your particular use case and environmental conditions
-- Fine-tune performance for your specific hardware constraints
-- Control the training process and experiment with different parameters
-
-In this codelab, we'll use the Ultralytics [YOLOv8](https://docs.ultralytics.com/models/yolov8/) implementation, which provides a good balance of accurancy and efficiency in object detection, and we'll export to ONNX format for optimal deployment on various hardware platforms.
+In this codelab, we'll use the Ultralytics [YOLOv8](https://docs.ultralytics.com/models/yolov8/) implementation, which provides a good balance of accuracy and efficiency in object detection, and we'll export the finished model to [ONNX](https://onnx.ai/) format.
+ONNX (Open Neural Network Exchange) is a interoperable architecture for running machine learning models that are designed using frameworks like Tensorflow, PyTorch, Keras, and [others](https://onnx.ai/supported-tools.html#buildModel) with support for optimizations on [various platforms](https://onnx.ai/supported-tools.html#deployModel) at runtime.
+   
+![computer vision powered machine; gif showing an object being shown to the camera with a bounding box around it and a confidence level for its detection](assets/yolo-vision-demo.gif)
 
 ### What You'll Build 
 A custom object detection system using the [YOLO](https://docs.ultralytics.com/#yolo-a-brief-history) (You Only Look Once) model architecture.
-   
-![computer vision powered machine; gif showing an object being shown to the camera with a bounding box around it and a confidence level for its detection](assets/yolo-vision-demo.gif)
 
 ### Prerequisites
 - A computer with a built-in webcam or a USB webcam
@@ -262,34 +249,33 @@ Duration: 5
    ![computer vision powered machine; gif showing an object being shown to the camera with a bounding box around it and a confidence level for its detection](assets/yolo-vision-demo.gif)
 
    > aside negative
-   > **Troubleshooting**: Having trouble detecting the correct object (or anything at all)? Try setting the **Minimum confidence threshold** to something smaller, save your changes, and see if that helps. Additionally, make sure you have enough light for your webcam to detect clearer images, keep your background and surroundings free of potential visual clutter, and hold up your object for at least a few seconds (so that the vision service can get a clear image to interpret). If this all still doesn't work, you many need to add more images or better quality images to your model. Luckily, you can repeat the steps in **Create a dataset and capture training data**, train a new version of your model, then try using it in your ML model service. The more data the better, so at the very least, more images of your objects _should_ make your model more accurate.
+   > **Troubleshooting**: Having trouble detecting the correct object (or anything at all)?
+   > - Try setting the **Minimum confidence threshold** to something smaller, save your changes, and see if that helps.
+   > - Make sure you have enough light for your webcam to detect clearer images
+   > - Keep your background and surroundings free of potential visual clutter
+   > - Hold up your object for at least a few seconds (so that the vision service can get a clear image to interpret).
+   > 
+   > If this all still doesn't work, you may need to add more images or better quality images to your model.
+   > Luckily, you can repeat the steps in **Create a dataset and capture training data**, train a new version of your model, then try using it in your ML model service.
+   > The more data the better, so at the very least, more images of your objects _should_ make your model more accurate.
 
-
-Congratulations! You've successfully trained and deployed a custom YOLO object detection model on your Viam machine.
-
-<!-- ------------------------ -->
-## Next Steps and Improvements
-Duration: 5
-
-Here are some ways you can improve your YOLO object detection system:
-
-1. **Collect more training data**: Adding more diverse images can improve model accuracy.
-1. **Data augmentation**: The YOLO training process includes data augmentation, but you can add more images with different conditions.
-1. **Post-processing**: Implement additional logic to filter or process the detection results.
-1. **Integration with other components**: Connect your object detection system with other components or services in your Viam machine.
-
-Some practical project ideas using your YOLO object detection system:
-
-- **Smart inventory system**: Track objects as they're added or removed from a space
-- **Sorting machine**: Identify and sort different types of objects
-- **Security monitor**: Detect specific objects or people
-- **Robotics vision**: Give your robot the ability to identify and interact with objects
 
 <!-- ------------------------ -->
 ## Conclusion and Resources
 Duration: 1
 
-Congratulations! You've successfully built a custom object detection system using YOLO and Viam. 🎉 You've learned how to:
+Congratulations! You've successfully built a custom object detection system using YOLO and Viam. 🎉
+
+Custom training scripts for YOLO, like the one we used in this codelab, exist because while pre-trained models are powerful, they only recognize common objects they were trained on. Custom training allows you to:
+
+- Detect specific objects unique to your application
+- Optimize for your particular use case and environmental conditions
+- Fine-tune performance for your specific hardware constraints
+- Control the training process and experiment with different parameters
+
+ By combining it with Viam's platform, you can easily deploy sophisticated computer vision capabilities to your machines.
+
+### What You Learned
 
 - Configure a camera in the Viam platform
 - Capture images and create a training dataset
@@ -298,7 +284,28 @@ Congratulations! You've successfully built a custom object detection system usin
 - Deploy your trained model to your machine
 - Run real-time object detection with your model
 
-The YOLO architecture is one of the most efficient and accurate object detection systems available, making it perfect for real-time applications. By combining it with Viam's platform, you can easily deploy sophisticated computer vision capabilities to your machines.
+### Real-world applications for YOLO models
+
+- **Smart inventory system**: Track objects as they're added or removed from a space
+- **Sorting machine**: Identify and sort different types of objects
+- **Security monitor**: Detect specific objects or people
+- **Robotics vision**: Give your robot the ability to identify and interact with objects
+
+Why use YOLO for your projects? It offers several key advantages:
+
+- Speed: YOLO processes images in real-time (up to 45-155 FPS depending on the model variant)
+- Accuracy: It achieves competitive performance on standard detection benchmarks
+- Versatility: Works well with objects of various sizes and in complex scenes
+- Resource efficiency: Lighter variants can run on resource-constrained devices
+- Active community: Continuous improvements and extensive documentation
+
+### Extend your custom YOLO model
+
+- **Collect more training data**: Adding more diverse images can improve model accuracy.
+- **Data augmentation**: The YOLO training process includes data augmentation, but you can add more images with different conditions.
+- **Post-processing**: Implement additional logic to filter or process the detection results.
+- **Integration with other components**: Connect your object detection system with other components or services in your Viam machine.
+
 
 ### Related Resources
 - [Viam Documentation](https://docs.viam.com/)
