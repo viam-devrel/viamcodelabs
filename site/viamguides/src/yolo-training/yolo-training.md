@@ -132,7 +132,7 @@ To train a custom YOLO model, you'll need a dataset of images with objects you w
    > - Aim for at least 10-20 images per object
    > - Include some images with multiple objects if needed
 
-Way to go! Now that you have your training images, you'll identify where the each object is located in the image in the next step.
+Way to go! Now that you have your training images, you'll identify where each object is located in the image in the next step.
 
 <!-- ------------------------ -->
 ## Annotate your dataset with bounding boxes
@@ -146,8 +146,9 @@ This helps the model learn how to recognize the different objects.
    ![select dataset](assets/select-objects-dataset.png)
 1. Here, you'll see all of the images you've captured. Select one image from the dataset. A side panel will appear on the right-hand side. You can see details about this image, such as any objects annotated, associated tags, which datasets the image belongs to, among other details.
    ![dataset overview](assets/dataset-overview.png)
-1. Click on the **Annotate** button in the side panel.
+Select one image from the dataset. A side panel will appear on the right-hand side. You can see details about this image, such as any objects annotated, associated tags, which datasets the image belongs to, among other details.
    ![dataset side panel when single image selected](assets/select-single-image.png)
+1. Click on the **Annotate** button in the side panel.
 1. The selected image opens to a larger screen.  To detect an object within an image, a label must be given. Create a label for your object, for example `coffee_mug`:
    ![creating object label](assets/create-label.png)
 1. With the label chosen, hold the _Command_ or _Windows_ key down while you use your mouse to draw a bounding box around your object. Make sure the box tightly surrounds the object.
@@ -218,9 +219,11 @@ Now that you have a trained model, let's add it to your Viam machine using the `
     }]
    ```
    The name should match what you see displayed on the model page in the Registry.
+
    Replace the "\<organization-id>" with your Organization ID, which can be found in **Settings and invites** page. If you change your model to be public in the Registry, you can use your public namespace instead.
    <img src="assets/view-org-settings.png" alt="view org settings" width="450" />
    <img src="assets/view-org-details.png" alt="view org details" width="450" />
+
    Replace the "\<version>" with the latest version displayed in the Registry, i.e. `2025-04-16T17-29-48`.
    <img src="assets/configure-packages.png" alt="configure mlmodel package" width="450" />
 
