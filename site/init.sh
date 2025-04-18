@@ -46,6 +46,7 @@ fi
 # Create a new directory for the viamguide 
 mkdir viamguides/src/$VIAMGUIDE_NAME
 cp -r viamguides/src/_template/* viamguides/src/$VIAMGUIDE_NAME/
+mkdir viamguides/src/$VIAMGUIDE_NAME/assets
 
 # rename markdown template file 
 mv viamguides/src/$VIAMGUIDE_NAME/markdown.template $viamguide_markdown_filename
