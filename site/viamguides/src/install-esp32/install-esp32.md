@@ -20,7 +20,7 @@ An ESP32 board is a lightweight, cost-effective solution for projects requiring 
 Learn how to install the lightweight `viam-micro-server` which can run on resource-limited embedded systems, like the ESP32, that cannot run the fully-featured `viam-server`. The `viam-micro-server` is built from the [micro-RDK](https://github.com/viamrobotics/micro-rdk/tree/main).
 
 > aside negative
-> Refer to the [Viam installation guide](https://docs.viam.com/installation/) in the docs for the latest guidelines.
+> Refer to the [Viam installation guide for ESP32](https://docs.viam.com/operate/get-started/setup-micro/) in the docs for the latest guidelines.
 
 ### Prerequisites
 
@@ -33,7 +33,7 @@ Learn how to install the lightweight `viam-micro-server` which can run on resour
 ### What You’ll Need
 
 - A computer running Mac, Windows, or Linux
-- [ESP32 development board](https://www.amazon.com/FREENOVE-ESP32-WROVER-Compatible-Wireless-Detailed/dp/B0CJJHXD1W) - check the Viam docs for [specific resource requirements](https://docs.viam.com/installation/#compatibility)
+- [ESP32 development board](https://www.amazon.com/FREENOVE-ESP32-WROVER-Compatible-Wireless-Detailed/dp/B0CJJHXD1W) - check the Viam docs for [specific resource requirements](https://docs.viam.com/operate/get-started/setup-micro/)
 - USB data cable - make sure the cable is capable of data transfer (not just charging); refer to this resource for [How To Tell If A USB Cable Is For Charging Or Data Transfer](https://glidedigital.com/how-to-tell-if-a-usb-cable-is-for-charging-or-data-transfer)
 
 ### What You’ll Build
@@ -81,7 +81,7 @@ Duration: 5
 1. In the Viam app, wait for confirmation that your machine has successfully connected, and status is "Live". This might take a few minutes to complete depending on your connection.
    ![machine status is live](assets/live.png)
    > aside negative
-   > Check out the [troubleshooting tips](https://docs.viam.com/installation/#troubleshooting) if you encounter any issues with the installation.
+   > Check out the [troubleshooting tips](https://docs.viam.com/operate/reference/viam-micro-server/micro-troubleshooting) if you encounter any issues with the installation. Or refer to [the video demonstration](https://www.youtube.com/watch?v=yUZMo8l8up4).
 
 <!-- ------------------------ -->
 
@@ -112,11 +112,11 @@ Duration: 1
 
 ### Develop custom firmware
 
-Once `viam-micro-server` is installed, you can use your ESP32 with all of Viam's supported resource APIs, but you cannot write your own code directly interacting with the chip. If you want to program the chip directly, follow the [development setup guide](https://docs.viam.com/installation/viam-micro-server-dev/) to learn how to to customize `viam-micro-server` and create modules using Rust.
+Once `viam-micro-server` is installed, you can use your ESP32 with all of Viam's supported resource APIs, but you cannot write your own code directly interacting with the chip. If you want to program the chip directly, follow the [development setup guide](https://docs.viam.com/operate/get-started/setup-micro/micro-troubleshooting/) to learn how to to customize `viam-micro-server` and create modules using Rust.
 
 ### Related projects
 
 - [Configure an esp32-camera](https://docs.viam.com/components/camera/esp32-camera/) guide
 - [Build a plant watering robot with webhooks and an ESP32](https://www.viam.com/post/build-a-plant-watering-robot-with-webhooks-and-an-esp32) tutorial
 
-You can also learn how to [install `viam-server`](https://docs.viam.com/installation/#install-viam-server) on single-board computers and other devices.
+You can also learn how to [install `viam-server`](https://docs.viam.com/operate/get-started/setup/) on single-board computers and other devices.
