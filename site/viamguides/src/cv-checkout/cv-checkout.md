@@ -31,6 +31,11 @@ A computer vision-powered self checkout. You'll create and train a custom model 
 - How to build and train a custom model using TFLite
 - How to implement your custom model in your machine
 
+### Watch the video
+ See a demonstration of the CV Checkout (beverage detection):
+
+ <video id="86FuGZVS3NI"></video>
+
 <!-- ------------------------ -->
 ## Configure your machine
 Duration: 5
