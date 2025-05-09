@@ -199,7 +199,7 @@ IR sensors are widely used for their simplicity, reliability, and low power cons
 
 Now that you have an IR sensor that detects whether a door is locked or unlocked based on reflected light, you can:
 
-- [Build your own Viam module](https://docs.viam.com/operate/get-started/other-hardware/hello-world-module/) to create custom logic to trigger alerts or actions when the door state changes, for example, send a notification or activate an alarm if the door is unlocked unexpectedly or left unlocked for a certain period of time
+- [Build your own Viam module](https://docs.viam.com/operate/get-started/other-hardware/micro-module/) to create custom logic to trigger alerts or actions when the door state changes, for example, send a notification or activate an alarm if the door is unlocked unexpectedly or left unlocked for a certain period of time
 - Extend the sensor's functionality by integrating it with actuators to trigger a servo mechanism or LED based on the sensor reading
 - [Add more components and services](https://docs.viam.com/platform/#the-things-that-make-up-a-machine) to enhance your automation setup, such as aan office sentry that lights an LED indicator if a room door is not properly closed and locked after hours
 
