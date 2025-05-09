@@ -171,7 +171,7 @@ Now that your sensor is set up, you may not want to log in to the Viam app every
 
 - Download the Viam mobile application from the [Apple](https://apps.apple.com/us/app/viam-robotics/id6451424162) and [Google Play](https://play.google.com/store/apps/details?id=com.viam.viammobile&hl=en&gl=US) app stores to keep track of all your Viam machines, including this door lock status detector
 - Develop your own custom mobile application using one of [Viam's SDKs](https://docs.viam.com/dev/reference/sdks/#mobile-sdk)
-- Set up a notification to alert you when you've left your home and your door is still unlocked, by [creating your own custom Viam module](https://docs.viam.com/operate/get-started/other-hardware/hello-world-module/)
+- Set up a notification to alert you when you've left your home and your door is still unlocked, by [creating your own custom Viam module](https://docs.viam.com/operate/get-started/other-hardware/micro-module/)
 
 <!-- ------------------------ -->
 
