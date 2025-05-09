@@ -28,7 +28,7 @@ In this codelab, you'll learn how to use an infrared sensor to see whether a doo
 - A computer with MacOS, Windows, or Linux to flash your ESP32 and configure the device's components using the Viam app
 - Hardware and supplies requirements
 
-  - 1 - [ESP32 development board](https://a.co/d/fNsT6d7) - check the Viam docs for [specific resource requirements](https://docs.viam.com/installation/#compatibility)
+  - 1 - [ESP32 development board](https://a.co/d/0liXUKP) - check the Viam docs for [specific resource requirements](https://docs.viam.com/operate/get-started/setup-micro/)
   - 1 - USB data cable - make sure the cable is capable of data transfer (not just charging); refer to this resource for [How To Tell If A USB Cable Is For Charging Or Data Transfer](https://glidedigital.com/how-to-tell-if-a-usb-cable-is-for-charging-or-data-transfer)
   - 3 - jumper wires
   - 1 - [Infrared sensor](https://a.co/d/izETGBR)
