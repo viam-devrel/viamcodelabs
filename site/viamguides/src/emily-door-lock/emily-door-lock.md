@@ -25,7 +25,7 @@ In this codelab, you'll learn how to use an infrared sensor to see whether a doo
 
 ### Prerequisites
 
-- A computer with MacOS, Windows, or Linux to flash your Raspberry Pi and configure the device's components using the Viam app
+- A computer with MacOS, Windows, or Linux to flash your ESP32 and configure the device's components using the Viam app
 - Hardware and supplies requirements
 
   - 1 - [ESP32 development board](https://a.co/d/fNsT6d7) - check the Viam docs for [specific resource requirements](https://docs.viam.com/installation/#compatibility)
