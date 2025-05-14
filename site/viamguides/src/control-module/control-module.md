@@ -181,7 +181,7 @@ Now that you created the initial module, let's add our control logic, and deploy
     - Review the class definition within `lamp_alarm.py`
       - It includes the public namespace, module name, and model name that you specified in the module generation prompts (`joyce`, `control-lamp-alarm`, and `lamp-alarm` shown here).
       - It also includes four default class methods `new()`, `validate_config()`, `reconfigure()`, and `do_command()`.
-1.  **Add dependencies**: Add these imports near the top of the file to support our control loop and provide more visibility during debugging.
+1.  **Add dependencies**: Add these imports near the top of the file to support our control loop and provide more visibility during debugging. If your control logic requires external dependencies, be sure to also update the `requirements.txt` file.
 
     ```python
     import asyncio
