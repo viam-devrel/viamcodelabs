@@ -392,7 +392,12 @@ In this section, we'll write code to alert us when a person is detected. And if 
    ```
 
 1. Copy and paste [this sample code](https://github.com/loopDelicious/viam-people-detection-process/blob/main/process.py) into the newly created `process.py` file. This code connects your Raspberry Pi to the Vision Service and piezo component to execute the automation logic.
-1. Transfer the `process.py` file to your Raspberry Pi. First, [SSH into your Raspberry Pi](https://docs.viam.com/installation/prepare/rpi-setup/#connect-with-ssh) if you aren't already connected.
+1. Transfer the `process.py` file to your Raspberry Pi. From the terminal window, run the following command to [SSH (Secure Shell) into your board](https://docs.viam.com/operate/reference/prepare/rpi-setup/#connect-with-ssh), where the text in `<>` should be replaced (including the `<` and `>` symbols themselves) with the `user` and `hostname` you configured when you set up your machine.
+   ```bash
+   ssh <USERNAME>@<REMOTE-HOSTNAME>.local
+   ```
+   > aside negative
+   > On some networks, if the `hostname.local` alias fails to resolve, you can use the static IP address found in the Viam app status dropdown. For example, instead of `username@hostname.local`, you could use `username@192.168.2.197`.
 1. On your Raspberry Pi, install the Python package manager (pip) using the following command:
 
    ```bash
