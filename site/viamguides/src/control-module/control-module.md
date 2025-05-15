@@ -230,11 +230,11 @@ Now that you created the initial module, let's add our control logic, and deploy
 
      async def on_loop(self):
          try:
-             LOGGER.info("Executing control logic")
+             self.logger.info("Executing control logic")
              # TODO: ADD CONTROL LOGIC
 
          except Exception as err:
-             LOGGER.error(err)
+             self.logger.error(err)
          await asyncio.sleep(10)
 
      def __del__(self):
