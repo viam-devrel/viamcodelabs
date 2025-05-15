@@ -17,11 +17,13 @@ Duration: 1
 
 Let’s say you have a machine in Viam with a sensor and an actuator, like a webcam and a lamp plugged into a smart outlet. You want the machine to monitor the video feed, in this case, turning on the lamp when a person is detected.
 
-To do that, you'll write a control module that checks sensor data and triggers actions automatically.
+To do that, you'll write a control module that checks sensor data and triggers actions automatically. For example, in the [automatic plant watering workshop](https://codelabs.viam.com/guide/workshop-plant-watering/index.html), the control module is the brains behind the real-world robot that orchestrates activities between sensors and actuators.
 
-![control logic workflow](assets/workflow.png)
+![control logic workflow for plant watering](assets/wateringController.png)
 
 In this codelab, you'll learn how to build and deploy control logic in a module running directly on the machine, for this or any other use case.
+
+![control logic workflow](assets/workflow.png)
 
 ### What You’ll Build
 
@@ -88,10 +90,6 @@ Duration: 3
    ![installation agent](assets/ssh.png)
 1. The setup page will indicate when the machine is successfully connected.
    ![successful toast](assets/success.png)
-1. Create a new project directory called `control-module` on the Pi from the SSH prompt.
-   ```bash
-   mkdir control-module
-   ```
 
 ### Configure your peripherals
 
@@ -308,18 +306,7 @@ Now that you created the initial module, let's add our control logic, and deploy
     >     return implicit_dependencies
     > ```
 
-1.  **Start the control loop and initialize other resources**: In the `reconfigure()` method, start the control logic to run in a background loop. This method is called when your model is first added to the machine, and again whenever the machine configuration is updated. If your control logic relies on other parts of the machine (like sensors or services), you should also initialize those resources here.
-    ```python
-    def reconfigure(
-      self, config: ComponentConfig,
-      dependencies: Mapping[ResourceName, ResourceBase]
-      ):
-      # starts automatically
-      if self.running is None:
-          self.start()
-      else:
-          LOGGER.info("Already running control logic.")
-    ```
+1.  **Initialize required resources**: In the `reconfigure()` method, initialize any required resources if your control logic relies on other parts of the machine (like sensors or services). This method is called when your model is first added to the machine, and again whenever the machine configuration is updated.
     > aside positive
     > **Optional**: In this example, the control logic relies on other parts of the machine, specifically a [Vision service](https://docs.viam.com/dev/reference/apis/services/vision/) and a [Generic component](https://docs.viam.com/dev/reference/apis/components/generic/), so we use `cast` to safely access them from the dependencies mapping according to which Viam API it implements.
     > Add this to your imports:
@@ -339,6 +326,18 @@ Now that you created the initial module, let's add our control logic, and deploy
     > camera_resource = dependencies.get(Camera.get_resource_name(str(attrs.get("camera"))))
     > self.camera_name = cast(Camera, camera_resource).name
     > ```
+1.  **Start the control loop**: In the `reconfigure()` method, start the control logic to run in a background loop.
+    ```python
+    def reconfigure(
+      self, config: ComponentConfig,
+      dependencies: Mapping[ResourceName, ResourceBase]
+      ):
+      # starts automatically
+      if self.running is None:
+          self.start()
+      else:
+          LOGGER.info("Already running control logic.")
+    ```
 1.  **Add Do Command for manual testing**: Replace the [`do_command()`](https://docs.viam.com/dev/reference/apis/services/generic/#docommand) method with the following code, so that we can manually test the control loop with `stop` and `start`.
 
     ```python
@@ -516,7 +515,7 @@ Now that your module is working the way you want, upload it to the Viam registry
    >
    > **GitHub action fails**: Check under the **Actions** tab in GitHub to view the status of the latest release. You can click on a failed workflow run to see more details. If the workflow fails and you need to retry the same version, you'll need to delete the tag from GitHub and re-push it to trigger the workflow again.
    >
-   > **Update module**: If you make changes to the module code, remember to commit and push your updates to the remote GitHub repository, and then run `viam module update` from the command line.
+   > **Update module**: If you make changes to the module code, remember to commit and push your updates to the remote GitHub repository, and then run `viam module update` from the command line if you made changes to the `meta.json`.
 
 ### Add your new modular resource to your machines
 
