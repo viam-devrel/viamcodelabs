@@ -17,7 +17,9 @@ Duration: 1
 
 Let’s say you have a machine in Viam with a sensor and an actuator, like a webcam and a lamp plugged into a smart outlet. You want the machine to monitor the video feed, in this case, turning on the lamp when a person is detected.
 
-To do that, you'll write a control module that checks sensor data and triggers actions automatically. For example, in the [automatic plant watering workshop](https://codelabs.viam.com/guide/workshop-plant-watering/index.html), the control module is the brains behind the real-world robot that orchestrates activities between sensors and actuators.
+And while you could run this logic from a laptop, a cloud server, or a web app, running it on the device itself ensures it works reliably and in real time, even without internet connectivity or external dependencies.
+
+To do this, you'll write a control module that checks sensor data and triggers actions automatically. For example, in the [automatic plant watering workshop](https://codelabs.viam.com/guide/workshop-plant-watering/index.html), the control module is the brains behind the real-world robot that orchestrates activities between sensors and actuators.
 
 ![control logic workflow for plant watering](assets/wateringController.png)
 
@@ -306,22 +308,7 @@ Now that you created the initial module, let's add our control logic, and deploy
     >     return implicit_dependencies
     > ```
 
-<<<<<<< HEAD
 1.  **Initialize required resources**: In the `reconfigure()` method, initialize any required resources if your control logic relies on other parts of the machine (like sensors or services). This method is called when your model is first added to the machine, and again whenever the machine configuration is updated.
-=======
-1.  **Start the control loop and initialize other resources**: In the `reconfigure()` method, start the control logic to run in a background loop. This method is called when your model is first added to the machine, and again whenever the machine configuration is updated. If your control logic relies on other parts of the machine (like sensors or services), you should also initialize those resources here.
-    ```python
-    def reconfigure(
-      self, config: ComponentConfig,
-      dependencies: Mapping[ResourceName, ResourceBase]
-      ):
-      # starts automatically
-      if self.running is None:
-          self.start()
-      else:
-          self.logger.info("Already running control logic.")
-    ```
->>>>>>> 8434e1ab293aa9c6700436a2400274d9f55597f1
     > aside positive
     > **Optional**: In this example, the control logic relies on other parts of the machine, specifically a [Vision service](https://docs.viam.com/dev/reference/apis/services/vision/) and a [Generic component](https://docs.viam.com/dev/reference/apis/components/generic/), so we use `cast` to safely access them from the dependencies mapping according to which Viam API it implements.
     > Add this to your imports:
