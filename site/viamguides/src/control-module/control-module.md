@@ -7,7 +7,7 @@ status: Published
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
-# Build a Viam module for control logic
+# Deploy custom control logic as a module
 
 <!-- ------------------------ -->
 
