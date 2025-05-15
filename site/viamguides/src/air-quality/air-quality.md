@@ -290,7 +290,12 @@ At this point, you have configured and tested your machine and peripherals, but 
    ```
 
 1. Copy and paste [this sample code](https://github.com/loopDelicious/viam-pm25-process/blob/main/process.py) into the new file `process.py`. This code will allow your Raspberry Pi to connect to both our sensor and plug and execute our logic.
-1. Now it's time to move your control code to your Raspberry Pi device. [SSH into your Raspberry Pi](https://docs.viam.com/installation/prepare/rpi-setup/#connect-with-ssh) if you're not already SSH'd.
+1. Now it's time to move your control code to your Raspberry Pi device. From the terminal window, run the following command to [SSH (Secure Shell) into your board](https://docs.viam.com/operate/reference/prepare/rpi-setup/#connect-with-ssh), where the text in `<>` should be replaced (including the `<` and `>` symbols themselves) with the `user` and `hostname` you configured when you set up your machine.
+   ```bash
+   ssh <USERNAME>@<REMOTE-HOSTNAME>.local
+   ```
+   > aside negative
+   > On some networks, if the `hostname.local` alias fails to resolve, you can use the static IP address found in the Viam app status dropdown. For example, instead of `username@hostname.local`, you could use `username@192.168.2.197`.
 1. From the SSH prompt on your Raspberry Pi, install the Python package manager.
    ```bash
    $ sudo apt install -y python3-pip
