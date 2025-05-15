@@ -318,7 +318,7 @@ Now that you created the initial module, let's add our control logic, and deploy
       if self.running is None:
           self.start()
       else:
-          LOGGER.info("Already running control logic.")
+          self.logger.info("Already running control logic.")
     ```
     > aside positive
     > **Optional**: In this example, the control logic relies on other parts of the machine, specifically a [Vision service](https://docs.viam.com/dev/reference/apis/services/vision/) and a [Generic component](https://docs.viam.com/dev/reference/apis/components/generic/), so we use `cast` to safely access them from the dependencies mapping according to which Viam API it implements.
