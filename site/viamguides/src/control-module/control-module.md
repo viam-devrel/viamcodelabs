@@ -7,7 +7,7 @@ status: Published
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
-# Build a Viam module for control logic
+# Deploy custom control logic as a module
 
 <!-- ------------------------ -->
 
@@ -228,11 +228,11 @@ Now that you created the initial module, let's add our control logic, and deploy
 
      async def on_loop(self):
          try:
-             LOGGER.info("Executing control logic")
+             self.logger.info("Executing control logic")
              # TODO: ADD CONTROL LOGIC
 
          except Exception as err:
-             LOGGER.error(err)
+             self.logger.error(err)
          await asyncio.sleep(10)
 
      def __del__(self):
@@ -306,7 +306,22 @@ Now that you created the initial module, let's add our control logic, and deploy
     >     return implicit_dependencies
     > ```
 
+<<<<<<< HEAD
 1.  **Initialize required resources**: In the `reconfigure()` method, initialize any required resources if your control logic relies on other parts of the machine (like sensors or services). This method is called when your model is first added to the machine, and again whenever the machine configuration is updated.
+=======
+1.  **Start the control loop and initialize other resources**: In the `reconfigure()` method, start the control logic to run in a background loop. This method is called when your model is first added to the machine, and again whenever the machine configuration is updated. If your control logic relies on other parts of the machine (like sensors or services), you should also initialize those resources here.
+    ```python
+    def reconfigure(
+      self, config: ComponentConfig,
+      dependencies: Mapping[ResourceName, ResourceBase]
+      ):
+      # starts automatically
+      if self.running is None:
+          self.start()
+      else:
+          self.logger.info("Already running control logic.")
+    ```
+>>>>>>> 8434e1ab293aa9c6700436a2400274d9f55597f1
     > aside positive
     > **Optional**: In this example, the control logic relies on other parts of the machine, specifically a [Vision service](https://docs.viam.com/dev/reference/apis/services/vision/) and a [Generic component](https://docs.viam.com/dev/reference/apis/components/generic/), so we use `cast` to safely access them from the dependencies mapping according to which Viam API it implements.
     > Add this to your imports:
