@@ -132,6 +132,7 @@ Duration: 5
 
    > aside positive
    > If multiple webcams are connected to your Pi, you'll need to specify the correct video path. To list available camera devices, you can use the [`rand:find-webcams:webcam-discovery`](https://app.viam.com/module/rand/find-webcams)
+   > ![camera discovery service banner](./assets/camera-discovery-banner.png)
 
 1. At the bottom of the `camera-1` panel, expand the **TEST** section to ensure you have configured the camera properly and see a video feed.
    ![Test camera feed](./assets/camera-test.png)
@@ -150,7 +151,7 @@ Now, let's add the ncnn ML model service to our machine. This will let us run op
    ![add ncnn ML model service](./assets/add-mlmodel.png)
 1. Notice adding this service adds the ML model service called `mlmodel-1`.
    ![new ML model service](./assets/new-mlmodel-service.png)
-1. In the new `mlmodel-1` panel, configure your service with the following JSON in the **Attributes** section:
+1. In the new `mlmodel-1` panel, configure your service with the following JSON in the JSON configuration section:
    ```json
    {
        "model_name": "squeezenet_ssd",
@@ -198,6 +199,7 @@ Now, let's add a vision service that will use our ML model to perform object det
 1. Notice adding this service adds the vision service called `vision-1`.
    ![new vision service](./assets/new-vision-service.png)
 1. In the **ML Model** section of the panel, select your ML model service (`mlmodel-1`).
+1. Set the confidence level to 0.5 to reduce the amount of false positive detections.
 1. In the **Depends on** section, select your camera component (`camera-1`).
    ![Configure vision service](./assets/configure-vision-service.png)
 1. Click **Save** in the top right to save and apply your configuration changes.
