@@ -75,7 +75,7 @@ Duration: 5
 Review the suggested learning objectives, and adjust it according to your goals and audience.
 
 - How to use modules from [the Viam registry](https://docs.viam.com/registry/)
-- How to set up a continuously running [process](https://docs.viam.com/configure/processes/) on a Viam machine
+- How to set up a control logic module on a Viam machine
 - How to use environment variables with your Viam machine
 - How to move control code to your machine
 
@@ -137,7 +137,7 @@ During the workshop, instructors can present this customizable slide deck (see a
 3. <a href="./index.html#6" target="_self">**Hands-On Experiment**</a>
    - Program your people detection alert
    - Create an automation script
-   - Configure and run a Viam process
+   - Configure and run a Viam control module
    - Finishing touches
 
 <!-- ------------------------ -->
@@ -372,131 +372,38 @@ Duration: 40
 
 At this point, the Vision Service relies on the ML Model Service to analyze visual data. It uses pre-trained machine learning models, such as `EfficientDet-COCO`, to perform tasks like object detection. Currently, many objects are being detected in the camera feed.
 
-In this section, we'll write code to alert us when a person is detected. And if a person is detected, the piezo buzzer will sound.
+In this section, we'll write code to alert us when a `person` is detected. And if a person is detected, the piezo buzzer will sound.
 
-![process diagram](assets/diagram.png)
+![control module diagram](assets/diagram.png)
 
-### Create an automation script
+### Add a control logic module
 
-1. To configure your machine to automatically run a command that executes a script, use a [Viam process](https://docs.viam.com/configure/processes/). Start by creating a new file called `process.py` on your computer.
-   On MacOS, Linux, or Windows WSL:
+Now let's add a control logic module to our Viam machine.
 
-   ```bash
-   touch process.py
-   ```
+1.  In [the Viam app](https://app.viam.com/fleet/locations), go to the **CONFIGURE** tab. Click the **+** icon in the left-hand menu and select **Component or service**.
+1.  Find, and add the module called `people-piezo`, and update the name of the module to `controller`.
+    ![add control module](assets/addControl.png)
+1.  In the new `controller` service, find the corresponding panel on the right, and add the required JSON configuration. The name of the camera, generic component, and vision service can be found in the Viam app interface.
+    ![configure control module](assets/configControl.png)
 
-   On Windows:
+    ```json
+    {
+      "camera": "camera-1",
+      "generic": "piezo",
+      "vision": "people-detector"
+    }
+    ```
 
-   ```cmd
-   type nul > process.py
-   ```
-
-1. Copy and paste [this sample code](https://github.com/loopDelicious/viam-people-detection-process/blob/main/process.py) into the newly created `process.py` file. This code connects your Raspberry Pi to the Vision Service and piezo component to execute the automation logic.
-1. Transfer the `process.py` file to your Raspberry Pi. From the terminal window, run the following command to [SSH (Secure Shell) into your board](https://docs.viam.com/operate/reference/prepare/rpi-setup/#connect-with-ssh), where the text in `<>` should be replaced (including the `<` and `>` symbols themselves) with the `user` and `hostname` you configured when you set up your machine.
-   ```bash
-   ssh <USERNAME>@<REMOTE-HOSTNAME>.local
-   ```
-   > aside negative
-   > On some networks, if the `hostname.local` alias fails to resolve, you can use the static IP address found in the Viam app status dropdown. For example, instead of `username@hostname.local`, you could use `username@192.168.2.197`.
-1. On your Raspberry Pi, install the Python package manager (pip) using the following command:
-
-   ```bash
-   $ sudo apt install -y python3-pip
-   ```
-
-1. Install the Viam Python SDK into a new directory called `detector`.
-   ```bash
-   $ pip3 install --target=detector viam-sdk
-   ```
-1. Display the full path of your current directory on your Raspberry Pi using the `pwd` command. Take note of the output, as you'll need it in the next steps. The output should include the path to the newly created `detector/` directory:
-   ```bash
-   $ pwd
-   ```
-1. Find the executable path for Python3 on your Raspberry Pi using the `which python3` command. Note this output as well, as it will be required for running `process.py`.
-   ```bash
-   $ which python3
-   ```
-1. Copy the `process.py` file from your computer to your Raspberry Pi using the `scp` command. Replace `user` and `host.local` with your Raspberry Pi's username and hostanme (or IP address). The part after the colon (`:`) specifies where the file should be copied on the Raspberry Pi, including the `detector/` directory. Make sure you run the command from your computer (not the SSH prompt for your Raspberry Pi).
-   ```bash
-   $ scp process.py user@host.local:/home/myboard/detector/process.py
-   ```
-   ![scp from command line](assets/scp.png)
+1.  **Save** and apply your changes.
+1.  Test the new control module by navigating to the **CONTROL** tab. Find the `people-detector` service and observe what happens when a person is detected.
+    ![person detected](assets/personDetected.png)
 
 <form>
-  <name>What is the primary role of the `process.py` script in the people detection system?</name>
+  <name>What is the primary role of the control logic module in the people detection system?</name>
   <input type="radio" value="To collect camera data from the Raspberry Pi.">
   <input type="radio" value="To define the logic for periodically checking the camera data and turning on the piezo based on detections.">
   <input type="radio" value="To update the firmware of the camera and piezo.">
   <input type="radio" value="To configure the network settings for the Raspberry Pi.">
-</form>
-
-### Configure a Viam process
-
-Now let's configure `viam-server` to run the process as the root user on your Raspberry Pi by setting up a [Viam process](https://docs.viam.com/configure/processes/).
-
-1.  In [the Viam app](https://app.viam.com/fleet/locations), go to the **CONFIGURE** tab. Click the **+** icon in the left-hand menu and select **Process**.
-    ![add process](assets/addProcess.png)
-1.  Find the card for `process-1`. Enter the following:
-
-    - The executable path for Python3 on your Raspberry Pi (from a previous step).
-    - The `process.py` file as an argument.
-    - The working directory where the process should execute (from a previous step).
-      ![configure process](assets/configureProcess.png)
-
-1.  In the `process-1` card, click the advanced settings icon near the top right corner to review the configuration JSON. Add an `env` property to define your environment variables. Use the following format, replacing the placeholders with your own values.
-    ```json
-      "env": {
-        "CAMERA_NAME": "camera-1",
-        "VISION_NAME": "people-detector",
-        "PIEZO_NAME": "piezo",
-        "ROBOT_API_KEY": "your-api-key",
-        "ROBOT_API_KEY_ID": "your-api-key-id",
-        "ROBOT_ADDRESS": "your-robot-address"
-      },
-    ```
-    ![configure JSON](assets/configureProcessJSON.png)
-    > aside negative
-    >
-    > - The `CAMERA_NAME`, `VISION_NAME`, and `PIEZO_NAME` can be found in the Viam app interface.
-    > - Other machine credentials are located under the **CONNECT** tab. Select an SDK and toggle **Include API key** to reveal your credentials in the code sample.
-        ![get credentials](assets/APIcreds.png)
-1.  **Save** and apply your changes.
-1.  Test the process by navigating to the **CONTROL** tab. Find the `people-detector` service and observe what happens when a person is detected.
-    ![person detected](assets/personDetected.png)
-1.  Customize the process by editing the `process.py` file on your Raspberry Pi. For example:
-
-    - Adjust the sensitivity or detect a different object by modifying [this section of the code](https://github.com/loopDelicious/viam-people-detection-process/blob/main/process.py#L42).
-    - Update the piezo parameters or use the Harry Potter theme song instead of a single note by modifying [this section of the code](https://github.com/loopDelicious/viam-people-detection-process/blob/main/process.py#L48).
-
-    After making your changes:
-
-    - **Save** your code changes.
-    - **Restart** the machine to apply the updates.
-      ![restart the machine](assets/restart.png)
-
-      > aside negative
-      > **Tip**: You can edit the file on your computer and copy the updated version to your Raspberry Pi using `scp`, as shown earlier. Alternatively, use the default Raspberry Pi OS text editor `nano` by entering the following command from the SSH prompt:
-
-      ```bash
-      nano process.py
-      ```
-
-      > ![edit in Nano](assets/nano.png)
-
-<form>
-  <name>Why is the `process-1` configuration in the Viam app important for running the continuous process?</name>
-  <input type="radio" value="It specifies the environment variables and paths required for the Raspberry Pi to execute the process automatically.">
-  <input type="radio" value="It ensures the camera is calibrated before collecting video data.">
-  <input type="radio" value="It logs all camera data directly to the Raspberry Pi’s storage.">
-  <input type="radio" value="It enables real-time monitoring of peripherals connected to the Pi.">
-</form>
-
-<form>
-  <name>Why is it necessary to configure a continuous process for the alerting system?</name>
-  <input type="radio" value="To ensure the system can automatically respond to a person detected without manually triggering the piezo.">
-  <input type="radio" value="To allow the Raspberry Pi to store camera data locally for future analysis.">
-  <input type="radio" value="To reduce the power consumption of the alerting system.">
-  <input type="radio" value="To manually refresh the video data at regular intervals.">
 </form>
 
 ### Finishing touches
@@ -507,6 +414,7 @@ Now that your system is working the way you want it, it's time to tidy up our pr
 1. **Detector placement**: Set this up near a place you want to monitor. For example, if you want to sound the buzzer when someone is near your desk, point the camera in a direction that will capture your approach.
 1. **Train a custom ML model**: Instead of actuating the piezo when any person is detected, train your own ML model to detect when a specific person or pet is detected. You could extend this logic to trigger actuation if a person is detected but not one that is known.
 1. **Update the actuation**: Instead of actuating the piezo when an object is detected, integrate a service to send a notification, [generate an insult](https://luckytoilet.wordpress.com/2016/04/27/roboroast-upload-your-photo-to-get-an-algorithmically-generated-insult/), or [turn on a smart light](https://app.viam.com/module/joyce/kasasmartplug).
+1. **Custom control module**: Instead of using the `people-piezo` control module, [deploy your own custom control logic to a machine](https://docs.viam.com/manage/software/control-logic/).
 
 <!-- ------------------------ -->
 
@@ -533,7 +441,7 @@ Duration: 5
    - To save time, instructors can flash all the Pis ahead of time with pre-determined credentials and share the credentials with participants during the workshop. Each Pi should have a unique `hostname` to avoid conflicts on the shared local network, such as `&lt;student-name&gt;-detection` or `&lt;group-name&gt;-detection` if they are working in groups.
      - If you're using SD cards, verify that you have a way to write data onto them before providing them to participants.
 1. **Working with actuators**
-   - **Disabling a resource**: In a group setting, working with piezos can be fun, but also potentially disruptive. Learners can disable the resource by toggling off `process-1`, for example.
+   - **Disabling a resource**: In a group setting, working with piezos can be fun, but also potentially disruptive. Learners can disable the resource by toggling off `controller`, for example.
      ![disable resource](assets/disable.png)
    - **Alternative actuators**: A buzzer is just one type of actuator, but the possibilities are endless.
      - Use an RGB LED, which functions similarly as a PWM-actuated component
@@ -590,9 +498,7 @@ Review the suggested quiz questions below to evaluate participants' understandin
    - How does the Viam app simplify the process of testing and controlling hardware components like the webcam and piezo buzzer?
 1. **Hands-on Experiment**
    - What is the advantage of testing the piezo buzzer’s `DoCommand` function during the setup process?
-   - What is the primary role of the `process.py` script in the people detection system?
-   - Why is the `process-1` configuration in the Viam app important for running the continuous process?
-   - Why is it necessary to configure a continuous process for the alerting system?
+   - What is the primary role of the control logic module in the people detection system?
 
 ### Next-level projects
 
