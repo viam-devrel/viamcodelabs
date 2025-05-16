@@ -476,7 +476,7 @@ Now that your module is working the way you want, upload it to the Viam registry
 1. **Update README**: Update the `README.md` file, following the suggested template. This provides details to your future self and others about what your module does and how to use it.
 1. **Commit to GitHub**: Commit the module source code to your GitHub repository. Add the link to that repository as the `url` in the `meta.json` file. This is required for the cloud build to work.
    ![GitHub URL in meta.json](assets/urlMeta.png)
-1. **Update metadata**: Make any final edits to the `meta.json` file such as including a `description` or updating the visibility to `public` if you want the module to be visible to all Viam users (which also requires running `viam module update` from the command line).
+1. **Update metadata**: Make any final edits to the `meta.json` file such as including a `description` or updating the visibility to `public` if you want the module to be visible to all Viam users.
 1. **Package and upload**: Revert the edits you made in the `meta.json` for local testing, so the values for `entrypoint`, `build`, and `path` are in the original state as shown below.
    ```json
    "entrypoint": "dist/main",
@@ -490,6 +490,10 @@ Now that your module is working the way you want, upload it to the Viam registry
        "linux/arm64"
      ]
    }
+   ```
+1. From the CLI, run `viam module update`, which is required when you make changes to the `meta.json`.
+   ```bash
+   viam module update
    ```
 1. **Commit and push your updates**: Commit and push your latest updates to your remote GitHub repository.
 1. **Set up GitHub action**: The `viam module generate` command already generated the `build-action` file in your `.github/workflows` folder, so you just need to set up authentication in GitHub, and then create a new release to trigger the action. In your terminal, run the following command to view your organization ID.
