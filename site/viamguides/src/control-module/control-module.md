@@ -297,7 +297,7 @@ Now that you created the initial module, let's add our control logic, and deploy
     >        Sequence[str]: A list of implicit dependencies
     >    """
     >    attrs = struct_to_dict(config.attributes)
-    >    required_dependencies = ["vision", "generic"]
+    >    required_dependencies = ["vision", "generic", "camera"]
     >    implicit_dependencies = []
     >
     >    for component in required_dependencies:
