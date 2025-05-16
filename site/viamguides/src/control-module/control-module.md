@@ -491,7 +491,7 @@ Now that your module is working the way you want, upload it to the Viam registry
      ]
    }
    ```
-1. From the CLI, run `viam module update`, which is required when you make changes to the `meta.json`.
+1. **Update module**: From the CLI, run `viam module update`, which is required when you make changes to the `meta.json`.
    ```bash
    viam module update
    ```
