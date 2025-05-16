@@ -383,7 +383,7 @@ Now let's add a control logic module to our Viam machine.
 1.  In [the Viam app](https://app.viam.com/fleet/locations), go to the **CONFIGURE** tab. Click the **+** icon in the left-hand menu and select **Component or service**.
 1.  Find, and add the module called `people-piezo`, and update the name of the module to `controller`.
     ![add control module](assets/addControl.png)
-1.  In the new `controller` sevice, find the corresponding panel on the right, and add the required JSON configuration. The name of the camera, generic component, and vision service can be found in the Viam app interface.
+1.  In the new `controller` service, find the corresponding panel on the right, and add the required JSON configuration. The name of the camera, generic component, and vision service can be found in the Viam app interface.
     ![configure control module](assets/configControl.png)
 
     ```json
