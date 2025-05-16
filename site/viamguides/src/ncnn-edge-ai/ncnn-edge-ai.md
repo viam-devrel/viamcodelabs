@@ -144,7 +144,7 @@ Now, let's add the ncnn ML model service to our machine. This will let us run op
 
 ### Add the ML model service
 
-1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Service**.
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component or service**.
 1. Select `ML Model`, and find the `hipsterbrown:mlmodel:ncnn` module. This adds the module for running optimized neural networks with ncnn. Leave the default name `mlmodel-1` for now.
    ![find ncnn ML model service](./assets/find-mlmodel.png)
    ![add ncnn ML model service](./assets/add-mlmodel.png)
@@ -192,7 +192,7 @@ Duration: 5
 
 Now, let's add a vision service that will use our ML model to perform object detection on images from the webcam.
 
-1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Service**.
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component or service**.
 1. Select `vision`, and find the `ML Model` module. This adds a vision service that uses ML models. Leave the default name `vision-1` for now.
    ![Add vision service](./assets/find-vision.png)
 1. Notice adding this service adds the vision service called `vision-1`.
