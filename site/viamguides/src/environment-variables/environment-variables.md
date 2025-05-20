@@ -227,7 +227,7 @@ Now that you've moved your control code to your machine, let's set up our enviro
 
 ### Other ways to use variables
 
-This is the recommended approach to [using Viam environment variables within a a registry module](https://docs.viam.com/registry/configure/#use-environment-variables-with-a-registry-module), or other modular resources on a physical device.
+This is the recommended approach to [using Viam environment variables within a a registry module](https://docs.viam.com/operate/reference/module-configuration/#environment-variables), or other modular resources on a physical device.
 
 But there are other ways to use environment variables:
 
