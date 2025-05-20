@@ -372,7 +372,7 @@ Duration: 40
 
 At this point, the Vision Service relies on the ML Model Service to analyze visual data. It uses pre-trained machine learning models, such as `EfficientDet-COCO`, to perform tasks like object detection. Currently, many objects are being detected in the camera feed.
 
-In this section, we'll write code to alert us when a `person` is detected. And if a person is detected, the piezo buzzer will sound.
+In this section, we'll add code to alert us when a `person` is detected. And if a person is detected, the piezo buzzer will sound.
 
 ![control module diagram](assets/diagram.png)
 
