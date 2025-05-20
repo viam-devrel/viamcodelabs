@@ -66,6 +66,7 @@ In this codelab, you'll learn how to build and deploy control logic in a module 
 
 - How to generate, develop, and upload a module using Viam
 - How to customize control logic within a module
+- How to require and validate dependencies within a custom module
 - How to configure and use a module
 
 <!-- ------------------------ -->
@@ -276,7 +277,7 @@ Now that you created the initial module, let's add our control logic, and deploy
     >   await asyncio.sleep(10)
     > ```
 
-1.  **Validate configuration**: In the `validate_config()` method, you can ensure the user correctly provides the required dependencies, formatted as expected. If your goal is a working version that validates nothing, proceed to the next step.
+1.  **Validate configuration**: In the `validate_config()` method, you can ensure the user correctly provides the required dependencies, formatted as expected. Refer to the docs for more details about [module dependencies](https://docs.viam.com/operate/get-started/other-hardware/dependencies/). If your goal is a working version that validates nothing, proceed to the next step.
 
     > aside positive
     > **Optional**: In the example shown here, the validation requires `struct_to_dict`, so we've added it to our imports.
@@ -551,6 +552,7 @@ Duration: 2
 
 - How to generate, develop, and upload a module using Viam
 - How to customize control logic within a module
+- How to require and validate dependencies within a custom module
 - How to configure and use a module
 
 ### Advanced scenarios for Viam modules

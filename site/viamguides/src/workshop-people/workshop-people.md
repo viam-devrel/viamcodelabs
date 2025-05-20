@@ -136,7 +136,6 @@ During the workshop, instructors can present this customizable slide deck (see a
    - Configure your piezo buzzer
 3. <a href="./index.html#6" target="_self">**Hands-On Experiment**</a>
    - Program your people detection alert
-   - Create an automation script
    - Configure and run a Viam control module
    - Finishing touches
 
@@ -366,7 +365,7 @@ You can manually and programmatically use the GPIO pins of the [`board`](https:/
 
 ## Delivery Plan - Hands-on Experiment
 
-Duration: 40
+Duration: 20
 
 ### Program your people detector
 
