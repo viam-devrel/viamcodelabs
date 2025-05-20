@@ -268,7 +268,7 @@ Duration: 5
 
 ## Program your air monitoring device
 
-Duration: 6
+Duration: 2
 
 At this point, you have configured and tested your machine and peripherals, but nothing is happening automatically. In the next section, program your air monitoring device to be a little smarter. Make your machine periodically get readings, turn on the air filter if the values are high, and turn off again when the values are low.
 
@@ -290,6 +290,7 @@ Now let's add a control logic module to our Viam machine.
     ```
 
 1.  **Save** and apply your changes.
+1.  You can test the logic by blowing on the air sensor until the values rise above the threshold to see what happens.
 
 <!-- ------------------------ -->
 

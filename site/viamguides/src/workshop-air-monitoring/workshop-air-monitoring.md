@@ -81,9 +81,8 @@ Duration: 5
 Review the suggested learning objectives, and adjust it according to your goals and audience.
 
 - How to use modules from [the Viam registry](https://docs.viam.com/registry/)
-- How to set up a continuously running [process](https://docs.viam.com/configure/processes/) on a Viam machine
-- How to use environment variables with your Viam machine
-- How to move control code to your machine
+- How to set up a control logic module with your Viam machine
+- How to adjust
 
 ### Agenda
 
@@ -141,7 +140,7 @@ During the workshop, instructors can present this customizable slide deck (see a
    - Test the air sensor
    - Test the smart plug
    - Program your air monitoring device
-   - Configure a Viam process
+   - Configure and run a Viam control module
 
 <!-- ------------------------ -->
 
@@ -348,7 +347,7 @@ Duration: 30
 
 ## Delivery Plan - Hands-on Experiment
 
-Duration: 40
+Duration: 20
 
 ### Test the air sensor
 
@@ -406,97 +405,28 @@ At this point, you have configured and tested your machine and peripherals, but 
 
 ![process diagram](assets/diagram.png)
 
-### Create an automation script
+### Configure a control logic module
 
-1. To configure the machine to automatically run a command to execute a script, use a [Viam process](https://docs.viam.com/configure/processes/). Create a new file on your computer called `process.py`.
+Now let's add a control logic module to our Viam machine.
 
-   On MacOS, Linux, or Windows WSL:
+1.  In [the Viam app](https://app.viam.com/fleet/locations), go to the **CONFIGURE** tab. Click the **+** icon in the left-hand menu and select **Component or service**.
+1.  Find, and add the module called `control-air-quality`, and update the name of the module to `air-filter`.
+    ![add control module](assets/addController.png)
+1.  In the new `air-filter` service, find the corresponding panel on the right, and add the required JSON configuration. The name of the generic component and sensor can be found in the Viam app interface.
+    ![configure control module](assets/controller.png)
 
-   ```bash
-   touch process.py
-   ```
-
-   On Windows:
-
-   ```cmd
-   type nul > process.py
-   ```
-
-1. Copy and paste [this sample code](https://github.com/loopDelicious/viam-pm25-process/blob/main/process.py) into the new file `process.py`. This code will allow your Raspberry Pi to connect to both our sensor and plug and execute our logic.
-1. Now it's time to move your control code to your Raspberry Pi device. From the terminal window, run the following command to [SSH (Secure Shell) into your board](https://docs.viam.com/operate/reference/prepare/rpi-setup/#connect-with-ssh), where the text in `<>` should be replaced (including the `<` and `>` symbols themselves) with the `user` and `hostname` you configured when you set up your machine.
-   ```bash
-   ssh <USERNAME>@<REMOTE-HOSTNAME>.local
-   ```
-   > aside negative
-   > On some networks, if the `hostname.local` alias fails to resolve, you can use the static IP address found in the Viam app status dropdown. For example, instead of `username@hostname.local`, you could use `username@192.168.2.197`.
-1. From the SSH prompt on your Raspberry Pi, install the Python package manager.
-
-   ```bash
-   $ sudo apt install -y python3-pip
-   ```
-
-1. Install the Viam Python SDK into a new directory called `process`.
-   ```bash
-   $ pip3 install --target=process viam-sdk
-   ```
-1. Display the full path of the current directory you are working in on your Raspberry Pi with the `pwd` command. Make a note of this output for the next steps.
-   ```bash
-   $ pwd
-   ```
-1. Find the executable path of Python3 to run `process.py` on your Raspberry Pi with `which python3`. Again, make a note of this output for the next steps.
-   ```bash
-   $ which python3
-   ```
-1. Run the following command from your computer (not the SSH prompt to your Raspberry Pi) to copy the code from your computer to your Raspberry Pi. In the command, you will copy `process.py` over to your Raspberry Pi, with the section following the colon `:` indicating where your file should be copied to on the Raspberry Pi (the path of the directory you are working in on your Raspberry Pi, along with the filename).
-   ```bash
-   $ scp process.py user@host.local:/home/myboard/process/process.py
-   ```
-
-<form>
-  <name>What is the primary role of the `process.py` script in the air monitoring system?</name>
-  <input type="radio" value="To display air quality readings directly on the Raspberry Pi.">
-  <input type="radio" value="To define the logic for periodically checking sensor readings and toggling the smart plug based on thresholds.">
-  <input type="radio" value="To update the firmware of the air sensor and smart plug.">
-  <input type="radio" value="To configure the network settings for the Raspberry Pi.">
-</form>
-
-### Configure a Viam process
-
-1.  Now let's allow `viam-server` to run the process as the root user on your Raspberry Pi by configuring a [Viam process](https://docs.viam.com/configure/processes/). In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Process**.
-1.  Find the corresponding card to `process-1`. Enter the executable path of Python3 running on your Raspberry Pi that you output from a previous step. Add an argument of the `process.py` file to run on your Raspberry Pi. Enter the working directory where you want the process to execute.
-    ![configure process](assets/configureProcess.png)
-1.  Still within the `process-1` card, select the advanced settings icon near the top right corner to review the configuration JSON. Create a new `env` property, and add your environment variables within the new property, formatted like the following with your own credentials.
     ```json
-      "env": {
-        "SENSOR_NAME": "sensor-1",
-        "PLUG_NAME": "generic-1",
-        "ROBOT_API_KEY": "your-api-key",
-        "ROBOT_API_KEY_ID": "your-api-key-id",
-        "ROBOT_ADDRESS": "your-robot-address"
-      },
+    {
+      "generic": "generic-1",
+      "sensor": "sensor-1"
+    }
     ```
-    ![configure JSON](assets/configJSON.png)
-    > aside negative
-    > The `SENSOR_NAME` and `PLUG_NAME` are the default names for our air sensor and smart plug when added to our Viam machine. Other machine credentials can be found under the **CONNECT** tab, selecting an SDK, and toggling **Include API key** to reveal your credentials within the code sample.
-        ![get credentials](assets/apiKey.png)
-1.  **Save** your updates.
-1.  You can test the code by updating the `process.py` file on your Raspberry Pi to update the `do_command` when thresholds are low from `toggle_off` to `toggle_on`. **Save** your code changes, and **Restart** the machine to see if the fan turns on when the air quality is healthy.
-    ![restart the machine](assets/restart.png)
-    > aside negative
-    > You can either edit the file on your computer and copy the updated file over to your Raspberry Pi using `scp` like we did previously. Or you can use the default command-line text editor on Raspberry Pi OS `nano` by entering `nano process.py` from the SSH prompt.
-    > ![edit in Nano](assets/nano.png)
-    > Alternatively, you can blow on the air sensor until the values rise above the threshold.
+
+1.  **Save** and apply your changes.
+1.  You can test the logic by blowing on the air sensor until the values rise above the threshold to see what happens.
 
 <form>
-  <name>Why is the `process-1` configuration in the Viam app important for running the continuous process?</name>
-  <input type="radio" value="It specifies the environment variables and paths required for the Raspberry Pi to execute the process automatically.">
-  <input type="radio" value="It ensures the air sensor is calibrated before each reading.">
-  <input type="radio" value="It logs all air quality data directly to the Raspberry Pi’s storage.">
-  <input type="radio" value="It enables real-time monitoring of air quality on a connected device.">
-</form>
-
-<form>
-  <name>Why is it necessary to configure a continuous process for the air monitoring system?</name>
+  <name>Why is it necessary to configure a control logic module for the air monitoring system?</name>
   <input type="radio" value="To ensure the system can automatically respond to changing air quality conditions without manual intervention.">
   <input type="radio" value="To allow the Raspberry Pi to store sensor data locally for future analysis.">
   <input type="radio" value="To reduce the power consumption of the air monitoring device.">
@@ -588,9 +518,7 @@ Review the suggested quiz questions below to evaluate participants' understandin
 1. **Hands-on Experiment**
    - When you manually refresh the `GetReadings` function for the air sensor, what type of information is typically returned?
    - What is the advantage of testing the smart plug’s `DoCommand` function during the setup process?
-   - What is the primary role of the `process.py` script in the air monitoring system?
-   - Why is the `process-1` configuration in the Viam app important for running the continuous process?
-   - Why is it necessary to configure a continuous process for the air monitoring system?
+   - Why is it necessary to configure a control logic module for the air monitoring system?
 
 ### Next-level projects
 
