@@ -377,6 +377,9 @@ The next step is to download the source code for the Pomodoro Bot application on
 
 ### 5. Run the Pomodoro Bot Code
 
+   > aside negative
+   > **Processes have been deprecated as of May 6, 2025.** Please use [Modules](https://docs.viam.com/manage/software/control-logic/#add-control-logic-to-your-module) to add control logic to your devices. The following step has been left for historical purposes, but will no longer work. Instead, [create a custom module](https://docs.viam.com/manage/software/control-logic/) and [add the control logic in `main.py` to your module](https://codelabs.viam.com/guide/control-module/index.html). Then, add the custom module to your device.
+
 - Once you've made the necessary edits to `main.py`, save the changes.
 - Install the necessary python packages using the following command
    ```bash
