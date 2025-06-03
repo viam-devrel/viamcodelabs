@@ -49,6 +49,12 @@ In this tutorial, you'll use the R503 fingerprint sensor with Viam to unlock a s
 
   ![workflow diagram](assets/diagram.png)
 
+### Watch the Video
+
+See a demonstration and overview of the access control system in this video.
+
+<video id="WFlZlPSefqc"></video>
+
 <!-- ------------------------ -->
 
 ## Wire your components
