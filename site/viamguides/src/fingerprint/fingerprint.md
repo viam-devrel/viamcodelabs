@@ -84,8 +84,8 @@ Duration: 5
    | **Servo**           | **Raspberry Pi** |
    | ------------------- | ---------------- |
    | Power wire (red)    | Pin 4 (VCC 5V)   |
-   | Ground wire (black) | Pin 39 (GND)     |
-   | Data wire (yellow)  | Pin 32 (GPIO 12) |
+   | Ground wire (black) | Pin 6 (GND)      |
+   | Data wire (yellow)  | Pin 8 (GPIO 14)  |
 
    > aside negative
    > The website [pinout.xyz](https://pinout.xyz/) is a helpful resource with the exact layout and role of each pin for Raspberry Pi. When working with Viam, make sure to reference the physical pin numbers, and not the GPIO numbers listed on `pinout.xyz`.
@@ -241,7 +241,7 @@ The [`fingerprint` module](https://github.com/loopDelicious/viam-fingerprint-R50
 
 ### Enroll your fingerprint
 
-1. **Start the enrollment**: Go to the **CONTROL** tab within the Viam app and find the `fingerprint-sensor` component to again expand the **DO COMMAND** section. Input the following JSON object, and click the **Execute** button to begins enrollment for slot `1`. The sensor will now wait for fingerprint scans.
+1. **Start the enrollment**: Go to the **CONTROL** tab within the Viam app and find the `fingerprint-sensor` component to again expand the **DO COMMAND** section. Input the following JSON object, and click the **Execute** button to begins enrollment for slot `1`. For each **DO COMMAND** executed, this particular module returns a message indicating whether the command was successful. Upon a successful execution, the sensor will now wait for fingerprint scans.
    ```json
    { "start_enrollment": 1 }
    ```
@@ -250,7 +250,7 @@ The [`fingerprint` module](https://github.com/loopDelicious/viam-fingerprint-R50
    ```json
    { "capture": true }
    ```
-1. **Create fingerprint model**: Run the following command to create a model from the two captured scans. If the prints don't match, it will prompt to retry the second scan (capture again).
+1. **Create fingerprint model**: Run the following command to create a model from the two captured scans. If the prints don't match, the response message will prompt you to retry the second scan (capture again).
    ```json
    { "create_model": true }
    ```
@@ -258,7 +258,7 @@ The [`fingerprint` module](https://github.com/loopDelicious/viam-fingerprint-R50
    ```json
    { "store_model": 1 }
    ```
-1. **Repeat**: Repeat these steps with any other fingerprints you'd like to enroll, using a different numbered slot for each model. You can even enroll the same finger multiple times to improve the reliability of resulting in a positive match.
+1. **Repeat**: Repeat these steps with any other fingerprints you'd like to enroll, using a different numbered slot for each model. You can even enroll the same finger multiple times to improve the reliability of resulting in a positive match. The Adafruit R503 fingerprint sensor supports up to 200 fingerprint slots for storing templates, with slots indexed from `0` to `199`.
 
    > aside negative
    > **Troubleshooting**: If your sensor isn't responding to your finger placement:
