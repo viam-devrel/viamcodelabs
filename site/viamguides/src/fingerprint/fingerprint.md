@@ -365,8 +365,8 @@ Now that you have created a servo latch powered by a fingerprint sensor, you can
 There's many ways to control physical access to a box, physical spaces, or
 
 - **Face identification for access control**: Use a webcam and Computer Vision to enable access to a physical space [by following this codelab](https://codelabs.viam.com/guide/securibot/index.html).
-- **Smart door lock**: Use Android devices to directly control a lock through a Numato USB Relay with serial commands using [this Viam module](https://app.viam.com/module/mcvella/numato-relay-usb-android)
   ![facial recognition for office access](assets/byElevator.png)
+- **Smart door lock**: Use Android devices to directly control a lock through a Numato USB Relay with serial commands using [this Viam module](https://app.viam.com/module/mcvella/numato-relay-usb-android)
 - **Door lock status**: Use an infrared sensor to detect whether your door is locked or unlocked [by following this codelab](https://codelabs.viam.com/guide/emily-door-lock/index.html)
 
 ### Related Viam resources
