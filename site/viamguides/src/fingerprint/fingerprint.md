@@ -48,6 +48,7 @@ In this tutorial, you'll use the R503 fingerprint sensor with Viam to unlock a s
 - A physical access system that unlocks a servo latch on fingerprint recognition
 
   ![workflow diagram](assets/diagram.png)
+  ![photo of fingerprint sensor in action](assets/fingerprint.png)
 
 ### Watch the Video
 
@@ -66,7 +67,7 @@ Duration: 5
 1. **Connect the adapter**: Connect the USB to serial adapter to a USB port in your Raspberry Pi. Jumper wires may be required to connect the R503 sensor to your Raspberry Pi.
    > aside negative
    > UART pins are easier for compact setups, but USB adapters simplify voltage matching.
-1. **Wire the R503 sensor to the adapter**: Refer to the following wiring diagram to see how to connect the adapter to the LD2410 mmwave sensor. Make sure the transmitting pin (TX) on the adapter is connected to the receiving pin (RX) on the sensor, and vice versa.
+1. **Wire the R503 sensor to the adapter**: Refer to the following wiring diagram to see how to connect the adapter to the R503 fingerprint sensor. Make sure the transmitting pin (TX) on the adapter is connected to the receiving pin (RX) on the sensor, and vice versa.
 
    | **CP2102**         | **R503**                                                                |
    | ------------------ | ----------------------------------------------------------------------- |
@@ -199,14 +200,13 @@ Duration: 2
 
 1. Click the **+** icon in the left-hand menu and select **Component or service**.
 1. Select `servo`, and find the `rpi-servo` model. This adds the module to run a servo with Raspberry Pi 0 to 4. Leave the default name `servo-1` for now.
-1. Notice adding this module adds the board hardware component called `servo-1`. Add the following JSON object under the **CONFIGURE** section of the new corresponding panel. This configuration allows Viam to accept data inputs from physical pin 32 on the Raspberry Pi.
+1. Notice adding this module adds the board hardware component called `servo-1`. Add the following JSON object under the **CONFIGURE** section of the new corresponding panel. This configuration allows Viam to accept data inputs from physical pin 8 on the Raspberry Pi.
    ```json
    {
-     "pin": "32",
+     "pin": "8",
      "board": "board-1"
    }
    ```
-   ![configure servo](assets/configureServo.png)
 1. Click **Save** in the top right to save and apply your configuration changes.
 
 <!-- ------------------------ -->
