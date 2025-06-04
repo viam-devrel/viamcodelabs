@@ -17,7 +17,7 @@ The TurtleBot 4 Lite is a powerful ROS2-based mobile robot platform that's perfe
 
 In this codelab, we'll transform your TurtleBot 4 Lite into a cloud-connected robot that you can control from anywhere and automatically capture sensor data for analysis and machine learning applications.
 
-<!-- ![TurtleBot 4 Lite with Viam integration](assets/turtlebot-viam-overview.webp) -->
+![TurtleBot 4 Lite with Viam integration](assets/driving.gif)
 
 ### What You'll Build
 
@@ -153,34 +153,14 @@ Duration: 5
 ### Create your machine in Viam
 
 1. In [the Viam app](https://app.viam.com/fleet/dashboard) under the **LOCATIONS** tab, create a machine by typing in a name like "ros-two" and clicking **Add machine**.
-   <!-- ![add machine](assets/newMachine.webp) -->
+   ![add machine](assets/add-machine.png)
 1. Click **View setup instructions**.
 1. Select the `Linux / Aarch64` platform for the Raspberry Pi, and leave your installation method as [`viam-agent`](https://docs.viam.com/manage/reference/viam-agent/).
-   <!-- ![select platform](assets/platform.webp) -->
+   ![select platform](assets/machine-setup.png)
 1. Use the `viam-agent` to download and install `viam-server` on your TurtleBot. Follow the instructions to run the command provided in the setup instructions from the SSH prompt of your TurtleBot.
-   <!-- ![installation agent](assets/ssh.webp) -->
+   ![installation agent](assets/ssh.png)
 1. The setup page will indicate when the machine is successfully connected.
-   <!-- ![successful toast](assets/success.webp) -->
-
-### Add the ROS2 integration module
-
-1. In the Viam app, navigate to the **CONFIGURE** tab.
-1. Click the **+** icon in the left-hand menu and select **Component or service**.
-1. Click **Add module** and search for "ros2-integration".
-1. Select the `viam-soleng:viam-ros2-integration` module and click **Add module**.
-   <!-- ![add ros2 module](assets/addRos2Module.webp) -->
-1. Configure the module environment variables by clicking on the module card and adding the following to the **Environment** section:
-   ```json
-   {
-     "ROS_ENV": "/opt/ros/humble/setup.bash",
-     "OVERLAYS": "/etc/turtlebot4/setup.bash",
-     "VIAM_NODE_NAME": "viam_node",
-     "VIAM_ROS_NAMESPACE": "/viamrostwo",
-     "FASTRTPS_DEFAULT_PROFILES_FILE": "/opt/ros/humble/fastdds_rpi.xml"
-   }
-   ```
-   <!-- ![configure module environment](assets/configureModuleEnv.webp) -->
-1. Click **Save** in the top right to save your configuration.
+   ![successful toast](assets/machine-connected.png)
 
 <!-- ------------------------ -->
 ## Configure robot components
@@ -193,9 +173,13 @@ Now we'll configure the individual components that make up your TurtleBot system
 The base component will allow you to control the TurtleBot's movement.
 
 1. Click the **+** icon in the left-hand menu and select **Component or service**.
-1. Select `base`, then search for and select the `viam-soleng:ros2:base` model.
+   ![select component or service](assets/add-component-or-service.png)
+1. Select `base`, then search for "ros" and select the `viam-soleng:ros2:base` model.
+   ![select ros base](assets/rosbase-search.png)
 1. When prompted for the `viam-soleng:viam-ros2-integration` module, click **Add module**.
+   ![add ros2 integration module](assets/add-ros-integration-module.png)
 1. Name it `rosbase` and click **Create**.
+   ![create rosbase](assets/rosbase-create.png)
 1. In the **Attributes** section, configure:
    ```json
    {
@@ -203,8 +187,10 @@ The base component will allow you to control the TurtleBot's movement.
      "publish_rate": "0.1"
    }
    ```
-   <!-- ![configure base component](assets/configureBase.webp) -->
+   ![configure base component](assets/rosbase-configure.png)
 1. Click on the JSON tab in the left sidebar above your machine name to display the full configuration JSON for your machine.
+   <br/>
+   ![switch to JSON config](assets/json-configuration.png)
 1. Configure the `viam-soleng:viam-ros2-integration` module environment variables by adding an `env` field with the relevant config, which should look like the following:
    ```json
    {
@@ -220,7 +206,6 @@ The base component will allow you to control the TurtleBot's movement.
      }
    }
    ```
-   <!-- ![configure module environment](assets/configureModuleEnv.webp) -->
 1. Click **Save** in the top right to save your configuration.
 
 ### Configure the camera component
@@ -235,7 +220,7 @@ The base component will allow you to control the TurtleBot's movement.
      "encoding": "rgb8"
    }
    ```
-   <!-- ![configure camera component](assets/configureCamera.webp) -->
+   ![configure camera component](assets/roscamera-configure.png)
 
 ### Configure the battery status sensor
 
@@ -250,7 +235,7 @@ The base component will allow you to control the TurtleBot's movement.
      "ros_msg_type": "BatteryState"
    }
    ```
-   <!-- ![configure battery sensor](assets/configureBatterySensor.webp) -->
+   ![configure battery sensor](assets/battery-state-configure.png)
 
 ### Configure the dock status sensor
 
@@ -265,7 +250,7 @@ The base component will allow you to control the TurtleBot's movement.
      "ros_msg_type": "DockStatus"
    }
    ```
-   <!-- ![configure dock sensor](assets/configureDockSensor.webp) -->
+   ![configure dock sensor](assets/dock-status-configure.png)
 
 ### Configure the wheel status sensor
 
@@ -280,6 +265,7 @@ The base component will allow you to control the TurtleBot's movement.
      "ros_msg_type": "WheelStatus"
    }
    ```
+   ![configure wheel sensor](assets/wheel-status-configure.png)
 
 Click **Save** to apply all your component configurations.
 
@@ -294,11 +280,10 @@ Now we'll set up automated data capture for your robot's sensors and camera, wit
 ### Add the data management service
 
 1. In the Viam app, click the **+** icon in the left-hand menu and select **Component or service**, and then `data management`.
-1. **Create** a new [Data Management service](https://docs.viam.com/services/data/) called `data_manager-1`.
-   <!-- ![select data management](./assets/addDataManager.webp) -->
-1. Notice adding this service adds the data manager service called `data_manager-1`. It will default to the "Capturing" and "Syncing" toggles as enabled.
-   <!-- ![view default configuration for data manager](./assets/configureDataManager.webp) -->
+1. **Create** a new [Data Management service](https://docs.viam.com/services/data/) called `datacapture`.
+1. Notice adding this service adds the data manager service called `datacapture`. It will default to the "Capturing" and "Syncing" toggles as enabled.
 1. In the "Additional paths" field of the **Cloud sync** section, type `/opt/rosbags` and hit the Enter key to also sync your [rosbag files](https://docs.ros.org/en/humble/Tutorials/Advanced/Recording-A-Bag-From-Your-Own-Node-Py.html).
+   ![view default configuration for data manager](./assets/data-capture-configure.png)
 1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
 
 ### Configure camera data capture
@@ -309,7 +294,7 @@ Now we'll set up automated data capture for your robot's sensors and camera, wit
    - **Method**: `GetImage`
    - **Frequency (hz)**: `0.1` (capture one image every 10 seconds)
    - **MIME type**: `image/jpeg`
-   <!-- ![configure camera capture](assets/configureCameraCapture.webp) -->
+   ![configure camera capture](assets/roscamera-data-capture.png)
 
 ### Configure sensor data capture
 
@@ -317,8 +302,8 @@ Now we'll set up automated data capture for your robot's sensors and camera, wit
 1. In the **Data capture** section, click **Add method**.
 1. Configure:
    - **Method**: `Readings`
-   - **Frequency (hz)**: `0.033` (capture every 30 seconds)
-   <!-- ![configure battery capture](assets/configureBatteryCapture.webp) -->
+   - **Frequency (hz)**: `0.5` (capture every 30 seconds)
+   ![configure battery capture](assets/battery-state-data-capture.png)
 
 1. Repeat the same process for `dock_status` and `wheel_status` sensors with the same frequency.
 
@@ -345,19 +330,19 @@ The ROS2 logger service will stream your robot's debug logs directly to Viam for
    ```json
    {
      "ros_topic": "/rosout",
-     "log_level": "info"
+     "log_level": "debug"
    }
    ```
-   <!-- ![configure ros logger](assets/configureRosLogger.webp) -->
+   ![configure ros logger](assets/ros2-logger-configure.png)
 
 ### Test the logger service
 
 1. Click **Save** to apply the configuration.
 1. Navigate to the **LOGS** tab in the Viam app.
 1. You should start seeing ROS2 log messages appearing in the Viam logs interface.
-   <!-- ![view ros logs](assets/viewRosLogs.webp) -->
+   ![view ros logs](assets/ros2-logger-test.png)
 
-The logger service will now stream all ROS2 system messages with "info" level and above directly to Viam for easy monitoring and debugging.
+The logger service will now stream all ROS2 system messages with "debug" level and above directly to Viam for easy monitoring and debugging.
 
 <!-- ------------------------ -->
 ## Control your TurtleBot remotely
@@ -373,7 +358,7 @@ Now comes the exciting part - controlling your TurtleBot from anywhere using the
    - Click **Forward** to move the robot forward
    - Click **Backward** to move the robot backward  
    - Click **Left** and **Right** to turn the robot
-   <!-- ![base control interface](assets/baseControls.webp) -->
+   ![base control interface](assets/rosbase-web-control.png)
 
 ### Enable keyboard control
 
@@ -383,22 +368,26 @@ Now comes the exciting part - controlling your TurtleBot from anywhere using the
    - **S** or **↓**: Move backward
    - **A** or **←**: Turn left
    - **D** or **→**: Turn right
-   <!-- ![keyboard control enabled](assets/keyboardControl.webp) -->
+   ![base keyboard control interface](assets/rosbase-keyboard-control.png)
 
 ### Test advanced movements
 
 1. Try the **Move straight** function:
    - Set distance (in mm) and velocity
    - Click **Execute** to move a precise distance
+   ![base actions](assets/rosbase-move-straight.png)
 
 ### Monitor live camera feed
 
 1. Scroll to your `roscamera` component.
 1. Set the refresh dropdown to "Live" to see the live camera feed from your TurtleBot.
-   <!-- ![camera live feed](assets/cameraFeed.webp) -->
+   ![camera live feed](assets/roscamera-control.png)
 1. You can now see what your robot sees while driving it remotely!
 
+<video id="Wh7e9AMrIXE"></video>
+
 Your TurtleBot is now fully controllable from Viam.
+
 
 <!-- ------------------------ -->
 ## View captured data
@@ -415,7 +404,7 @@ Let's explore the data your TurtleBot has been automatically capturing and synci
    - Filter by date range
    - Search by tags
    - Annotate for machine learning training
-   <!-- ![captured images view](assets/capturedImages.webp) -->
+   ![captured images view](assets/machine-images.png)
 
 ### Review sensor data
 
@@ -425,7 +414,7 @@ Let's explore the data your TurtleBot has been automatically capturing and synci
    - Dock status (whether robot is docked)
    - Wheel status (motor health and performance)
 1. Data is displayed in a JSON format and can be queried using SQL or MQL by clicking on the "Query" in the top-right of your machine card.
-   <!-- ![sensor data visualization](assets/sensorDataViz.webp) -->
+   ![sensor data](assets/machine-sensor-data.png)
 
 Your TurtleBot's data is now safely stored in the cloud and ready for analysis!
 
