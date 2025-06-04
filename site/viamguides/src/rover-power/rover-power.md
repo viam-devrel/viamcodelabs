@@ -7,7 +7,7 @@ status: Published
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer, Data
 
-# Upgrade Viam Rover 2 to use wired or RC power
+# Upgrade Viam Rover to use wired or RC power
 
 <!-- ------------------------ -->
 
@@ -113,7 +113,7 @@ Duration: 2
 
 ## Finishing touches
 
-Duration: 2
+Duration: 3
 
 ### Wired setup
 
