@@ -15,6 +15,8 @@ Duration: 1
 
 The TurtleBot 4 Lite is a powerful ROS2-based mobile robot platform that's perfect for learning robotics, research, and development. By integrating Viam with your TurtleBot, you can unlock powerful remote control capabilities, cloud-based data management, and seamless integration with modern robotics workflows.
 
+![Viam integration w/ ROS2 overview](assets/viam-ros2-integration-overview.png)
+
 In this codelab, we'll transform your TurtleBot 4 Lite into a cloud-connected robot that you can control from anywhere and automatically capture sensor data for analysis and machine learning applications.
 
 ![TurtleBot 4 Lite with Viam integration](assets/driving.gif)
@@ -465,6 +467,7 @@ Your enhanced TurtleBot setup opens doors to numerous practical applications:
 
 ### Resources for Continued Learning
 
+- [Integrate your ROS2 robot with Viam](https://www.viam.com/post/integrate-your-ros2-robot-with-viam) - Blog post covering why we built this integration and how it works.
 - [Viam Documentation](https://docs.viam.com/) - Complete guides and API references
 - [Viam Community Discord](http://discord.gg/viam) - Connect with other robotics developers
 - [TurtleBot 4 Documentation](https://turtlebot.github.io/turtlebot4-user-manual/) - Hardware specifics and advanced configurations
