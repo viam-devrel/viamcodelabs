@@ -35,7 +35,7 @@ In this codelab, we'll transform your TurtleBot 4 Lite into a cloud-connected ro
 
 ### What You'll Learn 
 - How to prepare a TurtleBot 4 Lite for Viam integration
-- How to configure the viam-ros2-integration module for TurtleBot components
+- How to configure the [viam-ros2-integration module](https://app.viam.com/module/viam-soleng/viam-ros2-integration) for TurtleBot components
 - How to control through the Viam web interface
 - How to configure automated data capture and cloud sync
 - How to monitor robot logs
@@ -72,7 +72,7 @@ Before integrating Viam with your TurtleBot, we need to configure the ROS2 envir
    ```bash
    sudo apt install -y python3-venv
    ```
-1. Install the ROS2 cv_bridge package for camera integration:
+1. Install the ROS2 `cv_bridge` package for camera integration:
    ```bash
    # For ROS2 Humble
    sudo apt install -y ros-humble-cv-bridge
@@ -127,7 +127,7 @@ To avoid conflicts with existing ROS2 nodes, we'll set up a dedicated namespace 
    export ROBOT_NAMESPACE=/viamrostwo
    export FASTRTPS_DEFAULT_PROFILES_FILE=/etc/turtlebot4/fastdds_rpi.xml
    ```
-1. Save and exit the file (Ctrl+X, then Y, then Enter).
+1. Save and exit the file (**Ctrl + X**, then **Y**, then **Enter**).
 
 
 ### Verify ROS2 functionality
