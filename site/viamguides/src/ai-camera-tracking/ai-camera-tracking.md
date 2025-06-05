@@ -3,13 +3,16 @@ id: ai-camera-tracking
 summary: Build an object tracking camera with servos and computer vision
 categories: Getting-Started, Developer
 environments: web
-status: Published 
+status: Published
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
 tags: Getting Started, Developer
 
 # Use Computer Vision to build an AI Tracking Webcam
+
 <!-- ------------------------ -->
-## Overview 
+
+## Overview
+
 Duration: 1
 
 In this tutorial, we'll show you how to build your own pan-tilt camera that can track any object using computer vision.
@@ -37,7 +40,8 @@ If you've ever been curious how those smart webcams from Insta360 or gimbals fro
   - 1 - Phillips screwdriver
 - 1 - [3D printed base](https://www.printables.com/model/1251325-tower-servo-base) (optional)
 
-### What You’ll Learn 
+### What You’ll Learn
+
 - How to configure and test a device's components using Viam
 - How to use modules from the Viam registry
 - How to deploy an ML model for computer vision
@@ -49,15 +53,16 @@ If you've ever been curious how those smart webcams from Insta360 or gimbals fro
 - All the hardware components listed in prerequisites.
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/dashboard) to the Viam app
 
-<!-- ### Watch the Video -->
+### Watch the Video
 
-<!-- See a demonstration of the smart snack dispenser in action: -->
+See a demonstration of the AI tracking camera in action:
 
-<!-- <video id="fpK4J9NzD2Q"></video> -->
-
+<video id="r6aH_3yNEHA"></video>
 
 <!-- ------------------------ -->
+
 ## Set up your Raspberry Pi
+
 Duration: 5
 
 The Raspberry Pi boots from a storage device, such as a USB flash drive or microSD card. You need to install Raspberry Pi OS on that storage device that you will use with your Pi. For more details about alternative methods of setting up your Raspberry Pi, refer to the [Viam docs](https://docs.viam.com/installation/prepare/rpi-setup/#install-raspberry-pi-os).
@@ -103,11 +108,15 @@ The Raspberry Pi boots from a storage device, such as a USB flash drive or micro
 <!-- ------------------------ -->
 
 ## Assemble the hardware
+
 Duration: 20
 
 Before we get to wiring up the components, let's assemble the servo brackets and mount the webcam.
 
-If you prefer to follow along with video, you can find that [here](https://www.amazon.com/vdp/1ce3c357cb0b4197b5ec9928952dbea8?product=B07PQ12TXS&ref=cm_sw_em_r_ib_dt_qFFZJVGgxClph).
+> aside positive
+>
+> - **Watch the assembly video**: If you prefer to follow along with video, you can find that [here](https://www.amazon.com/vdp/1ce3c357cb0b4197b5ec9928952dbea8?product=B07PQ12TXS&ref=cm_sw_em_r_ib_dt_qFFZJVGgxClph).
+> - **Pay attention to the orientation**: Each servo will rotate 180° (half a full revolution), so make sure to mount it in a centered position, as shown in the assembly video and photos below.
 
 1. You should have the following parts ready for assembly
 
@@ -120,6 +129,7 @@ If you prefer to follow along with video, you can find that [here](https://www.a
    - assortment of screws and nuts (and one bearing) from the bracket kit
 
    ![servo brackets and camera mount parts laid out on a table](assets/buildStep01.webp)
+
 1. Grab one of the servos, round servo horns, the horn set screw, and your screwdriver.
    ![first set of parts](assets/buildStep02.webp)
 1. Push the servo horn onto the head of the servo.
@@ -165,70 +175,75 @@ If you prefer to follow along with video, you can find that [here](https://www.a
    ![set the camera mount in place](assets/buildStep26.webp)
    ![set the camera mount in place](assets/buildStep27.webp)
 
-Nice work! With the servo bracket mount complete, you can wire the components to the power supply and Raspberry Pi. 
+Nice work! With the servo bracket mount complete, you can wire the components to the power supply and Raspberry Pi.
 
 ![assembled pan-tilt camera mount](assets/buildStep28.webp)
-
-
 
 <!-- ------------------------ -->
 
 ## Wire the components
+
 Duration: 10
 
 ![wiring diagram](assets/wiring.webp)
 
 1. Use the above wiring diagram to connect the hardware peripherals and power together. The power and ground connections from the barrel jack power supply with the DC screw-terminal adapter will be shared among the servos and Raspberry Pi using the WAGO lever nuts.
 
-    The 5-port WAGO bridging all the ground connections will be known as "Common Ground".
-    The 3-port WAGO bridging the servos and DC power connections will be known as "Common Power".
+   The 5-port WAGO bridging all the ground connections will be known as "Common Ground".
+   The 3-port WAGO bridging the servos and DC power connections will be known as "Common Power".
 
-    > aside negative
-    > Do not plug in the DC power supply while wiring your components. This will prevent you or your hardware from being harmed accidentally.
+   > aside negative
+   > Do not plug in the DC power supply while wiring your components. This will prevent you or your hardware from being harmed accidentally.
 
    #### Board to Pan Servo:
-   Jumper wires are required to connect the servo wires to the Raspberry Pi.
 
-   | **Raspberry Pi** | **Servo** |
-   | ---------------- | -------------- |
-   | Pin 8 (GPIO 14)   | Data wire (yellow) |
+   Jumper wires are required to connect the servo wires to the Raspberry Pi. The pan servo is the first servo assembled, on the bottom.
+
+   | **Raspberry Pi** | **Servo**          |
+   | ---------------- | ------------------ |
+   | Pin 8 (GPIO 14)  | Data wire (yellow) |
 
    #### Board to Tilt Servo:
-   Jumper wires are required to connect the servo wires to the Raspberry Pi.
 
-   | **Raspberry Pi** | **Servo** |
-   | ---------------- | -------------- |
-   | Pin 10 (GPIO 15)   | Data wire (yellow) |
+   Jumper wires are required to connect the servo wires to the Raspberry Pi. The tilt servo is the second servo assembled, on the top holding the U-shaped bracket.
+
+   | **Raspberry Pi** | **Servo**          |
+   | ---------------- | ------------------ |
+   | Pin 10 (GPIO 15) | Data wire (yellow) |
 
    #### Board to Power:
 
-   | **Raspberry Pi** | **Power** |
-   | ---------------- | -------------- |
+   | **Raspberry Pi** | **Power**     |
+   | ---------------- | ------------- |
    | Pin 6 (Ground)   | Common Ground |
 
    #### Servo to Power:
+
    Jumper wires are required to connect the servo wires to each WAGO.
 
-
-   | **Servo** | **Power** |
-   | ---------------- | -------------- |
-   | Power wire (red)   | Common Power |
-   | Ground wire (brown)   | Common Ground |
+   | **Servo**           | **Power**     |
+   | ------------------- | ------------- |
+   | Power wire (red)    | Common Power  |
+   | Ground wire (brown) | Common Ground |
 
    _repeat for each servo_
 
    > aside positive
    > The website [pinout.xyz](https://pinout.xyz/) is a helpful resource with the exact layout and role of each pin for Raspberry Pi. When working with Viam, make sure to reference the physical pin numbers, and not the GPIO numbers listed on `pinout.xyz`.
+
 1. Connect the webcam USB plug to to any of the Raspberry Pi's USB-A ports.
    ![fully wired machine](assets/wiring-complete.webp)
 
-Well done! 👏 
+Well done! 👏
 
 Now you can plug in the DC power supply for the servos.
 
 In the next section, you'll configure your device in the Viam app and start controlling your hardware!
+
 <!-- ------------------------ -->
+
 ## Configure your machine and peripherals
+
 Duration: 10
 
 ### Configure your machine
@@ -264,14 +279,13 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 1. In this mode, configure your component with the following JSON in the **CONFIGURE** field. This will tell the component to look for the default camera connected to the device, which will be the USB webcam.
    ```json
    {
-       "video_path": ""
+     "video_path": ""
    }
    ```
    ![set the blank video path](assets/configureCamera.webp)
 1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
 1. At the bottom of the `camera-1` panel, expand the **TEST** section to ensure you have configured the camera properly and see a video feed.
    ![test camera](assets/testCamera.webp)
-
 
 ### Configure your pan servo
 
@@ -283,8 +297,8 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 1. In the new `pan` panel, configure your component with the following JSON in the **CONFIGURE** field. This tells your servo component to use a specific pin on a specific board (called `board-1` in the Viam app).
    ```json
    {
-       "board": "board-1",
-       "pin": "8"
+     "board": "board-1",
+     "pin": "8"
    }
    ```
    ![configure pan servo](assets/configurePanServo.webp)
@@ -302,8 +316,8 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 1. In the new `tilt` panel, configure your component with the following JSON in the **CONFIGURE** field. This tells your servo component to use a specific pin on a specific board (called `board-1` in the Viam app).
    ```json
    {
-       "board": "board-1",
-       "pin": "10"
+     "board": "board-1",
+     "pin": "10"
    }
    ```
    ![configure tilt servo](assets/configureTiltServo.webp)
@@ -319,13 +333,13 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 1. In the new `base-1` panel, configure your component with the following JSON in the **CONFIGURE** field. This tells your base component which servos to use for the pan and tilt functionalities.
    ```json
    {
-       "pan": "pan",
-       "tilt": "tilt"
+     "pan": "pan",
+     "tilt": "tilt"
    }
    ```
    ![configure base component](assets/configureBase.webp)
 1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
-1. At the bottom of the `base-1` panel, expand the **TEST** section to ensure you have configured the base properly. After toggling the keyboard control under the **Quick move** section, you should see the appropriate servo move when using your keyboar's arrow keys or WASD.
+1. At the bottom of the `base-1` panel, expand the **TEST** section to ensure you have configured the base properly. After toggling the keyboard control under the **Quick move** section, you should see the appropriate servo move when using your keyboar's arrow keys or WASD. Remember to toggle off the keyboard control when you're ready to use the keyboard regularly again.
    ![test base](assets/testBaseQuickMove.webp)
 
 > aside negative
@@ -334,7 +348,9 @@ To access the GPIO pins, let's add our Raspberry Pi board to our machine in the 
 With your hardware components confirmed working, now we will provide the intelligence to enable real-time object tracking!
 
 <!-- ------------------------ -->
+
 ## Configure your services
+
 Duration: 5
 
 ### Add an ML model service
@@ -373,14 +389,14 @@ Duration: 5
      "base_name": "base-1",
      "camera_name": "camera-1",
      "vision_name": "vision-1",
-     "auto_start": True,
+     "auto_start": true,
      "object_label": "Person"
    }
    ```
    ![configure tracking service](assets/configureTracker.webp)
 1. **Save** your changes in the top right and wait a few moments for the configuration changes to take effect.
 1. Test out the service by looking at the **TEST** panel of the vision service and move around in front of the camera. You will see it respond to your movements to keep you in the center of the frame.
-   Experiment with changing the "object_label" field to any of the detected labels displayed by the vision service, such as "Cellphone", and use that object to guide the camera movement.
+   Experiment with changing the "object_label" field to any of the detected labels displayed by the vision service, such as "Cellphone" or another one of the [many objects detected by this model](https://github.com/nightrome/cocostuff/blob/master/labels.txt), and use that object to guide the camera movement.
 
 > aside negative
 > **TROUBLESHOOTING**: Double check your service configuration. Look at the **LOGS** tab to see what might be going wrong.
@@ -388,13 +404,16 @@ Duration: 5
 <video id="r6aH_3yNEHA"></video>
 
 <!-- ------------------------ -->
+
 ## Conclusion And Resources
+
 Duration: 1
 
 Congratulations! Now you have an automated camera system that can track objects in real time using off-the-shelf components!
 While this project looks just a bit different from those commercial tracking webcams, it's given you a taste of key hardware hacking concepts - from servo control to computer vision to hardware automation.
 
 ### What You Learned
+
 - How to configure and test a device's components using Viam
 - How to use modules from the Viam registry
 - How to deploy an ML model for computer vision
