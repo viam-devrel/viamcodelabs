@@ -104,7 +104,7 @@ Duration: 2
 ### Power On and Test
 
 1. Plug in the power supply or connect the RC battery.
-1. Observe the onboard voltage display should show the inbound voltage. The Viam Rover 2 has a buck converter to safely downgrades the voltage to 12V.
+1. Observe the onboard voltage display, which should show the inbound voltage. The Viam Rover 2 has a buck converter to safely downgrade the voltage to 12V.
 1. Confirm the rover powers on normally.
 
    ![power on the rover](assets/powerOn.png)
