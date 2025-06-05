@@ -203,30 +203,25 @@ To authenticate your website with your machine, use Viam API keys. We recommend 
 
 Here's our [source code](https://github.com/ehhong/sticker-wizard).
 
-## Use Viam to run a local web server
+## Use a Viam module to run a local web server
 
 Duration: 10
 
-Through Viam, we can host our web server directly on the Raspberry Pi using a [process](https://docs.viam.com/configure/processes/). A process runs every time your machine starts up.
+We can host our web server directly on the Raspberry Pi using a [module](https://docs.viam.com/operate/get-started/other-hardware/). For now, we've incorporated our web app and the web server into the same module. 
 
-1. Download your web app's source code to your Raspberry Pi
-   - We recommend uploading your source code to GitHub and then downloading `git` on your Raspberry Pi to pull changes from your website
-2. Follow instructions from your selected web framework to run your production bundle locally from your Pi. Make sure you can access it from your local network!
-   - In SvelteKit, you can run your [production bundle locally](https://svelte.dev/docs/kit/building-your-app#Preview-your-app) with `vite preview`
-   - Expose it on your [local network](https://www.ryanfiller.com/blog/tips/sveltekit-local-network) with the `--host` flag
-3. Create a bash script to run your production bundle locally. Call it `run-web-server.sh`.
-4. Add a [process](https://docs.viam.com/configure/processes/) to your machine config
-   - Configure the executable to be the absolute path to `run-web-server.sh`. You can determine the absolute path with the `pwd` command.
-   - Set the working directory to be the absolute path to the folder containing your bash script.
+> aside negative
+> 
+>  In the following steps, we'll go through using the [sticker-wizard-app](https://app.viam.com/module/devrel/sticker-wizard-app) module that's available on the Viam registry. For your own app, consider using this module as a template to incorporate your own web app. We are working on a friendlier way to host a simple web server through a module without having to bundle the web app with it. For now, this will work to replace processes, which are now deprecated.
 
-![web server config](assets/web-server-process.png)
-
-5. Test!
-   - **Save** your config
-   - Go to the **LOGS** tab, and check for logs verifying that your web server is up and running
-   - Verify that you can access your website on a separate device that is also on your local network
-
-To make your local web server available to those not on your local network, use a service like [ngrok](https://ngrok.com/). You can set up ngrok with Viam with a process in the same way so it is always available when your machine is running.
+1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab. Click the **+** icon in the left-hand menu and select **Component or service**.
+1. Search for `sticker-wizard:webapp`, then select it.
+      <img alt="Searching for sticker wizard app module" src="assets/findStickerWizardModule.png" width=450 />
+1. Give this module a more descriptive name, for example `sticker-wizard-app`. Click **Create**
+   <img alt="Add sticker wizard app module" src="assets/addStickerWizardModule.png" width=450 />
+1. Notice that this adds two cards, one for the module information and one to configure the module itself. If you'd like, you can configure a different port for to access the web app. Otherwise, if the config is left empty, the default port of `8888` will be used.
+      ![Sticker Wizard module cards added](assets/cardsAdded.png)
+1. Click **Save**. Verify that you can access the web app on your local network (default port is :8888 unless you configured a different one in the web app configuration).
+      ![Sticker Wizard App hosted on own web server](assets/stickerWizardAppLive.png)
 
 ## Finishing touches
 
