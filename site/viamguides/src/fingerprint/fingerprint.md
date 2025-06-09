@@ -38,7 +38,7 @@ In this tutorial, you'll use the R503 fingerprint sensor with Viam to unlock a s
 ### What You’ll Learn
 
 - How to use modules from [the Viam registry](https://docs.viam.com/registry/)
-- How to run control logic on your Viam achine
+- How to run control logic on your Viam machine
 - How to configure a biometric sensor with Viam
 - How to use control logic to actuate a servo on fingerprint match
 - How to use Viam's `do_command()` interface for testing
