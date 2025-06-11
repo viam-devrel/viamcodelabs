@@ -80,7 +80,7 @@ The arcade claw is actuated when a solenoid is powered, acting as a magnet to pu
 
 In order to control the claw through Viam, you will now wire the relay to the Jetson.
 
-![wiring diagram](assets/mount-together_hu.webp)
+![wiring diagram](assets/wiringJetson.png)
 
 <!-- ------------------------ -->
 
