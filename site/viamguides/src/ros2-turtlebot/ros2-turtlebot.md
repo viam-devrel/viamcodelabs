@@ -47,6 +47,12 @@ In this codelab, we'll transform your TurtleBot 4 Lite into a cloud-connected ro
 - All the hardware components listed in prerequisites
 - Network connectivity between your computer and TurtleBot
 
+### Watch the Video
+
+See a demonstration of controlling the ROS2 Turtlebot using Viam.
+
+<video id="6CKOvo-YQYA"></video>
+
 <!-- ------------------------ -->
 ## Prepare your TurtleBot for Viam
 Duration: 10
