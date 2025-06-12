@@ -86,17 +86,107 @@ In order to control the claw through Viam, you will now wire the relay to the Je
 
 ## Configure your machine
 
-Duration: 15
+Duration: 5
+
+1. In [the Viam app](https://app.viam.com/fleet/dashboard) under the **LOCATIONS** tab, create a machine by typing in a name like "claw-game" and clicking **Add machine**.
+   ![create new machine in Viam app](assets/create-machine.png)
+1. Click **View setup instructions**.
+   ![new, unprovisioned machine in Viam app](assets/new-machine.png)
+1. To install `viam-server` on the Jetson device that you want to use, select the `Linux / Aarch64` platform for the Jetson, and leave your installation method as [`viam-agent`](https://docs.viam.com/how-tos/provision-setup/#install-viam-agent).
+   ![machine setup instructions in Viam app](assets/setup-viam.png)
+1. Use the `viam-agent` to download and install `viam-server` on your Jetson. Follow the instructions to run the command provided in the setup instructions from the SSH prompt of your Jetson device.
+
+1. The setup page will indicate when the machine is successfully connected.
+   ![machine connected successfully](assets/machine-connected.png)
 
 ### Configure
 
 <!-- ------------------------ -->
 
-## Test your components
+## Configure your components
 
 Duration: 15
 
-### Configure
+### Add your Jetson board
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component or service**.
+   <br>
+   <img alt="select component or service" src="assets/add-component.png" width=350 />
+1. Select `board`, and find the `nvidia:jetson` module. This adds the module for working with a Jetson device. Click **Add module**.
+   <br>
+   <img alt="find jetson module" src="assets/find-jetson-module.png" width=350 />
+1. Give your component a more descriptive name, like `jetson-board`. Click **Create**.
+   <br>
+   <img alt="add jetson module" src="assets/name-jetson-board.png" width=350 />
+1. Notice this adds the board hardware component called `jetson-board`. 
+   <br>
+   <img alt="board component added" src="assets/board-card.png" />
+1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
+
+### Configure your arm
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component or service**.
+1. Select `arm`, and find the `ufactory:xArm6` module. This adds the module for working with a uFactory xArm6 arm. Click **Add module**.
+   <br>
+   <img alt="find arm module" src="assets/find-arm.png" width=350 />
+1. Leave the default name `arm-1` for now. Click **Create**.
+1. Notice this adds the arm hardware component called `arm-1`. 
+   <br>
+   <img alt="arm component added" src="assets/arm-card.png" />
+1. In the JSON configuration section of your arm component, add the following attributes (along with your preferred values), for example:
+   ```json
+      {
+         "host": "0.0.0.0",
+         "speed_degs_per_sec": 20,
+         "acceleration_degs_per_sec_per_sec": 0
+      }
+   ```
+1. Scroll down a bit to find the **Frame** section, which is still within the **Configure** area. Click **Add frame**.
+   <br>
+   <img alt="add frame to arm" src="assets/add-frame.png" width=450 />
+1. This adds a default frame with initial default values. Leave these default values for now.
+   ![default frame added to arm](assets/default-frame-added.png)
+1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
+
+
+### Configure your gripper
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component or service**.
+1. Select `gripper`, and find the `viam_gripper_gpio:gripper` module. This adds the module for working with a gripper via GPIO pins. Click **Add module**.
+   <br>
+   <img alt="find gripper module" src="assets/find-gripper.png" width=350 />
+1. Leave the default name `gripper-1` for now. Click **Create**.
+1. Notice this adds the gripper component called `gripper-1`. 
+   <br>
+   <img alt="gripper component added" src="assets/gripper-card.png" />
+1. In the JSON configuration section of your arm component, add the following attributes:
+   ```json
+      {
+         "board": "jetson-board",
+         "pin": "7"
+      }  
+   ```
+1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
+
+### Configure your webapp
+1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component or service**.
+1. Select `generic`, and find the `claw-game:webapp` module. This adds a generic claw game web app via a module by the DevRel team. Click **Add module**.
+   <br>
+   <img alt="find claw game webapp module" src="assets/find-claw-game.png" width=350 />
+1. Give your component a descriptive name, for example `claw-game-webapp`. Click **Create**.
+1. Notice this adds the generic component called `claw-game-webapp`. 
+   <br>
+   <img alt="claw game component added" src="assets/claw-game-card.png" />
+1. In the JSON configuration section of your arm component, add the `port`, `arm`, `board`, `gripper`, and `pickingHeight` attributes with your own values. Be sure to pass the same arm, board, and gripper component names as those in your Viam machine. Also add the `motion` attribute with the value `builtin`. For example:
+   ```json
+      {
+         "port": 8888,
+         "arm": "arm-1",
+         "board": "jetson-board",
+         "gripper": "gripper-1",
+         "pickingHeight": 200, // in millimeters
+         "motion": "builtin" // leave this default
+      }
+   ```
+1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
+
 
 <!-- ------------------------ -->
 
