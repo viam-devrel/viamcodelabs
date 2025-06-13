@@ -94,12 +94,10 @@ Duration: 5
    ![new, unprovisioned machine in Viam app](assets/new-machine.png)
 1. To install `viam-server` on the Jetson device that you want to use, select the `Linux / Aarch64` platform for the Jetson, and leave your installation method as [`viam-agent`](https://docs.viam.com/how-tos/provision-setup/#install-viam-agent).
    ![machine setup instructions in Viam app](assets/setup-viam.png)
-1. Use the `viam-agent` to download and install `viam-server` on your Jetson. Follow the instructions to run the command provided in the setup instructions from the SSH prompt of your Jetson device.
-
+1. Use the `viam-agent` to download and install `viam-server` on your Jetson. SSH into your Jetson device, then follow the instructions to run the command provided in the setup instructions:
+   ![installing viam-server on the Jetson via SSH](assets/install-viam-jetson.png)
 1. The setup page will indicate when the machine is successfully connected.
    ![machine connected successfully](assets/machine-connected.png)
-
-### Configure
 
 <!-- ------------------------ -->
 
@@ -131,10 +129,10 @@ Duration: 15
 1. Notice this adds the arm hardware component called `arm-1`. 
    <br>
    <img alt="arm component added" src="assets/arm-card.png" />
-1. In the JSON configuration section of your arm component, add the following attributes (along with your preferred values), for example:
+1. In the JSON configuration section of your arm component, add the `host`, `speed_degs_per_sec`, and `acceleration_degs_per_sec_per_sec` attributes (with your preferred values). `host` refers to your arm's IP address (which you can find [here](https://docs.ufactory.cc/user_manual/ufactoryStudio/3.connection.html#_3-2-software-connection)), `speed_degs_per_sec` refers to the rotational speed of the joints (between 3 and 180, default is 50 degrees/second), and `acceleration_degs_per_sec_per_sec` refers to the acceleration of joints in radians per second increase per second (default is 100 degrees/second ^2):
    ```json
       {
-         "host": "0.0.0.0",
+         "host": "10.1.1.26",
          "speed_degs_per_sec": 20,
          "acceleration_degs_per_sec_per_sec": 0
       }
@@ -165,28 +163,30 @@ Duration: 15
    ```
 1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
 
-### Configure your webapp
-1. In [the Viam app](https://app.viam.com/fleet/locations) under the **CONFIGURE** tab, click the **+** icon in the left-hand menu and select **Component or service**.
-1. Select `generic`, and find the `claw-game:webapp` module. This adds a generic claw game web app via a module by the DevRel team. Click **Add module**.
-   <br>
-   <img alt="find claw game webapp module" src="assets/find-claw-game.png" width=350 />
-1. Give your component a descriptive name, for example `claw-game-webapp`. Click **Create**.
-1. Notice this adds the generic component called `claw-game-webapp`. 
-   <br>
-   <img alt="claw game component added" src="assets/claw-game-card.png" />
-1. In the JSON configuration section of your arm component, add the `port`, `arm`, `board`, `gripper`, and `pickingHeight` attributes with your own values. Be sure to pass the same arm, board, and gripper component names as those in your Viam machine. Also add the `motion` attribute with the value `builtin`. For example:
-   ```json
-      {
-         "port": 8888,
-         "arm": "arm-1",
-         "board": "jetson-board",
-         "gripper": "gripper-1",
-         "pickingHeight": 200, // in millimeters
-         "motion": "builtin" // leave this default
-      }
-   ```
-1. Click **Save** in the top right. This may take a moment to apply your configuration changes.
 
+<!-- ------------------------ -->
+
+## Test your components
+
+Duration: 5
+
+### Testing the board component
+1. In your board component, expand the TEST section. Here, you'll find a testing panel where you can test individual GPIO pins by reading from or writing to them.
+2. Set the **Pin** field to `7`, the **Pin type** to `GPIO`, and the **Mode** to `Write`.
+3. Assuming the gripper is in the default open state, test closing it by setting the **State** to `High`, then pressing **Set**. To test opening it, set the **State** to `Low`, then press **Set**:
+   ![GIF of testing board component with gripper](assets/test-board-claw-game.gif)
+
+### Testing the arm component
+1. In your arm component, expand the TEST section. Here, you'll find a testing panel where you can test various arm and joint actions.
+3. To test the movement of specific joints,  you can use the `MoveToJointPositions` panel. For example, to move joint 0 (the lowest on the arm), change the angle for joint 0's input, the press **Execute**. To test the top-most joint (in our case, where the gripper is mounted), change the angle for joint 5, then press **Execute**:
+   ![GIF of testing arm joint movement](assets/test-move-joint-positions.gif)
+1.  Try also testing the movement to specific positions using the `MoveToPosition` panel. For example, to move the arm down, change the `Z` input to a smaller number. To move it back up, change the `Z` to a higher number. To test the rotation of the wrist, try changing the `θ`'s input:
+   ![GIF of testing arm movement to specific positions](assets/test-move-to-positions.gif)
+
+### Testing the gripper component
+1. In your gripper component, expand the TEST section. Here, you'll find a testing panel where you can test opening and closing the gripper.
+3. Assuming the gripper is in the default open state, test the Grab action by selecting the **Grab** button. To test the open action, select the **Open** button:
+   ![GIF of testing board component with gripper](assets/test-gripper.gif)
 
 <!-- ------------------------ -->
 
