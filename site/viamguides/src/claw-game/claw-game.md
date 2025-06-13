@@ -1,6 +1,6 @@
 author: Joyce
 id: claw-game
-summary: Create your own arcade claw game using a robotic arm, an arcade claw grabber, and Jetson
+summary: Create your own arcade claw game using a robotic arm, an arcade claw grabber, and Nvidia Jetson
 categories: Getting-Started, Developer
 environments: web
 status: Published
@@ -17,30 +17,30 @@ Duration: 1
 
 In this tutorial, you'll create an arcade claw game using a robotic arm, an arcade claw grabber, and a Jetson. Learn how to fine-tune the machine, from the precision of each grab, to the claw’s strength, and even the aesthetics of your control interface.
 
-<!-- ![servo latch demo](assets/servoDemo.gif) -->
-
 ### Prerequisites
 
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com/fleet/locations/) to the Viam app
 - Hardware and supplies requirements
 
-  - 1 - Jetson with Jetpack 5, set up so you can SSH into it, with a microSD card, and power supply
-
-  - 1 - [uFactory xarm 6](https://www.ufactory.us/product/ufactory-xarm-6) robotic arm assembled and mounted securely on a surface. This requires a wired ethernet connection to get the control box online
-  - 1 - An arcade claw with 24V power supply
+  - 1 - [Nvidia Jetson Orin Nano](https://developer.nvidia.com/buy-jetson) with [Jetpack 5](https://www.jetson-ai-lab.com/initial_setup_jon.html), set up so you can SSH into it, with a microSD card, and power supply
+  - 1 - [uFactory xarm 6](https://www.ufactory.us/product/ufactory-xarm-6) robotic arm assembled and mounted securely on a surface. This requires a wired ethernet connection to communicate with the control box over the local network.
+  - 1 - [An arcade claw](https://a.co/d/0zdeCQ2)
+  - 1 - [24V power supply w/ barrel jack to screw terminal adapter](https://a.co/d/02IrvaE)
   - 1 - 3D printer to print the claw mount
+  - 2 - [M4 12mm hex screws](https://a.co/d/4Aw6LVh) for mounting the claw
   - 1 - Hex 4 screwdriver
+  - 3 - M3 button socket cap screws w/ matching nuts
   - 600 - Small items for the claw to grab
 
 ### What You’ll Learn
 
 - How to use modules from [the Viam registry](https://docs.viam.com/registry/)
-- How to use the motion service using the Viam Python SDK
+- How to use the motion service through the Viam TypeScript SDK
 - How to create a custom control interface using the Viam TypeScript SDK
 
 ### What You’ll Build
 
-- An arcade claw game that lets players
+- An arcade claw game that lets players control a robot arm to pick up items
 
 ### Watch the Video
 
