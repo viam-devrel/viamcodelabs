@@ -369,7 +369,7 @@ let home_pose_in_frame: PoseInFrame = {
 await motionClient.move(home_pose_in_frame, getArmName(armName), myWorldState)
 ```
 
-To make it easier players of the claw game to quickly position the arm, you can define "quadrant" coordinates by breaking up the space around it into a 3x3 grid:
+To make it easier for players of the claw game to quickly position the arm, you can define "quadrant" coordinates by breaking up the space around it into a 3x3 grid:
 
 ```ascii
 
