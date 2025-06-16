@@ -631,7 +631,7 @@ async function main() {
 main().catch(console.error);
 ```
 
-Check out the [`static/index.html` file]() for the complete UI markup, but here is a snippet of how the HTML looks for the event listener in the TypeScript file:
+Check out the [`static/index.html` file](https://github.com/viam-labs/claw-game/blob/main/static/index.html) for the complete UI markup, but here is a snippet of how the HTML looks for the event listener in the TypeScript file:
 
 ```html
 <div id="forward-button" class="grid-arrow grid-arrow-up" data-event="move" data-target="planar" data-x="-20"
