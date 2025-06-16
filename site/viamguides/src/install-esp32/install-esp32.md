@@ -81,7 +81,7 @@ Duration: 5
 1. In the Viam app, wait for confirmation that your machine has successfully connected, and status is "Live". This might take a few minutes to complete depending on your connection.
    ![machine status is live](assets/live.png)
    > aside negative
-   > Check out the [troubleshooting tips](https://docs.viam.com/operate/reference/viam-micro-server/micro-troubleshooting) if you encounter any issues with the installation. Or refer to [the video demonstration](https://www.youtube.com/watch?v=yUZMo8l8up4).
+   > Check out the [troubleshooting tips](https://docs.viam.com/operate/reference/viam-micro-server/micro-troubleshooting) if you encounter any issues with the installation. Or refer to [the video demonstration](https://www.youtube.com/watch?v=yUZMo8l8up4) and Viam docs around [setting up an ESP32](https://docs.viam.com/operate/get-started/setup-micro/).
 
 <!-- ------------------------ -->
 
@@ -112,7 +112,7 @@ Duration: 1
 
 ### Develop custom firmware
 
-Once `viam-micro-server` is installed, you can use your ESP32 with all of Viam's supported resource APIs, but you cannot write your own code directly interacting with the chip. If you want to program the chip directly, follow the [development setup guide](https://docs.viam.com/operate/get-started/setup-micro/micro-troubleshooting/) to learn how to to customize `viam-micro-server` and create modules using Rust.
+Once `viam-micro-server` is installed, you can check that your device is connected to Viam and try out the [`free_heap_sensor`](https://github.com/viamrobotics/micro-rdk/tree/main/examples/modular-drivers#free_heap_sensor) or one of the [other included modules](https://docs.viam.com/operate/get-started/setup-micro/#about-esp32-microcontroller-setup). Then, to use other hardware or software with your ESP32, follow the guide to build and flash custom firmware. You can [build firmware that includes pre-existing modules](https://docs.viam.com/operate/get-started/setup-micro/), or [include modules you create yourself](https://docs.viam.com/operate/get-started/other-hardware/micro-module/).
 
 ### Related projects
 
