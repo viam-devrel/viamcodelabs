@@ -89,7 +89,7 @@ In order to control the claw through Viam, you will now wire the relay to the Je
 
 Duration: 5
 
-1. In [Viam](https://app.viam.com/fleet/dashboard) under the **LOCATIONS** tab, create a machine by typing in a name like "claw-game" and clicking **Add machine**.
+1. In [Viam](https://app.viam.com/fleet/dashboard) under the **LOCATIONS** tab, create a machine by typing in a name like "claw-arm" and clicking **Add machine**.
    ![create new machine in Viam app](assets/create-machine.png)
 1. Click **View setup instructions**.
    ![new, unprovisioned machine in Viam app](assets/new-machine.png)
