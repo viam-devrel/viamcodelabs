@@ -263,7 +263,7 @@ Personify your machine! This dude was hand-sculpted with polymer clay.
 
 - [Automatic pet feeder](https://www.viam.com/post/smart-pet-feeder)
 - [Tipsy: Create an autonomous drink carrying robot](https://www.viam.com/post/autonomous-drink-carrying-robot)
-- [Robotic claw game](https://www.viam.com/post/how-we-built-our-robotic-claw-game-at-icra) using a motion service, which could be extended in the following ways:
+- [Robotic claw game](https://codelabs.viam.com/guide/claw-game) using a motion service, which could be extended in the following ways:
   - ‍Using [object or color detection](https://docs.viam.com/how-tos/detect-people/) to keep track of how many people grab different kinds of prizes‍
   - Using an [ML model](https://docs.viam.com/services/ml/) to determine grab success rate and create a score counter
 
