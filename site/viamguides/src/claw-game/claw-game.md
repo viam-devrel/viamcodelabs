@@ -47,7 +47,7 @@ In this tutorial, you'll create an arcade claw game using a robotic arm, an arca
 
 See a demonstration and overview of the arcade claw game in this video.
 
-<!-- <video id="WFlZlPSefqc"></video> -->
+<video id="DUpP9n5H3to"></video>
 
 <!-- ------------------------ -->
 
