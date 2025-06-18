@@ -153,7 +153,7 @@ Duration: 3
 
 1. Connect the RPLidar to the Raspberry Pi using the USB cable included with the device.
    ![connect via USB Cable](assets/USB.jpg)
-1. Be sure to position the RPlidar on the rover so that it faces forward in the direction of travel. For example, if you are using a Viam Rover and the RPlidar A1 model, mount it to the Rover so that the pointed end of the RPlidar mount housing is facing in the same direction as the webcam. Also ensure that the center of the RPlidar is mounted at the center of your machine’s base. In the case of the Viam Rover the center is in the middle between the wheels.
+1. Be sure to position the RPlidar on the rover so that it faces forward in the direction of travel. For example, if you are using a Viam Rover and the RPlidar A1 model, mount it to the Rover so that the pointed end of the RPlidar is facing the back of the rover (away from the webcam). Also ensure that the center of the RPlidar is mounted at the center of your machine’s base. In the case of the Viam Rover the center is in the middle between the wheels.
 
    ![mount the lidar](assets/mount.jpg)
 
@@ -163,14 +163,15 @@ Duration: 3
 ### Configure the RPLidar
 
 1. In [the Viam app](https://app.viam.com/fleet/locations), find the **CONFIGURE** tab.
-1. Click the **+** icon in the left-hand menu and select **Component**.
-   ![select component](assets/selectComponent.png)
+1. Click the **+** icon in the left-hand menu and select **Component or service**.
 1. Select `camera`, and find the `rplidar` module. This adds the module for working with the RPLidar, models A1, A2, or A3. Update the default name to `rplidar`.
    ![select rplidar](assets/rplidar.png)
 1. Notice adding this component adds the camera hardware component called `rplidar`. The collapsible panel on the right corresponds to the part listed in the left sidebar.
 1. Click **Save** in the top right to save and apply your configuration changes.
 1. Expand the **TEST** section, and toggle **GetPointCloud** to the ON position to ensure the RPLidar has been set up properly and data is being captured.
    ![get point cloud](assets/getPointCloud.png)
+1. Click and drag on the point cloud to adjust the view.
+   ![view point cloud](assets/frame.png)
    > aside negative
    > If any problems occur, check under the **LOGS** tab to see what might be going wrong. [Refer to the troubleshooting guide if needed.](https://docs.viam.com/components/camera/webcam/#troubleshooting)
 
@@ -205,7 +206,7 @@ Duration: 3
 1. At this point, your rover is an explorer capturing and recording new data as it roves within the physical space. You can control your rover manually using the controls within the Viam app to see how this impacts the data represented in the `slam-1` panel. If you're using the Viam rover 2, find the `viam_base` and use keyboard controls to drive it around.
    ![control tab](assets/manualDriving.png)
 
-### Save a local map
+### Save a map
 
 > aside positive
 > If you want to save your locally built map, you can use the **GetInternalState** API as we will do next or use the local map uploading feature of the [CloudSLAM](https://docs.viam.com/operate/reference/services/slam/cloudslam/).
