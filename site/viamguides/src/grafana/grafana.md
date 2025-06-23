@@ -186,6 +186,38 @@ With your data connection established, you can then build dashboards that provid
       }
    ])
    ```
+1. Optional: If your datasets contains a lof of data due to high frequency data capture or you want to query over long date/time ranges, consider aggregating the data on the data backend using a bucket query as follows:
+   ```bash
+   sensorData.readings.aggregate([
+      { "$match": {
+            "time_requested": {
+                "$gt": $__timeFrom,
+                "$lte": $__timeTo
+            }
+      }},
+      { "$group": {
+            "_id": {
+                "$subtract": [
+                    { "$subtract": ["$time_requested", ISODate("1970-01-01")]},
+                    { "$mod": [
+                       {
+                        "$subtract": ["$time_requested", ISODate("1970-01-01")] },
+                        $__interval_ms
+                    ]}
+                ]
+            },
+            "current": {
+                "$avg": "$data.readings.Current"
+            },
+            "voltage": {
+                "$avg": "$data.readings.Voltage"
+            },
+            "speed": {
+                "$avg": "$data.readings.Speed"
+            }
+        }
+    }])
+   ```
 1. Click the **Run query** button, and confirm the time series data displays as you want it to on the graph above.
    ![time series data](assets/queryAndViz.png)
 1. Continue editing your query, or add new queries, and then **Save dashboard** when you're done.
