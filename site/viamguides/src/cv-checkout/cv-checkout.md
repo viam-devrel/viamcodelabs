@@ -13,9 +13,13 @@ tags: Getting Started, Developer
 Duration: 1
 
 ### What You’ll Build 
-A computer vision-powered self checkout. You'll create and train a custom model based on your favorite drinks and combine it with a vision service. This machine can then be deployed to a Raspberry Pi or spare laptop to be used as a checkout!
+A computer vision-powered self checkout. You'll create and train a custom model based on your favorite drinks and combine it with a vision service. You'll also create a simple checkout kiosk interface using Viam's TypeScript SDK. This machine can then be deployed to a Raspberry Pi or spare laptop to be used as a checkout!
    
+   _The CV-powered beverage detector in Viam_
    ![computer vision powered checkout; gif showing a beverage being shown to the camera with a bounding box around it and a confidence level for its detection](assets/cv-checkout-demo.gif)
+
+   _A simple kiosk interface that implements the CV-powered beverage detector_
+   ![Screenshot of a checkout kiosk, powered by Viam, built with Viam's TypeScript SDK](assets/kiosk-view.png)
 
 ### Prerequisites
 - A computer with a built-in webcam
@@ -24,12 +28,14 @@ A computer vision-powered self checkout. You'll create and train a custom model 
 
 ### What You’ll Need
 - Sign up for a free Viam account, and then [sign in](https://app.viam.com).
+- A code editor, like VSCode or something similar.
 
 ### What You’ll Learn 
 - How to configure a camera in the Viam platform
 - How to capture images and create your own training dataset
 - How to build and train a custom model using TFLite
 - How to implement your custom model in your machine
+- How to create and connect a simple interface to your Viam machine using Viam's [TypeScript SDK](https://ts.viam.dev/)
 
 ### Watch the video
  See a demonstration of the CV Checkout (beverage detection):
@@ -223,19 +229,231 @@ Duration: 5
    > aside negative
    > **Troubleshooting**: Having trouble detecting the correct beverage (or anything at all)? Try setting the **Minimum confidence threshold** to something smaller, save your changes, and see if that helps. Additionally, make sure you have enough light for your webcam to detect clearer images, keep your background and surroundings free of potential visual clutter, and hold up your beverage for at least a few seconds (so that the vision service can get a clear image to interpret). If this all still doesn't work, you may need to add more images or better quality images to your model. Luckily, you can repeat the steps in **Create a dataset and capture some training data**, train a new version of your model, then try using it in your ML model service. The more data the better, so at the very least, more images of your beverages _should_ make your model a bit better.
 
-Congratulations! You've just built a working computer vision-powered checkout with a custom model trained on your favorite beverages!
+Congratulations! You've just built a working beverage detector using a custom model trained on your favorite beverages! Let's integrate our vision service into a simple kiosk web app next.
 
+<!-- ------------------------ -->
+
+## Create a kiosk interface with the TypeScript SDK
+Duration: 15
+
+### Review the web app code
+We can easily integrate the output of our vision service into a web app. In this codelab, we'll walk through the [source code](https://github.com/viam-devrel/cv-checkout-kiosk-demo) of a kiosk built with Viam's TypeScript SDK. In it, we implemented a simple kiosk that shows our camera feed and detections (including bounding boxes and labels!), the beverage detected, and a price. This app can be deployed to any static hosting provider, run locally on your laptop, or packaged as a [module](https://docs.viam.com/operate/get-started/other-hardware/create-module/) to be deployed to your machine running viam-server.
+
+   > aside positive
+   > Feel free to clone the [source code](https://github.com/viam-devrel/cv-checkout-kiosk-demo) for this demo app and use it to complete this codelab. The README will have instructions on how to get up and running quickly. You can also extend the kiosk app as necessary.
+
+#### `src/main.ts`
+Let's break down the highlights of the [`src/main.ts`](https://github.com/viam-devrel/cv-checkout-kiosk-demo/blob/main/src/main.ts) file to see how this app works.
+
+To get the necessary credentials to connect to viam-server, we grab them from a `.env` file.
+```TypeScript
+const MACHINE_ADDRESS = import.meta.env.VITE_MACHINE_ADDRESS;
+const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY_ID = import.meta.env.VITE_API_KEY_ID;
+```
+
+We initialize a kiosk view canvas where we'll output the vision service's image and detections.
+```TypeScript
+// Sets up the kiosk view by creating a single, reusable canvas. Call on startup.
+function initializeKioskView() {
+  const imageContainer = document.getElementById('kioskView');
+  if (imageContainer) {
+    // Create the canvas element
+    kioskCanvas = document.createElement('canvas');
+    
+    // Get the context for drawing
+    kioskCtx = kioskCanvas.getContext('2d');
+    
+    // Append the canvas to the container. This is the LAST time
+    // we will manipulate the DOM for the canvas.
+    imageContainer.innerHTML = ''; // Clear any placeholders
+    imageContainer.appendChild(kioskCanvas);
+  } else {
+    console.error("Kiosk container 'kioskView' not found!");
+  }
+}
+```
+
+For now, our data store is a simple object. It uses the labels from our custom model as the keys and returns an object of the beverage name and price we want to display as the values.
+```TypeScript
+// For demo purposes only. This would be replaced with a call to your data source.
+// Alternatively, if you'd also like to use as-is for a demo with your own custom model and labels,
+// you can replace the products object below with your own labels and corresponding data you want returned.
+function translateBeverageInfo(label: any) {
+  const products = {
+    "spindrift_pog": {item: "Spindrift Pog Sparkling Water", price: "1.50"},
+    "bottle_coke": {item: "Bottle Coke", price: "2.50"},
+    "topo_chico_blueberry":  {item: "Topo Chico Blueberry Sparking Water", price: "1.50"},
+    "bottle_fanta_orange": {item: "Bottle Fanta Orange", price: "2.50"},
+    "bottle_topo_chico": {item: "Bottle Topo Chico", price: "2.75"},
+  };
+
+  return products[label];
+}
+```
+Here is the main function that renders the vision service data into the kiosk format we've structured. It first checks for the initialized canvas element then clears any existing drawing before creating a new drawing. This drawing renders the image from the vision service and draws the bounding box for any detections within the image. Finally, the name and price of the beverage are also rendered.
+```TypeScript
+async function renderDetectedBeverage(visionServiceData: any) {
+  // Use the globally available context and canvas.
+  // If they don't exist, we can't draw, so we exit early.
+  if (!kioskCanvas || !kioskCtx) {
+    console.error("Kiosk canvas is not initialized.");
+    return;
+  }
+  
+  // Reference kioskCtx for all drawing operations.
+  const ctx = kioskCtx;
+  
+  if (visionServiceData.image) {
+    // Create image element to load the base64 data
+    const img = new Image();
+    const base64string = await convertToBase64String(visionServiceData.image.image);
+    
+    img.onload =  () => {
+      // Set canvas dimensions to match new image from stream
+      if (kioskCanvas) {
+        kioskCanvas.width = img.width;
+        kioskCanvas.height = img.height;
+
+        // Clear old drawing
+        ctx.clearRect(0, 0, kioskCanvas.width, kioskCanvas.height);
+      }
+
+      // Draw the original image
+      ctx.drawImage(img, 0, 0);
+      
+      // Draw bounding boxes and labels for each detection
+      visionServiceData.detections.forEach((detection) => {
+        // Convert coordinates to numbers explicitly
+        const xMin = Number(detection.xMin || 0);
+        const yMin = Number(detection.yMin || 0);
+        const xMax = Number(detection.xMax || 0);
+        const yMax = Number(detection.yMax || 0);
+        const width = xMax - xMin;
+        const height = yMax - yMin;
+        
+        // Draw bounding box
+        ctx.strokeStyle = '#0000EA'; // Viam blue accent
+        ctx.lineWidth = 2;
+        ctx.strokeRect(xMin, yMin, width, height);
+        
+        // Draw label background
+        const label = `${detection.className} (${(detection.confidence * 100).toFixed(1)}%)`;
+        ctx.font = '16px Arial';
+        const textMetrics = ctx.measureText(label);
+        const textHeight = 20;
+        
+        ctx.fillStyle = 'rgb(0, 0, 234)';
+        ctx.fillRect(xMin, yMin - textHeight, textMetrics.width + 8, textHeight);
+        
+        // Draw label text
+        ctx.fillStyle = '#000000';
+        ctx.fillText(label, xMin + 4, yMin - 4);
+
+        // Render item name and price
+        const beverage = translateBeverageInfo(detection.className);
+        const beverageName = document.getElementById('beverageLabel');
+        
+        if (beverageName) {
+          beverageName.innerText = beverage?.item || 'Unknown';
+        }
+
+        const beveragePrice = document.getElementById('priceLabel');
+        if (beveragePrice) {
+          beveragePrice.innerText = beverage?.price || 'Unknown';
+        }
+      });
+    };
+
+    img.src = `data:image/jpeg;base64,${base64string}`;
+  }
+}
+```
+
+Finally, we have our main function. Here, we instantiate our connection to our machine in Viam, set up our canvas and vision service dependency, and start the loop that continuously polls for data from our vision service. This polling allows us to render a near real-time feed from our camera. If there is something detected, we call our `renderDetectedBeverage()` method.
+```TypeScript
+const main = async () => {
+  const host = MACHINE_ADDRESS;
+
+  const machine = await VIAM.createRobotClient({
+    host,
+    credentials: {
+      type: "api-key",
+      payload: API_KEY,
+      authEntity: API_KEY_ID,
+    },
+    signalingAddress: "https://app.viam.com:443",
+  });
+  
+  initializeKioskView();
+  
+  const vision = new VIAM.VisionClient(machine, 'beverage-vision-service');
+
+  // To get a "stream" of sorts, need to continuously poll for frames from vision service.
+  while (true) {
+    try {
+      const visionServiceData = await getEverythingFromVisionService(vision);
+      console.log(visionServiceData)
+
+      await renderDetectedBeverage(visionServiceData);
+
+    } catch (error) {
+      console.error('Vision stream error:', error);
+    }
+
+    // Artificial delay, used to still get somewhat "real-time" feed of vision service
+    // while balancing number of calls being made to grab new vision service data.
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 200));
+  }
+};
+
+main();
+```
+
+#### `index.html`
+
+The structure of our kiosk app is straightforward and is contained within the sole [`index.html`](https://github.com/viam-devrel/cv-checkout-kiosk-demo/blob/main/index.html) file. A `<div>` holds our canvas and shows the "stream" from our vision service and some labels render the name and price of the detected beverage. And of course, a nice "Powered by Viam" logo 😉
+```html
+<!doctype html>
+<html>
+  <head>
+    <title>CV Checkout</title>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1 class="centered">CV Checkout Kiosk Demo</h1>
+    <div id="main" class="flex-row-center">
+      <div id="kioskView"></div>
+      <div id="itemInfo">
+        <p class="beverage-label">Beverage Detected:</p>
+        <p id="beverageLabel"></p>
+        <p class="price-label">Price: $<span id="priceLabel"></span></p>
+      </div>
+    </div>
+    <div class="viam-logo" alt="Viam logo"></div>
+    <script type="module" src="src/main.ts"></script>
+  </body>
+</html>
+```
+Once you have built your interface and have configured your Viam machine to use it, you'll have fully CV-powered checkout kiosk! If you followed along with our demo app, the kiosk will look like this:
+
+![GIF preview of CV checkout kiosk in action](assets/cv-checkout-kiosk.gif)
 <!-- ------------------------ -->
 ## Conclusion And Resources
 Duration: 1
 
-Congratulations! You've just built a computer vision-powered checkout! 🥳 Using your own images, favorite drinks, and the built-in TensorFlow Lite framework, you've created a custom model to detect the beverages that make you smile and can be deployed anywhere. And through Viam's modular platform, you combined your custom model with a vision service to enable a CV-powered checkout! Do [let me know](https://bsky.app/profile/abt.bsky.social) if you've built this!
+Congratulations! You've just built a computer vision-powered checkout! 🥳 Using your own images, favorite drinks, and the built-in TensorFlow Lite framework, you've created a custom model to detect the beverages that make you smile and can be deployed anywhere. And through Viam's modular platform, you combined your custom model with a vision service to enable a CV-powered checkout! Lastly, you used Viam's TypeScript SDK to create a kiosk interface that outputs your vision service's detections and added a clear beverage name and price label. Do [let me know](https://bsky.app/profile/abt.bsky.social) if you've built this!
 
 ### What You Learned
 - How to configure a camera in the Viam platform
 - How to capture images and create your own training dataset
 - How to build and train a custom model using TFLite
 - How to implement your custom model in your machine
+- How to create and connect a simple interface to your Viam machine using Viam's [TypeScript SDK](https://ts.viam.dev/)
 
 ### Real-world applications for CV-powered checkout
 This project is a great way to learn about combining different components to produce something useful; it has practical applications as well:
