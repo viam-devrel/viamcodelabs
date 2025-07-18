@@ -103,7 +103,7 @@ Duration: 5
    ![add machine](assets/addYahboom.png)
 1. Once your machine is created, you are brought to your machine overview page. Click **View setup instructions**.
    ![setup instructions](assets/setupInstructions.png)
-1. To install `viam-server` on your device, select the operating system you are running. For example, I'll be using a Raspberry Pi as my device, so I'll select `Linux / Aarch64`. Leave the default installation method of `viam-agent`:
+1. To install `viam-server` on your device, select `Linux/Aarch64`. Leave the default installation method of `viam-agent`:
    ![select platform](assets/selectPlatform.png)
 1. Follow the instructions that are shown for your platform. If you are following along with a Pi, you'll copy the command shown and run it in your SSH session on your Pi. 
 1. The setup page will indicate when the machine is successfully connected.
