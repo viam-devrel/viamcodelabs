@@ -246,7 +246,7 @@ Edge AI is transforming how we build intelligent systems by:
 
 Here are some ways to extend your project:
 
-- **Try different pre-trained models**: Explore other models available in the Coral model zoo
+- **Try different pre-trained models**: Explore other models available in [the Coral model zoo](https://coral.ai/models/)
 - **Custom applications**: Create a Viam app that uses the vision service data for specific use cases
 - **Integrate with other hardware**: Connect motors, servos, or other actuators to build a responsive robot
 - **Data collection**: Capture and analyze object classification data over time
@@ -268,12 +268,3 @@ Each option has different performance characteristics, model support, and integr
 - [ML Model Service Documentation](https://docs.viam.com/services/ml/)
 - [Vision Service Documentation](https://docs.viam.com/services/vision/)
 - [Viam Community Discord](https://discord.gg/viam)
-
-### Exploring other edge AI options
-
-The Coral TPU excels at efficient inference for supported model architectures. Depending on your specific requirements, you might also consider:
-
-- **Other runtimes**: [NCNN for mobile deployment](https://codelabs.viam.com/guide/ncnn-edge-ai), [ONNX Runtime](https://app.viam.com/module/viam/onnx-cpu) for cross-platform compatibility
-- **Alternative accelerators and hardware**: [Raspberry Pi AI Hat for integrated solutions](https://codelabs.viam.com/guide/pi-ai-hat/index.html), [Raspberry Pi AI Camera](https://app.viam.com/module/hipsterbrown/pi-ai-camera)
-
-Each option has different performance characteristics, model support, and integration requirements.
