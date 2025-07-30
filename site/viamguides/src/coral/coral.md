@@ -27,6 +27,8 @@ In this codelab, you'll learn how to set up and use the Coral Edge TPU with Viam
 
 - A system using Google Coral Edge TPU for AI inference at the edge
 
+![technical diagram with components and data flow](./assets/diagram.png)
+
 ### Prerequisites
 
 - A computer with MacOS, Windows, or Linux to configure your device's components using the Viam app
@@ -227,6 +229,8 @@ Congratulations! 🎉 You've successfully built an edge AI system that runs opti
 - How to use the Coral ML model service for efficient edge AI
 - How to run inference using a vision service
 - How to optimize ML model performance on edge devices
+
+![technical diagram with components and data flow](./assets/diagram.png)
 
 ### Why edge AI matters
 
