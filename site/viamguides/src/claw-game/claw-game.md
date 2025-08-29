@@ -23,7 +23,7 @@ In this tutorial, you'll create an arcade claw game using a robotic arm, an arca
 - Hardware and supplies requirements
 
   - 1 - [Nvidia Jetson Orin Nano](https://developer.nvidia.com/buy-jetson) with [Jetpack 5](https://www.jetson-ai-lab.com/initial_setup_jon.html), set up so you can SSH into it, with a microSD card, and power supply
-  - 1 - [uFactory xarm 6](https://www.ufactory.us/product/ufactory-xarm-6) robotic arm assembled and mounted securely on a surface. This requires a wired ethernet connection to communicate with the control box over the local network.
+  - 1 - [uFactory xArm 6](https://www.ufactory.us/product/ufactory-xarm-6) robotic arm assembled and mounted securely on a surface. This requires a wired ethernet connection to communicate with the control box over the local network.
   - 1 - [An arcade claw](https://a.co/d/0zdeCQ2)
   - 1 - [24V power supply w/ barrel jack to screw terminal adapter](https://a.co/d/02IrvaE)
   - 1 - 3D printer to print the claw mount
