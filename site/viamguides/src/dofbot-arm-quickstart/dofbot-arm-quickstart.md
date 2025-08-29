@@ -393,7 +393,7 @@ We now have a connection to the arm (and its joints). Last thing to add is the g
 1. Notice adding this module adds the gripper hardware component called `dofbot-gripper`. You'll see a collapsible card on the right, where you can configure the gripper component, see any errors originating from the component, and test the component directly, and the corresponding `dofbot-gripper` part listed in the left sidebar. 
   <br>
   <img alt="added gripper component" src="assets/dofbotGripperAdded.png" width=350 />
-1. To give the gripper a reference to its position and orientation within the machine's spatial environment, we'll need to add a frame. In th eConfigure panel (within the gripper component), click **Add Frame**.
+1. To give the gripper a reference to its position and orientation within the machine's spatial environment, we'll need to add a frame. In the Configure panel (within the gripper component), click **Add Frame**.
   <img alt="add frame to dofbot gripper" src="assets/addFrame.png" width=350 />
 1. Notice that this adds a default frame with some default values. For the `parent` key, change the value to the name of your arm, so `dofbot-arm`:
    ![default frame added to gripper](assets/frameAddedToGripper.png)
