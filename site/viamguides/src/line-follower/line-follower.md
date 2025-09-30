@@ -1,12 +1,11 @@
 author: Naomi Pentrel
-id: webcam-line-follower-robot
+id: line-follower
 summary: Build a line-following robot that relies on a webcam and color detection
 categories: Getting-Started, Developer
 environments: web
 status: Published
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
-tags: Getting Started, Developer, Scuttle, Rover
----
+tags: Getting Started, Developer
 
 # Build a Line Follower with a Rover and a Webcam
 
