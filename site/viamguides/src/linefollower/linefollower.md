@@ -1,21 +1,16 @@
 author: Naomi Pentrel
-id: line-follower
+id: linefollower
 summary: Build a line-following robot that relies on a webcam and color detection
 categories: Getting-Started, Developer
 environments: web
 status: Published
 feedback link: https://github.com/viam-devrel/viamcodelabs/issues
-tags: Getting Started, Developer
+tags: Getting Started, Developer, Data
 
 # Build a Line Follower with a Rover and a Webcam
-
 <!-- ------------------------ -->
 
-<div class="td-max-width-on-larger-screens">
- <div class="alignright" style="width:150px;">
-  {{<gif webm_src="./assets/lf-following1.webm" mp4_src="./assets/lf-following1.mp4" alt="Robot following a line">}}
-  </div>
-</div>
+<div class="alignright" style="width:150px"><div class="gif"><video autoplay="" loop="" muted="" playsinline="" alt="Robot following a line" width="100%" class="lozad" data-loaded="true"><source data-src="./assets/lf-following1.webm" type="video/webm" src="./assets/lf-following1.webm"><source data-src="./assets/lf-following1.mp4" type="video/mp4" src="./assets/lf-following1.mp4">There should have been a video here but your browser does not seem to support it.</video><noscript><video autoplay loop muted playsinline alt="Robot following a line" width=100%><source data-src=./assets/lf-following1.webm type=video/webm><source data-src=./assets/lf-following1.mp4 type=video/mp4>There should have been a video here but your browser does not seem to support it.</video></noscript></div></div>
 
 Many line-following robots rely on a dedicated array of infrared sensors to follow a dark line on a light background or a light line on a dark background.
 This tutorial uses a standard webcam in place of these sensors, and allows a robot to follow a line of any color that is at least somewhat different from the background.
@@ -31,7 +26,7 @@ This tutorial uses a standard webcam in place of these sensors, and allows a rob
 
 If you'd like to directly see the code, check out the [**Line Follower Code on GitHub**](https://github.com/viam-labs/line-follower/).
 
-{{<imgproc src="./assets/lf-scuttle2.png" resize="600x" declaredimensions=true alt="A Scuttle robot base with a camera mounted on the front, pointing mostly down and slightly forwards.">}}
+![A Scuttle robot base with a camera mounted on the front, pointing mostly down and slightly forwards](./assets/lf-scuttle2.png)
 
 ## Requirements
 
@@ -47,13 +42,9 @@ To build your own line follower robot, you need the following hardware:
 | **Floor space**: Non-shiny floors tend to work best. | - |
 
 ### Install `viam-server` and connect to your machine
-
-{{% snippet "setup.md" %}}
+Add a new machine on [Viam](https://app.viam.com/). On the machine’s page, follow the setup instructions to install `viam-server` on the computer you’re using for your project. Wait until your machine has successfully connected to Viam.
 
 ## Configure your components
-
-{{< tabs >}}
-{{% tab name="Builder" %}}
 
 Navigate to the **CONFIGURE** tab of your machine's page.
 
@@ -86,86 +77,6 @@ Navigate to the **CONFIGURE** tab of your machine's page.
 
 5. Click **Save** in the top right corner of the screen.
 
-{{% /tab %}}
-{{% tab name="JSON" %}}
-
-With **JSON** mode selected on the **CONFIGURE** tab, replace the configuration with the following JSON configuration for your board, your motors, your base, and your camera:
-
-{{< alert title="Note" color="note" >}}
-Your `"video_path"` value may be different.
-To find yours, follow [these instructions](https://docs.viam.com/operate/reference/components/camera/webcam/#using-video_path).
-{{< /alert >}}
-
-```json {class="line-numbers linkable-line-numbers"}
-{
-  "components": [
-    {
-      "name": "local",
-      "model": "pi",
-      "api": "rdk:component:board",
-      "attributes": {},
-      "depends_on": []
-    },
-    {
-      "name": "leftm",
-      "model": "gpio",
-      "api": "rdk:component:motor",
-      "attributes": {
-        "pins": {
-          "a": "15",
-          "b": "16"
-        },
-        "board": "local",
-        "max_rpm": 200
-      },
-      "depends_on": ["local"]
-    },
-    {
-      "name": "rightm",
-      "model": "gpio",
-      "api": "rdk:component:motor",
-      "attributes": {
-        "pins": {
-          "b": "11",
-          "dir": "",
-          "pwm": "",
-          "a": "12"
-        },
-        "board": "local",
-        "max_rpm": 200
-      },
-      "depends_on": ["local"]
-    },
-    {
-      "name": "scuttlebase",
-      "model": "wheeled",
-      "api": "rdk:component:base",
-      "attributes": {
-        "width_mm": 400,
-        "wheel_circumference_mm": 258,
-        "left": ["leftm"],
-        "right": ["rightm"]
-      },
-      "depends_on": ["leftm", "rightm"]
-    },
-    {
-      "name": "my_camera",
-      "model": "webcam",
-      "api": "rdk:component:camera",
-      "attributes": {
-        "video_path": "video0"
-      },
-      "depends_on": []
-    }
-  ]
-}
-```
-
-Click **Save** in the top right corner of the screen.
-
-{{% /tab %}}
-{{< /tabs >}}
-
 ## Test your components
 
 Navigate to your [machine's **CONTROL** tab](https://docs.viam.com/manage/troubleshoot/teleoperate/default-interface/#web-ui) to test your components.
@@ -177,11 +88,9 @@ Verify that it’s connected by refreshing the page and ensuring that the part s
 1. Enable the keyboard controls and move the base using your keyboard.
    Ensure that the base moves as expected.
 
-   {{< alert title="Tip" color="tip" >}}
-   If one or both drive motors are going backwards, you can power down the Pi by running `sudo poweroff`, unplug the battery, and switch the wires to the motor before powering it back on.
-   {{< /alert >}}
+   **TIP**: If one or both drive motors are going backwards, you can power down the Pi by running `sudo poweroff`, unplug the battery, and switch the wires to the motor before powering it back on.
 
-   {{<gif webm_src="./assets/lf-viamapp-base-view5.webm" mp4_src="./assets/lf-viamapp-base-view5.mp4" alt="Driving the base from the control tab." class="aligncenter" max-width="600px">}}
+   <div class="gif"><video autoplay="" loop="" muted="" playsinline="" alt="Driving the base from the control tab." width="100%" style="width:600px" class="aligncenter lozad" data-loaded="true"><source data-src="./assets/lf-viamapp-base-view5.webm" type="video/webm" src="./assets/lf-viamapp-base-view5.webm"><source data-src="./assets/lf-viamapp-base-view5.mp4" type="video/mp4" src="./assets/lf-viamapp-base-view5.mp4">There should have been a video here but your browser does not seem to support it.</video><noscript><video autoplay loop muted playsinline alt="Driving the base from the control tab." width=100% style=width:600px class=aligncenter><source data-src=./assets/lf-viamapp-base-view5.webm type=video/webm><source data-src=./assets/lf-viamapp-base-view5.mp4 type=video/mp4>There should have been a video here but your browser does not seem to support it.</video></noscript></div>
 
 ## Configuring a color detector for the color of your tape line
 
@@ -193,164 +102,54 @@ Sharp corners will be more challenging for the robot to follow so consider creat
 Once you have created your path, set your robot on the line such that the line appears in the front of the camera’s view.
 Verify that the camera sees the line by viewing the camera feed on the **CONTROL** tab of the machine page.
 
-<p>
-{{<imgproc src="./assets/lf-cam-view6.png" resize="600x" class="aligncenter" declaredimensions=true alt="The camera view in the control tab on the machine page">}}
-</p>
+![The camera view in the control tab on the machine page](./assets/lf-cam-view6.png)
 
 Now, let's configure the color detector so your rover can detect the line:
-
-{{< tabs >}}
-{{% tab name="Builder UI" %}}
 
 Next, navigate to the **CONFIGURE** tab of your machine's page.
 
 1. **Add a vision service.**
 
-Next, add a vision service [detector](https://docs.viam.com/dev/reference/apis/services/vision/#detections):
+   Next, add a vision service [detector](https://docs.viam.com/dev/reference/apis/services/vision/#detections):
 
-Click the **+** (Create) icon next to your machine part in the left-hand menu and select **Component or service**.
-Select type `vision` and model `color detector`.
-Enter `green_detector` for the name, then click **Create**.
+   Click the **+** (Create) icon next to your machine part in the left-hand menu and select **Component or service**.
+   Select type `vision` and model `color detector`.
+   Enter `green_detector` for the name, then click **Create**.
 
-In your vision service’s panel, select the color your vision service will be detecting, as well as a hue tolerance and a segment size (in pixels).
-Use a color picker like [colorpicker.me](https://colorpicker.me/) to approximate the color of your line and get the corresponding rgb or hex value.
-We used `rgb(25,255,217)` or `#19FFD9` to match the color of our green electrical tape, and specified a segment size of 100 pixels with a tolerance of 0.06, but you can tweak these later to fine tune your line follower.
+   In your vision service’s panel, select the color your vision service will be detecting, as well as a hue tolerance and a segment size (in pixels).
+   Use a color picker like [colorpicker.me](https://colorpicker.me/) to approximate the color of your line and get the corresponding rgb or hex value.
+   We used `rgb(25,255,217)` or `#19FFD9` to match the color of our green electrical tape, and specified a segment size of 100 pixels with a tolerance of 0.06, but you can tweak these later to fine tune your line follower.
 
 2. Click **Save** in the top right corner of the screen.
 
 3. (optional) **Add a `transform` camera as a visualizer**
 
-If you'd like to see the bounding boxes that the color detector identifies in a live stream, you'll need to configure a [transform camera](https://docs.viam.com/operate/reference/components/camera/transform/).
-This isn't another piece of hardware, but rather a virtual "camera" that takes in the stream from the webcam we just configured and outputs a stream overlaid with bounding boxes representing the color detections.
+   If you'd like to see the bounding boxes that the color detector identifies in a live stream, you'll need to configure a [transform camera](https://docs.viam.com/operate/reference/components/camera/transform/).
+   This isn't another piece of hardware, but rather a virtual "camera" that takes in the stream from the webcam we just configured and outputs a stream overlaid with bounding boxes representing the color detections.
 
-Click the **+** (Create) icon next to your machine part in the left-hand menu and select **Component or service**.
-Add a [transform camera](https://docs.viam.com/operate/reference/components/camera/transform/) with type `camera` and model `transform`.
-Name it `transform_cam` and click **Create**.
+   Click the **+** (Create) icon next to your machine part in the left-hand menu and select **Component or service**.
+   Add a [transform camera](https://docs.viam.com/operate/reference/components/camera/transform/) with type `camera` and model `transform`.
+   Name it `transform_cam` and click **Create**.
 
-Click **{}** (Switch to advanced) in the top right of the camera's configuration panel to switch to advanced mode.
-Replace the attributes JSON object (`{}`) with the following object which specifies the camera source that the `transform` camera will be using and defines a pipeline that adds the defined `detector`:
+   Click **{}** (Switch to advanced) in the top right of the camera's configuration panel to switch to advanced mode.
+   Replace the attributes JSON object (`{}`) with the following object which specifies the camera source that the `transform` camera will be using and defines a pipeline that adds the defined `detector`:
 
-```json
-{
-  "source": "my_camera",
-  "pipeline": [
-    {
-      "type": "detections",
-      "attributes": {
-        "detector_name": "green_detector",
-        "confidence_threshold": 0.6
-      }
-    }
-  ]
-}
-```
+   ```json
+   {
+     "source": "my_camera",
+     "pipeline": [
+       {
+         "type": "detections",
+         "attributes": {
+           "detector_name": "green_detector",
+           "confidence_threshold": 0.6
+         }
+       }
+     ]
+   }
+   ```
 
 4. Click **Save** in the top right corner of the screen.
-
-{{% /tab %}}
-{{% tab name="JSON" %}}
-
-With **JSON** mode selected, replace the configuration with the following JSON configuration which adds the configuration for the vision service and the transform camera:
-
-```json {class="line-numbers linkable-line-numbers"}
-{
-  "components": [
-    {
-      "name": "local",
-      "model": "pi",
-      "api": "rdk:component:board",
-      "attributes": {},
-      "depends_on": []
-    },
-    {
-      "name": "leftm",
-      "model": "gpio",
-      "api": "rdk:component:motor",
-      "attributes": {
-        "pins": {
-          "a": "15",
-          "b": "16"
-        },
-        "board": "local",
-        "max_rpm": 200
-      },
-      "depends_on": ["local"]
-    },
-    {
-      "name": "rightm",
-      "model": "gpio",
-      "api": "rdk:component:motor",
-      "attributes": {
-        "pins": {
-          "b": "11",
-          "dir": "",
-          "pwm": "",
-          "a": "12"
-        },
-        "board": "local",
-        "max_rpm": 200
-      },
-      "depends_on": ["local"]
-    },
-    {
-      "name": "scuttlebase",
-      "model": "wheeled",
-      "api": "rdk:component:base",
-      "attributes": {
-        "width_mm": 400,
-        "wheel_circumference_mm": 258,
-        "left": ["leftm"],
-        "right": ["rightm"]
-      },
-      "depends_on": ["leftm", "rightm"]
-    },
-    {
-      "name": "my_camera",
-      "model": "webcam",
-      "api": "rdk:component:camera",
-      "attributes": {
-        "video_path": "video0"
-      },
-      "depends_on": []
-    },
-    {
-      "name": "show_detections",
-      "model": "transform",
-      "api": "rdk:component:camera",
-      "attributes": {
-        "source": "my_camera",
-        "pipeline": [
-          {
-            "type": "detections",
-            "attributes": {
-              "detector_name": "green_detector"
-            }
-          }
-        ]
-      },
-      "depends_on": []
-    }
-  ],
-  "services": [
-    {
-      "name": "green_detector",
-      "api": "rdk:service:vision",
-      "model": "color_detector",
-      "attributes": {
-        "segment_size_px": 100,
-        "detect_color": "#19FFD9",
-        "hue_tolerance_pct": 0.06,
-        "camera_name": "camera-1"
-      }
-    }
-  ]
-}
-```
-
-Click **Save** in the top right corner of the screen.
-
-{{% /tab %}}
-{{< /tabs >}}
 
 ## Test your color detector
 
@@ -358,7 +157,7 @@ Navigate to your [machine's **CONTROL** tab](https://docs.viam.com/manage/troubl
 Click on the transform camera panel and toggle the camera on.
 You should now be able to view the camera feed with color detector overlays superimposed on the image.
 
-![A screenshot of the CONTROL tab showing the base card with the show_detections transform camera stream displayed. A green line crosses the left portion of the camera image, and a red box around it is labeled "cyan: 1.00".](https://docs.viam.com/tutorials/webcam-line-follower/bounding.png)
+![On the CONTROL tab, a green line crosses the left portion of the camera image, and a red box around it is labeled cyan.](./assets/bounding.png)
 
 If the camera feed does not render color detector overlays on top of the colored tape, adjust the color hex code and the hue tolerance in the Vision service configuration until it is able to do so successfully.
 
@@ -393,13 +192,11 @@ To make your rover follow your line, you need to install Python and the Viam Pyt
    pip3 install viam-sdk
    ```
 
-### Code for line following
+## Code for line following
 
 1. Download the [robot line follower code](https://github.com/viam-labs/line-follower/blob/main/rgb_follower.py).
 
 1. From your robot’s page, go to the **CONNECT** tab's **Code sample** page and select **Python**.
-
-   {{% snippet "show-secret.md" %}}
 
    Copy the machine's address and API key and paste them into the definition for the `connect()` function, replacing the placeholders shown there.
 
@@ -421,9 +218,7 @@ To make your rover follow your line, you need to install Python and the Viam Pyt
       Press **CTRL + X** to close the file.
       Type **Y** to confirm file modification, then press enter to finish.
 
-   {{< alert title="Tip" color="tip" >}}
-   If you intend to make lots of tweaks to the code over time it may be most convenient for you to set up a [Mutagen Sync](https://mutagen.io/documentation/introduction/getting-started/) session from a directory on your computer to a directory on your Pi.
-   {{< /alert >}}
+   **TIP**: If you intend to make lots of tweaks to the code over time it may be most convenient for you to set up a [Mutagen Sync](https://mutagen.io/documentation/introduction/getting-started/) session from a directory on your computer to a directory on your Pi.
 
 1. If you used different component names to the ones mentioned in the tutorial (`scuttlebase`, `my_camera`, and `green_detector`), change the code to use your component names.
 
@@ -582,7 +377,8 @@ To run the program:
 
    The robot should continue moving along the line until it no longer sees the color of your detector except at the back of the frame, at which point it should stop moving and the code will terminate.
 
-   {{<gif webm_src="./assets/lf-tape-follow3.webm" mp4_src="./assets/lf-tape-follow3.mp4" alt="The green line the camera sees as the rover moves along it." class="aligncenter" max-width="300px">}}
+   <div class="gif"><video autoplay="" loop="" muted="" playsinline="" alt="The green line the camera sees as the rover moves along it." width="100%" style="width:300px" class="aligncenter lozad" data-loaded="true"><source data-src="./assets//lf-tape-follow3.webm" type="video/webm" src="./assets//lf-tape-follow3.webm"><source data-src="./assets/lf-tape-follow3.mp4" type="video/mp4" src="./assets/lf-tape-follow3.mp4">There should have been a video here but your browser does not seem to support it.</video><noscript><video autoplay loop muted playsinline alt="The green line the camera sees as the rover moves along it." width=100% style=width:300px class=aligncenter><source data-src=./assets/lf-tape-follow3.webm type=video/webm><source data-src=./assets/lf-tape-follow3.mp4 type=video/mp4>There should have been a video here but your browser does not seem to support it.</video></noscript></div>
+
 
 ## Next steps
 
@@ -616,5 +412,3 @@ Things to try:
   Be sure to update your `detect_color` parameter accordingly.
 
 You can find additional assistance in the [Troubleshooting section](https://docs.viam.com/manage/troubleshoot/troubleshoot/).
-
-{{< snippet "social.md" >}}
