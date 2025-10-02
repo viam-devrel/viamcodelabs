@@ -344,6 +344,7 @@ Now that you created the initial module, let's add our control logic, and deploy
       # starts automatically
       if self.running is None:
           self.start()
+          self.running = True
       else:
           LOGGER.info("Already running control logic.")
     ```
